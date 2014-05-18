@@ -1,0 +1,112 @@
+/* @group Master */
+/* @group Imports */
+@import 'reset';
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
+/* @end of Imports */
+
+$font-stack: 'Source Sans Pro', sans-serif;
+$primary-color: #333;
+$black: #1b1f22;
+@mixin box-sizing($sizing) {
+  -webkit-box-sizing: $sizing;
+  	 -moz-box-sizing: $sizing;
+          box-sizing: $sizing; }
+
+/* @group General */
+body {
+	font: 100% $font-stack;
+	color: $primary-color;
+	background: #fbfcfe; }
+button { outline: none; cursor: pointer; border: 0; background: transparent; }
+button, input, textarea { font: 100% $font-stack; outline: none; }
+
+/* @end of General*/
+
+
+/* @group Sidebar */
+section#sidebar {
+	position: fixed;
+	width: 250px;
+	height: 100%;
+	background: #1b1f22; }
+/* @end of Sidebar */
+
+
+section#main {
+	width: 100%;
+	position: absolute;
+	left: 250px; top: 0;
+	article {
+		header#search-bar {
+			position: fixed;
+			overflow: hidden;
+			top: 0; left: 250px;
+			background: #fff;
+			width: 100%; height: 65px;
+			box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+			h1 {
+				position: absolute;
+				top: 0; left: 0;
+				width: 100%; height: 100%;
+				text-align: center;
+				z-index: 10; 
+				display: none; 
+
+				&.person { 
+					width: 80%;
+					&.visible { display: block; }
+					&.half { 
+						width: 50%;
+						button.delete { display: block; z-index: 200; }
+					}
+				}
+				&.other-person { left: 50%; }
+
+				button.delete {
+					position: absolute;
+					display: none;
+					width: 50px; height: 100%;
+					top: 0; right: 0;
+					z-index: -10;
+				}
+				button.edit {
+				width: 100%; height: 100%;
+				position: absolute;
+				top: 0; left: 0;
+				background: white;
+				border: 0;
+				opacity: 0;
+				z-index: -10;
+					&:hover { background: pink; }
+					&.visible { opacity: 1; z-index: 100; }
+				}
+				
+				form.search {
+					width: 100%; height: 100%;
+					position: absolute;
+					top: 0; left: 0;
+					background: white;
+					border: 0;
+					opacity: 0;
+					z-index: -10;
+					&.visible { opacity: 1; z-index: 200; }
+					input { 
+						width: 100%; height: 100%;
+						border: 0;
+					}
+				}
+			} /* h1.person */
+			button.compare {
+				width: 20%; height: 100%;
+				position: absolute;
+				top: 0; left: 80%;
+				display: none;
+				&:hover {
+					background: pink;
+				}
+				&.visible { display: block; }
+			}
+		} /* header#search-bar */
+	} /* article */
+} /* section#main */
+/* @end of Master */
