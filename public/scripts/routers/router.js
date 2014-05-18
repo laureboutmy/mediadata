@@ -20,7 +20,7 @@
         return console.log(person, otherPerson);
       },
       explorer: function() {
-        console.log('ee');
+        console.log('explorer');
         return this.render('explorer');
       },
       home: function() {
