@@ -1,0 +1,123 @@
+{
+    "results": [
+        {
+            "name": "Anne Hidalgo",
+            "slug": "anne-hidalgo",
+            "picture": "anne-hidalgo.jpg",
+            "gender": "f",
+            "type": "person"
+        },
+        {
+            "name": "Ségolène Royal",
+            "slug": "segolene-royal",
+            "picture": "segolene-royal.jpg",
+            "gender": "f",
+            "type": "person"
+        },
+        {
+            "name": "Larusso",
+            "slug": "larusso",
+            "picture": "larusso.jpg",
+            "gender": "f",
+            "type": "person"
+        },
+        {
+            "name": "Laetitia Casta",
+            "slug": "laetitia-casta",
+            "picture": "laetitia-casta.jpg",
+            "gender": "f",
+            "type": "person"
+        },
+        {
+            "name": "Nadine Morano",
+            "slug": "nadine-morano",
+            "picture": "nadine-morano.jpg",
+            "gender": "f",
+            "type": "person"
+        },
+        {
+            "name": "Rachida Dati",
+            "slug": "rachida-dati",
+            "picture": "rachida-dati.jpg",
+            "gender": "f",
+            "type": "person"
+        },
+        {
+            "name": "Christine Boutin",
+            "slug": "christine-boutin",
+            "picture": "",
+            "gender": "f",
+            "type": "person"
+        },
+        {
+            "name": "Christine Lagarde",
+            "slug": "christine-lagarde",
+            "picture": "christine-lagarde.jpg",
+            "gender": "f",
+            "type": "person"
+        },
+        {
+            "name": "Christine Lagrange",
+            "slug": "christine-lagrange",
+            "picture": "",
+            "gender": "f",
+            "type": "person"
+        },
+        {
+            "name": "Christine Lagardère",
+            "slug": "christine-lagardere",
+            "picture": "",
+            "gender": "f",
+            "type": "person"
+        },
+        {
+            "name": "Christiane Taubira",
+            "slug": "christiane-taubira",
+            "picture": "christiane-taubira.jpg",
+            "gender": "f",
+            "type": "person"
+        },
+        {
+	        "name": "Christian Estrosi",
+	        "slug": "christian-estrosi",
+	        "picture": "",
+	        "gender": "m",
+	        "type": "person"
+        },
+        {
+	        "name": "François de Rugy",
+	        "slug": "francois-de-rugy",
+	        "picture": "francois-de-rugy.jpg",
+	        "gender": "m",
+	        "type": "person"
+        },
+        {
+	        "name": "François Hollande",
+	        "slug": "francois-hollande",
+	        "picture": "francois-hollande.jpg",
+	        "gender": "m",
+	        "type": "person"
+        },
+        {
+            "name": "Membres du gouvernement Ayrault II",
+            "slug": "membres-du-gouvernement-ayrault-II",
+            "picture": "",
+            "gender": "t",
+            "type": "tag"
+        },
+        {
+            "name": "Députés",
+            "slug": "deputes",
+            "picture": "deputes.jpg",
+            "gender": "t",
+            "type": "tag"
+        },
+        {
+            "name": "Intellectuels",
+            "slug": "intellectuels",
+            "picture": "intellectuels.jpg",
+            "gender": "t",
+            "type": "tag"
+        }
+    ]
+}
