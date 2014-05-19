@@ -2,10 +2,27 @@
     "person": {
         "firstName": "Ségolène",
         "lastName": "Royal",
+        "picture": "segolene-royal.jpg",
         "ageRange": "55-65",
-        "tags": [{"tagName":"ps"}, {"tagName":"socialiste"}]
-    },
-    "data": {
+        "tags": [
+            {
+                "tagName": "ps"
+            },
+            {
+                "tagName": "socialiste"
+            }
+        ],
+        "description": "Ségolène Royal, pour l'état civil Marie Ségolène Royal, née le 22 septembre 1953 à Ouakam, près de Dakar, est une femme politique française, membre du Parti socialiste.",
+        "timeline": [
+            {
+                "markerName": "Royal est investie candidate du PS aux élections présidentielles (60,62%) contre Strauss-Kahn (20,83%) et Fabius (18,54%).",
+                "markerDate": "2006-11-16"
+            },
+            {
+                "markerName": "La candidate présidentielle française Royal déclare : 'Comme le disent les Chinois : qui n'est pas venu sur la Grande muraille n'est pas un brave, et qui vient sur la Grande muraille conquiert la bravitude'.",
+                "markerDate": "2007-01-07"
+            }
+        ],
         "mentionsCount": 3333,
         "popularTypes": [
             {
@@ -185,23 +202,23 @@
     "seenWith": [
         {
             "personName": "François Hollande",
-            "personPhoto": "francois-hollande.jpg",
+            "personPicture": "francois-hollande.jpg",
             "seenCount": "300"
         },
         {
-        	"personName": "Maïtena Biraben",
-        	"personPhoto": "maitena-biraben.jpg",
-        	"seenCount": "350"
+            "personName": "Maïtena Biraben",
+            "personPicture": "maitena-biraben.jpg",
+            "seenCount": "350"
         }
     ],
     "seeAlso": [
         {
             "personName": "François Hollande",
-            "personPhoto": "francois-hollande.jpg"
+            "personPicture": "francois-hollande.jpg"
         },
         {
             "personName": "Valérie Trierweiler",
-            "personPhoto": "valerie-trierweiler.jpg"
+            "personPicture": "valerie-trierweiler.jpg"
         }
     ]
 }
