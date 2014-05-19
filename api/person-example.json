@@ -1,0 +1,207 @@
+{
+    "person": {
+        "firstName": "Ségolène",
+        "lastName": "Royal",
+        "ageRange": "55-65",
+        "tags": [{"tagName":"ps"}, {"tagName":"socialiste"}]
+    },
+    "data": {
+        "mentionsCount": 3333,
+        "popularTypes": [
+            {
+                "typeName": "Magazine",
+                "typeCount": 300
+            },
+            {
+                "typeName": "Journal Télévisé",
+                "typeCount": 200
+            }
+        ],
+        "popularShows": [
+            {
+                "showName": "Mots Croisés",
+                "showChannel": "France 2",
+                "showCount": 300
+            },
+            {
+                "showName": "LE 20H",
+                "showChannel": "TF1",
+                "showCount": 200
+            }
+        ],
+        "popularChannels": [
+            {
+                "channelName": "France 2",
+                "channelCount": 300
+            },
+            {
+                "channelName": "TF1",
+                "channelCount": 200
+            }
+        ]
+    },
+    "broadcastHours": [
+        {
+            "hour": "00",
+            "hourCount": 10
+        },
+        {
+            "hour": "01",
+            "hourCount": 102
+        },
+        {
+            "hour": "02",
+            "hourCount": 20
+        },
+        {
+            "hour": "03",
+            "hourCount": 30
+        },
+        {
+            "hour": "04",
+            "hourCount": 10
+        },
+        {
+            "hour": "05",
+            "hourCount": 10
+        },
+        {
+            "hour": "06",
+            "hourCount": 10
+        },
+        {
+            "hour": "07",
+            "hourCount": 10
+        },
+        {
+            "hour": "08",
+            "hourCount": 10
+        },
+        {
+            "hour": "09",
+            "hourCount": 49
+        },
+        {
+            "hour": "10",
+            "hourCount": 56
+        },
+        {
+            "hour": "11",
+            "hourCount": 62
+        },
+        {
+            "hour": "12",
+            "hourCount": 10
+        },
+        {
+            "hour": "13",
+            "hourCount": 10
+        },
+        {
+            "hour": "14",
+            "hourCount": 92
+        },
+        {
+            "hour": "15",
+            "hourCount": 10
+        },
+        {
+            "hour": "16",
+            "hourCount": 10
+        },
+        {
+            "hour": "17",
+            "hourCount": 10
+        },
+        {
+            "hour": "18",
+            "hourCount": 99
+        },
+        {
+            "hour": "19",
+            "hourCount": 0
+        },
+        {
+            "hour": "20",
+            "hourCount": 0
+        },
+        {
+            "hour": "21",
+            "hourCount": 10
+        },
+        {
+            "hour": "22",
+            "hourCount": 10
+        },
+        {
+            "hour": "23",
+            "hourCount": 10
+        },
+        {
+            "hour": "24",
+            "hourCount": 10
+        }
+    ],
+    "broadcastDays": [
+        {
+            "day": "monday",
+            "dayCount": "300"
+        },
+        {
+            "day": "tuesday",
+            "dayCount": "250"
+        },
+        {
+            "day": "wednesday",
+            "dayCount": "350"
+        },
+        {
+            "day": "thursday",
+            "dayCount": "400"
+        },
+        {
+            "day": "friday",
+            "dayCount": "400"
+        },
+        {
+            "day": "saturday",
+            "dayCount": "400"
+        },
+        {
+            "day": "sunday",
+            "dayCount": "400"
+        }
+    ],
+    "channels": [
+        {
+            "channelName": "France 2",
+            "channelCount": 300
+        },
+        {
+            "channelName": "TF1",
+            "channelCount": 200
+        }
+    ],
+    "seenWith": [
+        {
+            "personName": "François Hollande",
+            "personPhoto": "francois-hollande.jpg",
+            "seenCount": "300"
+        },
+        {
+        	"personName": "Maïtena Biraben",
+        	"personPhoto": "maitena-biraben.jpg",
+        	"seenCount": "350"
+        }
+    ],
+    "seeAlso": [
+        {
+            "personName": "François Hollande",
+            "personPhoto": "francois-hollande.jpg"
+        },
+        {
+            "personName": "Valérie Trierweiler",
+            "personPhoto": "valerie-trierweiler.jpg"
+        }
+    ]
+}
