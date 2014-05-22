@@ -1,8 +1,5 @@
 $(document).ready () ->
 
-	# Get total appearances
-	$('span.total').html()
-
 	# Init gauges var
 	totalAppearances = 0
 	fillPercent = 0

@@ -2,7 +2,6 @@
 (function() {
   $(document).ready(function() {
     var fillGauges, fillPercent, getFillPercent, totalAppearances;
-    $('span.total').html();
     totalAppearances = 0;
     fillPercent = 0;
     getFillPercent = function(bar, type) {
