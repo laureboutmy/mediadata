@@ -1,0 +1,851 @@
+{
+    "person": {
+        "firstName": "Ségolène",
+        "lastName": "Royal",
+        "picture": "segolene-royal.jpg",
+        "ageRange": "55-65",
+        "tags": [
+            {
+                "tagName": "ps"
+            },
+            {
+                "tagName": "socialiste"
+            }
+        ],
+        "description": "Ségolène Royal, pour l'état civil Marie Ségolène Royal, née le 22 septembre 1953 à Ouakam, près de Dakar, est une femme politique française, membre du Parti socialiste.",
+        "timelineMarkers": [
+            {
+                "markerName": "Royal est investie candidate du PS aux élections présidentielles (60,62%) contre Strauss-Kahn (20,83%) et Fabius (18,54%).",
+                "markerDate": "2006-11-16"
+            },
+            {
+                "markerName": "La candidate présidentielle française Royal déclare : 'Comme le disent les Chinois : qui n'est pas venu sur la Grande muraille n'est pas un brave, et qui vient sur la Grande muraille conquiert la bravitude'.",
+                "markerDate": "2007-01-07"
+            }
+        ],
+        "timelineMentions": [
+            {
+                "mentionYear": "2000",
+                "mentionMonth": "09",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2001",
+                "mentionMonth": "02",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2001",
+                "mentionMonth": "03",
+                "mentionCount": "7"
+            },
+            {
+                "mentionYear": "2001",
+                "mentionMonth": "04",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2001",
+                "mentionMonth": "07",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2001",
+                "mentionMonth": "09",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2001",
+                "mentionMonth": "11",
+                "mentionCount": "4"
+            },
+            {
+                "mentionYear": "2002",
+                "mentionMonth": "02",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2002",
+                "mentionMonth": "03",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2002",
+                "mentionMonth": "05",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2002",
+                "mentionMonth": "06",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2002",
+                "mentionMonth": "07",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2002",
+                "mentionMonth": "09",
+                "mentionCount": "4"
+            },
+            {
+                "mentionYear": "2002",
+                "mentionMonth": "10",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2002",
+                "mentionMonth": "11",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2003",
+                "mentionMonth": "01",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2003",
+                "mentionMonth": "03",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2003",
+                "mentionMonth": "09",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2003",
+                "mentionMonth": "11",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2003",
+                "mentionMonth": "12",
+                "mentionCount": "5"
+            },
+            {
+                "mentionYear": "2004",
+                "mentionMonth": "01",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2004",
+                "mentionMonth": "02",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2004",
+                "mentionMonth": "03",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2004",
+                "mentionMonth": "04",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2004",
+                "mentionMonth": "05",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2004",
+                "mentionMonth": "06",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2004",
+                "mentionMonth": "09",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2004",
+                "mentionMonth": "10",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2004",
+                "mentionMonth": "12",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2005",
+                "mentionMonth": "01",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2005",
+                "mentionMonth": "02",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2005",
+                "mentionMonth": "03",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2005",
+                "mentionMonth": "04",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2005",
+                "mentionMonth": "05",
+                "mentionCount": "5"
+            },
+            {
+                "mentionYear": "2005",
+                "mentionMonth": "07",
+                "mentionCount": "7"
+            },
+            {
+                "mentionYear": "2005",
+                "mentionMonth": "09",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2005",
+                "mentionMonth": "10",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2005",
+                "mentionMonth": "11",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2005",
+                "mentionMonth": "12",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2006",
+                "mentionMonth": "03",
+                "mentionCount": "7"
+            },
+            {
+                "mentionYear": "2006",
+                "mentionMonth": "04",
+                "mentionCount": "4"
+            },
+            {
+                "mentionYear": "2006",
+                "mentionMonth": "06",
+                "mentionCount": "4"
+            },
+            {
+                "mentionYear": "2006",
+                "mentionMonth": "07",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2006",
+                "mentionMonth": "08",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2006",
+                "mentionMonth": "09",
+                "mentionCount": "10"
+            },
+            {
+                "mentionYear": "2006",
+                "mentionMonth": "11",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2007",
+                "mentionMonth": "01",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2007",
+                "mentionMonth": "02",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2007",
+                "mentionMonth": "03",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2007",
+                "mentionMonth": "04",
+                "mentionCount": "4"
+            },
+            {
+                "mentionYear": "2007",
+                "mentionMonth": "05",
+                "mentionCount": "5"
+            },
+            {
+                "mentionYear": "2007",
+                "mentionMonth": "06",
+                "mentionCount": "4"
+            },
+            {
+                "mentionYear": "2007",
+                "mentionMonth": "07",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2007",
+                "mentionMonth": "10",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2007",
+                "mentionMonth": "11",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2007",
+                "mentionMonth": "12",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2008",
+                "mentionMonth": "01",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2008",
+                "mentionMonth": "02",
+                "mentionCount": "5"
+            },
+            {
+                "mentionYear": "2008",
+                "mentionMonth": "03",
+                "mentionCount": "4"
+            },
+            {
+                "mentionYear": "2008",
+                "mentionMonth": "04",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2008",
+                "mentionMonth": "05",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2008",
+                "mentionMonth": "06",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2008",
+                "mentionMonth": "07",
+                "mentionCount": "4"
+            },
+            {
+                "mentionYear": "2008",
+                "mentionMonth": "09",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2008",
+                "mentionMonth": "10",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2008",
+                "mentionMonth": "11",
+                "mentionCount": "7"
+            },
+            {
+                "mentionYear": "2008",
+                "mentionMonth": "12",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2009",
+                "mentionMonth": "01",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2009",
+                "mentionMonth": "02",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2009",
+                "mentionMonth": "03",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2009",
+                "mentionMonth": "04",
+                "mentionCount": "10"
+            },
+            {
+                "mentionYear": "2009",
+                "mentionMonth": "06",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2009",
+                "mentionMonth": "10",
+                "mentionCount": "6"
+            },
+            {
+                "mentionYear": "2009",
+                "mentionMonth": "11",
+                "mentionCount": "4"
+            },
+            {
+                "mentionYear": "2009",
+                "mentionMonth": "12",
+                "mentionCount": "5"
+            },
+            {
+                "mentionYear": "2010",
+                "mentionMonth": "01",
+                "mentionCount": "8"
+            },
+            {
+                "mentionYear": "2010",
+                "mentionMonth": "02",
+                "mentionCount": "7"
+            },
+            {
+                "mentionYear": "2010",
+                "mentionMonth": "03",
+                "mentionCount": "18"
+            },
+            {
+                "mentionYear": "2010",
+                "mentionMonth": "04",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2010",
+                "mentionMonth": "05",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2010",
+                "mentionMonth": "06",
+                "mentionCount": "6"
+            },
+            {
+                "mentionYear": "2010",
+                "mentionMonth": "07",
+                "mentionCount": "4"
+            },
+            {
+                "mentionYear": "2010",
+                "mentionMonth": "08",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2010",
+                "mentionMonth": "09",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2010",
+                "mentionMonth": "10",
+                "mentionCount": "5"
+            },
+            {
+                "mentionYear": "2010",
+                "mentionMonth": "11",
+                "mentionCount": "8"
+            },
+            {
+                "mentionYear": "2010",
+                "mentionMonth": "12",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2011",
+                "mentionMonth": "01",
+                "mentionCount": "3"
+            },
+            {
+                "mentionYear": "2011",
+                "mentionMonth": "03",
+                "mentionCount": "9"
+            },
+            {
+                "mentionYear": "2011",
+                "mentionMonth": "04",
+                "mentionCount": "5"
+            },
+            {
+                "mentionYear": "2011",
+                "mentionMonth": "05",
+                "mentionCount": "4"
+            },
+            {
+                "mentionYear": "2011",
+                "mentionMonth": "06",
+                "mentionCount": "5"
+            },
+            {
+                "mentionYear": "2011",
+                "mentionMonth": "07",
+                "mentionCount": "8"
+            },
+            {
+                "mentionYear": "2011",
+                "mentionMonth": "08",
+                "mentionCount": "7"
+            },
+            {
+                "mentionYear": "2011",
+                "mentionMonth": "09",
+                "mentionCount": "6"
+            },
+            {
+                "mentionYear": "2011",
+                "mentionMonth": "10",
+                "mentionCount": "14"
+            },
+            {
+                "mentionYear": "2011",
+                "mentionMonth": "11",
+                "mentionCount": "8"
+            },
+            {
+                "mentionYear": "2012",
+                "mentionMonth": "01",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2012",
+                "mentionMonth": "02",
+                "mentionCount": "6"
+            },
+            {
+                "mentionYear": "2012",
+                "mentionMonth": "03",
+                "mentionCount": "5"
+            },
+            {
+                "mentionYear": "2012",
+                "mentionMonth": "04",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2012",
+                "mentionMonth": "05",
+                "mentionCount": "11"
+            },
+            {
+                "mentionYear": "2012",
+                "mentionMonth": "06",
+                "mentionCount": "11"
+            },
+            {
+                "mentionYear": "2012",
+                "mentionMonth": "07",
+                "mentionCount": "4"
+            },
+            {
+                "mentionYear": "2012",
+                "mentionMonth": "08",
+                "mentionCount": "1"
+            },
+            {
+                "mentionYear": "2012",
+                "mentionMonth": "09",
+                "mentionCount": "39"
+            },
+            {
+                "mentionYear": "2012",
+                "mentionMonth": "10",
+                "mentionCount": "9"
+            },
+            {
+                "mentionYear": "2012",
+                "mentionMonth": "11",
+                "mentionCount": "4"
+            },
+            {
+                "mentionYear": "2012",
+                "mentionMonth": "12",
+                "mentionCount": "2"
+            },
+            {
+                "mentionYear": "2013",
+                "mentionMonth": "01",
+                "mentionCount": "35"
+            },
+            {
+                "mentionYear": "2013",
+                "mentionMonth": "02",
+                "mentionCount": "41"
+            },
+            {
+                "mentionYear": "2013",
+                "mentionMonth": "03",
+                "mentionCount": "45"
+            },
+            {
+                "mentionYear": "2013",
+                "mentionMonth": "04",
+                "mentionCount": "55"
+            },
+            {
+                "mentionYear": "2013",
+                "mentionMonth": "05",
+                "mentionCount": "61"
+            },
+            {
+                "mentionYear": "2013",
+                "mentionMonth": "06",
+                "mentionCount": "79"
+            },
+            {
+                "mentionYear": "2013",
+                "mentionMonth": "07",
+                "mentionCount": "18"
+            },
+            {
+                "mentionYear": "2013",
+                "mentionMonth": "08",
+                "mentionCount": "11"
+            },
+            {
+                "mentionYear": "2013",
+                "mentionMonth": "09",
+                "mentionCount": "36"
+            },
+            {
+                "mentionYear": "2013",
+                "mentionMonth": "10",
+                "mentionCount": "61"
+            },
+            {
+                "mentionYear": "2013",
+                "mentionMonth": "11",
+                "mentionCount": "68"
+            },
+            {
+                "mentionYear": "2013",
+                "mentionMonth": "12",
+                "mentionCount": "52"
+            },
+            {
+                "mentionYear": "2014",
+                "mentionMonth": "01",
+                "mentionCount": "111"
+            },
+            {
+                "mentionYear": "2014",
+                "mentionMonth": "02",
+                "mentionCount": "72"
+            },
+            {
+                "mentionYear": "2014",
+                "mentionMonth": "03",
+                "mentionCount": "236"
+            },
+            {
+                "mentionYear": "2014",
+                "mentionMonth": "04",
+                "mentionCount": "50"
+            }
+        ],
+        "mentionsCount": 3333,
+        "popularTypes": [
+            {
+                "typeName": "Magazine",
+                "typeCount": 300
+            },
+            {
+                "typeName": "Journal Télévisé",
+                "typeCount": 200
+            }
+        ],
+        "popularShows": [
+            {
+                "showName": "Mots Croisés",
+                "showChannel": "France 2",
+                "showCount": 300
+            },
+            {
+                "showName": "LE 20H",
+                "showChannel": "TF1",
+                "showCount": 200
+            }
+        ],
+        "popularChannels": [
+            {
+                "channelName": "France 2",
+                "channelCount": 300
+            },
+            {
+                "channelName": "TF1",
+                "channelCount": 200
+            }
+        ]
+    },
+    "broadcastHours": [
+        {
+            "hour": "00",
+            "hourCount": 10
+        },
+        {
+            "hour": "01",
+            "hourCount": 102
+        },
+        {
+            "hour": "02",
+            "hourCount": 20
+        },
+        {
+            "hour": "03",
+            "hourCount": 30
+        },
+        {
+            "hour": "04",
+            "hourCount": 10
+        },
+        {
+            "hour": "05",
+            "hourCount": 10
+        },
+        {
+            "hour": "06",
+            "hourCount": 10
+        },
+        {
+            "hour": "07",
+            "hourCount": 10
+        },
+        {
+            "hour": "08",
+            "hourCount": 10
+        },
+        {
+            "hour": "09",
+            "hourCount": 49
+        },
+        {
+            "hour": "10",
+            "hourCount": 56
+        },
+        {
+            "hour": "11",
+            "hourCount": 62
+        },
+        {
+            "hour": "12",
+            "hourCount": 10
+        },
+        {
+            "hour": "13",
+            "hourCount": 10
+        },
+        {
+            "hour": "14",
+            "hourCount": 92
+        },
+        {
+            "hour": "15",
+            "hourCount": 10
+        },
+        {
+            "hour": "16",
+            "hourCount": 10
+        },
+        {
+            "hour": "17",
+            "hourCount": 10
+        },
+        {
+            "hour": "18",
+            "hourCount": 99
+        },
+        {
+            "hour": "19",
+            "hourCount": 0
+        },
+        {
+            "hour": "20",
+            "hourCount": 0
+        },
+        {
+            "hour": "21",
+            "hourCount": 10
+        },
+        {
+            "hour": "22",
+            "hourCount": 10
+        },
+        {
+            "hour": "23",
+            "hourCount": 10
+        },
+        {
+            "hour": "24",
+            "hourCount": 10
+        }
+    ],
+    "broadcastDays": [
+        {
+            "day": "monday",
+            "dayCount": "300"
+        },
+        {
+            "day": "tuesday",
+            "dayCount": "250"
+        },
+        {
+            "day": "wednesday",
+            "dayCount": "350"
+        },
+        {
+            "day": "thursday",
+            "dayCount": "400"
+        },
+        {
+            "day": "friday",
+            "dayCount": "400"
+        },
+        {
+            "day": "saturday",
+            "dayCount": "400"
+        },
+        {
+            "day": "sunday",
+            "dayCount": "400"
+        }
+    ],
+    "channels": [
+        {
+            "channelName": "France 2",
+            "channelCount": 300
+        },
+        {
+            "channelName": "TF1",
+            "channelCount": 200
+        }
+    ],
+    "seenWith": [
+        {
+            "personName": "François Hollande",
+            "personPicture": "francois-hollande.jpg",
+            "seenCount": "300"
+        },
+        {
+            "personName": "Maïtena Biraben",
+            "personPicture": "maitena-biraben.jpg",
+            "seenCount": "350"
+        }
+    ],
+    "seeAlso": [
+        {
+            "personName": "François Hollande",
+            "personPicture": "francois-hollande.jpg"
+        },
+        {
+            "personName": "Valérie Trierweiler",
+            "personPicture": "valerie-trierweiler.jpg"
+        }
+    ]
+}
