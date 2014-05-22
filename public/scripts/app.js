@@ -8,24 +8,19 @@
       },
       backbone: {
         deps: ['jquery', 'underscore'],
-        exports: 'Backbone',
-        mediadata: {
-          deps: ['backbone'],
-          exports: 'MD'
-        }
+        exports: 'Backbone'
       }
     },
     paths: {
       jquery: 'vendors/jquery-2.1.1.min',
       backbone: 'vendors/backbone.min',
       underscore: 'vendors/underscore.min',
-      text: 'vendors/require-text',
-      mediadata: 'mediadata'
+      text: 'vendors/require-text'
     }
   });
 
-  define(['mediadata'], function(MD) {
-    return MD.initialize();
+  require(['mediadata'], function(Md) {
+    return Md.initialize();
   });
 
 }).call(this);

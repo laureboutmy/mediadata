@@ -1,6 +1,11 @@
-define ['mediadata', 'text!templates/home.html'], (MD, tplHome) ->
+define [
+	'jquery'
+	'underscore'
+	'backbone'
+	'text!templates/home.html'
+], ($, _, Backbone, tplHome) ->
 	'use strict'
-	homeView = Backbone.View.extend
+	HomeView = Backbone.View.extend
 		el: '#main'
 		template: _.template(tplHome)
 		initialize: () ->

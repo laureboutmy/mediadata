@@ -1,11 +1,14 @@
-define ['backbone'], (Backbone) ->
+define [
+	'jquery' 
+	'underscore'
+	'backbone'
+	'routers/router'
+], ($, _, Backbone, Router) ->
 	'use strict'
-	MD = 
-		Models: {}
-		Views: {}
-		Collections: {}
-		Router: {}
-		Status: {}
-		initialize: () ->
-			require ['routers/router'], (Router) ->
-				MD.Router = new Router()
+	initialize = () ->
+		Router = new Router()
+		Backbone.history.start
+			pushState: true
+			root: '/mediadata/public/'
+
+	return { initialize: initialize }

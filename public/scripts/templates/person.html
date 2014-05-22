@@ -1,0 +1,29 @@
+<article class="person">
+  <header class="header">
+    <div>
+  	  <h1 class="name"><%= person.firstName + ' ' + person.lastName %></h1>
+  		<p class="desc"><%= person.description %><%= person.description %></p>
+
+  		<% if(person.tags) { %>
+  		<ul class="tags">
+        <li><i class="icon-label"></i></li>
+  			<% _.each(person.tags, function(tag, i){ %>
+          <% if(person.tags.length - 1 == i){ %>
+          <li><%= tag.tagName %></li>
+          <% } else { %>
+          <li><%= tag.tagName %>, </li>
+          <% }}) %>
+  		</ul>
+  		<% } %>
+    </div>
+  </header>
+  <div class="wrapper">
+    <section id="timeline">Timeline</section>
+    <section id="programs">
+      <h2>Apparences</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+    </section>
+
+    <section id="broadcast">Broadcast</section>
+  </div>
+</article>

@@ -1,16 +1,22 @@
 /* @group Master */
 /* @group Imports */
 @import 'reset';
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
-/* @end of Imports */
+@import 'icons';
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic);
 
+/* @end of Imports */
+$base-font-size: 16px;
+@function em($px, $base: $base-font-size) {
+    @return ($px / $base) * 1em; }
 $font-stack: 'Source Sans Pro', sans-serif;
+$font-stack-serif: 'chaparral-pro', serif;
 $primary-color: #333;
 $black: #1b1f22;
 @mixin box-sizing($sizing) {
   -webkit-box-sizing: $sizing;
   	 -moz-box-sizing: $sizing;
           box-sizing: $sizing; }
+
 
 /* @group General */
 body {
@@ -31,82 +37,185 @@ section#sidebar {
 	background: #1b1f22; }
 /* @end of Sidebar */
 
+/* @group Search-bar */
+header#search-bar {
+	position: fixed;
+	overflow: hidden;
+	top: 0; left: 250px;
+	background: #fff;
+	width: 100%; height: 54px;
+	z-index: 100;
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+	h1 {
+		position: absolute;
+		top: 0; left: 0;
+		width: 100%; height: 100%;
+		text-align: center;
+		z-index: 10; 
+		display: none; 
+		font-size: em(20px);
+		font-weight: 700;
+		color: #1c1f21;
+		line-height: em(54px, 20px);
+		border-right: 1px solid #d9d9d9;
+		@include box-sizing(border-box);
+
+		&.person { 
+			width: 80%;
+
+			&.visible { display: block; }
+			&.half { 
+				width: 50%;
+				button.delete { display: block; z-index: 200; }
+			}
+
+		}
+		&.other-person { left: 50%; border-right: 0; }
+		&:hover > button.edit {
+			opacity: 1; z-index: 100;
+		}
+		span { font-weight: 400; color: #acb8c0; }
+		button.delete {
+			position: absolute;
+			display: none;
+			width: 50px; height: 100%;
+			top: 0; right: 0;
+			z-index: -10;
+			background: white; 
+			i { color: #ccc; font-size: em(10px); }
+			&:hover i { color: #1c1f21; }
+		}
+
+		button.edit {
+			width: 100%; height: 100%;
+			position: absolute;
+			top: 0; left: 0;
+			background: white;
+			border: 0;
+			opacity: 0;
+			z-index: -10;
+			font-size: em(19px, 20px);
+			color: #ccc;
+			transition: all ease-out 0.3s;
+			&:hover { 
+				color: #1c1f21;
+				i { color: #3498db; }
+			}
+			i { 
+				margin-right: 10px; 
+				font-size: em(19px, 19px); 
+				color: #ccc;
+				transition: color ease-out 0.3s; }
+		}
+		
+		form.search {
+			width: 100%; height: 100%;
+			position: absolute;
+			top: 0; left: 0;
+			background: white;
+			border: 0;
+			opacity: 0;
+			z-index: -10;
+			&.visible { opacity: 1; z-index: 200; }
+			input { 
+				width: 100%; height: 100%;
+				border: 0;
+			}
+		}
+	} /* h1.person */
+	button.compare {
+		width: 20%; height: 100%;
+		position: absolute;
+		top: 0; left: 80%;
+		display: none;
+		font-size: em(19px);
+		line-height: em(40px, 19px);
+		color: #ccc;
+		transition: color ease-out 0.3s;
+
+		&:hover {
+			color: #1c1f21;
+			i { color: #3498db; }
+		}
+		&.visible { display: block; }
+		i { 
+			margin-right: 10px; 
+			font-size: em(20px, 19px); 
+			color: #ccc;
+			transition: color ease-out 0.3s; }
+
+	}
+} /* header#search-bar */
+/* @end of Searchbar */
 
 section#main {
 	width: 100%;
 	position: absolute;
 	left: 250px; top: 0;
 	article {
-		header#search-bar {
-			position: fixed;
-			overflow: hidden;
-			top: 0; left: 250px;
-			background: #fff;
-			width: 100%; height: 65px;
-			box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
-			h1 {
-				position: absolute;
-				top: 0; left: 0;
-				width: 100%; height: 100%;
-				text-align: center;
-				z-index: 10; 
-				display: none; 
+		padding-top: 50px;
 
-				&.person { 
-					width: 80%;
-					&.visible { display: block; }
-					&.half { 
-						width: 50%;
-						button.delete { display: block; z-index: 200; }
-					}
+		header.header {
+			background: #2c3e50;
+			padding: 60px 0;
+			> div { width: 620px; margin: 0 auto; }
+			h1.name {
+				font-weight: 700;
+				color: #fff;
+				text-transform: uppercase;
+				font-size: em(17px);
+				line-height: em(24px);
+				&:first-letter {
+					font-size: em(90px, 17px);
+					float: left;
+					line-height: em(18px, 24px);
+					padding: 0 10px 0 0;
 				}
-				&.other-person { left: 50%; }
-
-				button.delete {
-					position: absolute;
-					display: none;
-					width: 50px; height: 100%;
-					top: 0; right: 0;
-					z-index: -10;
-				}
-				button.edit {
-				width: 100%; height: 100%;
-				position: absolute;
-				top: 0; left: 0;
-				background: white;
-				border: 0;
-				opacity: 0;
-				z-index: -10;
-					&:hover { background: pink; }
-					&.visible { opacity: 1; z-index: 100; }
-				}
-				
-				form.search {
-					width: 100%; height: 100%;
-					position: absolute;
-					top: 0; left: 0;
-					background: white;
-					border: 0;
-					opacity: 0;
-					z-index: -10;
-					&.visible { opacity: 1; z-index: 200; }
-					input { 
-						width: 100%; height: 100%;
-						border: 0;
-					}
-				}
-			} /* h1.person */
-			button.compare {
-				width: 20%; height: 100%;
-				position: absolute;
-				top: 0; left: 80%;
-				display: none;
-				&:hover {
-					background: pink;
-				}
-				&.visible { display: block; }
 			}
-		} /* header#search-bar */
+			p.desc {
+				font-weight: 300;
+				font-size: em(17px);
+				line-height: em(24px);
+				color: #96b7d9;
+			}
+			ul {
+				margin-top: 20px; 
+				li {
+					display: inline-block;
+					color: #96b7d9;
+					font-weight: 300;
+					font-style: italic;
+					font-size: em(15px);
+					&:first-letter { text-transform: uppercase; }
+					i { 
+						color: #fff; 
+						display: inline-block;
+						font-style: normal; 
+						font-size: em(17px, 15px); 
+						margin-right: 5px;
+					}
+				}
+			}
+		}
+		div.wrapper { width: 80%; margin: 0 auto; }
+		section {
+			padding: 80px 0 0; 
+			h2 {
+				max-width: 620px;
+				margin: 0 0 0 35px;
+				font-weight: 700;
+				color: #1c1f21;
+				font-size: em(30px);
+			}
+			h2 + p {
+				max-width: 620px;
+				margin: 5px 0 0 35px;
+				font-family: $font-stack-serif;
+				color: #6a7d90;
+				font-size: em(20px);
+				line-height: em(30px, 20px);
+			}
+		}
 	} /* article */
 } /* section#main */
 /* @end of Master */
