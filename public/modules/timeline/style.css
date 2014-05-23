@@ -1,0 +1,22 @@
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #d9d9d9;
+  shape-rendering: crispEdges;
+}
+
+.area {
+  fill: rgba(48,147,203,0.5);
+}
+
+.tick text{
+  fill: #d9d9d9;
+  font-family: 'Chaparral Pro';
+  font-size: 15px;
+  font-weight: 600;
+  -webkit-font-smoothing: antialiased;
+}
