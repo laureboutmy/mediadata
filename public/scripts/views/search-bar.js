@@ -66,9 +66,7 @@
         return $(evt.target).parent().removeClass('visible');
       };
 
-      SearchbarView.prototype.onResize = function() {
-        return $('#search-bar').width($(window).width() - 250);
-      };
+      SearchbarView.prototype.onResize = function() {};
 
       return SearchbarView;
 

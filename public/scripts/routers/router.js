@@ -56,9 +56,7 @@
         });
       };
 
-      Router.prototype.onResize = function() {
-        return document.getElementById('main').style.width = window.innerWidth - 250 + 'px';
-      };
+      Router.prototype.onResize = function() {};
 
       Router.prototype.render = function(view, name) {
         return this.createView(view, name);

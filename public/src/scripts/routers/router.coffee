@@ -42,7 +42,8 @@ define [
 			personView = new PersonView({name: name})
 
 		onResize: () ->
-			document.getElementById('main').style.width = window.innerWidth - 250 + 'px'
+
+			# $('#main').width($(window).width() - 250)
 			# $('#search-bar').width($(window).width() - 250)
 			# document.getElementById('search-bar').style.width = window.innerWidth - 250 + 'px';
 

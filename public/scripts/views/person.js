@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', '../collections/persons', '../models/person', 'text!templates/person.html'], function($, _, Backbone, PersonsCollection, PersonModel, tplPerson) {
+  define(['jquery', 'underscore', 'backbone', '../collections/persons', '../models/person', 'text!templates/person.html', '../views/modules/top-5'], function($, _, Backbone, PersonsCollection, PersonModel, tplPerson, Top5View) {
     'use strict';
     var PersonView;
     return PersonView = (function(_super) {
@@ -26,15 +26,25 @@
         return this.render();
       };
 
+      PersonView.prototype.initializeModules = function() {
+        this.top5 = new Top5View();
+        return this.renderModules();
+      };
+
       PersonView.prototype.render = function() {
         var _this;
         _this = this;
         return this.collection.fetch({
           success: function() {
             _this.$el.html(_this.template(_this.collection.models[0].attributes));
+            _this.initializeModules();
             return _this;
           }
         });
+      };
+
+      PersonView.prototype.renderModules = function() {
+        return this.top5.render();
       };
 
       return PersonView;

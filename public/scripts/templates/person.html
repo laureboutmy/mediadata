@@ -1,29 +1,55 @@
-<article class="person">
+<article class="person comparison">
   <header class="header">
-    <div>
-  	  <h1 class="name"><%= person.firstName + ' ' + person.lastName %></h1>
-  		<p class="desc"><%= person.description %><%= person.description %></p>
+    <div class="grid">
+      <div class="unit">
+        <div class="sm-unit">
+      	  <h1 class="name"><%= person.firstName + ' ' + person.lastName %></h1>
+      		<p class="desc"><%= person.description %><%= person.description %></p>
 
-  		<% if(person.tags) { %>
-  		<ul class="tags">
-        <li><i class="icon-label"></i></li>
-  			<% _.each(person.tags, function(tag, i){ %>
-          <% if(person.tags.length - 1 == i){ %>
-          <li><%= tag.tagName %></li>
-          <% } else { %>
-          <li><%= tag.tagName %>, </li>
-          <% }}) %>
-  		</ul>
-  		<% } %>
-    </div>
-  </header>
-  <div class="wrapper">
+      		<% if(person.tags) { %>
+      		<ul class="tags">
+            <li><i class="icon-label"></i></li>
+      			<% _.each(person.tags, function(tag, i){ %>
+              <% if(person.tags.length - 1 == i){ %>
+              <li><%= tag.tagName %></li>
+              <% } else { %>
+              <li><%= tag.tagName %>, </li>
+              <% }}) %>
+      		</ul>
+      		<% } %>
+        </div>
+      </div><!-- div.unit -->
+      <div class="unit">
+        <div class="sm-unit">
+          <h1 class="name"><%= person.firstName + ' ' + person.lastName %></h1>
+          <p class="desc"><%= person.description %><%= person.description %></p>
+
+          <% if(person.tags) { %>
+          <ul class="tags">
+            <li><i class="icon-label"></i></li>
+            <% _.each(person.tags, function(tag, i){ %>
+              <% if(person.tags.length - 1 == i){ %>
+              <li><%= tag.tagName %></li>
+              <% } else { %>
+              <li><%= tag.tagName %>, </li>
+              <% }}) %>
+          </ul>
+          <% } %>
+        </div>
+      </div><!-- div.unit -->
+    </div><!-- div.wrapper -->
+  </header><!-- header.header -->
+  <div class="grid">
     <section id="timeline">Timeline</section>
     <section id="programs">
       <h2>Apparences</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+      <div class="unit">
+        <section class="module top-5"></section><!-- section.module.top-5 -->
+      </div><!-- div.unit -->
+      
     </section>
-
+    <div class="clear"></div>
     <section id="broadcast">Broadcast</section>
   </div>
 </article>

@@ -52,4 +52,4 @@ define [
 			$(evt.target).parent().removeClass('visible');
 		
 		onResize: () ->
-			$('#search-bar').width($(window).width() - 250)
+			# $('#search-bar').width($(window).width() - 250)
