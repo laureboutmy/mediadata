@@ -4,9 +4,7 @@
     'use strict';
     var personModel;
     return personModel = Backbone.Model.extend({
-      initialize: function() {
-        return console.log('heeye');
-      }
+      initialize: function() {}
     });
   });
 

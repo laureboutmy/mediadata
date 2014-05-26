@@ -405,10 +405,8 @@ button, input, textarea { font: 100% "Source Sans Pro", sans-serif; outline: non
 /* @group of Grid */
 .clear { clear: both; }
 
-.wrapper { width: 100%; height: 100%; overflow-x: hidden; }
-
-.grid { max-width: 1510px; width: 90%; margin: 0 auto; overflow: hidden; }
-.grid .unit { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; float: left; vertical-align: top; width: 50%; }
+.grid { max-width: 1510px; width: 90%; margin: 0 auto; overflow-y: hidden; }
+.grid .unit { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; float: left; vertical-align: top; width: 50%; position: relative; }
 
 /* @end of Grid */
 /* @group Sidebar */
@@ -416,29 +414,51 @@ section#sidebar { display: none; position: fixed; width: 250px; height: 100%; ba
 
 /* @end of Sidebar */
 /* @group Search-bar */
-header#search-bar { position: fixed; overflow: hidden; background: #fff; width: 100%; height: 54px; z-index: 100; box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2); /* h1.person */ }
-header#search-bar h1 { position: absolute; top: 0; left: 0; width: 100%; height: 100%; text-align: center; z-index: 10; display: none; font-size: 1.25em; font-weight: 700; color: #1c1f21; line-height: 2.7em; border-right: 1px solid #d9d9d9; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
-header#search-bar h1.person { width: 80%; }
-header#search-bar h1.person.visible { display: block; }
-header#search-bar h1.person.half { width: 50%; }
-header#search-bar h1.person.half button.delete { display: block; z-index: 200; }
-header#search-bar h1.other-person { left: 50%; border-right: 0; }
-header#search-bar h1:hover > button.edit { opacity: 1; z-index: 100; }
-header#search-bar h1 span { font-weight: 400; color: #acb8c0; }
-header#search-bar h1 button.delete { position: absolute; display: none; width: 50px; height: 100%; top: 0; right: 0; z-index: -10; background: white; }
-header#search-bar h1 button.delete i { color: #ccc; font-size: 0.625em; }
-header#search-bar h1 button.delete:hover i { color: #1c1f21; }
-header#search-bar h1 button.edit { width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: white; border: 0; opacity: 0; z-index: -10; font-size: 0.95em; color: #ccc; transition: all ease-out 0.3s; }
-header#search-bar h1 button.edit:hover { color: #1c1f21; }
-header#search-bar h1 button.edit:hover i { color: #3498db; }
-header#search-bar h1 button.edit i { margin-right: 10px; font-size: 1em; color: #ccc; transition: color ease-out 0.3s; }
-header#search-bar h1 form.search { width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: white; border: 0; opacity: 0; z-index: -10; }
-header#search-bar h1 form.search.visible { opacity: 1; z-index: 200; }
-header#search-bar h1 form.search input { width: 100%; height: 100%; border: 0; }
-header#search-bar button.compare { width: 20%; height: 100%; position: absolute; top: 0; left: 80%; display: none; font-size: 1.1875em; line-height: 2.10526em; color: #ccc; transition: color ease-out 0.3s; }
+header#search-bar { position: fixed; min-width: 1020px; border: 1px solid transparent; background: #fff; width: 100%; height: 54px; z-index: 100; box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2); /* h1.person */ }
+header#search-bar .grid { overflow: visible; }
+header#search-bar .grid section.unit { display: none; }
+header#search-bar .grid section.unit.visible { width: 80%; display: block; }
+header#search-bar .grid section.unit.visible div.name { border-right: 1px solid #d9d9d9; }
+header#search-bar .grid section#compare.unit { width: 20%; display: block; }
+header#search-bar.search section.unit { display: none; }
+header#search-bar.search section.unit.visible { width: 100%; display: block; }
+header#search-bar.search section.unit.visible div.name { border-right: 0; }
+header#search-bar.search section#compare.unit { width: 20%; display: block; }
+header#search-bar.comparison .grid section.unit { display: block; }
+header#search-bar.comparison .grid section.unit.visible { width: 50%; }
+header#search-bar.comparison .grid section.unit:nth-child(2) div.name { border-right: 0; }
+header#search-bar.comparison .grid section#compare.unit { display: none; }
+header#search-bar div.name { width: 100%; height: 100%; text-align: center; position: relative; z-index: 10; font-size: 1.25em; font-weight: 700; color: #1c1f21; line-height: 2.7em; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+header#search-bar div.name:hover > button.edit { opacity: 1; z-index: 100; }
+header#search-bar div.name div.img { width: 40px; height: 40px; border-radius: 100%; overflow: hidden; position: relative; display: inline-block; margin: 0 0.625em -0.625em 0; }
+header#search-bar div.name div.img img { width: 100%; height: auto; position: absolute; margin: auto; left: 0; right: 0; top: 0; bottom: 0; }
+header#search-bar div.name span { font-weight: 400; color: #acb8c0; }
+header#search-bar div.name button.delete { position: absolute; display: block; z-index: 200; width: 50px; height: 100%; top: 0; right: 0; background: white; }
+header#search-bar div.name button.delete i { color: #ccc; font-size: 0.625em; }
+header#search-bar div.name button.delete:hover i { color: #1c1f21; }
+header#search-bar div.name button.edit { width: 100%; height: 100%; position: absolute; top: 0; left: 0; border-right: 1px solid transparent; background: white; border: 0; opacity: 0; z-index: -10; font-size: 0.95em; color: #ccc; transition: all ease-out 0.3s; }
+header#search-bar div.name button.edit:hover { color: #1c1f21; }
+header#search-bar div.name button.edit:hover i { color: #3498db; }
+header#search-bar div.name button.edit i { margin-right: 10px; font-size: 1em; color: #ccc; transition: color ease-out 0.3s; }
+header#search-bar div.name form.search { width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: white; border: 0; opacity: 0; z-index: -10; text-align: left; }
+header#search-bar div.name form.search.visible { opacity: 1; z-index: 200; }
+header#search-bar div.name form.search.visible ul.topics { display: block; }
+header#search-bar div.name form.search input { border: 0; font-weight: 700; color: #1c1f21; width: 30%; display: inline-block; }
+header#search-bar div.name form.search input::-webkit-input-placeholder { color: #acb8c0; font-weight: normal; }
+header#search-bar div.name form.search input::-moz-placeholder { color: #acb8c0; font-weight: normal; }
+header#search-bar div.name form.search input:-ms-input-placeholder { color: #acb8c0; font-weight: normal; }
+header#search-bar div.name form.search input:-moz-placeholder { color: #acb8c0; font-weight: normal; }
+header#search-bar div.name form.search label { padding: 0 1.7em; font-weight: 400; color: #1c1f21; }
+header#search-bar div.name form.search label i { margin-right: 10px; font-size: 1em; color: #3498db; }
+header#search-bar div.name form.search ul.topics { display: none; top: 55px; position: absolute; background: #fff; width: 100%; border-top: 1px solid #d9d9d9; box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2); }
+header#search-bar div.name form.search ul.topics li { padding: 0.5em 1.7em; height: 62px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; line-height: 2em; background: transparent; transition: background ease-out 0.3s; }
+header#search-bar div.name form.search ul.topics li:hover, header#search-bar div.name form.search ul.topics li.active { background: #f5f5f5; cursor: pointer; }
+header#search-bar div.name form.search ul.topics li span { font-weight: normal; color: #acb8c0; }
+header#search-bar div.name form.search ul.topics li div.img { width: 40px; height: 40px; border-radius: 100%; overflow: hidden; position: relative; display: inline-block; }
+header#search-bar div.name form.search ul.topics li div.img img { width: 100%; height: auto; position: absolute; margin: auto; left: 0; right: 0; top: 0; bottom: 0; }
+header#search-bar button.compare { width: 100%; height: 100%; font-size: 1.1875em; line-height: 2.63158em; color: #ccc; transition: color ease-out 0.3s; }
 header#search-bar button.compare:hover { color: #1c1f21; }
 header#search-bar button.compare:hover i { color: #3498db; }
-header#search-bar button.compare.visible { display: block; }
 header#search-bar button.compare i { margin-right: 10px; font-size: 1.05263em; color: #ccc; transition: color ease-out 0.3s; }
 
 /* header#search-bar */

@@ -4,10 +4,12 @@ define [
 	'backbone'
 ], ($, _, Backbone) ->
 	'use strict'
-	personModel = Backbone.Model.extend
+	class TopicModel extends Backbone.Model
 		# url: 'http://localhost/mediadata/api/person-example.json'
 		# defaults: 
 		# 	person: {}
+		
 		initialize: () ->
-			# console.log('heeye')
+
+		
 		

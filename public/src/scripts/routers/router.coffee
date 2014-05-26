@@ -36,7 +36,7 @@ define [
 		getPerson: (name) ->
 			console.log name
 			if !@searchBar then @searchBar = new SearchbarView()
-			@searchBar.render()
+			@searchBar.render({name: name, comparison: false})
 			@searchBar.onResize()
 			# personView = new PersonView(new PersonsCollection({name: name}))
 			personView = new PersonView({name: name})

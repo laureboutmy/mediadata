@@ -49,7 +49,10 @@
         if (!this.searchBar) {
           this.searchBar = new SearchbarView();
         }
-        this.searchBar.render();
+        this.searchBar.render({
+          name: name,
+          comparison: false
+        });
         this.searchBar.onResize();
         return personView = new PersonView({
           name: name

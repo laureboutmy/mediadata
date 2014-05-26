@@ -14,9 +14,9 @@ define [
 		template: _.template(tplPerson)
 
 		initialize: (options) -> 
-			console.log(options)
+			# console.log(options)
 			@collection = new PersonsCollection(options)
-			console.log(@collection)
+			# console.log(@collection)
 			@render()
 
 		initializeModules: () ->

@@ -20,9 +20,7 @@
       PersonView.prototype.template = _.template(tplPerson);
 
       PersonView.prototype.initialize = function(options) {
-        console.log(options);
         this.collection = new PersonsCollection(options);
-        console.log(this.collection);
         return this.render();
       };
 

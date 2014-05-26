@@ -10,8 +10,8 @@ define [
 		template: _.template(tplTop5)
 
 		initialize: () -> 
-			console.log('hi')
-			console.log(@el)
+			# console.log('hi')
+			# console.log(@el)
 
 		render: () ->
 			@.$el.html(@.template())
