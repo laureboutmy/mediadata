@@ -1,22 +1,38 @@
-body {
-  font: 10px sans-serif;
-}
-
+/* Axis */
 .axis path,
 .axis line {
   fill: none;
   stroke: #d9d9d9;
+  stroke-width: 1;
   shape-rendering: crispEdges;
 }
 
-.area {
-  fill: rgba(48,147,203,0.5);
-}
-
-.tick text{
+.axis text {
   fill: #d9d9d9;
   font-family: 'Chaparral Pro';
   font-size: 15px;
   font-weight: 600;
   -webkit-font-smoothing: antialiased;
 }
+
+/* Main path */
+path { fill: none; stroke-width: 3; }
+.line1 { stroke: #2980B9; }
+.line2 { stroke: #29A87D; }
+
+/* Fill area */
+.area1 { fill: rgba(48,147,203,0.5); stroke-width: 0; }
+.area2 { fill: rgba(46,181,135,0.5); stroke-width: 0; }
+
+/* Dots */
+circle { opacity: 0; fill: #fff; stroke-width: 2; 
+         transition: opacity .25s ease-in-out;
+         -moz-transition: opacity .25s ease-in-out;
+         -webkit-transition: opacity .25s ease-in-out; }
+svg:hover circle { opacity: 1; }
+.circle1 { stroke: #3192CA; }
+.circle2 { stroke: #2EB587; }
+
+/* Grid */
+.grid .tick { stroke: #d9d9d9; }
+.grid path { stroke-width: 0; }
