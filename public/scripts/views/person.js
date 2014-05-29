@@ -38,9 +38,6 @@
             _this.$el.html(_this.template(md.Collections[options.name1].models[0].attributes));
             _this.initializeModules(md.Collections[options.name1].models[0].attributes);
             return _this;
-          },
-          error: function(error) {
-            return console.log('yoyo', error);
           }
         });
       };

@@ -25,9 +25,15 @@
         return this.render(options);
       };
 
-      ComparisonView.prototype.initializeModules = function() {
-        this.top5 = new Top5View();
-        return this.renderModules();
+      ComparisonView.prototype.initializeModules = function(data) {
+        console.log(data);
+        this.top51 = new Top5View({
+          el: '.module.top-5.person1'
+        });
+        this.top52 = new Top5View({
+          el: '.module.top-5.person2'
+        });
+        return this.renderModules(data);
       };
 
       ComparisonView.prototype.render = function(options) {
@@ -40,9 +46,8 @@
             md.Collections[options.name2].fetch({
               success: function() {
                 _this.collection.person2 = md.Collections[options.name2].models[0].attributes;
-                console.log(_this.collection);
                 _this.$el.html(_this.template(_this.collection));
-                return _this.initializeModules();
+                return _this.initializeModules(_this.collection);
               }
             });
             return _this;
@@ -50,8 +55,15 @@
         });
       };
 
-      ComparisonView.prototype.renderModules = function() {
-        return this.top5.render();
+      ComparisonView.prototype.renderModules = function(data) {
+        this.top51.render({
+          popularChannels: data.person1.popularChannels,
+          popularShows: data.person1.popularShows
+        });
+        return this.top52.render({
+          popularChannels: data.person2.popularChannels,
+          popularShows: data.person2.popularShows
+        });
       };
 
       return ComparisonView;

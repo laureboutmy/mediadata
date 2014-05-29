@@ -59,10 +59,10 @@ define [
 			console.log(Backbone.history.fragment)
 			if @$el.hasClass('comparison') 
 				@$el.removeClass('comparison')
-				$(evt.currentTarget).parent().find('h1').html('Vous devez choisir une sujet')
 				$(evt.currentTarget).parent().parent().removeClass('visible')
 			else 
 				@$el.addClass('search')
+			$(evt.currentTarget).parent().find('h1').html('Cliquez pour rechercher')
 
 		edit: (evt) ->
 			$(evt.currentTarget).parent().find('form.search').addClass('visible').find('input').focus()
@@ -118,10 +118,12 @@ define [
 				else if $(input).has('#name-1')
 					md.Router.navigate(selected.data('slug') + '/' + @topics.topic2.slug)
 					md.Router.getComparison(selected.data('slug'), @topics.topic1.slug)
-			else
+			else 
+				if @$el.hasClass('search') then @$el.removeClass('search')
 				md.Router.navigate(selected.data('slug'))
 				md.Router.getPerson(selected.data('slug'))
 			# $(input).blur()
+
 
 			@stop()
 

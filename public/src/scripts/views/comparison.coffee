@@ -19,9 +19,11 @@ define [
 			md.Collections[options.name2] = new PersonsCollection(options.name2)
 			@render(options)
 
-		initializeModules: () ->
-			@top5 = new Top5View()
-			@renderModules()
+		initializeModules: (data) ->
+			console.log(data)
+			@top51 = new Top5View({el: '.module.top-5.person1'})
+			@top52 = new Top5View({el: '.module.top-5.person2'})
+			@renderModules(data)
 
 		render: (options) ->
 			_this = @
@@ -32,13 +34,14 @@ define [
 					md.Collections[options.name2].fetch
 						success: () ->
 							_this.collection.person2 = md.Collections[options.name2].models[0].attributes
-							console.log(_this.collection)
 							_this.$el.html(_this.template(_this.collection))
-							_this.initializeModules()
+							_this.initializeModules(_this.collection)
 					return _this
 			
-		renderModules: () ->
-			@top5.render()
+		renderModules: (data) ->
+			@top51.render({ popularChannels: data.person1.popularChannels, popularShows: data.person1.popularShows })
+			@top52.render({ popularChannels: data.person2.popularChannels, popularShows: data.person2.popularShows })
+
 
 		
 		

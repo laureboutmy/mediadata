@@ -17,8 +17,6 @@
 
       Top5View.prototype.template = _.template(tplTop5);
 
-      Top5View.prototype.initialize = function() {};
-
       Top5View.prototype.render = function(data) {
         console.log(data);
         this.$el.html(this.template(data));
@@ -64,12 +62,8 @@
         return $('#' + type + ' .gauge span').each(function() {
           _this.getFillPercent($(this), type);
           $('#' + type + ' span.total').html('/' + _this.totalAppearances);
-          $(this).css('width', 0);
-          return $(this).animate({
-            width: _this.fillPercent + '%'
-          }, {
-            duration: 500
-          });
+          $(this).addClass('width').width(0);
+          return $(this).removeClass('width').width(_this.fillPercent + '%');
         });
       };
 

@@ -88,11 +88,11 @@
         console.log(Backbone.history.fragment);
         if (this.$el.hasClass('comparison')) {
           this.$el.removeClass('comparison');
-          $(evt.currentTarget).parent().find('h1').html('Vous devez choisir une sujet');
-          return $(evt.currentTarget).parent().parent().removeClass('visible');
+          $(evt.currentTarget).parent().parent().removeClass('visible');
         } else {
-          return this.$el.addClass('search');
+          this.$el.addClass('search');
         }
+        return $(evt.currentTarget).parent().find('h1').html('Cliquez pour rechercher');
       };
 
       SearchbarView.prototype.edit = function(evt) {
@@ -170,6 +170,9 @@
             md.Router.getComparison(selected.data('slug'), this.topics.topic1.slug);
           }
         } else {
+          if (this.$el.hasClass('search')) {
+            this.$el.removeClass('search');
+          }
           md.Router.navigate(selected.data('slug'));
           md.Router.getPerson(selected.data('slug'));
         }

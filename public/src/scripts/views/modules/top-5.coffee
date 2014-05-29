@@ -9,13 +9,9 @@ define [
 		el: '.module.top-5'
 		template: _.template(tplTop5)
 
-		initialize: () -> 
-			# console.log('hi')
-			# console.log(@el)
-
 		render: (data) ->
 			console.log(data)
-			@.$el.html(@.template(data))
+			@$el.html(@template(data))
 			@bind()
 			@fillGauges('shows')
 			return @
@@ -54,8 +50,8 @@ define [
 			$('#' + type + ' .gauge span').each ->
 				_this.getFillPercent($(@), type)
 				$('#' + type + ' span.total').html '/' + _this.totalAppearances
-				$(@).css('width', 0)
-				$(@).animate({width: _this.fillPercent + '%'}, { duration: 500 })
+				$(@).addClass('width').width(0)
+				$(@).removeClass('width').width(_this.fillPercent + '%')
 
 		
 

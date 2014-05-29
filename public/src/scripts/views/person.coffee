@@ -30,11 +30,9 @@ define [
 					_this.$el.html(_this.template(md.Collections[options.name1].models[0].attributes))
 					_this.initializeModules(md.Collections[options.name1].models[0].attributes)
 					return _this
-				error: (error) ->
-					console.log('yoyo', error)
 			
 		renderModules: (data) ->
-			@top5.render({popularChannels: data.popularChannels, popularShows: data.popularShows})
+			@top5.render({ popularChannels: data.popularChannels, popularShows: data.popularShows })
 
 		
 		
