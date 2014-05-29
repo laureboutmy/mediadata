@@ -4,19 +4,20 @@ define [
 	'backbone'
 	'../collections/persons'
 	'../models/person'
-	'text!templates/person.html'
+	'text!templates/comparison.html'
 	'../views/modules/top-5'
-], ($, _, Backbone, PersonsCollection, PersonModel, tplPerson, Top5View) ->
+], ($, _, Backbone, PersonsCollection, PersonModel, tplComparison, Top5View) ->
 	'use strict'
-	class PersonView extends Backbone.View
+	class ComparisonView extends Backbone.View
 		el: '#main'
 		collection: null
-		template: _.template(tplPerson)
+		template: _.template(tplComparison)
 
 		initialize: (options) -> 
 			# console.log(options)
-			@collection = new PersonsCollection(options)
+			# @collection = new PersonsCollection(options)
 			# console.log(@collection)
+			console.log(options)
 			@render()
 
 		initializeModules: () ->

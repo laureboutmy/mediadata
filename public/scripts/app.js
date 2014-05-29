@@ -19,8 +19,8 @@
     }
   });
 
-  require(['mediadata'], function(Md) {
-    return Md.initialize();
+  define(['mediadata'], function(md) {
+    return md.initialize();
   });
 
 }).call(this);

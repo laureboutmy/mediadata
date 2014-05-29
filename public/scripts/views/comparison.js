@@ -3,33 +3,33 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', '../collections/persons', '../models/person', 'text!templates/person.html', '../views/modules/top-5'], function($, _, Backbone, PersonsCollection, PersonModel, tplPerson, Top5View) {
+  define(['jquery', 'underscore', 'backbone', '../collections/persons', '../models/person', 'text!templates/comparison.html', '../views/modules/top-5'], function($, _, Backbone, PersonsCollection, PersonModel, tplComparison, Top5View) {
     'use strict';
-    var PersonView;
-    return PersonView = (function(_super) {
-      __extends(PersonView, _super);
+    var ComparisonView;
+    return ComparisonView = (function(_super) {
+      __extends(ComparisonView, _super);
 
-      function PersonView() {
-        return PersonView.__super__.constructor.apply(this, arguments);
+      function ComparisonView() {
+        return ComparisonView.__super__.constructor.apply(this, arguments);
       }
 
-      PersonView.prototype.el = '#main';
+      ComparisonView.prototype.el = '#main';
 
-      PersonView.prototype.collection = null;
+      ComparisonView.prototype.collection = null;
 
-      PersonView.prototype.template = _.template(tplPerson);
+      ComparisonView.prototype.template = _.template(tplComparison);
 
-      PersonView.prototype.initialize = function(options) {
-        this.collection = new PersonsCollection(options);
+      ComparisonView.prototype.initialize = function(options) {
+        console.log(options);
         return this.render();
       };
 
-      PersonView.prototype.initializeModules = function() {
+      ComparisonView.prototype.initializeModules = function() {
         this.top5 = new Top5View();
         return this.renderModules();
       };
 
-      PersonView.prototype.render = function() {
+      ComparisonView.prototype.render = function() {
         var _this;
         console.log('render perosn');
         _this = this;
@@ -42,11 +42,11 @@
         });
       };
 
-      PersonView.prototype.renderModules = function() {
+      ComparisonView.prototype.renderModules = function() {
         return this.top5.render();
       };
 
-      return PersonView;
+      return ComparisonView;
 
     })(Backbone.View);
   });

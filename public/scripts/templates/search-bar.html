@@ -1,39 +1,37 @@
 <div class="grid">
-  <% if (topic1) { %>
   <section class="unit person visible">
     <div class="name">
-      <h1><div class="img"><img src="images/topic--damien-cornu.jpg" /></div><%= topic1.name %><span>- Journaliste</span></h1>
+      <h1>
+        <% if(topic1) { %>
+          <div class="img"><img src="images/topic--damien-cornu.jpg" /></div> <%= topic1.name %>
+        <% } else { print('Vous devez choisir un sujet') } %>
+        <% if(topic1) { %> <span>- Journaliste</span> <% } %></h1>
       <button class="delete"><i class="icon-cross_mark"></i></button>
       <button class="edit"><i class="icon-magnifying"></i>Modifier votre recherche</button>
       <form class="search">
-        <label for="name-1"><i class="icon-magnifying_plus"></i>Ajouter une personnalité :</label>
+        <label for="name-1"><i class="icon-magnifying_plus"></i>Rechercher :</label>
         <input id="name-1" type="text" autocomplete="off" placeholder="Entrez un nom" />
-        <ul class="topics">
-          <li data-slug="thierry-ardisson"><div class="img"><img src="images/topic--damien-cornu.jpg" /></div> Thierry Ardisson <span>- Animateur</span></li>
-          <li data-slug="thierry-ardisson"><div class="img"><img src="images/topic--damien-cornu.jpg" /></div> Thierry Ardisson <span>- Animateur</span></li>
-
-        </ul>
+        <ul class="topics"></ul>
       </form>
     </div>
   </section>
-  <% } %>
-  <% if (topic2) { %>
   <section class="unit person">
-    <div class="name"><div class="img"><img src="images/topic--damien-cornu.jpg" /></div> <%= topic2.name %> <span>- Journaliste</span>
+    <div class="name">
+      <h1>
+        <% if(topic2) { %>
+          <div class="img"><img src="images/topic--damien-cornu.jpg" /></div> <%= topic2.name %>
+        <% } else { print('Vous devez choisir un sujet') } %>
+        <% if(topic2) { %> <span>- Journaliste</span> <% } %></h1>
       <button class="delete"><i class="icon-cross_mark"></i></button>
       <button class="edit"><i class="icon-magnifying"></i>Modifier votre recherche</button>
       <form class="search">
-        <label for="name-2"><i class="icon-magnifying_plus"></i>Ajouter une personnalité :</label>
+        <label for="name-2"><i class="icon-magnifying_plus"></i>Rechercher :</label>
         <input id="name-2" type="text" autocomplete="off" placeholder="Entrez un nom" />
-        <ul class="topics">
-          <li data-slug="thierry-ardisson"><div class="img"><img src="images/topic--damien-cornu.jpg" /></div> Thierry Ardisson <span>- Animateur</span></li>
-          <li><div class="img"><img src="images/topic--damien-cornu.jpg" /></div> Thierry Ardisson <span>- Animateur</span></li>
-
-        </ul>
+        <ul class="topics"></ul>
       </form>
     </div>
   </section>
-  <% } %>
+
   <section class="unit" id="compare">
     <button class="compare"><i class="icon-users"></i>Comparer</button>
   </div>

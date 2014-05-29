@@ -12,5 +12,9 @@ require.config
     underscore: 'vendors/underscore.min'
     text: 'vendors/require-text'
 
-require ['mediadata'], (Md) ->
-	Md.initialize()
+define ['mediadata'], (md) ->
+	md.initialize()
+	# console.log(Md);
+	# Backbone.history.start
+	# 	pushState: true
+	# 	root: '/mediadata/public/'

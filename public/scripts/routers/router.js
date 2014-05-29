@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', '../collections/persons', '../models/person', '../views/home', '../views/explorer', '../views/person', '../views/search-bar'], function($, _, Backbone, PersonsCollection, PersonModel, HomeView, ExplorerView, PersonView, SearchbarView) {
+  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', '../views/home', '../views/explorer', '../views/person', '../views/comparison'], function($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, ExplorerView, PersonView, ComparisonView) {
     'use strict';
     var Router;
     return Router = (function(_super) {
@@ -15,63 +15,55 @@
 
       Router.prototype.routes = {
         '': 'home',
-        'explorer': 'explorer',
         ':person': 'getPerson',
-        ':person/:otherPerson': 'compare'
+        ':person/:otherPerson': 'getComparison'
       };
 
-      Router.prototype.searchBar = null;
-
-      Router.prototype.initialize = function() {
-        this.onResize();
-        return this.bind();
-      };
+      Router.prototype.initialize = function() {};
 
       Router.prototype.compare = function(person, otherPerson) {
         return console.log(person, otherPerson);
       };
 
-      Router.prototype.explorer = function() {
-        var explorerView;
-        explorerView = new ExplorerView();
-        return explorerView.render();
+      Router.prototype.home = function() {
+        md.Views['home'] = new HomeView();
+        return md.Views['home'].render();
       };
 
-      Router.prototype.home = function() {
-        var homeView;
-        homeView = new HomeView();
-        return homeView.render();
+      Router.prototype.getSearchbar = function(name1, name2) {
+        if (name1 == null) {
+          name1 = null;
+        }
+        if (name2 == null) {
+          name2 = null;
+        }
+        if (!md.Views['search-bar']) {
+          return require(['views/search-bar'], (function(_this) {
+            return function(SearchbarView) {
+              md.Views['search-bar'] = new SearchbarView({
+                name1: name1,
+                name2: name2
+              });
+              return md.Views['search-bar'].onResize();
+            };
+          })(this));
+        }
       };
 
       Router.prototype.getPerson = function(name) {
-        var personView;
-        console.log(name);
-        if (!this.searchBar) {
-          this.searchBar = new SearchbarView();
-        }
-        this.searchBar.render({
-          name: name,
-          comparison: false
-        });
-        this.searchBar.onResize();
-        return personView = new PersonView({
+        this.getSearchbar(name);
+        return md.Views['person'] = new PersonView({
           name: name
         });
       };
 
-      Router.prototype.onResize = function() {};
-
-      Router.prototype.render = function(view, name) {
-        return this.createView(view, name);
+      Router.prototype.getComparison = function(name1, name2) {
+        this.getSearchbar(name1, name2);
+        return md.Views['person'] = new ComparisonView({
+          name1: name1,
+          name2: name2
+        });
       };
-
-      Router.prototype.bind = function() {
-        var _this;
-        _this = this;
-        return $(window).on('resize', _this.onResize);
-      };
-
-      Router.prototype.createView = function(view, name) {};
 
       return Router;
 

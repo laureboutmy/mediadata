@@ -2,58 +2,65 @@ define [
 	'jquery'
 	'underscore'
 	'backbone'
+	'mediadata'
 	'../collections/persons'
 	'../models/person'
 	'../views/home'
 	'../views/explorer'
 	'../views/person'
-	'../views/search-bar'
-], ($, _, Backbone, PersonsCollection, PersonModel, HomeView, ExplorerView, PersonView, SearchbarView) ->
+	# '../views/search-bar'
+	'../views/comparison'
+], ($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, ExplorerView, PersonView, ComparisonView) ->
 	'use strict'
 	class Router extends Backbone.Router
 		routes:
 			'': 'home'
-			'explorer': 'explorer'
 			':person': 'getPerson'
-			':person/:otherPerson': 'compare'
+			':person/:otherPerson': 'getComparison'
 
-		searchBar: null
 		initialize: () ->
-			@onResize()
-			@bind()
+			# @onResize()
+			# @bind()
 
 		compare: (person, otherPerson) ->
 			console.log person, otherPerson
 
-		explorer: () ->
-			explorerView = new ExplorerView()
-			explorerView.render()
+		# explorer: () ->
+		# 	explorerView = new ExplorerView()
+			# explorerView.render()
 
 		home: () ->
-			homeView = new HomeView()
-			homeView.render()
+			md.Views['home'] = new HomeView()
+			md.Views['home'].render()
+
+		getSearchbar: (name1 = null, name2 = null) ->
+			if !md.Views['search-bar'] 
+				require ['views/search-bar'], (SearchbarView) =>
+					md.Views['search-bar'] = new SearchbarView({name1: name1, name2: name2})
+					# md.Views['search-bar'].render()
+					md.Views['search-bar'].onResize()
 
 		getPerson: (name) ->
-			console.log name
-			if !@searchBar then @searchBar = new SearchbarView()
-			@searchBar.render({name: name, comparison: false})
-			@searchBar.onResize()
-			# personView = new PersonView(new PersonsCollection({name: name}))
-			personView = new PersonView({name: name})
+			@getSearchbar(name)
+			md.Views['person'] = new PersonView({name: name})
 
-		onResize: () ->
+		getComparison: (name1, name2) ->
+			@getSearchbar(name1, name2)
+			md.Views['person'] = new ComparisonView({name1: name1, name2: name2})
+
+		# onResize: () ->
 
 			# $('#main').width($(window).width() - 250)
 			# $('#search-bar').width($(window).width() - 250)
 			# document.getElementById('search-bar').style.width = window.innerWidth - 250 + 'px';
 
-		render: (view, name) ->
-			@createView(view, name)
+		# render: (view, name) ->
+		# 	@createView(view, name)
 
-		bind: () ->
-			_this = @
-			$(window).on('resize', _this.onResize)
+		# bind: () ->
+		# 	_this = @
+		# 	$(window).on('resize', _this.onResize)
 
-		createView: (view, name) ->
+		# createView: (view, name) ->
 			
 	

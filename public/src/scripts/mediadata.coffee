@@ -2,13 +2,29 @@ define [
 	'jquery' 
 	'underscore'
 	'backbone'
-	'routers/router'
-], ($, _, Backbone, Router) ->
+], ($, _, Backbone) ->
 	'use strict'
-	initialize = () ->
-		Router = new Router()
-		Backbone.history.start
-			pushState: true
-			root: '/mediadata/public/'
+	md = 
+		Router: null,
+		Views: {},
+		Models: {},
+		Collections: {},
+		initialize: () ->
+			require ['routers/router'], (Router) =>
+				@Router = new Router()
+				Backbone.history.start
+					pushState: true
+					root: '/mediadata/public/'
 
-	return { initialize: initialize }
+	# initialize = () ->
+	# 	# Router = new Router()
+	# 	Backbone.history.start
+	# 		pushState: true
+	# 		root: '/mediadata/public/'
+	# return {
+	# 	Views: {}
+	# 	Models: {}
+	# 	Collections: {}
+	# 	Router: 
+	# 	initialize: initialize 
+	# }

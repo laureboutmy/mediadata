@@ -33,8 +33,7 @@ button, input, textarea { font: 100% $font-stack; outline: none; }
 // .wrapper { width: 100%; height: 100%; overflow-x: hidden; }
 
 .grid {
-	max-width: 1510px;
-	width: 90%;
+	width: 1020px;
 	margin: 0 auto;
 	overflow-y: hidden;
 	.unit {
@@ -42,7 +41,8 @@ button, input, textarea { font: 100% $font-stack; outline: none; }
 		float: left;
 		vertical-align: top;
 		width: 50%;
-		position: relative;
+		&.left { padding-right: 30px; }
+		&.right { padding-left: 30px; }
 			// &:first-child > div { float: right; }
 			// &:nth-child(2) > div { float: left; }
 	}
@@ -75,9 +75,10 @@ header#search-bar {
 	.grid {
 		overflow: visible;
 		section.unit { 
-			display: none; 
+			display: none;
+			
 			&.visible { 
-				width: 80%; display: block;
+				width: 80%; display: block; 
 				div.name {
 					border-right: 1px solid #d9d9d9;
 				} 
@@ -89,6 +90,7 @@ header#search-bar {
 	&.search {
 		section.unit { 
 			display: none; 
+
 			&.visible { 
 				width: 100%; display: block;
 				div.name {
@@ -157,7 +159,7 @@ header#search-bar {
 			// z-index: -10;
 			// display: none;
 			display: block; z-index: 200;
-			width: 50px; height: 100%;
+			width: 60px; height: 100%;
 			top: 0; right: 0;
 			background: white; 
 			i { color: #ccc; font-size: em(10px); }
@@ -205,7 +207,7 @@ header#search-bar {
 				border: 0;
 				font-weight: 700;
 				color: #1c1f21;
-				width: 30%;
+				width: 320px;
 				display: inline-block;
 				&::-webkit-input-placeholder { color: #acb8c0; font-weight: normal; } 
 				&::-moz-placeholder { color: #acb8c0; font-weight: normal; } 
@@ -213,9 +215,10 @@ header#search-bar {
 				&:-moz-placeholder { color: #acb8c0; font-weight: normal; } 
 			}
 			label {
-				padding: 0 em(34px, 20px);
+				padding: 0 em(10px, 20px) 0 em(30px, 20px);
 				font-weight: 400;
 				color: #1c1f21;
+				float: left;
 				i { 
 				margin-right: 10px; 
 				font-size: em(19px, 19px); 
@@ -292,20 +295,21 @@ section#main {
 	width: 100%;
 	position: relative;
 	// left: 250px; top: 0;
-	article {
-		padding-top: 50px;
+	article.person {
+		padding-top: 54px;
 
 		header.header {
 			background: #2c3e50;
-			background: linear-gradient(to right,  #2c3e50 0%,#2c3e50 50%,#34495e 50%,#34495e 100%);
-			padding: 60px 0;
+			// background: linear-gradient(to right,  #2c3e50 0%,#2c3e50 50%,#34495e 50%,#34495e 100%);
+			padding: 54px 0;
 			// > div.sm-wrapper { width: 620px; margin: 0 auto; }
+			.sm-unit { margin: 0 auto; width: 620px; }
 			h1.name {
 				font-weight: 700;
 				color: #fff;
 				text-transform: uppercase;
 				font-size: em(17px);
-				line-height: em(24px);
+				line-height: em(24px, 17px);
 				&:first-letter {
 					font-size: em(90px, 17px);
 					float: left;
@@ -316,17 +320,18 @@ section#main {
 			p.desc {
 				font-weight: 300;
 				font-size: em(17px);
-				line-height: em(24px);
+				line-height: em(24px, 17px);
 				color: #96b7d9;
 			}
 			ul {
-				margin-top: 20px; 
+				margin-top: 40px; 
 				li {
 					display: inline-block;
 					color: #96b7d9;
 					font-weight: 300;
 					font-style: italic;
 					font-size: em(15px);
+					line-height: em(24px, 15px);
 					&:first-letter { text-transform: uppercase; }
 					i { 
 						color: #fff; 
@@ -342,21 +347,19 @@ section#main {
 		section {
 
 			h2 {
-				max-width: 620px;
-				width: 41%;
-				margin: 80px 0 0 5%;
+				width: 420px;
+				margin: 58px 30px 0 30px;
 				font-weight: 700;
 				color: #1c1f21;
 				font-size: em(30px);
 			}
 			h2 + p {
-				max-width: 620px;
-				width: 41%;
-				margin: 5px 0 40px 5%;
+				width: 420px;
+				margin: 0 30px 40px 30px;
 				font-family: $font-stack-serif;
 				color: #6a7d90;
-				font-size: em(20px);
-				line-height: em(30px, 20px);
+				font-size: em(19px);
+				line-height: em(30px, 19px);
 			}
 		}
 	} /* article */
@@ -372,9 +375,10 @@ section#main {
 
 /* @group of Modules */
 section.module {
-	max-width: 686px;
-	width: 90%;
-	margin: 0 auto;
+	width: 480px;
+	margin: 0;
+	@include box-sizing(border-box);
+
 	&.top-5 {
 		border: 1px solid #d9d9d9;
 		border-radius: 5px;
@@ -387,8 +391,8 @@ section.module {
 				float: left;
 				width: 50%;
 				@include box-sizing(border-box);
-				padding: em(20px, 20px);
-				font-size: em(20px);
+				padding: em(20px, 17px);
+				font-size: em(17px);
 				font-weight: 700;
 				text-transform: uppercase;
 				background-color: #f5f5f5; color: #ccc;
@@ -451,7 +455,7 @@ section.module {
 						position: absolute;
 						right: em(34px); top: em(38px);
 						margin: 10px 0;
-						width: 62%;
+						width: 300px;
 						height: 9px;
 						border-radius: 20px;
 						background-color: #f5f5f5; 
