@@ -20,14 +20,13 @@
       PersonView.prototype.template = _.template(tplPerson);
 
       PersonView.prototype.initialize = function(options) {
-        console.log(options);
         md.Collections[options.name1] = new PersonsCollection(options.name1);
         return this.render(options);
       };
 
-      PersonView.prototype.initializeModules = function() {
+      PersonView.prototype.initializeModules = function(data) {
         this.top5 = new Top5View();
-        return this.renderModules();
+        return this.renderModules(data);
       };
 
       PersonView.prototype.render = function(options) {
@@ -35,9 +34,9 @@
         console.log('render person');
         _this = this;
         return md.Collections[options.name1].fetch({
-          success: function() {
+          success: function(data) {
             _this.$el.html(_this.template(md.Collections[options.name1].models[0].attributes));
-            _this.initializeModules();
+            _this.initializeModules(md.Collections[options.name1].models[0].attributes);
             return _this;
           },
           error: function(error) {
@@ -46,8 +45,11 @@
         });
       };
 
-      PersonView.prototype.renderModules = function() {
-        return this.top5.render();
+      PersonView.prototype.renderModules = function(data) {
+        return this.top5.render({
+          popularChannels: data.popularChannels,
+          popularShows: data.popularShows
+        });
       };
 
       return PersonView;

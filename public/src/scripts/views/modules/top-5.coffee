@@ -13,8 +13,9 @@ define [
 			# console.log('hi')
 			# console.log(@el)
 
-		render: () ->
-			@.$el.html(@.template())
+		render: (data) ->
+			console.log(data)
+			@.$el.html(@.template(data))
 			@bind()
 			@fillGauges('shows')
 			return @

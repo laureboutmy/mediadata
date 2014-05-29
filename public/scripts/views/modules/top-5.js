@@ -19,8 +19,9 @@
 
       Top5View.prototype.initialize = function() {};
 
-      Top5View.prototype.render = function() {
-        this.$el.html(this.template());
+      Top5View.prototype.render = function(data) {
+        console.log(data);
+        this.$el.html(this.template(data));
         this.bind();
         this.fillGauges('shows');
         return this;

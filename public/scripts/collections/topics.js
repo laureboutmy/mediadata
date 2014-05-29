@@ -13,13 +13,7 @@
         return TopicsCollection.__super__.constructor.apply(this, arguments);
       }
 
-      TopicsCollection.prototype.model = TopicModel;
-
       TopicsCollection.prototype.url = 'http://localhost/mediadata/api/search-example.json';
-
-      TopicsCollection.prototype.initialize = function() {
-        return console.log('ckeorie');
-      };
 
       return TopicsCollection;
 

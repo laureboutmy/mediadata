@@ -85,7 +85,7 @@
       };
 
       SearchbarView.prototype["delete"] = function(evt) {
-        console.log('ooo', evt.currentTarget);
+        console.log(Backbone.history.fragment);
         if (this.$el.hasClass('comparison')) {
           this.$el.removeClass('comparison');
           $(evt.currentTarget).parent().find('h1').html('Vous devez choisir une sujet');

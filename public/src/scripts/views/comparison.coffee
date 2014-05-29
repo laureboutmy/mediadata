@@ -17,9 +17,6 @@ define [
 		initialize: (options) -> 
 			md.Collections[options.name1] = new PersonsCollection(options.name1)
 			md.Collections[options.name2] = new PersonsCollection(options.name2)
-
-			# console.log(@collection)
-			console.log(options)
 			@render(options)
 
 		initializeModules: () ->
@@ -27,7 +24,6 @@ define [
 			@renderModules()
 
 		render: (options) ->
-			console.log('render perosn')
 			_this = @
 			_this.collection = {}
 			md.Collections[options.name1].fetch

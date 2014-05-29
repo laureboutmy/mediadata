@@ -6,11 +6,10 @@ define [
 	'../collections/persons'
 	'../models/person'
 	'../views/home'
-	'../views/explorer'
 	'../views/person'
 	# '../views/search-bar'
 	'../views/comparison'
-], ($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, ExplorerView, PersonView, ComparisonView) ->
+], ($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView) ->
 	'use strict'
 	class Router extends Backbone.Router
 		routes:

@@ -15,28 +15,26 @@ define [
 		template: _.template(tplPerson)
 
 		initialize: (options) -> 
-			console.log(options)
 			md.Collections[options.name1] = new PersonsCollection(options.name1)
-			# console.log(@collection)
 			@render(options)
 
-		initializeModules: () ->
+		initializeModules: (data) ->
 			@top5 = new Top5View()
-			@renderModules()
+			@renderModules(data)
 
 		render: (options) ->
 			console.log('render person')
 			_this = @
 			md.Collections[options.name1].fetch
-				success: () ->
+				success: (data) ->
 					_this.$el.html(_this.template(md.Collections[options.name1].models[0].attributes))
-					_this.initializeModules()
+					_this.initializeModules(md.Collections[options.name1].models[0].attributes)
 					return _this
 				error: (error) ->
 					console.log('yoyo', error)
 			
-		renderModules: () ->
-			@top5.render()
+		renderModules: (data) ->
+			@top5.render({popularChannels: data.popularChannels, popularShows: data.popularShows})
 
 		
 		

@@ -13,13 +13,10 @@
         return PersonsCollection.__super__.constructor.apply(this, arguments);
       }
 
-      PersonsCollection.prototype.model = PersonModel;
-
       PersonsCollection.prototype.url = 'http://37.187.178.169/mediadata/API.php?slug=';
 
       PersonsCollection.prototype.initialize = function(name) {
-        this.url = this.url + name;
-        return console.log(this.url);
+        return this.url = this.url + name;
       };
 
       return PersonsCollection;

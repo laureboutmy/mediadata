@@ -56,7 +56,7 @@ define [
 			@$el.addClass('comparison').find('section.person:not(.visible)').addClass('visible').find('form.search').addClass('visible').find('input').focus()
 
 		delete: (evt) ->
-			console.log('ooo', evt.currentTarget)
+			console.log(Backbone.history.fragment)
 			if @$el.hasClass('comparison') 
 				@$el.removeClass('comparison')
 				$(evt.currentTarget).parent().find('h1').html('Vous devez choisir une sujet')

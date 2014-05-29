@@ -6,117 +6,31 @@
 </nav>
 <section id="shows" class="visible">
   <ol>
+    <% _.each(popularShows, function(show){ %>
     <li>
       <img src="images/show--grand-journal.jpg" />
       <span class="total"></span>
-      <h3>Le Petit Journal</h3>
-      <span class="value">50</span>
+      <h3><%= show.showName %></h3>
+      <span class="value"><%= show.showCount %></span>
       <div class="gauge">
-        <span data-appearances="50"></span>
+        <span data-appearances="<%= show.showCount %>"></span>
       </div>
     </li>
-    <li>
-      <img src="images/show--grand-journal.jpg" />
-      <span class="total"></span>
-      <h3>Le Petit Journal</h3>
-      <span class="value">50</span>
-      <div class="gauge">
-        <span data-appearances="50"></span>
-      </div>
-    </li>
-    <li>
-      <img src="images/show--grand-journal.jpg" />
-      <span class="total"></span>
-      <h3>Le Petit Journal</h3>
-      <span class="value">50</span>
-      <div class="gauge">
-        <span data-appearances="50"></span>
-      </div>
-    </li>
-    <li>
-      <img src="images/show--grand-journal.jpg" />
-      <span class="total"></span>
-      <h3>Le Petit Journal</h3>
-      <span class="value">50</span>
-      <div class="gauge">
-        <span data-appearances="50"></span>
-      </div>
-    </li>
-    <li>
-      <img src="images/show--grand-journal.jpg" />
-      <span class="total"></span>
-      <h3>Le Petit Journal</h3>
-      <span class="value">50</span>
-      <div class="gauge">
-        <span data-appearances="50"></span>
-      </div>
-    </li>
-    <li>
-      <img src="images/show--grand-journal.jpg" />
-      <span class="total"></span>
-      <h3>Le Petit Journal</h3>
-      <span class="value">50</span>
-      <div class="gauge">
-        <span data-appearances="50"></span>
-      </div>
-    </li>
+    <% }) %>
   </ol>
 </section>
 <section id="channels">
   <ol>
+    <% _.each(popularChannels, function(channel){ %>
     <li>
       <img src="images/show--grand-journal.jpg" />
       <span class="total"></span>
-      <h3>Le Petit Journal</h3>
-      <span class="value">50</span>
+      <h3><%= channel.channelName %></h3>
+      <span class="value"><%= channel.channelCount %></span>
       <div class="gauge">
-        <span data-appearances="50"></span>
+        <span data-appearances="<%= channel.channelCount %>"></span>
       </div>
     </li>
-    <li>
-      <img src="images/show--grand-journal.jpg" />
-      <span class="total"></span>
-      <h3>Le Petit Journal</h3>
-      <span class="value">50</span>
-      <div class="gauge">
-        <span data-appearances="50"></span>
-      </div>
-    </li>
-    <li>
-      <img src="images/show--grand-journal.jpg" />
-      <span class="total"></span>
-      <h3>Le Petit Journal</h3>
-      <span class="value">50</span>
-      <div class="gauge">
-        <span data-appearances="50"></span>
-      </div>
-    </li>
-    <li>
-      <img src="images/show--grand-journal.jpg" />
-      <span class="total"></span>
-      <h3>Le Petit Journal</h3>
-      <span class="value">50</span>
-      <div class="gauge">
-        <span data-appearances="50"></span>
-      </div>
-    </li>
-    <li>
-      <img src="images/show--grand-journal.jpg" />
-      <span class="total"></span>
-      <h3>Le Petit Journal</h3>
-      <span class="value">50</span>
-      <div class="gauge">
-        <span data-appearances="50"></span>
-      </div>
-    </li>
-    <li>
-      <img src="images/show--grand-journal.jpg" />
-      <span class="total"></span>
-      <h3>Le Petit Journal</h3>
-      <span class="value">50</span>
-      <div class="gauge">
-        <span data-appearances="50"></span>
-      </div>
-    </li>
+    <% }) %>
   </ol>
 </section>

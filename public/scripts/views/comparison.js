@@ -22,7 +22,6 @@
       ComparisonView.prototype.initialize = function(options) {
         md.Collections[options.name1] = new PersonsCollection(options.name1);
         md.Collections[options.name2] = new PersonsCollection(options.name2);
-        console.log(options);
         return this.render(options);
       };
 
@@ -33,7 +32,6 @@
 
       ComparisonView.prototype.render = function(options) {
         var _this;
-        console.log('render perosn');
         _this = this;
         _this.collection = {};
         return md.Collections[options.name1].fetch({
