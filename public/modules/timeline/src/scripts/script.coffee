@@ -1,7 +1,7 @@
-### Setup ###
+### Var / Functions ###
 
 # Store person names (slugs)
-person1 = 'segolene-royal'
+person1 = 'anne-hidalgo'
 person2 = 'christiane-taubira'
 
 # Store minimum/maximum X/Y values from each dataset
@@ -48,12 +48,14 @@ yAxis = d3.svg.axis()
 
 # Set up area element
 area = d3.svg.area()
+  .interpolate 'cardinal' 
   .x (d) -> return x d.mentionDate
   .y0 height
   .y1 (d) -> return y d.mentionCount
 
 # Set up path element
 valueline = d3.svg.line()
+  .interpolate 'cardinal'
   .x (d) -> return x d.mentionDate
   .y (d) -> return y d.mentionCount
 
@@ -67,24 +69,77 @@ yGrid = () ->
 ### Make the chart ###
 chart = 
   # Find min/max values in dataset
-  findMinMaxValues: (person) ->
-    d3.json 'person-' + person + '.json', (error, data) ->
-      for d,i in data.person.timelineMentions
+  drawChart: (person1, person2) ->
+    d3.json 'person-' + person1 + '.json', (error, data) ->
+      for d,i in data.timelineMentions
         d.index = i
         d.mentionDate = parseDate d.mentionDate
         d.mentionCount = +d.mentionCount
 
-      minXValues.push d3.min data.person.timelineMentions, (d) -> return d.mentionDate
-      maxXValues.push d3.max data.person.timelineMentions, (d) -> return d.mentionDate
-      minYValues.push d3.min data.person.timelineMentions, (d) -> return d.mentionCount
-      maxYValues.push d3.max data.person.timelineMentions, (d) -> return d.mentionCount
+      console.log data.timelineMentions
 
-    console.log person + ' loaded!'
+      minXValues.push d3.min data.timelineMentions, (d) -> return d.mentionDate
+      maxXValues.push d3.max data.timelineMentions, (d) -> return d.mentionDate
+      minYValues.push d3.min data.timelineMentions, (d) -> return d.mentionCount
+      maxYValues.push d3.max data.timelineMentions, (d) -> return d.mentionCount
+
+      console.log minXValues
+      console.log maxXValues
+      console.log minYValues
+      console.log maxYValues
+
+      if person2
+        d3.json 'person-' + person2 + '.json', (error, data) ->
+          for d,i in data.timelineMentions
+            d.index = i
+            d.mentionDate = parseDate d.mentionDate
+            d.mentionCount = +d.mentionCount
+
+          minXValues.push d3.min data.timelineMentions, (d) -> return d.mentionDate
+          maxXValues.push d3.max data.timelineMentions, (d) -> return d.mentionDate
+          minYValues.push d3.min data.timelineMentions, (d) -> return d.mentionCount
+          maxYValues.push d3.max data.timelineMentions, (d) -> return d.mentionCount
+
+          minXValue = d3.min minXValues
+          maxXValue = d3.max maxXValues
+          minMaxX.push minXValue, maxXValue
+          minYValue = d3.max minYValues
+          maxYValue = d3.max maxYValues
+          minMaxY.push minYValue, maxYValue
+
+          console.log minMaxX
+          console.log minMaxY
+
+          # Generate X/Y axes
+          x.domain minMaxX
+          y.domain minMaxY
+
+          # Append everything
+          chart.appendChart person1, 1
+          chart.appendChart person2, 2
+
+      else
+        minXValue = d3.min minXValues
+        maxXValue = d3.max maxXValues
+        minMaxX.push minXValue, maxXValue
+        minYValue = d3.max minYValues
+        maxYValue = d3.max maxYValues
+        minMaxY.push minYValue, maxYValue
+
+        console.log minMaxX
+        console.log minMaxY
+
+        # Generate X/Y axes
+        x.domain minMaxX
+        y.domain minMaxY
+
+        # Append everything
+        chart.appendChart person1, 1
 
   # Append chart elements from dataset
   appendChart: (person, datasetnumber) ->
     d3.json 'person-' + person + '.json', (error, data) ->
-      for d,i in data.person.timelineMentions
+      for d,i in data.timelineMentions
         d.index = i
         d.mentionDate = parseDate d.mentionDate
         d.mentionCount = +d.mentionCount
@@ -100,17 +155,17 @@ chart =
       # Draw main path
       svg.append 'path'
         .attr 'class', 'line' + datasetnumber
-        .attr 'd', valueline data.person.timelineMentions
+        .attr 'd', valueline data.timelineMentions
 
       # Draw area
       svg.append 'path'
-        .datum data.person.timelineMentions
+        .datum data.timelineMentions
         .attr 'class', 'area' + datasetnumber
         .attr 'd', area
 
       # Draw dots
       svg.selectAll 'circle' + datasetnumber
-        .data data.person.timelineMentions
+        .data data.timelineMentions
         .enter()
         .append 'circle'
           .attr 'class', 'circle' + datasetnumber
@@ -135,46 +190,10 @@ chart =
           .style 'text-anchor', 'end'
       console.log person + ' drawn!'
 
-  # Draw the chart / draw X/Y axes
-  drawChart: (person1, person2) ->
-    d3.json 'person-' + person1 + '.json', (error, data) ->
-      for d,i in data.person.timelineMentions
-        d.index = i
-        d.mentionDate = parseDate d.mentionDate
-        d.mentionCount = +d.mentionCount
-
-      minXValue = d3.min minXValues
-      maxXValue = d3.max maxXValues
-      minMaxX.push minXValue, maxXValue
-      minYValue = d3.max minYValues
-      maxYValue = d3.max maxYValues
-      minMaxY.push minYValue, maxYValue
-
-      # console.log minMaxX
-      # console.log minMaxY
-
-      # Generate X/Y axes
-      x.domain minMaxX
-      y.domain minMaxY
-
-      # Append everything
-      chart.appendChart person1, 1
-      if person2
-        chart.appendChart person2, 2
-
   # Make the chart
   exec: () ->
-    if person2
-      chart.findMinMaxValues person2
-      chart.findMinMaxValues person1
-      chart.drawChart person1, person2
-    else
-      chart.findMinMaxValues person1
-      chart.drawChart person1
+    chart.drawChart person1, person2
 
-# Don't make the chart before json is loaded
-### sloppy ? ###
-queue()
-  .defer d3.json, 'person-' + person1 + '.json'
-  .defer d3.json, 'person-' + person2 + '.json'
-  .await chart.exec()
+chart.exec()
+
+# Afficher valeur maximale sur trois mois
