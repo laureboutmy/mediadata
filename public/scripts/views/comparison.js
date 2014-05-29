@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', '../collections/persons', '../models/person', 'text!templates/comparison.html', '../views/modules/top-5'], function($, _, Backbone, PersonsCollection, PersonModel, tplComparison, Top5View) {
+  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', 'text!templates/comparison.html', '../views/modules/top-5'], function($, _, Backbone, md, PersonsCollection, PersonModel, tplComparison, Top5View) {
     'use strict';
     var ComparisonView;
     return ComparisonView = (function(_super) {
@@ -20,8 +20,10 @@
       ComparisonView.prototype.template = _.template(tplComparison);
 
       ComparisonView.prototype.initialize = function(options) {
+        md.Collections[options.name1] = new PersonsCollection(options.name1);
+        md.Collections[options.name2] = new PersonsCollection(options.name2);
         console.log(options);
-        return this.render();
+        return this.render(options);
       };
 
       ComparisonView.prototype.initializeModules = function() {
@@ -29,14 +31,22 @@
         return this.renderModules();
       };
 
-      ComparisonView.prototype.render = function() {
+      ComparisonView.prototype.render = function(options) {
         var _this;
         console.log('render perosn');
         _this = this;
-        return this.collection.fetch({
+        _this.collection = {};
+        return md.Collections[options.name1].fetch({
           success: function() {
-            _this.$el.html(_this.template(_this.collection.models[0].attributes));
-            _this.initializeModules();
+            _this.collection.person1 = md.Collections[options.name1].models[0].attributes;
+            md.Collections[options.name2].fetch({
+              success: function() {
+                _this.collection.person2 = md.Collections[options.name2].models[0].attributes;
+                console.log(_this.collection);
+                _this.$el.html(_this.template(_this.collection));
+                return _this.initializeModules();
+              }
+            });
             return _this;
           }
         });

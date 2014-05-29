@@ -17,9 +17,9 @@
 
       PersonsCollection.prototype.url = 'http://37.187.178.169/mediadata/API.php?slug=';
 
-      PersonsCollection.prototype.initialize = function(options) {
-        console.log('yoooo', options);
-        return this.url = this.url + options.name;
+      PersonsCollection.prototype.initialize = function(name) {
+        this.url = this.url + name;
+        return console.log(this.url);
       };
 
       return PersonsCollection;

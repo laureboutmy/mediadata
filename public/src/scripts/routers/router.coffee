@@ -19,7 +19,7 @@ define [
 			':person/:otherPerson': 'getComparison'
 
 		initialize: () ->
-			# @onResize()
+			@onResize()
 			# @bind()
 
 		compare: (person, otherPerson) ->
@@ -42,16 +42,15 @@ define [
 
 		getPerson: (name) ->
 			@getSearchbar(name)
-			md.Views['person'] = new PersonView({name: name})
+			md.Views['person'] = new PersonView({name1: name})
 
 		getComparison: (name1, name2) ->
 			@getSearchbar(name1, name2)
 			md.Views['person'] = new ComparisonView({name1: name1, name2: name2})
 
-		# onResize: () ->
-
-			# $('#main').width($(window).width() - 250)
-			# $('#search-bar').width($(window).width() - 250)
+		onResize: () ->
+			$('#main').width($(window).width() - 80)
+			$('#search-bar').width($(window).width() - 80)
 			# document.getElementById('search-bar').style.width = window.innerWidth - 250 + 'px';
 
 		# render: (view, name) ->

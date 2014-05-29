@@ -19,7 +19,9 @@
         ':person/:otherPerson': 'getComparison'
       };
 
-      Router.prototype.initialize = function() {};
+      Router.prototype.initialize = function() {
+        return this.onResize();
+      };
 
       Router.prototype.compare = function(person, otherPerson) {
         return console.log(person, otherPerson);
@@ -53,7 +55,7 @@
       Router.prototype.getPerson = function(name) {
         this.getSearchbar(name);
         return md.Views['person'] = new PersonView({
-          name: name
+          name1: name
         });
       };
 
@@ -63,6 +65,11 @@
           name1: name1,
           name2: name2
         });
+      };
+
+      Router.prototype.onResize = function() {
+        $('#main').width($(window).width() - 80);
+        return $('#search-bar').width($(window).width() - 80);
       };
 
       return Router;

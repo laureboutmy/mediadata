@@ -1,16 +1,16 @@
-<article class="person">
+<article class="comparison">
   <header class="header">
     <div class="grid">
       <div class="unit">
         <div class="sm-unit">
-      	  <h1 class="name"><%= person.firstName + ' ' + person.lastName %></h1>
-      		<p class="desc"><%= person.description %><%= person.description %></p>
+      	  <h1 class="name"><%= person1.person.firstName + ' ' + person1.person.lastName %></h1>
+      		<p class="desc"><%= person1.person.description %><%= person1.person.description %></p>
 
-      		<% if(person.tags) { %>
+      		<% if(person1.person.tags) { %>
       		<ul class="tags">
             <li><i class="icon-label"></i></li>
-      			<% _.each(person.tags, function(tag, i){ %>
-              <% if(person.tags.length - 1 == i){ %>
+      			<% _.each(person1.person.tags, function(tag, i){ %>
+              <% if(person1.person.tags.length - 1 == i){ %>
               <li><%= tag.tagName %></li>
               <% } else { %>
               <li><%= tag.tagName %>, </li>
@@ -21,14 +21,14 @@
       </div><!-- div.unit -->
       <div class="unit">
         <div class="sm-unit">
-          <h1 class="name"><%= person.firstName + ' ' + person.lastName %></h1>
-          <p class="desc"><%= person.description %><%= person.description %></p>
+          <h1 class="name"><%= person2.person.firstName + ' ' + person2.person.lastName %></h1>
+          <p class="desc"><%= person2.person.description %><%= person2.person.description %></p>
 
-          <% if(person.tags) { %>
+          <% if(person2.person.tags) { %>
           <ul class="tags">
             <li><i class="icon-label"></i></li>
-            <% _.each(person.tags, function(tag, i){ %>
-              <% if(person.tags.length - 1 == i){ %>
+            <% _.each(person2.person.tags, function(tag, i){ %>
+              <% if(person2.person.tags.length - 1 == i){ %>
               <li><%= tag.tagName %></li>
               <% } else { %>
               <li><%= tag.tagName %>, </li>

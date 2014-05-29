@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', '../collections/persons', '../models/person', 'text!templates/person.html', '../views/modules/top-5'], function($, _, Backbone, PersonsCollection, PersonModel, tplPerson, Top5View) {
+  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', 'text!templates/person.html', '../views/modules/top-5'], function($, _, Backbone, md, PersonsCollection, PersonModel, tplPerson, Top5View) {
     'use strict';
     var PersonView;
     return PersonView = (function(_super) {
@@ -20,8 +20,9 @@
       PersonView.prototype.template = _.template(tplPerson);
 
       PersonView.prototype.initialize = function(options) {
-        this.collection = new PersonsCollection(options);
-        return this.render();
+        console.log(options);
+        md.Collections[options.name1] = new PersonsCollection(options.name1);
+        return this.render(options);
       };
 
       PersonView.prototype.initializeModules = function() {
@@ -29,15 +30,18 @@
         return this.renderModules();
       };
 
-      PersonView.prototype.render = function() {
+      PersonView.prototype.render = function(options) {
         var _this;
-        console.log('render perosn');
+        console.log('render person');
         _this = this;
-        return this.collection.fetch({
+        return md.Collections[options.name1].fetch({
           success: function() {
-            _this.$el.html(_this.template(_this.collection.models[0].attributes));
+            _this.$el.html(_this.template(md.Collections[options.name1].models[0].attributes));
             _this.initializeModules();
             return _this;
+          },
+          error: function(error) {
+            return console.log('yoyo', error);
           }
         });
       };

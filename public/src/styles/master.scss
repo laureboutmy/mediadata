@@ -54,9 +54,8 @@ button, input, textarea { font: 100% $font-stack; outline: none; }
 
 /* @group Sidebar */
 section#sidebar {
-	display: none;
 	position: fixed;
-	width: 250px;
+	width: 80px;
 	height: 100%;
 	background: #1b1f22; }
 /* @end of Sidebar */
@@ -64,6 +63,7 @@ section#sidebar {
 /* @group Search-bar */
 header#search-bar {
 	position: fixed;
+	left: 80px;
 	min-width: 1020px;
 	border: 1px solid transparent;
 	// top: 0; left: 250px;
@@ -293,9 +293,10 @@ header#search-bar {
 
 section#main {
 	width: 100%;
+	left: 80px;
 	position: relative;
 	// left: 250px; top: 0;
-	article.person {
+	article {
 		padding-top: 54px;
 
 		header.header {
@@ -413,14 +414,14 @@ section.module {
 				li {
 					display: block; 
 					position: relative;
-					padding: em(12px) em(34px);
+					padding: em(12px) em(30px);
 					overflow: hidden;
 					border-bottom: 1px solid #d9d9d9;
 					&:last-child { border-bottom: 0; }
 					&:before {
 						position: absolute;
 						display: block;
-						width: em(30px);
+						width: em(30px, 20px);
 						text-align: center;
 						left: 0; top: 50%;
 	  				-webkit-transform: translateY(-50%);
@@ -432,7 +433,7 @@ section.module {
 						counter-increment: li-counter;
 						color: #cccccc; }
 
-					img { float: left; margin-right: em(14px); }
+					img { float: left; margin-right: em(12px); }
 					h3 {
 						margin-top: em(6px, 15px);
 						font-size: em(15px);
@@ -453,16 +454,14 @@ section.module {
 						float: right; }
 					div.gauge {
 						position: absolute;
-						right: em(34px); top: em(38px);
+						right: em(30px); top: em(38px);
 						margin: 10px 0;
-						width: 300px;
-						height: 9px;
+						width: 300px; height: 9px;
 						border-radius: 20px;
 						background-color: #f5f5f5; 
 						span {
 							display: block;
-							height: 100%;
-							width: 0;
+							height: 100%; width: 0;
 							position: relative;
 							background-color: #29b988;
 							border-radius: 20px;
