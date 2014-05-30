@@ -50,6 +50,8 @@ define [
 		onResize: () ->
 			$('#main').width($(window).width() - 80)
 			$('#search-bar').width($(window).width() - 80)
+			$('#loader').width($(window).width() - 80)
+
 			# document.getElementById('search-bar').style.width = window.innerWidth - 250 + 'px';
 
 		# render: (view, name) ->

@@ -59,6 +59,31 @@ section#sidebar {
 	height: 100%;
 	background: #1b1f22; }
 /* @end of Sidebar */
+/* @group  Loader */
+section#loader {
+	z-index: 500;
+	position: absolute;
+	width: 100%; height: 3px;
+	left: -1px; top: -1px;
+	div.loader { 
+		float: left; 
+		width: 50%; height: 3px;
+
+		&.topic1 {
+			background: #29b988;
+			box-shadow: 0 1px 3px rgba(41, 185, 136, 0.35);
+		}
+		&.topic2 {
+			background: #2781bb;
+			box-shadow: 0 1px 3px rgba(39, 129, 187, 0.35);
+		}
+	}
+	
+}
+
+/* @end of Loader */
+
+
 
 /* @group Search-bar */
 header#search-bar {

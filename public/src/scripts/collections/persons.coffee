@@ -10,3 +10,7 @@ define [
 		url: 'http://37.187.178.169/mediadata/API.php?slug='
 		initialize: (name) ->
 			@url = @url + name
+
+		# fetch: (options) ->
+		# 	@trigger('fetchStart', @, options)
+		# 	return Backbone.Collection.prototype.fetch.call(@, options)

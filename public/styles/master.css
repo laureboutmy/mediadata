@@ -415,6 +415,13 @@ button, input, textarea { font: 100% "Source Sans Pro", sans-serif; outline: non
 section#sidebar { position: fixed; width: 80px; height: 100%; background: #1b1f22; }
 
 /* @end of Sidebar */
+/* @group  Loader */
+section#loader { z-index: 500; position: absolute; width: 100%; height: 3px; left: -1px; top: -1px; }
+section#loader div.loader { float: left; width: 50%; height: 3px; }
+section#loader div.loader.topic1 { background: #29b988; box-shadow: 0 1px 3px rgba(41, 185, 136, 0.35); }
+section#loader div.loader.topic2 { background: #2781bb; box-shadow: 0 1px 3px rgba(39, 129, 187, 0.35); }
+
+/* @end of Loader */
 /* @group Search-bar */
 header#search-bar { position: fixed; left: 80px; min-width: 1020px; border: 1px solid transparent; background: #fff; width: 100%; height: 54px; z-index: 100; box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2); /* h1.person */ }
 header#search-bar .grid { overflow: visible; }
