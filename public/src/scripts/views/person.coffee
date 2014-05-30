@@ -19,6 +19,9 @@ define [
 			md.Collections[options.name1] = new PersonsCollection(options.name1)
 			@render(options)
 
+		machin: (options) ->
+			console.log('fetching', options)
+
 		initializeModules: (data) ->
 			@top5 = new Top5View()
 			@timeline = new TimelineView()
@@ -26,6 +29,7 @@ define [
 
 		render: (options) ->
 			_this = @
+			
 			md.Collections[options.name1].fetch
 				success: (data) ->
 					console.log(data)

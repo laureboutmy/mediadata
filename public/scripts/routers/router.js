@@ -69,7 +69,8 @@
 
       Router.prototype.onResize = function() {
         $('#main').width($(window).width() - 80);
-        return $('#search-bar').width($(window).width() - 80);
+        $('#search-bar').width($(window).width() - 80);
+        return $('#loader').width($(window).width() - 80);
       };
 
       return Router;

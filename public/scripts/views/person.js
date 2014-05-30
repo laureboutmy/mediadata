@@ -24,6 +24,10 @@
         return this.render(options);
       };
 
+      PersonView.prototype.machin = function(options) {
+        return console.log('fetching', options);
+      };
+
       PersonView.prototype.initializeModules = function(data) {
         this.top5 = new Top5View();
         this.timeline = new TimelineView();
