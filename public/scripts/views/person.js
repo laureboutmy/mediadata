@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', 'text!templates/person.html', '../views/modules/top-5'], function($, _, Backbone, md, PersonsCollection, PersonModel, tplPerson, Top5View) {
+  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', 'text!templates/person.html', '../views/modules/top-5', '../views/modules/timeline'], function($, _, Backbone, md, PersonsCollection, PersonModel, tplPerson, Top5View, TimelineView) {
     'use strict';
     var PersonView;
     return PersonView = (function(_super) {
@@ -26,15 +26,16 @@
 
       PersonView.prototype.initializeModules = function(data) {
         this.top5 = new Top5View();
+        this.timeline = new TimelineView();
         return this.renderModules(data);
       };
 
       PersonView.prototype.render = function(options) {
         var _this;
-        console.log('render person');
         _this = this;
         return md.Collections[options.name1].fetch({
           success: function(data) {
+            console.log(data);
             _this.$el.html(_this.template(md.Collections[options.name1].models[0].attributes));
             _this.initializeModules(md.Collections[options.name1].models[0].attributes);
             return _this;
@@ -43,9 +44,16 @@
       };
 
       PersonView.prototype.renderModules = function(data) {
-        return this.top5.render({
+        console.log(data);
+        this.top5.render({
           popularChannels: data.popularChannels,
           popularShows: data.popularShows
+        });
+        return this.timeline.render({
+          person1: {
+            name: data.person.name,
+            timelineMentions: data.timelineMentions
+          }
         });
       };
 

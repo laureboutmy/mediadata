@@ -384,9 +384,29 @@ section#main {
 
 /* @group of Modules */
 section.module {
-	width: 480px;
+	width: 100%;
 	margin: 0;
 	@include box-sizing(border-box);
+	&.timeline {
+		border: 1px solid #d9d9d9;
+		border-radius: 5px;
+		overflow: hidden;
+
+		h3 {
+			margin: 35px 30px;
+			color: #29b988;
+			font-size: em(15px);
+			font-weight: 700;
+			span {
+				display: block;
+				color: #1c1f21;
+				font-size: em(20px, 15px);
+				font-family: $font-stack-serif;
+			}
+		}
+
+	}
+
 
 	&.top-5 {
 		border: 1px solid #d9d9d9;

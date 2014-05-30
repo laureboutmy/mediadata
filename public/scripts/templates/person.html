@@ -4,21 +4,32 @@
   	  <h1 class="name"><%= person.firstName + ' ' + person.lastName %></h1>
   		<p class="desc"><%= person.description %><%= person.description %></p>
 
-  		<% if(person.tags) { %>
+  		<% if(person.tag1) { %>
   		<ul class="tags">
         <li><i class="icon-label"></i></li>
-  			<% _.each(person.tags, function(tag, i){ %>
-          <% if(person.tags.length - 1 == i){ %>
-          <li><%= tag.tagName %></li>
-          <% } else { %>
-          <li><%= tag.tagName %>, </li>
-          <% }}) %>
+        <li><%= person.tag1 %>, </li>
+        <% if(person.tag2){ %>
+        <li><%= person.tag2 %>, </li>
+        <% } %>
+        <% if(person.tag3){ %>
+        <li><%= person.tag3 %>, </li>
+        <% } %>
+        <% if(person.tag4){ %>
+        <li><%= person.tag4 %>, </li>
+        <% } %>
+        <% if(person.tag5){ %>
+        <li><%= person.tag5 %></li>
+        <% } %>
   		</ul>
   		<% } %>
     </div>
   </header><!-- header.header -->
   <div class="grid">
-    <section id="timeline">Timeline</section>
+    <section id="timeline">
+      <h2>Timeline graph</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+      <section class="module timeline"></section>
+    </section>
     <section id="programs">
       <h2>Apparences</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>

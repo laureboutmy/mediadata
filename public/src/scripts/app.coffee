@@ -11,6 +11,7 @@ require.config
     backbone: 'vendors/backbone.min'
     underscore: 'vendors/underscore.min'
     text: 'vendors/require-text'
+    d3: 'vendors/d3.min'
 
 define ['mediadata'], (md) ->
 	md.initialize()

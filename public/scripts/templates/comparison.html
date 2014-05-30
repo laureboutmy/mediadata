@@ -6,17 +6,24 @@
       	  <h1 class="name"><%= person1.person.firstName + ' ' + person1.person.lastName %></h1>
       		<p class="desc"><%= person1.person.description %><%= person1.person.description %></p>
 
-      		<% if(person1.person.tags) { %>
-      		<ul class="tags">
+      		<% if(person1.person.tag1) { %>
+          <ul class="tags">
             <li><i class="icon-label"></i></li>
-      			<% _.each(person1.person.tags, function(tag, i){ %>
-              <% if(person1.person.tags.length - 1 == i){ %>
-              <li><%= tag.tagName %></li>
-              <% } else { %>
-              <li><%= tag.tagName %>, </li>
-              <% }}) %>
-      		</ul>
-      		<% } %>
+            <li><%= person1.person.tag1 %>, </li>
+            <% if(person1.person.tag2){ %>
+            <li><%= person1.person.tag2 %>, </li>
+            <% } %>
+            <% if(person1.person.tag3){ %>
+            <li><%= person1.person.tag3 %>, </li>
+            <% } %>
+            <% if(person1.person.tag4){ %>
+            <li><%= person1.person.tag4 %>, </li>
+            <% } %>
+            <% if(person1.person.tag5){ %>
+            <li><%= person1.person.tag5 %></li>
+            <% } %>
+          </ul>
+          <% } %>
         </div>
       </div><!-- div.unit -->
       <div class="unit">
@@ -24,15 +31,22 @@
           <h1 class="name"><%= person2.person.firstName + ' ' + person2.person.lastName %></h1>
           <p class="desc"><%= person2.person.description %><%= person2.person.description %></p>
 
-          <% if(person2.person.tags) { %>
+          <% if(person2.person.tag1) { %>
           <ul class="tags">
             <li><i class="icon-label"></i></li>
-            <% _.each(person2.person.tags, function(tag, i){ %>
-              <% if(person2.person.tags.length - 1 == i){ %>
-              <li><%= tag.tagName %></li>
-              <% } else { %>
-              <li><%= tag.tagName %>, </li>
-              <% }}) %>
+            <li><%= person2.person.tag1 %>, </li>
+            <% if(person2.person.tag2){ %>
+            <li><%= person2.person.tag2 %>, </li>
+            <% } %>
+            <% if(person2.person.tag3){ %>
+            <li><%= person2.person.tag3 %>, </li>
+            <% } %>
+            <% if(person2.person.tag4){ %>
+            <li><%= person2.person.tag4 %>, </li>
+            <% } %>
+            <% if(person2.person.tag5){ %>
+            <li><%= person2.person.tag5 %></li>
+            <% } %>
           </ul>
           <% } %>
         </div>
@@ -40,7 +54,11 @@
     </div><!-- div.wrapper -->
   </header><!-- header.header -->
   <div class="grid">
-    <section id="timeline">Timeline</section>
+    <section id="timeline">
+      <h2>Timeline</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+      <section class="module timeline"></section>
+    </section>
     <section id="programs">
       <h2>Apparences</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>

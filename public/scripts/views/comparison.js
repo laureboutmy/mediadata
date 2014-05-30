@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', 'text!templates/comparison.html', '../views/modules/top-5'], function($, _, Backbone, md, PersonsCollection, PersonModel, tplComparison, Top5View) {
+  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', 'text!templates/comparison.html', '../views/modules/top-5', '../views/modules/timeline'], function($, _, Backbone, md, PersonsCollection, PersonModel, tplComparison, Top5View, TimelineView) {
     'use strict';
     var ComparisonView;
     return ComparisonView = (function(_super) {
@@ -26,13 +26,13 @@
       };
 
       ComparisonView.prototype.initializeModules = function(data) {
-        console.log(data);
         this.top51 = new Top5View({
           el: '.module.top-5.person1'
         });
         this.top52 = new Top5View({
           el: '.module.top-5.person2'
         });
+        this.timeline = new TimelineView();
         return this.renderModules(data);
       };
 
@@ -60,9 +60,19 @@
           popularChannels: data.person1.popularChannels,
           popularShows: data.person1.popularShows
         });
-        return this.top52.render({
+        this.top52.render({
           popularChannels: data.person2.popularChannels,
           popularShows: data.person2.popularShows
+        });
+        return this.timeline.render({
+          person1: {
+            name: data.person1.person.name,
+            timelineMentions: data.person1.person.timelineMentions
+          },
+          person2: {
+            name: data.person2.person.name,
+            timelineMentions: data.person2.person.timelineMentions
+          }
         });
       };
 

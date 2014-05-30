@@ -15,7 +15,8 @@
       jquery: 'vendors/jquery-2.1.1.min',
       backbone: 'vendors/backbone.min',
       underscore: 'vendors/underscore.min',
-      text: 'vendors/require-text'
+      text: 'vendors/require-text',
+      d3: 'vendors/d3.min'
     }
   });
 

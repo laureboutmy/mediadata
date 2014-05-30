@@ -10,7 +10,6 @@ define [
 		template: _.template(tplTop5)
 
 		render: (data) ->
-			console.log(data)
 			@$el.html(@template(data))
 			@bind()
 			@fillGauges('shows')

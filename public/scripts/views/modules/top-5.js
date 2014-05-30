@@ -18,7 +18,6 @@
       Top5View.prototype.template = _.template(tplTop5);
 
       Top5View.prototype.render = function(data) {
-        console.log(data);
         this.$el.html(this.template(data));
         this.bind();
         this.fillGauges('shows');

@@ -7,7 +7,8 @@ define [
 	'../models/person'
 	'text!templates/comparison.html'
 	'../views/modules/top-5'
-], ($, _, Backbone, md, PersonsCollection, PersonModel, tplComparison, Top5View) ->
+	'../views/modules/timeline'
+], ($, _, Backbone, md, PersonsCollection, PersonModel, tplComparison, Top5View, TimelineView) ->
 	'use strict'
 	class ComparisonView extends Backbone.View
 		el: '#main'
@@ -20,9 +21,10 @@ define [
 			@render(options)
 
 		initializeModules: (data) ->
-			console.log(data)
+			# console.log(data)
 			@top51 = new Top5View({el: '.module.top-5.person1'})
 			@top52 = new Top5View({el: '.module.top-5.person2'})
+			@timeline = new TimelineView()
 			@renderModules(data)
 
 		render: (options) ->
@@ -41,7 +43,9 @@ define [
 		renderModules: (data) ->
 			@top51.render({ popularChannels: data.person1.popularChannels, popularShows: data.person1.popularShows })
 			@top52.render({ popularChannels: data.person2.popularChannels, popularShows: data.person2.popularShows })
-
-
+			@timeline.render({ 
+				person1: { name: data.person1.person.name, timelineMentions: data.person1.person.timelineMentions }
+				person2: { name: data.person2.person.name, timelineMentions: data.person2.person.timelineMentions }
+				})
 		
 		
