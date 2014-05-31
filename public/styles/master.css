@@ -2,7 +2,7 @@
 /* @group Master */
 /* @group Imports */
 /* http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 License: none (public domain) */
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic);
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
 
 /* HTML5 display-role reset for older browsers */
@@ -395,7 +395,7 @@ i, .icon { font-family: 'mfglabs-iconset'; font-style: normal; speak: none; font
 
 /* @end of Imports */
 /* @group General */
-body { font: 100% "Source Sans Pro", sans-serif; color: #333333; background: #ffffff; }
+body { font: 100% "Source Sans Pro", sans-serif; color: #333333; background: #ffffff; -webkit-font-smoothing: antialiased; }
 
 button { outline: none; cursor: pointer; border: 0; background: transparent; }
 
@@ -423,7 +423,8 @@ section#loader div.loader.topic2 { background: #2781bb; box-shadow: 0 1px 3px rg
 
 /* @end of Loader */
 /* @group Search-bar */
-header#search-bar { position: fixed; left: 80px; min-width: 1020px; border: 1px solid transparent; background: #fff; width: 100%; height: 54px; z-index: 100; box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2); /* h1.person */ }
+header#search-bar { position: fixed; left: 80px; min-width: 1020px; border: 1px solid transparent; background: #fff; width: 100%; height: 54px; z-index: 100; box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2); display: none; /* h1.person */ }
+header#search-bar.visible { display: block; }
 header#search-bar .grid { overflow: visible; }
 header#search-bar .grid section.unit { display: none; }
 header#search-bar .grid section.unit.visible { width: 80%; display: block; }
@@ -475,20 +476,45 @@ header#search-bar button.compare i { margin-right: 10px; font-size: 1.05263em; c
 
 /* header#search-bar */
 /* @end of Searchbar */
-section#main { width: 100%; left: 80px; position: relative; /* article */ }
-section#main article { padding-top: 54px; }
-section#main article header.header { background: #2c3e50; padding: 54px 0; }
-section#main article header.header .sm-unit { margin: 0 auto; width: 620px; }
-section#main article header.header h1.name { font-weight: 700; color: #fff; text-transform: uppercase; font-size: 1.0625em; line-height: 1.41176em; }
-section#main article header.header h1.name:first-letter { font-size: 5.29412em; float: left; line-height: 0.75em; padding: 0 10px 0 0; }
-section#main article header.header p.desc { font-weight: 300; font-size: 1.0625em; line-height: 1.41176em; color: #96b7d9; }
-section#main article header.header ul { margin-top: 40px; }
-section#main article header.header ul li { display: inline-block; color: #96b7d9; font-weight: 300; font-style: italic; font-size: 0.9375em; line-height: 1.6em; }
-section#main article header.header ul li:first-letter { text-transform: uppercase; }
-section#main article header.header ul li i { color: #fff; display: inline-block; font-style: normal; font-size: 1.13333em; margin-right: 5px; }
-section#main article section h2 { width: 420px; margin: 58px 30px 0 30px; font-weight: 700; color: #1c1f21; line-height: 1.6em; font-size: 1.5625em; }
-section#main article section h2 + p { width: 420px; margin: 0 30px 40px 30px; font-family: "chaparral-pro", serif; color: #6a7d90; font-size: 1.1875em; line-height: 1.57895em; }
+section#main { width: 100%; left: 80px; position: relative; /* article */ /* article.home */ }
+section#main article.person, section#main article.comparison { padding-top: 54px; }
+section#main article.person header.header, section#main article.comparison header.header { background: #2c3e50; padding: 54px 0; }
+section#main article.person header.header .sm-unit, section#main article.comparison header.header .sm-unit { margin: 0 auto; width: 620px; }
+section#main article.person header.header h1.name, section#main article.comparison header.header h1.name { font-weight: 700; color: #fff; text-transform: uppercase; font-size: 1.0625em; line-height: 1.41176em; }
+section#main article.person header.header h1.name:first-letter, section#main article.comparison header.header h1.name:first-letter { font-size: 5.29412em; float: left; line-height: 0.75em; padding: 0 10px 0 0; }
+section#main article.person header.header p.desc, section#main article.comparison header.header p.desc { font-weight: 300; font-size: 1.0625em; line-height: 1.41176em; color: #96b7d9; }
+section#main article.person header.header ul, section#main article.comparison header.header ul { margin-top: 40px; }
+section#main article.person header.header ul li, section#main article.comparison header.header ul li { display: inline-block; color: #96b7d9; font-weight: 300; font-style: italic; font-size: 0.9375em; line-height: 1.6em; }
+section#main article.person header.header ul li:first-letter, section#main article.comparison header.header ul li:first-letter { text-transform: uppercase; }
+section#main article.person header.header ul li i, section#main article.comparison header.header ul li i { color: #fff; display: inline-block; font-style: normal; font-size: 1.13333em; margin-right: 5px; }
+section#main article.person section h2, section#main article.comparison section h2 { width: 420px; margin: 58px 30px 0 30px; font-weight: 700; color: #1c1f21; line-height: 1.6em; font-size: 1.5625em; }
+section#main article.person section h2 + p, section#main article.comparison section h2 + p { width: 420px; margin: 0 30px 40px 30px; font-family: "chaparral-pro", serif; color: #6a7d90; font-size: 1.1875em; line-height: 1.57895em; }
+section#main article.home { padding: 0; /* header.introduction */ /* section.tutorial */ }
+section#main article.home h1 { color: #fff; font-size: 4.375em; font-weight: 700; margin-bottom: 10px; }
+section#main article.home h2 { color: #96b7d9; text-transform: uppercase; font-size: 0.9375em; line-height: 2.66667em; font-weight: 600; letter-spacing: 0.2em; }
+section#main article.home a.discover, section#main article.home a.launch { display: inline-block; font-size: 0.9375em; line-height: 3.33333em; text-transform: uppercase; padding: 0 40px; color: #fff; text-decoration: none; font-weight: 600; letter-spacing: 0.2em; border-radius: 25px; transition: background 0.3s ease-out; }
+section#main article.home a.discover { border: 1px solid #fff; margin-right: 15px; background: rgba(139, 170, 202, 0); }
+section#main article.home a.discover:hover { background: rgba(139, 170, 202, 0.35); }
+section#main article.home a.launch { border: 1px solid #39b188; background: #39b188; }
+section#main article.home a.launch:hover { border: 1px solid #38a080; background: #38a080; }
+section#main article.home header.introduction { height: 100vh; background: #33485d; }
+section#main article.home header.introduction div.grid { position: relative; top: 50%; padding: 0 30px; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%); }
+section#main article.home header.introduction p { width: 540px; font-size: 1.1875em; line-height: 1.57895em; font-family: "chaparral-pro", serif; color: #fff; margin-bottom: 40px; }
+section#main article.home header.introduction ul li { display: inline-block; }
+section#main article.home section.tutorial { padding: 130px 0; background: #fff; /* ul */ }
+section#main article.home section.tutorial div.explorer { margin-bottom: 130px; }
+section#main article.home section.tutorial div.library { text-align: right; }
+section#main article.home section.tutorial h3 { margin-top: 50px; color: #1c1f21; font-size: 1.5625em; line-height: 0.625em; font-weight: 700; margin-bottom: 10px; }
+section#main article.home section.tutorial h3 i { color: #39b188; font-size: 0.68em; line-height: 0.425em; margin-right: 5px; position: relative; top: -1px; }
+section#main article.home section.tutorial p { font-size: 1.1875em; line-height: 1.57895em; color: #6a7d90; font-family: "chaparral-pro", serif; }
+section#main article.home section.tutorial ul { margin-top: 50px; }
+section#main article.home section.tutorial ul li { display: inline-block; width: 40px; height: 40px; border: 1px solid #d9d9d9; border-radius: 3px; margin-right: 10px; text-align: center; font-size: 1.25em; line-height: 2em; color: #cccccc; font-weight: 700; transition: color 0.3s ease-out; }
+section#main article.home section.tutorial ul li:hover { cursor: pointer; color: #2781bb; }
+section#main article.home footer.start { text-align: center; background: #304356; padding-top: 80px; overflow: hidden; }
+section#main article.home footer.start p { color: white; font-size: 1.1875em; line-height: 1.57895em; font-family: "chaparral-pro", serif; width: 465px; margin: 0 auto 35px; }
+section#main article.home footer.start p.scroll { margin: 110px auto 35px; color: #96b7d9; font-style: italic; }
 
+/* section#main */
 section#main article.comparison header.header .sm-unit { margin: 0 auto; width: 100%; max-width: 448px; padding: 0 5%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
 /* section#main */

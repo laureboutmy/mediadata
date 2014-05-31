@@ -2,7 +2,7 @@
 /* @group Imports */
 @import 'reset';
 @import 'icons';
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic);
 
 /* @end of Imports */
 $base-font-size: 16px;
@@ -22,7 +22,8 @@ $black: #1b1f22;
 body {
 	font: 100% $font-stack;
 	color: $primary-color;
-	background: #ffffff; }
+	background: #ffffff; 
+	-webkit-font-smoothing: antialiased; }
 button { outline: none; cursor: pointer; border: 0; background: transparent; }
 button, input, textarea { font: 100% $font-stack; outline: none; }
 
@@ -96,7 +97,9 @@ header#search-bar {
 	width: 100%; height: 54px;
 	z-index: 100;
 	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+	display: none;
 
+	&.visible { display: block; }
 	.grid {
 		overflow: visible;
 		section.unit { 
@@ -328,7 +331,7 @@ section#main {
 	left: 80px;
 	position: relative;
 	// left: 250px; top: 0;
-	article {
+	article.person, article.comparison {
 		padding-top: 54px;
 
 		header.header {
@@ -397,7 +400,136 @@ section#main {
 			}
 		}
 	} /* article */
-} 
+
+	article.home {
+		padding: 0;
+		h1 {
+			color: #fff;
+			font-size: em(70px);
+			font-weight: 700;
+			margin-bottom: 10px; }
+		h2 {
+			color: #96b7d9;
+			text-transform: uppercase;
+			font-size: em(15px);
+			line-height: em(40px, 15px);
+			font-weight: 600;
+			letter-spacing: 0.2em; } 
+
+		a.discover, a.launch {
+			display: inline-block; font-size: em(15px);
+			line-height: em(50px, 15px);
+			text-transform: uppercase;
+			padding: 0 40px;
+			color: #fff; text-decoration: none;
+			font-weight: 600;
+			letter-spacing: 0.2em;
+			border-radius: 25px;
+			transition: background 0.3s ease-out;
+		}
+
+		a.discover { 
+			border: 1px solid #fff; margin-right: 15px; 
+			background: rgba(139, 170, 202, 0);
+			&:hover { background: rgba(139, 170, 202, 0.35); }
+		}
+
+		a.launch { border: 1px solid #39b188; background: #39b188;
+			&:hover {  border: 1px solid #38a080; background: #38a080; }
+		}
+
+		header.introduction {
+			height: 100vh;
+			background: #33485d;
+			div.grid {
+				position: relative;
+				top: 50%;
+				padding: 0 30px;
+				-webkit-transform: translateY(-50%);
+						-ms-transform: translateY(-50%);
+								transform: translateY(-50%); }
+			p {
+				width: 540px;
+				font-size: em(19px);
+				line-height: em(30px, 19px);
+				font-family: $font-stack-serif;
+				color: #fff;
+				margin-bottom: 40px; }
+
+			ul li { display: inline-block; }	
+		} /* header.introduction */
+
+		section.tutorial {
+			padding: 130px 0;
+			background: #fff;
+			div.explorer { margin-bottom: 130px; }
+			div.library { text-align: right; }
+			h3 {
+				i {
+					color: #39b188;
+					font-size: em(17px, 25px);
+					line-height: em(17px, 40px);
+					margin-right: 5px;
+					position: relative;
+					top: -1px;
+				}
+				margin-top: 50px;
+				color: #1c1f21;
+				font-size: em(25px);
+				line-height: em(25px, 40px);
+				font-weight: 700;
+				margin-bottom: 10px;
+			}
+			p {
+				font-size: em(19px);
+				line-height: em(30px, 19px);
+				color: #6a7d90;
+				font-family: $font-stack-serif;
+			}
+			ul {
+				margin-top: 50px;
+				li {
+					display: inline-block;
+					width: 40px; height: 40px;
+					border: 1px solid #d9d9d9;
+					border-radius: 3px;
+					margin-right: 10px;
+					text-align: center;
+					font-size: em(20px);
+					line-height: em(40px, 20px);
+					color: #cccccc;
+					font-weight: 700;
+					transition: color 0.3s ease-out;
+					&:hover {
+						cursor: pointer;
+						color: #2781bb;
+					}
+				}
+			} /* ul */
+		} /* section.tutorial */
+		footer.start {
+			text-align: center;
+			background: #304356;
+			padding-top: 80px;
+			overflow: hidden;
+			p {
+				color: white;
+				font-size: em(19px);
+				line-height: em(30px, 19px);
+				font-family: $font-stack-serif;
+				width: 465px;
+				margin: 0 auto 35px;
+
+				&.scroll {
+					margin: 110px auto 35px;
+					color: #96b7d9;
+					font-style: italic;
+				}
+			}
+
+		}
+	} /* article.home */
+} /* section#main */
 
 section#main {
 	article.comparison {

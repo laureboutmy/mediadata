@@ -46,7 +46,8 @@
                 name1: name1,
                 name2: name2
               });
-              return md.Views['search-bar'].onResize();
+              md.Views['search-bar'].onResize();
+              return $(md.Views['search-bar'].el).addClass('visible');
             };
           })(this));
         }

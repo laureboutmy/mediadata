@@ -38,6 +38,7 @@ define [
 					md.Views['search-bar'] = new SearchbarView({name1: name1, name2: name2})
 					# md.Views['search-bar'].render()
 					md.Views['search-bar'].onResize()
+					$(md.Views['search-bar'].el).addClass('visible');
 
 		getPerson: (name) ->
 			@getSearchbar(name)
