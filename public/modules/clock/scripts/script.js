@@ -3,17 +3,38 @@
 /* Var / Functions */
 
 (function() {
-  var arc, arcOptions, chartData, drawClock, drawClockContent, i, person, radiusScale, svg, unzoom, visWidth, _i;
+  var arc, arcOptions, clock, days, daysFR, draw, fh, fw, i, mentionsByDay, mentionsByHour, person, radiusScale, svg, th, tw, unzoom, visWidth, _i, _j;
 
   person = 'christiane-taubira';
 
-  svg = d3.select('svg').append('g').attr('id', 'clock');
+  days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-  chartData = [];
+  daysFR = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
-  for (i = _i = 1; _i <= 24; i = ++_i) {
-    chartData.push({});
+  mentionsByDay = [];
+
+  for (i = _i = 1; _i <= 7; i = ++_i) {
+    mentionsByDay.push({
+      mentions: 0
+    });
   }
+
+  mentionsByHour = [];
+
+  for (i = _j = 1; _j <= 24; i = ++_j) {
+    mentionsByHour.push({
+      mentions: 0,
+      outerRadius: 0
+    });
+  }
+
+  tw = 250;
+
+  th = 50;
+
+  fw = 125;
+
+  fh = 50;
 
   visWidth = 200;
 
@@ -32,13 +53,13 @@
   arc = function(d, o) {
     return d3.svg.arc().startAngle(function(d) {
       if (d.mentions > 0) {
-        return (d.time * 15 - o.width) * Math.PI / 180;
+        return (d.hour * 15 - o.width) * Math.PI / 180;
       } else {
         return 0;
       }
     }).endAngle(function(d) {
       if (d.mentions > 0) {
-        return (d.time * 15 + o.width) * Math.PI / 180;
+        return (d.hour * 15 + o.width) * Math.PI / 180;
       } else {
         return 0;
       }
@@ -51,82 +72,167 @@
     });
   };
 
+  d3.select('body').append('svg').attr('id', 'main-text').attr('width', tw).attr('height', th);
 
-  /* Make the chart */
+  svg = d3.select('body').append('svg').attr('id', 'filter').attr('width', fw).attr('height', fh);
 
-  drawClockContent = function(parent, newJSON, arcOptions) {
+  d3.select('body').append('svg').attr('id', 'clock').append('g').attr('class', 'clock');
+
+  clock = d3.select('g.clock');
+
+
+  /* Draw the chart */
+
+  draw = function() {
     return d3.json('person-' + person + '.json', function(error, data) {
-      var cw, d, maxValue, _j, _k, _l, _len, _len1, _len2, _len3, _m, _ref, _ref1, _ref2;
+      var appendMainText, d, drawClock, drawContent, drawFilter, redrawContent, _k, _len, _ref;
       _ref = data.broadcastHoursByDay;
-      for (i = _j = 0, _len = _ref.length; _j < _len; i = ++_j) {
+      for (i = _k = 0, _len = _ref.length; _k < _len; i = ++_k) {
         d = _ref[i];
         d.broadcastHour = +d.broadcastHour;
         d.broadcastCount = +d.broadcastCount;
       }
-      _ref1 = data.broadcastHoursByDay;
-      for (i = _k = 0, _len1 = _ref1.length; _k < _len1; i = ++_k) {
-        d = _ref1[i];
-        newJSON[d.broadcastHour].mentions = 0;
-        newJSON[d.broadcastHour].outerRadius = 0;
-        newJSON[d.broadcastHour].time = d.broadcastHour;
-      }
-      console.log(newJSON);
-      for (i = _l = 0, _len2 = newJSON.length; _l < _len2; i = ++_l) {
-        d = newJSON[i];
-        if (!d.time) {
-          d.time = i;
-        }
-        if (!d.mentions) {
-          d.mentions = 0;
-        }
-        if (!d.outerRadius) {
-          d.outerRadius = 0;
-        }
-      }
-      maxValue = [0];
-      _ref2 = data.broadcastHoursByDay;
-      for (i = _m = 0, _len3 = _ref2.length; _m < _len3; i = ++_m) {
-        d = _ref2[i];
-        if (d.broadcastWeekday === 'Monday') {
-          console.log(d.broadcastCount);
-          newJSON[d.broadcastHour].mentions += d.broadcastCount;
-          newJSON[d.broadcastHour].outerRadius = radiusScale(newJSON[d.broadcastHour].mentions) / unzoom + 50;
-          if (d.broadcastCount > maxValue[0]) {
-            maxValue[0] = d.broadcastCount;
-            maxValue[1] = d.broadcastHour;
+      appendMainText = function() {
+        d3.select('#main-text').append('svg:text').attr('class', 'value').attr('x', '15').attr('y', '27').text(mentionsByDay[0].mentions);
+        return d3.select('#main-text').append('svg:text').attr('class', 'time').attr('x', '15').attr('y', '45').text('Mentions horaires le ' + daysFR[0]);
+      };
+      drawFilter = function() {
+        var d2, filterClick, i2, maxDayValue, xScale, yScale, _l, _len1, _len2, _len3, _len4, _m, _n, _o, _ref1, _results;
+        _ref1 = data.broadcastHoursByDay;
+        for (i = _l = 0, _len1 = _ref1.length; _l < _len1; i = ++_l) {
+          d = _ref1[i];
+          for (i2 = _m = 0, _len2 = days.length; _m < _len2; i2 = ++_m) {
+            d2 = days[i2];
+            if (d.broadcastWeekday === days[i2]) {
+              mentionsByDay[i2].mentions += d.broadcastCount;
+              mentionsByDay[i2].day = d2;
+            }
           }
         }
-      }
-      console.log(maxValue);
-      parent.append('svg:g').attr('class', 'arcs').selectAll('path').data(newJSON).enter().append('svg:path').attr('d', arc(newJSON, arcOptions)).attr('transform', 'translate(' + visWidth + ',' + visWidth + ')').on('mouseover', function(d) {
-        d3.select('.time').text(d.time + ' heures');
-        return d3.select('.value').text(d.mentions);
-      });
-      cw = parent.append('svg:g').attr('class', 'center');
-      cw.append('svg:text').data(newJSON).attr('transform', 'translate(' + visWidth + ',' + visWidth + ')').attr('class', 'time').text(maxValue[1] + ' heures');
-      return cw.append('svg:text').data(newJSON).attr('transform', 'translate(' + visWidth + ',' + (visWidth + 20) + ')').attr('class', 'value').text(maxValue[0]);
+        maxDayValue = 0;
+        for (i = _n = 0, _len3 = mentionsByDay.length; _n < _len3; i = ++_n) {
+          d = mentionsByDay[i];
+          if (maxDayValue < d.mentions) {
+            maxDayValue = d.mentions;
+          }
+        }
+        xScale = d3.scale.ordinal().domain(d3.range(7)).rangeRoundBands([0, fw], 0.3);
+        yScale = d3.scale.linear().domain([
+          0, maxDayValue, function(d) {
+            return d;
+          }
+        ]).range([0, fh]);
+        svg.selectAll('rect').data(mentionsByDay).enter().append('rect').attr('x', function(d, i) {
+          return xScale(i);
+        }).attr('y', function(d) {
+          return fh - yScale(d.mentions);
+        }).attr('width', xScale.rangeBand()).attr('height', function(d) {
+          return yScale(d.mentions);
+        }).attr('class', 'bar').attr('id', function(d) {
+          return d.day;
+        });
+        filterClick = function(i, day) {
+          return document.getElementById(days[i]).onclick = function(d) {
+            return redrawContent(day);
+          };
+        };
+        _results = [];
+        for (i = _o = 0, _len4 = days.length; _o < _len4; i = ++_o) {
+          d = days[i];
+          _results.push(filterClick(i, days[i]));
+        }
+        return _results;
+      };
+      redrawContent = function(day) {
+        var currentDay, maxHourValue, _l, _len1, _len2, _m, _ref1;
+        currentDay = days.indexOf(day);
+        for (i = _l = 0, _len1 = mentionsByHour.length; _l < _len1; i = ++_l) {
+          d = mentionsByHour[i];
+          d.mentions = 0;
+          d.outerRadius = 0;
+        }
+        maxHourValue = [0];
+        _ref1 = data.broadcastHoursByDay;
+        for (i = _m = 0, _len2 = _ref1.length; _m < _len2; i = ++_m) {
+          d = _ref1[i];
+          if (d.broadcastWeekday === day) {
+            mentionsByHour[d.broadcastHour].mentions += d.broadcastCount;
+            mentionsByHour[d.broadcastHour].outerRadius = radiusScale(mentionsByHour[d.broadcastHour].mentions) / unzoom + 50;
+            if (d.broadcastCount > maxHourValue[0]) {
+              maxHourValue[0] = d.broadcastCount;
+              maxHourValue[1] = d.broadcastHour;
+            }
+          }
+        }
+        d3.select('#main-text .value').text(mentionsByDay[currentDay].mentions);
+        d3.select('#main-text .time').text('Mentions horaires le ' + daysFR[currentDay]);
+        clock.select('g.arcs').selectAll('path').data(mentionsByHour).transition().duration(500).attr('d', arc(mentionsByHour, arcOptions));
+        clock.select('g.center').select('text.time').data(mentionsByHour).text(maxHourValue[1] + ' heures');
+        return clock.select('g.center').select('text.value').data(mentionsByHour).text(maxHourValue[0]);
+      };
+      drawContent = function() {
+        var center, maxHourValue, _l, _len1, _len2, _len3, _m, _n, _ref1, _ref2;
+        _ref1 = data.broadcastHoursByDay;
+        for (i = _l = 0, _len1 = _ref1.length; _l < _len1; i = ++_l) {
+          d = _ref1[i];
+          mentionsByHour[d.broadcastHour].hour = d.broadcastHour;
+        }
+        for (i = _m = 0, _len2 = mentionsByHour.length; _m < _len2; i = ++_m) {
+          d = mentionsByHour[i];
+          if (!d.hour) {
+            d.hour = i;
+          }
+        }
+        maxHourValue = [0];
+        _ref2 = data.broadcastHoursByDay;
+        for (i = _n = 0, _len3 = _ref2.length; _n < _len3; i = ++_n) {
+          d = _ref2[i];
+          if (d.broadcastWeekday === 'Monday') {
+            mentionsByHour[d.broadcastHour].mentions += d.broadcastCount;
+            mentionsByHour[d.broadcastHour].outerRadius = radiusScale(mentionsByHour[d.broadcastHour].mentions) / unzoom + 50;
+            if (d.broadcastCount > maxHourValue[0]) {
+              maxHourValue[0] = d.broadcastCount;
+              maxHourValue[1] = d.broadcastHour;
+            }
+          }
+        }
+        clock.append('svg:g').attr('class', 'arcs').selectAll('path').data(mentionsByHour).enter().append('svg:path').attr('d', arc(mentionsByHour, arcOptions)).attr('transform', 'translate(' + visWidth + ',' + visWidth + ')').on('mouseover', function(d) {
+          d3.select('.center .time').text(d.hour + ' heures');
+          return d3.select('.center .value').text(d.mentions);
+        }).on('mouseout', function(d) {
+          d3.select('.center .time').text(maxHourValue[1] + ' heures');
+          return d3.select('.center .value').text(maxHourValue[0]);
+        });
+        center = clock.append('svg:g').attr('class', 'center');
+        center.append('svg:text').attr('transform', 'translate(' + visWidth + ',' + visWidth + ')').attr('class', 'time').text(maxHourValue[1] + ' heures');
+        return center.append('svg:text').attr('transform', 'translate(' + visWidth + ',' + (visWidth + 20) + ')').attr('class', 'value').text(maxHourValue[0]);
+      };
+      drawClock = function(d) {
+        var h, labels, p, r, radiusFunction, ticks, w;
+        w = 400;
+        h = 400;
+        r = Math.min(w, h) / 2;
+        p = 24;
+        labels = ['00:00', '06:00', '12:00', '18:00'];
+        ticks = d3.range(20, 20.1);
+        radiusFunction = radiusScale;
+        clock.append('svg:g').attr('class', 'circle').selectAll('circle').data(ticks).enter().append('svg:circle').attr('cx', r).attr('cy', r).attr('r', radiusScale);
+        clock.append('svg:g').attr('class', 'labels').selectAll('text').data(d3.range(0, 360, 90)).enter().append('svg:text').attr('transform', function(d) {
+          return 'translate(' + r + ',' + p + ') rotate(' + d + ',0,' + (r - p) + ')';
+        }).text(function(d) {
+          return d / 15 + ':00';
+        });
+        return drawContent();
+      };
+      drawFilter();
+      drawClock(mentionsByHour);
+      return appendMainText();
     });
   };
 
-  drawClock = function(d) {
-    var clock, h, labels, p, r, radiusFunction, ticks, w;
-    w = 400;
-    h = 400;
-    r = Math.min(w, h) / 2;
-    p = 24;
-    labels = ['00:00', '06:00', '12:00', '18:00'];
-    clock = d3.select('svg g');
-    ticks = d3.range(20, 20.1);
-    radiusFunction = radiusScale;
-    clock.append('svg:g').attr('class', 'circle').selectAll('circle').data(ticks).enter().append('svg:circle').attr('cx', r).attr('cy', r).attr('r', radiusScale);
-    clock.append('svg:g').attr('class', 'labels').selectAll('text').data(d3.range(0, 360, 90)).enter().append('svg:text').attr('transform', function(d) {
-      return 'translate(' + r + ',' + p + ') rotate(' + d + ',0,' + (r - p) + ')';
-    }).text(function(d) {
-      return d / 15 + ':00';
-    });
-    return drawClockContent(clock, chartData, arcOptions);
-  };
 
-  drawClock(chartData);
+  /* Init */
+
+  draw();
 
 }).call(this);
