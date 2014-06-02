@@ -3,7 +3,7 @@
 /* Var / Functions */
 
 (function() {
-  var arc, arcOptions, clock, days, daysFR, draw, fh, fw, i, mentionsByDay, mentionsByHour, person, radiusScale, svg, th, tw, unzoom, visWidth, _i, _j;
+  var arc, arcOptions, clock, days, daysFR, draw, fh, fw, i, maxHourValue, mentionsByDay, mentionsByHour, mouseOut, overallMaxHourValue, person, radiusScale, svg, th, tw, visWidth, _i, _j;
 
   person = 'christiane-taubira';
 
@@ -38,7 +38,9 @@
 
   visWidth = 200;
 
-  unzoom = 5;
+  maxHourValue = [0];
+
+  overallMaxHourValue = [0];
 
   radiusScale = d3.scale.linear().domain([0, 20]).range([100, visWidth - 40]).clamp(false);
 
@@ -69,6 +71,13 @@
       } else {
         return 0;
       }
+    });
+  };
+
+  mouseOut = function() {
+    return clock.selectAll('path').on('mouseout', function(d) {
+      d3.select('.center .time').text(maxHourValue[1] + ' heures');
+      return d3.select('.center .value').text(maxHourValue[0]);
     });
   };
 
@@ -131,9 +140,12 @@
         }).attr('class', 'bar').attr('id', function(d) {
           return d.day;
         });
+        svg.select('#Monday').classed('selected', true);
         filterClick = function(i, day) {
           return document.getElementById(days[i]).onclick = function(d) {
-            return redrawContent(day);
+            redrawContent(day);
+            d3.selectAll('.bar').classed('selected', false);
+            return d3.select(this).classed('selected', true);
           };
         };
         _results = [];
@@ -144,24 +156,32 @@
         return _results;
       };
       redrawContent = function(day) {
-        var currentDay, maxHourValue, _l, _len1, _len2, _m, _ref1;
+        var currentDay, pathScale, _l, _len1, _len2, _len3, _m, _n, _ref1, _ref2;
         currentDay = days.indexOf(day);
         for (i = _l = 0, _len1 = mentionsByHour.length; _l < _len1; i = ++_l) {
           d = mentionsByHour[i];
           d.mentions = 0;
           d.outerRadius = 0;
         }
-        maxHourValue = [0];
+        maxHourValue[0] = 0;
         _ref1 = data.broadcastHoursByDay;
         for (i = _m = 0, _len2 = _ref1.length; _m < _len2; i = ++_m) {
           d = _ref1[i];
           if (d.broadcastWeekday === day) {
-            mentionsByHour[d.broadcastHour].mentions += d.broadcastCount;
-            mentionsByHour[d.broadcastHour].outerRadius = radiusScale(mentionsByHour[d.broadcastHour].mentions) / unzoom + 50;
             if (d.broadcastCount > maxHourValue[0]) {
               maxHourValue[0] = d.broadcastCount;
               maxHourValue[1] = d.broadcastHour;
             }
+          }
+        }
+        pathScale = d3.scale.linear().domain([0, overallMaxHourValue[0] + 20]).range([80, visWidth - 40]).clamp(true);
+        _ref2 = data.broadcastHoursByDay;
+        for (i = _n = 0, _len3 = _ref2.length; _n < _len3; i = ++_n) {
+          d = _ref2[i];
+          if (d.broadcastWeekday === day) {
+            console.log('New maxHourValue: ', maxHourValue[0]);
+            mentionsByHour[d.broadcastHour].mentions += d.broadcastCount;
+            mentionsByHour[d.broadcastHour].outerRadius = pathScale(mentionsByHour[d.broadcastHour].mentions);
           }
         }
         d3.select('#main-text .value').text(mentionsByDay[currentDay].mentions);
@@ -171,7 +191,7 @@
         return clock.select('g.center').select('text.value').data(mentionsByHour).text(maxHourValue[0]);
       };
       drawContent = function() {
-        var center, maxHourValue, _l, _len1, _len2, _len3, _m, _n, _ref1, _ref2;
+        var center, pathScale, _l, _len1, _len2, _len3, _len4, _len5, _m, _n, _o, _p, _ref1, _ref2, _ref3, _ref4;
         _ref1 = data.broadcastHoursByDay;
         for (i = _l = 0, _len1 = _ref1.length; _l < _len1; i = ++_l) {
           d = _ref1[i];
@@ -183,13 +203,28 @@
             d.hour = i;
           }
         }
-        maxHourValue = [0];
         _ref2 = data.broadcastHoursByDay;
         for (i = _n = 0, _len3 = _ref2.length; _n < _len3; i = ++_n) {
           d = _ref2[i];
+          if (d.broadcastCount > overallMaxHourValue[0]) {
+            overallMaxHourValue[0] = d.broadcastCount;
+            overallMaxHourValue[1] = d.broadcastHour;
+          }
+        }
+        pathScale = d3.scale.linear().domain([0, overallMaxHourValue[0] + 20]).range([80, visWidth - 40]).clamp(true);
+        _ref3 = data.broadcastHoursByDay;
+        for (i = _o = 0, _len4 = _ref3.length; _o < _len4; i = ++_o) {
+          d = _ref3[i];
           if (d.broadcastWeekday === 'Monday') {
+            console.log('overallMaxHourValue: ', overallMaxHourValue[0]);
             mentionsByHour[d.broadcastHour].mentions += d.broadcastCount;
-            mentionsByHour[d.broadcastHour].outerRadius = radiusScale(mentionsByHour[d.broadcastHour].mentions) / unzoom + 50;
+            mentionsByHour[d.broadcastHour].outerRadius = pathScale(mentionsByHour[d.broadcastHour].mentions);
+          }
+        }
+        _ref4 = data.broadcastHoursByDay;
+        for (i = _p = 0, _len5 = _ref4.length; _p < _len5; i = ++_p) {
+          d = _ref4[i];
+          if (d.broadcastWeekday === 'Monday') {
             if (d.broadcastCount > maxHourValue[0]) {
               maxHourValue[0] = d.broadcastCount;
               maxHourValue[1] = d.broadcastHour;
@@ -199,10 +234,7 @@
         clock.append('svg:g').attr('class', 'arcs').selectAll('path').data(mentionsByHour).enter().append('svg:path').attr('d', arc(mentionsByHour, arcOptions)).attr('transform', 'translate(' + visWidth + ',' + visWidth + ')').on('mouseover', function(d) {
           d3.select('.center .time').text(d.hour + ' heures');
           return d3.select('.center .value').text(d.mentions);
-        }).on('mouseout', function(d) {
-          d3.select('.center .time').text(maxHourValue[1] + ' heures');
-          return d3.select('.center .value').text(maxHourValue[0]);
-        });
+        }).on('mouseout', mouseOut);
         center = clock.append('svg:g').attr('class', 'center');
         center.append('svg:text').attr('transform', 'translate(' + visWidth + ',' + visWidth + ')').attr('class', 'time').text(maxHourValue[1] + ' heures');
         return center.append('svg:text').attr('transform', 'translate(' + visWidth + ',' + (visWidth + 20) + ')').attr('class', 'value').text(maxHourValue[0]);

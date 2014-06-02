@@ -11,10 +11,11 @@ text.value { font-family: 'Chaparral Pro'; font-size: 20px; color: #111; font-we
 .center text, .labels text { text-anchor: middle; }
 
 .arcs { stroke-width: 0; }
-.arcs path { fill: #2EB587; opacity: 0.5; transition: all 0.3s ease-out; }
+.arcs path { fill: #2eb587; opacity: 0.5; transition: all 0.3s ease-out; cursor: pointer; }
 .arcs path:hover { opacity: 1; }
 .circle { fill: none; stroke: #cccccc; stroke-width: 1px; }
 
 #filter { position: relative; left: 50px; }
-.bar { fill: #d9d9d9; transition: all 0.3s ease-out;}
+.bar { fill: #d9d9d9; transition: all 0.3s ease-out; cursor: pointer; }
+.bar.selected { fill: #29b988; }
 .bar:hover { fill: #29b988; }
