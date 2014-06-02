@@ -1,28 +1,42 @@
 ### Var / Functions ###
-
-# Store person names (slugs)
 person = 'christiane-taubira'
 
-# Append svg container
-svg = d3.select 'svg'
-  .append 'g'
-    .attr 'id', 'clock'
+days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+daysFR = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche']
 
-# New JSON object to store chart-oriented data (24 slots for 24 hours)
-chartData = []
+# Two additional JSON to store mentions by day or hour
+mentionsByDay = []
+for i in [1 .. 7]
+  mentionsByDay.push {mentions: 0}
+
+mentionsByHour = []
 for i in [1 .. 24]
-  chartData.push {}
+  mentionsByHour.push {mentions: 0, outerRadius: 0}
+
+# console.log 'mentionsByDay: ', mentionsByDay
+# console.log 'mentionsByHour: ', mentionsByHour
+
+# Main text dimensions
+tw = 250
+th = 50
+
+# Filter dimensions
+fw = 125
+fh = 50
 
 # Width of the whole visualization; used for centering
 visWidth = 200
 
-# manual/sloppy, must be changed when data change #
-###########
-unzoom = 5
-###########
+# Store max values (for current view and for overall)
+maxHourValue = [0,]
+overallMaxHourValue = [0,]
 
 # Path/circle radius scaling
-radiusScale = d3.scale.linear().domain([0, 20]).range([100, visWidth-40]).clamp(false);
+radiusScale =
+  d3.scale.linear()
+  .domain [0, 20]
+  .range [100, visWidth-40]
+  .clamp false
 
 # Arc settings
 arcOptions = {
@@ -34,116 +48,271 @@ arcOptions = {
 # Arc function
 arc = (d,o) ->
   return d3.svg.arc()
-    .startAngle (d) -> if d.mentions > 0 then (d.time * 15 - o.width) * Math.PI/180 else 0
-    .endAngle (d) -> if d.mentions > 0 then (d.time * 15 + o.width) * Math.PI/180 else 0
+    .startAngle (d) -> if d.mentions > 0 then (d.hour * 15 - o.width) * Math.PI/180 else 0
+    .endAngle (d) -> if d.mentions > 0 then (d.hour * 15 + o.width) * Math.PI/180 else 0
     .innerRadius o.from
     .outerRadius (d) -> if d.mentions > 0 then o.to d else 0
 
-### Make the chart ###
+mouseOut = () ->
+  clock.selectAll 'path'
+    .on 'mouseout', (d) ->
+      d3.select '.center .time'
+        .text maxHourValue[1] + ' heures'
+      d3.select '.center .value' 
+        .text maxHourValue[0]
 
-# Draw the clock's content using json file + new json object
-drawClockContent = (parent, newJSON, arcOptions) ->
+# Append SVG element for main text
+d3.select 'body'
+  .append 'svg'
+    .attr 'id', 'main-text'
+    .attr 'width', tw
+    .attr 'height', th
+
+# Append SVG element for filter
+svg = d3.select 'body'
+  .append 'svg'
+    .attr 'id', 'filter'
+    .attr 'width', fw
+    .attr 'height', fh
+
+# Append SVG element for clock
+d3.select 'body'
+  .append 'svg'
+    .attr 'id', 'clock'
+    .append 'g'
+      .attr 'class', 'clock'
+
+# The clock element
+clock = d3.select 'g.clock'
+
+### Draw the chart ###
+draw = () ->
   d3.json 'person-' + person + '.json', (error, data) ->
+    # parseInt JSON data
     for d,i in data.broadcastHoursByDay
-      # Make JSON values usable (string -> int)
       d.broadcastHour = +d.broadcastHour
       d.broadcastCount = +d.broadcastCount
 
-    # Init keys in new json
-    for d,i in data.broadcastHoursByDay
-      newJSON[d.broadcastHour].mentions = 0
-      newJSON[d.broadcastHour].outerRadius = 0
-      newJSON[d.broadcastHour].time = d.broadcastHour
-    console.log newJSON
+    appendMainText = () ->
+      d3.select '#main-text'
+        .append 'svg:text'
+          .attr 'class', 'value'
+          .attr 'x', '15'
+          .attr 'y', '27'
+          .text mentionsByDay[0].mentions
 
-    # Fill-in empty keys in new json to prevent svg errors
-    for d,i in newJSON
-      if !d.time
-        d.time = i
-      if !d.mentions
+      d3.select '#main-text'
+        .append 'svg:text'
+          .attr 'class', 'time'
+          .attr 'x', '15'
+          .attr 'y', '45'
+          .text 'Mentions horaires le ' + daysFR[0]
+
+    drawFilter = () ->
+      # Fill-in JSON mentionsByDay
+      for d,i in data.broadcastHoursByDay
+        for d2,i2 in days
+          if d.broadcastWeekday is days[i2]
+            mentionsByDay[i2].mentions += d.broadcastCount
+            mentionsByDay[i2].day = d2
+
+      # Find the maximum value to scale the filter chart
+      maxDayValue = 0
+      for d,i in mentionsByDay
+        if maxDayValue < d.mentions
+          maxDayValue = d.mentions
+
+      # Draw the filter
+      xScale = d3.scale.ordinal()
+        .domain d3.range 7
+        .rangeRoundBands [0, fw], 0.3
+      yScale = d3.scale.linear()
+        .domain [0, maxDayValue, (d) -> return d]
+        .range [0, fh]
+
+      svg.selectAll 'rect'
+        .data mentionsByDay
+        .enter()
+        .append 'rect'
+          .attr 'x', (d,i) -> return xScale i
+          .attr 'y', (d) -> return fh - yScale d.mentions
+          .attr 'width', xScale.rangeBand()
+          .attr 'height', (d) -> return yScale d.mentions
+          .attr 'class', 'bar'
+          .attr 'id', (d) -> d.day
+
+      svg.select '#Monday'
+        .classed 'selected', true
+
+      # When filter is clicked, redraw the chart
+      filterClick = (i,day) ->
+        document.getElementById days[i] 
+          .onclick = (d) -> 
+            redrawContent day
+            d3.selectAll '.bar'
+              .classed 'selected', false
+            d3.select this
+              .classed 'selected', true
+      for d,i in days
+        filterClick i,days[i]
+
+    redrawContent = (day) ->
+      # Get current day index number
+      currentDay = days.indexOf day
+
+      # Reset mentionsByHour JSON
+      for d,i in mentionsByHour
         d.mentions = 0
-      if !d.outerRadius
         d.outerRadius = 0
-    
-    # Store max value for the day / hour of max value
-    maxValue = [0,]
 
-    # Select a day and store chart-oriented data in new json
-    for d,i in data.broadcastHoursByDay
-      if d.broadcastWeekday == 'Monday'
-        console.log d.broadcastCount
-        newJSON[d.broadcastHour].mentions += d.broadcastCount
-        newJSON[d.broadcastHour].outerRadius = radiusScale(newJSON[d.broadcastHour].mentions) / unzoom + 50 # manual, bad
-        if d.broadcastCount > maxValue[0]
-          maxValue[0] = d.broadcastCount
-          maxValue[1] = d.broadcastHour
-    console.log maxValue
+      # Reset maxHourValue and get max value for current day
+      maxHourValue[0] = 0
+      for d,i in data.broadcastHoursByDay
+        if d.broadcastWeekday == day
+          if d.broadcastCount > maxHourValue[0]
+            maxHourValue[0] = d.broadcastCount
+            maxHourValue[1] = d.broadcastHour
 
-    # Append paths / Show labels paths mouseover
-    parent.append 'svg:g'
-        .attr 'class', 'arcs'
+      pathScale =
+        d3.scale.linear()
+        .domain [0, overallMaxHourValue[0] + 20]
+        .range [80, visWidth - 40]
+        .clamp true
+
+      # Get mentions by hour for selected day
+      for d,i in data.broadcastHoursByDay
+        if d.broadcastWeekday == day
+          console.log 'New maxHourValue: ', maxHourValue[0]
+          mentionsByHour[d.broadcastHour].mentions += d.broadcastCount
+          mentionsByHour[d.broadcastHour].outerRadius = pathScale mentionsByHour[d.broadcastHour].mentions
+
+      # Update main text
+      d3.select '#main-text .value'
+        .text mentionsByDay[currentDay].mentions
+      d3.select '#main-text .time'
+        .text 'Mentions horaires le ' + daysFR[currentDay]
+
+      # Update paths
+      clock.select 'g.arcs'
         .selectAll 'path'
-        .data newJSON
-      .enter().append 'svg:path'
-        .attr 'd', arc newJSON,arcOptions
-        .attr 'transform', 'translate(' + visWidth + ',' + visWidth + ')'
-        .on 'mouseover', (d) -> 
-          d3.select '.time'
-            .text d.time + ' heures'
-          d3.select '.value' 
-            .text d.mentions
+        .data mentionsByHour
+        .transition().duration(500)
+        .attr 'd', arc mentionsByHour,arcOptions
 
-    # Append center labels
-    cw = parent.append 'svg:g'
-      .attr 'class', 'center'
-    cw.append 'svg:text'
-        .data newJSON
-        .attr 'transform', 'translate(' + visWidth + ',' + visWidth + ')'
-        .attr 'class', 'time'
-        .text maxValue[1] + ' heures'
-    cw.append 'svg:text'
-        .data newJSON
-        .attr 'transform', 'translate(' + visWidth + ',' + (visWidth+20) + ')'
-        .attr 'class', 'value'
-        .text maxValue[0]
+      # Update max value label (time)
+      clock.select 'g.center'
+        .select 'text.time'
+        .data mentionsByHour
+        .text maxHourValue[1] + ' heures'
 
-# Draw the clock element
-drawClock = (d) ->
-  # Clock's size parameters
-  w = 400
-  h = 400
-  r = Math.min(w, h) / 2                       # center
-  p = 24                                       # labels padding
-  labels = ['00:00','06:00','12:00','18:00']   # labels names
+      # Update max value label (value)
+      clock.select 'g.center'
+        .select 'text.value'
+        .data mentionsByHour
+        .text maxHourValue[0]
 
-  # The clock element
-  clock = d3.select 'svg g'
+    drawContent = () ->
+      # Init keys in new json
+      for d,i in data.broadcastHoursByDay
+        mentionsByHour[d.broadcastHour].hour = d.broadcastHour
 
-  # Circle settings
-  ticks = d3.range(20, 20.1);
-  radiusFunction = radiusScale;
+      # Fill-in empty keys to make new json fancier
+      for d,i in mentionsByHour
+        if !d.hour
+          d.hour = i
 
-  # Append circle
-  clock.append 'svg:g'
-      .attr 'class', 'circle'
-    .selectAll 'circle'
-      .data ticks
-    .enter().append 'svg:circle'
-      .attr 'cx', r 
-      .attr 'cy', r
-      .attr 'r', radiusScale
+      # Get overall max value
+      for d,i in data.broadcastHoursByDay
+        if d.broadcastCount > overallMaxHourValue[0]
+          overallMaxHourValue[0] = d.broadcastCount
+          overallMaxHourValue[1] = d.broadcastHour
 
-  # Append outside labels
-  clock.append 'svg:g'
-    .attr 'class', 'labels'
-    .selectAll 'text'
-      .data d3.range(0, 360, 90)
-    .enter().append 'svg:text'
-      .attr 'transform', (d) ->
-          return 'translate(' + r + ',' + p + ') rotate(' + d + ',0,' + (r-p) + ')'
-      .text (d) -> d / 15 + ':00'
+      # Scale paths with overall max value
+      pathScale =
+        d3.scale.linear()
+        .domain [0, overallMaxHourValue[0] + 20]
+        .range [80, visWidth - 40]
+        .clamp true
 
-  drawClockContent(clock, chartData, arcOptions)
+      # Get mentions by hour for selected day
+      for d,i in data.broadcastHoursByDay
+        if d.broadcastWeekday == 'Monday'
+          console.log 'overallMaxHourValue: ', overallMaxHourValue[0]
+          mentionsByHour[d.broadcastHour].mentions += d.broadcastCount
+          mentionsByHour[d.broadcastHour].outerRadius = pathScale mentionsByHour[d.broadcastHour].mentions
 
-# Init
-drawClock(chartData)
+      # Get max value for current day
+      for d,i in data.broadcastHoursByDay
+        if d.broadcastWeekday == 'Monday'
+          if d.broadcastCount > maxHourValue[0]
+            maxHourValue[0] = d.broadcastCount
+            maxHourValue[1] = d.broadcastHour
+
+      # Append paths / Show labels paths mouseover
+      clock.append 'svg:g'
+          .attr 'class', 'arcs'
+          .selectAll 'path'
+          .data mentionsByHour
+        .enter().append 'svg:path'
+          .attr 'd', arc mentionsByHour,arcOptions
+          .attr 'transform', 'translate(' + visWidth + ',' + visWidth + ')'
+          .on 'mouseover', (d) -> 
+            d3.select '.center .time'
+              .text d.hour + ' heures'
+            d3.select '.center .value' 
+              .text d.mentions
+          .on 'mouseout', mouseOut
+
+      # Append center labels
+      center = clock.append 'svg:g'
+        .attr 'class', 'center'
+      center.append 'svg:text'
+          .attr 'transform', 'translate(' + visWidth + ',' + visWidth + ')'
+          .attr 'class', 'time'
+          .text maxHourValue[1] + ' heures'
+      center.append 'svg:text'
+          .attr 'transform', 'translate(' + visWidth + ',' + (visWidth+20) + ')'
+          .attr 'class', 'value'
+          .text maxHourValue[0]
+
+    # Draw the clock element
+    drawClock = (d) ->
+      # Clock's parameters
+      w = 400
+      h = 400
+      r = Math.min(w, h) / 2                       # center
+      p = 24                                       # labels padding
+      labels = ['00:00','06:00','12:00','18:00']   # labels names
+
+      # Circle settings
+      ticks = d3.range 20, 20.1
+      radiusFunction = radiusScale
+
+      # Append circle
+      clock.append 'svg:g'
+          .attr 'class', 'circle'
+        .selectAll 'circle'
+          .data ticks
+        .enter().append 'svg:circle'
+          .attr 'cx', r 
+          .attr 'cy', r
+          .attr 'r', radiusScale
+
+      # Append outside labels
+      clock.append 'svg:g'
+        .attr 'class', 'labels'
+        .selectAll 'text'
+          .data d3.range 0, 360, 90
+        .enter().append 'svg:text'
+          .attr 'transform', (d) ->
+              return 'translate(' + r + ',' + p + ') rotate(' + d + ',0,' + (r-p) + ')'
+          .text (d) -> d / 15 + ':00'
+
+      drawContent()
+
+    drawFilter()
+    drawClock mentionsByHour
+    appendMainText()
+
+### Init ###
+draw()

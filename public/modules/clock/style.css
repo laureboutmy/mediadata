@@ -1,13 +1,21 @@
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700);
 
-text { font-family: 'Source Sans Pro', sans-serif; font-size: 15px; text-anchor: middle;
+text { font-family: 'Source Sans Pro', sans-serif; font-size: 15px;
       -webkit-font-smoothing: antialiased; }
+
+#main-text text { text-anchor: left }
 
 .labels text { fill: #ccc; font-weight: 700; }
 text.time { fill: #6a7d90; font-weight: 600; }
 text.value { font-family: 'Chaparral Pro'; font-size: 20px; color: #111; font-weight: bold; }
+.center text, .labels text { text-anchor: middle; }
 
 .arcs { stroke-width: 0; }
-.arcs path { fill: #2EB587; opacity: 0.5; transition: all 0.3s ease-out; }
+.arcs path { fill: #2eb587; opacity: 0.5; transition: all 0.3s ease-out; cursor: pointer; }
 .arcs path:hover { opacity: 1; }
 .circle { fill: none; stroke: #cccccc; stroke-width: 1px; }
+
+#filter { position: relative; left: 50px; }
+.bar { fill: #d9d9d9; transition: all 0.3s ease-out; cursor: pointer; }
+.bar.selected { fill: #29b988; }
+.bar:hover { fill: #29b988; }
