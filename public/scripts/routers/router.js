@@ -46,15 +46,29 @@
                 name1: name1,
                 name2: name2
               });
-              md.Views['search-bar'].onResize();
               return $(md.Views['search-bar'].el).addClass('visible');
+            };
+          })(this));
+        } else {
+          md.Views['search-bar'].render(name1);
+          return $(md.Views['search-bar'].el).addClass('visible');
+        }
+      };
+
+      Router.prototype.getFilters = function() {
+        if (!md.Views['filters']) {
+          return require(['views/filters'], (function(_this) {
+            return function(FiltersView) {
+              return md.Views['filters'] = new FiltersView();
             };
           })(this));
         }
       };
 
       Router.prototype.getPerson = function(name) {
-        this.getSearchbar(name);
+        if (!md.Views['searchBar']) {
+          this.getSearchbar(name);
+        }
         return md.Views['person'] = new PersonView({
           name1: name
         });

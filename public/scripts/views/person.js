@@ -20,7 +20,7 @@
       PersonView.prototype.template = _.template(tplPerson);
 
       PersonView.prototype.initialize = function(options) {
-        md.Collections[options.name1] = new PersonsCollection(options.name1);
+        this.collection = new PersonsCollection(options.name1);
         return this.render(options);
       };
 
@@ -34,14 +34,34 @@
         return this.renderModules(data);
       };
 
+      PersonView.prototype.bind = function() {
+        var _this;
+        _this = this;
+        $(window).on('scroll', this.stickFilters);
+        return $(window).on('resize', this.onResize);
+      };
+
+      PersonView.prototype.stickFilters = function() {
+        if ($(window).scrollTop() > $('header.header').outerHeight()) {
+          return $('#filters').addClass('fixed');
+        } else {
+          return $('#filters').removeClass('fixed');
+        }
+      };
+
       PersonView.prototype.render = function(options) {
         var _this;
         _this = this;
-        return md.Collections[options.name1].fetch({
+        console.log(md.Router);
+        $('div.loader').addClass('loading');
+        return this.collection.fetch({
           success: function(data) {
-            console.log(data);
-            _this.$el.html(_this.template(md.Collections[options.name1].models[0].attributes));
-            _this.initializeModules(md.Collections[options.name1].models[0].attributes);
+            $('div.loader').addClass('complete');
+            _this.$el.html(_this.template(_this.collection.models[0].attributes));
+            md.Router.getFilters();
+            _this.initializeModules(_this.collection.models[0].attributes);
+            _this.bind();
+            _this.onResize();
             return _this;
           }
         });
@@ -59,6 +79,10 @@
             timelineMentions: data.timelineMentions
           }
         });
+      };
+
+      PersonView.prototype.onResize = function() {
+        return $('#filters').width($(window).width() - 80);
       };
 
       return PersonView;

@@ -393,43 +393,148 @@ i, .icon { font-family: 'mfglabs-iconset'; font-style: normal; speak: none; font
 
 .icon-node_link_shape:before { content: "\E00F"; }
 
+/* Ion.RangeSlider
+// css version 1.8.5
+// by Denis Ineshin | ionden.com
+// ===================================================================================================================*/
+/* =====================================================================================================================
+// RangeSlider */
+.irs { position: relative; display: block; }
+
+.irs-line { position: relative; display: block; overflow: hidden; }
+
+.irs-line-left, .irs-line-mid, .irs-line-right { position: absolute; display: block; top: 0; }
+
+.irs-line-left { left: 0; width: 10%; }
+
+.irs-line-mid { left: 10%; width: 80%; }
+
+.irs-line-right { right: 0; width: 10%; }
+
+.irs-diapason { position: absolute; display: block; left: 0; width: 100%; }
+
+.irs-slider { position: absolute; display: block; cursor: default; z-index: 1; }
+
+.irs-slider.single { left: 10px; }
+
+.irs-slider.single:before { position: absolute; display: block; content: ""; top: -30%; left: -30%; width: 160%; height: 160%; background: transparent; }
+
+.irs-slider.from { left: 100px; }
+
+.irs-slider.from:before { position: absolute; display: block; content: ""; top: -30%; left: -30%; width: 130%; height: 160%; background: transparent; }
+
+.irs-slider.to { left: 300px; }
+
+.irs-slider.to:before { position: absolute; display: block; content: ""; top: -30%; left: 0; width: 130%; height: 160%; background: transparent; }
+
+.irs-slider.last { z-index: 2; }
+
+.irs-min { position: absolute; display: block; left: 0; cursor: default; }
+
+.irs-max { position: absolute; display: block; right: 0; cursor: default; }
+
+.irs-from, .irs-to, .irs-single { position: absolute; display: block; top: 0; left: 0; cursor: default; white-space: nowrap; }
+
+.irs-grid { position: absolute; display: none; bottom: 0; left: 0; width: 100%; height: 20px; }
+
+.irs-with-grid .irs-grid { display: block; }
+
+.irs-grid-pol { position: absolute; top: 0; left: 0; width: 1px; height: 8px; background: #000; }
+
+.irs-grid-pol.small { height: 4px; }
+
+.irs-grid-text { position: absolute; bottom: 0; left: 0; width: 100px; white-space: nowrap; text-align: center; font-size: 9px; line-height: 9px; color: #000; }
+
+.irs-disable-mask { position: absolute; display: block; top: 0; left: 0; width: 100%; height: 100%; cursor: default; background: transparent; z-index: 2; }
+
+.irs-disabled { opacity: 0.4; }
+
+/* Ion.RangeSlider, Nice Skin
+// css version 1.8.5
+// by Denis Ineshin | ionden.com
+// ===================================================================================================================*/
+/* =====================================================================================================================
+// Skin details */
+.irs-line-mid, .irs-line-left, .irs-line-right, .irs-diapason, .irs-slider { background: url(../images/sprite--slider.png) repeat-x; }
+
+.irs { height: 40px; }
+
+.irs-with-grid { height: 60px; }
+
+.irs-line { height: 8px; top: 25px; }
+
+.irs-line-left { height: 8px; background-position: 0 -30px; }
+
+.irs-line-mid { height: 8px; background-position: 0 0; }
+
+.irs-line-right { height: 8px; background-position: 100% -30px; }
+
+.irs-diapason { height: 8px; top: 25px; background-position: 0 -60px; }
+
+.irs-slider { width: 22px; height: 22px; top: 17px; background-position: 0 -90px; }
+
+#irs-active-slider, .irs-slider:hover { background-position: 0 -120px; }
+
+.irs-min, .irs-max { color: #999; font-size: 10px; line-height: 1.333; text-shadow: none; top: 0; padding: 1px 3px; background: rgba(0, 0, 0, 0.1); border-radius: 3px; }
+
+.lt-ie9 .irs-min, .lt-ie9 .irs-max { background: #ccc; }
+
+.irs-from, .irs-to, .irs-single { color: #fff; font-size: 10px; line-height: 1.333; text-shadow: none; padding: 1px 5px; background: rgba(0, 0, 0, 0.3); border-radius: 3px; }
+
+.lt-ie9 .irs-from, .lt-ie9 .irs-to, .lt-ie9 .irs-single { background: #999; }
+
+.irs-grid-pol { background: #99a4ac; }
+
+.irs-grid-text { color: #99a4ac; }
+
 /* @end of Imports */
 /* @group General */
 body { font: 100% "Source Sans Pro", sans-serif; color: #333333; background: #ffffff; -webkit-font-smoothing: antialiased; }
 
 button { outline: none; cursor: pointer; border: 0; background: transparent; }
 
-button, input, textarea { font: 100% "Source Sans Pro", sans-serif; outline: none; }
+button, input, textarea, select { font: 100% "Source Sans Pro", sans-serif; outline: none; }
 
 /* @end of General*/
 /* @group of Grid */
 .clear { clear: both; }
 
+.wrapper { width: 100%; height: 100%; overflow-x: hidden; }
+
 .grid { width: 1020px; margin: 0 auto; overflow-y: hidden; }
 .grid .unit { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; float: left; vertical-align: top; width: 50%; }
+.grid .unit.quarter { width: 25%; }
 .grid .unit.left { padding-right: 30px; }
 .grid .unit.right { padding-left: 30px; }
 
 /* @end of Grid */
 /* @group Sidebar */
-section#sidebar { position: fixed; width: 80px; height: 100%; background: #1b1f22; }
+section#sidebar { position: fixed; width: 80px; height: 100%; background: #1b1f22; text-align: center; }
+section#sidebar nav#nav { margin: 70px auto; }
+section#sidebar nav#nav ul li { margin: 30px auto; }
+section#sidebar nav#nav i { font-size: 1.3125em; }
+section#sidebar nav#nav a { color: #454a4d; text-decoration: none; transition: color 0.3s ease-out; }
+section#sidebar nav#nav a:hover { color: #fff; }
+section#sidebar nav#nav-infos { position: absolute; bottom: 25px; margin: auto; left: 0; right: 0; }
+section#sidebar nav#nav-infos i { font-size: 1.75em; }
+section#sidebar nav#nav-infos a { color: #454a4d; text-decoration: none; transition: color 0.3s ease-out; }
+section#sidebar nav#nav-infos a:hover { color: #fff; }
 
 /* @end of Sidebar */
-/* @group  Loader */
-section#loader { z-index: 500; position: absolute; width: 100%; height: 3px; left: -1px; top: -1px; }
-section#loader div.loader { float: left; width: 50%; height: 3px; }
-section#loader div.loader.topic1 { background: #29b988; box-shadow: 0 1px 3px rgba(41, 185, 136, 0.35); }
-section#loader div.loader.topic2 { background: #2781bb; box-shadow: 0 1px 3px rgba(39, 129, 187, 0.35); }
-
-/* @end of Loader */
 /* @group Search-bar */
-header#search-bar { position: fixed; left: 80px; min-width: 1020px; border: 1px solid transparent; background: #fff; width: 100%; height: 54px; z-index: 100; box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2); display: none; /* h1.person */ }
+header#search-bar { position: fixed; left: 80px; min-width: 1020px; border: 1px solid transparent; background: #fff; width: 100%; height: 54px; z-index: 100; box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2); display: none; /* @group  Loader */ /* @end of Loader */ /* h1.person */ }
 header#search-bar.visible { display: block; }
 header#search-bar .grid { overflow: visible; }
 header#search-bar .grid section.unit { display: none; }
 header#search-bar .grid section.unit.visible { width: 80%; display: block; }
 header#search-bar .grid section.unit.visible div.name { border-right: 1px solid #d9d9d9; }
 header#search-bar .grid section#compare.unit { width: 20%; display: block; }
+header#search-bar section#loader { z-index: 500; position: absolute; overflow-x: hidden; width: 100%; height: 3px; left: -1px; top: -1px; }
+header#search-bar section#loader div.loader { float: left; width: 100%; height: 3px; -webkit-transform: translate3d(-100%, 0, 0); transform: translate3d(-100%, 0, 0); }
+header#search-bar section#loader div.loader.loading { -webkit-transition: -webkit-transform 5s ease-in; transition: transform 5s ease-in; -webkit-transform: translate3d(-20%, 0, 0); transform: translate3d(-20%, 0, 0); }
+header#search-bar section#loader div.loader.complete { -webkit-transition: -webkit-transform 0.3s ease-in; transition: transform 0.3s ease-in; -webkit-transform: translate3d(0%, 0, 0); transform: translate3d(0%, 0, 0); }
+header#search-bar section#loader div.loader.topic1 { background: #29b988; box-shadow: 0 1px 3px rgba(41, 185, 136, 0.35); }
+header#search-bar section#loader div.loader.topic2 { background: #2781bb; box-shadow: 0 1px 3px rgba(39, 129, 187, 0.35); }
 header#search-bar.search section.unit { display: none; }
 header#search-bar.search section.unit.visible { width: 100%; display: block; }
 header#search-bar.search section.unit.visible div.name { border-right: 0; }
@@ -440,11 +545,12 @@ header#search-bar.comparison .grid section.unit { display: block; }
 header#search-bar.comparison .grid section.unit.visible { width: 50%; }
 header#search-bar.comparison .grid section.unit:nth-child(2) div.name { border-right: 0; }
 header#search-bar.comparison .grid section#compare.unit { display: none; }
+header#search-bar.comparison section#loader div.loader { width: 50%; -webkit-transform: translate3d(-200%, 0, 0); transform: translate3d(-200%, 0, 0); }
 header#search-bar div.name { width: 100%; height: 100%; text-align: center; position: relative; z-index: 10; font-size: 1.25em; font-weight: 700; color: #1c1f21; line-height: 2.7em; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 header#search-bar div.name:hover > button.edit { opacity: 1; z-index: 100; }
 header#search-bar div.name div.img { width: 40px; height: 40px; border-radius: 100%; overflow: hidden; position: relative; display: inline-block; margin: 0 0.625em -0.625em 0; }
 header#search-bar div.name div.img img { width: 100%; height: auto; position: absolute; margin: auto; left: 0; right: 0; top: 0; bottom: 0; }
-header#search-bar div.name span { font-weight: 400; color: #acb8c0; }
+header#search-bar div.name span.role { font-weight: 400; color: #acb8c0; }
 header#search-bar div.name button.delete { position: absolute; display: block; z-index: 200; width: 60px; height: 100%; top: 0; right: 0; background: white; }
 header#search-bar div.name button.delete i { color: #ccc; font-size: 0.625em; }
 header#search-bar div.name button.delete:hover i { color: #1c1f21; }
@@ -487,6 +593,14 @@ section#main article.person header.header ul, section#main article.comparison he
 section#main article.person header.header ul li, section#main article.comparison header.header ul li { display: inline-block; color: #96b7d9; font-weight: 300; font-style: italic; font-size: 0.9375em; line-height: 1.6em; }
 section#main article.person header.header ul li:first-letter, section#main article.comparison header.header ul li:first-letter { text-transform: uppercase; }
 section#main article.person header.header ul li i, section#main article.comparison header.header ul li i { color: #fff; display: inline-block; font-style: normal; font-size: 1.13333em; margin-right: 5px; }
+section#main article.person section#filters, section#main article.comparison section#filters { border-top: 1px solid #d4d4d4; border-bottom: 1px solid #d4d4d4; width: 100%; background: #fff; }
+section#main article.person section#filters.fixed, section#main article.comparison section#filters.fixed { position: fixed; top: 56px; }
+section#main article.person section#filters ul, section#main article.comparison section#filters ul { height: 80px; }
+section#main article.person section#filters ul li, section#main article.comparison section#filters ul li { position: relative; top: 50%; overflow: hidden; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%); }
+section#main article.person section#filters label, section#main article.comparison section#filters label { font-size: 0.9375em; color: #6a7d90; font-weight: bold; }
+section#main article.person section#filters select, section#main article.comparison section#filters select { display: block; -webkit-appearance: none; font-family: "chaparral-pro", serif; font-size: 1.25em; border: 0; padding-right: 40px; background: transparent url(../images/i--arrow-down--grey.png) no-repeat center right; font-weight: bold; color: #1c1f21; transition: background 0.3s ease-out; }
+section#main article.person section#filters select:hover, section#main article.comparison section#filters select:hover { background: transparent url(../images/i--arrow-down--black.png) no-repeat center right; }
+section#main article.person section#filters.fixed + div.grid, section#main article.comparison section#filters.fixed + div.grid { padding-top: 80px; }
 section#main article.person section h2, section#main article.comparison section h2 { width: 420px; margin: 58px 30px 0 30px; font-weight: 700; color: #1c1f21; line-height: 1.6em; font-size: 1.5625em; }
 section#main article.person section h2 + p, section#main article.comparison section h2 + p { width: 420px; margin: 0 30px 40px 30px; font-family: "chaparral-pro", serif; color: #6a7d90; font-size: 1.1875em; line-height: 1.57895em; }
 section#main article.home { padding: 0; /* header.introduction */ /* section.tutorial */ }

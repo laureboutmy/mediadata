@@ -13,7 +13,8 @@ define [
 		collection: null
 		template: _.template(tplSearchbar)
 
-		initialize: (options) -> 
+		initialize: (options) ->
+			console.log('INIT SEARCHBAR') 
 			md.Collections['topics'] = new TopicsCollection()
 			md.Collections['topics'].fetch 
 				success: () =>
@@ -38,7 +39,6 @@ define [
 			if @topics.topic1 && @topics.topic2 then @$el.addClass('comparison').find('section.person').addClass('visible')
 			return @
 
-
 		events: 
 			'click .compare': 'compare'
 			'click .delete': 'delete'
@@ -51,6 +51,19 @@ define [
 			$(_this.inputs).on('keydown', {context: this}, _this.keydown)
 			$(_this.inputs).on('blur', {context: this}, _this.stop)
 
+		update: (name, nb) ->
+			if nb = 1 
+				@topics.topic1 = _.where(md.Collections['topics'], { slug: name })[0]
+				el = $('#name-1').parent().parent().find('h1')
+				el.find('span.name').html(@topics.topic1.name);
+				el.find('span.role').html(@topics.topic1.role);
+				el.find('.img img').attr('src', @topics.topic1.picture);
+			else 
+				@topics.topic2 = _.where(md.Collections['topics'], { slug: name })[0]
+				el = $('#name-2').parent().parent().find('h1')
+				el.find('span.name').html(@topics.topic2.name);
+				el.find('span.role').html(@topics.topic2.role);
+				el.find('.img img').attr('src', @topics.topic2.picture);
 
 		compare: () ->
 			@$el.addClass('comparison').find('section.person:not(.visible)').addClass('visible').find('form.search').addClass('visible').find('input').focus()
@@ -78,6 +91,7 @@ define [
 			@currentText != keyword
 
 		keyup: (evt) ->
+			console.log('KEYUP')
 			_this = evt.data.context
 			keyword = $(this).val()
 			if _this.hasChanged(keyword) && keyword.length != 0
@@ -113,19 +127,22 @@ define [
 
 			if @$el.hasClass('comparison')
 				if $(input).has('#name-2') 
+					@update(selected.data('slug'), 2)
 					md.Router.navigate(@topics.topic1.slug + '/' + selected.data('slug'))
 					md.Router.getComparison(@topics.topic1.slug, selected.data('slug'))
 				else if $(input).has('#name-1')
+					@update(selected.data('slug'), 1)
 					md.Router.navigate(selected.data('slug') + '/' + @topics.topic2.slug)
-					md.Router.getComparison(selected.data('slug'), @topics.topic1.slug)
+					md.Router.getComparison(selected.data('slug'), @topics.topic2.slug)
 			else 
 				if @$el.hasClass('search') then @$el.removeClass('search')
+				@update(selected.data('slug'), $(input).attr('id').substring(5,6))
 				md.Router.navigate(selected.data('slug'))
 				md.Router.getPerson(selected.data('slug'))
+
 			# $(input).blur()
-
-
 			@stop()
+			@bind()
 
 		filter: (keyword) ->
 			keyword = keyword

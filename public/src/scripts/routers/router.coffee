@@ -36,22 +36,35 @@ define [
 			if !md.Views['search-bar'] 
 				require ['views/search-bar'], (SearchbarView) =>
 					md.Views['search-bar'] = new SearchbarView({name1: name1, name2: name2})
-					# md.Views['search-bar'].render()
-					md.Views['search-bar'].onResize()
 					$(md.Views['search-bar'].el).addClass('visible');
+			else
+				md.Views['search-bar'].render(name1)
+				$(md.Views['search-bar'].el).addClass('visible');
+
+		getFilters: () ->
+			if !md.Views['filters'] 
+				require ['views/filters'], (FiltersView) =>
+					md.Views['filters'] = new FiltersView()
 
 		getPerson: (name) ->
-			@getSearchbar(name)
+			if !md.Views['searchBar'] then @getSearchbar(name)
 			md.Views['person'] = new PersonView({name1: name})
 
 		getComparison: (name1, name2) ->
 			@getSearchbar(name1, name2)
 			md.Views['person'] = new ComparisonView({name1: name1, name2: name2})
 
+		# resetLoader: () ->
+			# $('div.loader').removeClass('loading', 'complete')
+
+		# load: () ->
+		# 	$('div.loader').addClass('loading');
+
 		onResize: () ->
 			$('#main').width($(window).width() - 80)
 			$('#search-bar').width($(window).width() - 80)
 			$('#loader').width($(window).width() - 80)
+			
 
 			# document.getElementById('search-bar').style.width = window.innerWidth - 250 + 'px';
 

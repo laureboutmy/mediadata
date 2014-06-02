@@ -1,15 +1,12 @@
-<section id="loader">
-  <div class="loader topic1"></div>
-  <div class="loader topic2"></div>
-</section>
+
 <div class="grid">
   <section class="unit person visible">
     <div class="name">
       <h1>
         <% if(topic1) { %>
-          <div class="img"><img src="images/topic--damien-cornu.jpg" /></div> <%= topic1.name %>
+          <div class="img"><img src="images/topic--damien-cornu.jpg" /></div> <span class="name"><%= topic1.name %></span>
         <% } else { print('Vous devez choisir un sujet') } %>
-        <% if(topic1) { %> <span>- Journaliste</span> <% } %></h1>
+        <% if(topic1) { %> <span class="role">- Journaliste</span> <% } %></h1>
       <button class="delete"><i class="icon-cross_mark"></i></button>
       <button class="edit"><i class="icon-magnifying"></i>Modifier votre recherche</button>
       <form class="search">

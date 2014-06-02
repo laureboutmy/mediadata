@@ -20,6 +20,7 @@
       SearchbarView.prototype.template = _.template(tplSearchbar);
 
       SearchbarView.prototype.initialize = function(options) {
+        console.log('INIT SEARCHBAR');
         md.Collections['topics'] = new TopicsCollection();
         return md.Collections['topics'].fetch({
           success: (function(_this) {
@@ -80,6 +81,27 @@
         }, _this.stop);
       };
 
+      SearchbarView.prototype.update = function(name, nb) {
+        var el;
+        if (nb = 1) {
+          this.topics.topic1 = _.where(md.Collections['topics'], {
+            slug: name
+          })[0];
+          el = $('#name-1').parent().parent().find('h1');
+          el.find('span.name').html(this.topics.topic1.name);
+          el.find('span.role').html(this.topics.topic1.role);
+          return el.find('.img img').attr('src', this.topics.topic1.picture);
+        } else {
+          this.topics.topic2 = _.where(md.Collections['topics'], {
+            slug: name
+          })[0];
+          el = $('#name-2').parent().parent().find('h1');
+          el.find('span.name').html(this.topics.topic2.name);
+          el.find('span.role').html(this.topics.topic2.role);
+          return el.find('.img img').attr('src', this.topics.topic2.picture);
+        }
+      };
+
       SearchbarView.prototype.compare = function() {
         return this.$el.addClass('comparison').find('section.person:not(.visible)').addClass('visible').find('form.search').addClass('visible').find('input').focus();
       };
@@ -115,6 +137,7 @@
 
       SearchbarView.prototype.keyup = function(evt) {
         var keyword, _this;
+        console.log('KEYUP');
         _this = evt.data.context;
         keyword = $(this).val();
         if (_this.hasChanged(keyword) && keyword.length !== 0) {
@@ -163,20 +186,24 @@
         $(input).parent().parent().find('h1').html(selected.html());
         if (this.$el.hasClass('comparison')) {
           if ($(input).has('#name-2')) {
+            this.update(selected.data('slug'), 2);
             md.Router.navigate(this.topics.topic1.slug + '/' + selected.data('slug'));
             md.Router.getComparison(this.topics.topic1.slug, selected.data('slug'));
           } else if ($(input).has('#name-1')) {
+            this.update(selected.data('slug'), 1);
             md.Router.navigate(selected.data('slug') + '/' + this.topics.topic2.slug);
-            md.Router.getComparison(selected.data('slug'), this.topics.topic1.slug);
+            md.Router.getComparison(selected.data('slug'), this.topics.topic2.slug);
           }
         } else {
           if (this.$el.hasClass('search')) {
             this.$el.removeClass('search');
           }
+          this.update(selected.data('slug'), $(input).attr('id').substring(5, 6));
           md.Router.navigate(selected.data('slug'));
           md.Router.getPerson(selected.data('slug'));
         }
-        return this.stop();
+        this.stop();
+        return this.bind();
       };
 
       SearchbarView.prototype.filter = function(keyword) {
