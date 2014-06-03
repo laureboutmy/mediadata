@@ -14,6 +14,9 @@ define [
 		initialize: (options) -> 
 			@render()
 
+		bind: () ->
+			
+
 		render: () ->
 
 			@$el.html(@template())
@@ -22,6 +25,8 @@ define [
 				type: 'double',
 				hasGrid: false,
 				hideMinMax: true
+				onFinish: () ->
+					console.log('FINISH')
       
 			return @
 				

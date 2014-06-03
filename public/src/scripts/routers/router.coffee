@@ -24,10 +24,6 @@ define [
 		compare: (person, otherPerson) ->
 			console.log person, otherPerson
 
-		# explorer: () ->
-		# 	explorerView = new ExplorerView()
-			# explorerView.render()
-
 		home: () ->
 			md.Views['home'] = new HomeView()
 			md.Views['home'].render()
@@ -54,27 +50,7 @@ define [
 			@getSearchbar(name1, name2)
 			md.Views['person'] = new ComparisonView({name1: name1, name2: name2})
 
-		# resetLoader: () ->
-			# $('div.loader').removeClass('loading', 'complete')
-
-		# load: () ->
-		# 	$('div.loader').addClass('loading');
-
 		onResize: () ->
 			$('#main').width($(window).width() - 80)
 			$('#search-bar').width($(window).width() - 80)
 			$('#loader').width($(window).width() - 80)
-			
-
-			# document.getElementById('search-bar').style.width = window.innerWidth - 250 + 'px';
-
-		# render: (view, name) ->
-		# 	@createView(view, name)
-
-		# bind: () ->
-		# 	_this = @
-		# 	$(window).on('resize', _this.onResize)
-
-		# createView: (view, name) ->
-			
-	

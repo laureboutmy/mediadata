@@ -8,7 +8,8 @@ define [
 	'text!templates/person.html'
 	'../views/modules/top-5'
 	'../views/modules/timeline'
-], ($, _, Backbone, md, PersonsCollection, PersonModel, tplPerson, Top5View, TimelineView) ->
+	'../views/modules/clock'
+], ($, _, Backbone, md, PersonsCollection, PersonModel, tplPerson, Top5View, TimelineView, ClockView) ->
 	'use strict'
 	class PersonView extends Backbone.View
 		el: '#main'
@@ -23,8 +24,10 @@ define [
 			console.log('fetching', options)
 
 		initializeModules: (data) ->
+			console.log('data', data)
 			@top5 = new Top5View()
 			@timeline = new TimelineView()
+			@clock = new ClockView()
 			@renderModules(data)
 
 		bind: () ->
@@ -58,6 +61,7 @@ define [
 			console.log(data)
 			@top5.render({ popularChannels: data.popularChannels, popularShows: data.popularShows })
 			@timeline.render({ person1: { name: data.person.name, timelineMentions: data.timelineMentions }})
+			@clock.render({broadcastHoursByDay: data.broadcastHoursByDay})
 		
 		onResize: () ->
 			$('#filters').width($(window).width() - 80)

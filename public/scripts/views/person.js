@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', 'text!templates/person.html', '../views/modules/top-5', '../views/modules/timeline'], function($, _, Backbone, md, PersonsCollection, PersonModel, tplPerson, Top5View, TimelineView) {
+  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', 'text!templates/person.html', '../views/modules/top-5', '../views/modules/timeline', '../views/modules/clock'], function($, _, Backbone, md, PersonsCollection, PersonModel, tplPerson, Top5View, TimelineView, ClockView) {
     'use strict';
     var PersonView;
     return PersonView = (function(_super) {
@@ -29,8 +29,10 @@
       };
 
       PersonView.prototype.initializeModules = function(data) {
+        console.log('data', data);
         this.top5 = new Top5View();
         this.timeline = new TimelineView();
+        this.clock = new ClockView();
         return this.renderModules(data);
       };
 
@@ -73,11 +75,14 @@
           popularChannels: data.popularChannels,
           popularShows: data.popularShows
         });
-        return this.timeline.render({
+        this.timeline.render({
           person1: {
             name: data.person.name,
             timelineMentions: data.timelineMentions
           }
+        });
+        return this.clock.render({
+          broadcastHoursByDay: data.broadcastHoursByDay
         });
       };
 

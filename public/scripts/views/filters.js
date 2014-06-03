@@ -21,13 +21,18 @@
         return this.render();
       };
 
+      FiltersView.prototype.bind = function() {};
+
       FiltersView.prototype.render = function() {
         this.$el.html(this.template());
         $('#period').ionRangeSlider({
           values: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
           type: 'double',
           hasGrid: false,
-          hideMinMax: true
+          hideMinMax: true,
+          onFinish: function() {
+            return console.log('FINISH');
+          }
         });
         return this;
       };
