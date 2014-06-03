@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', 'text!templates/comparison.html', '../views/modules/top-5', '../views/modules/timeline'], function($, _, Backbone, md, PersonsCollection, PersonModel, tplComparison, Top5View, TimelineView) {
+  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', 'text!templates/comparison.html', '../views/modules/top-5', '../views/modules/timeline', '../views/modules/clock'], function($, _, Backbone, md, PersonsCollection, PersonModel, tplComparison, Top5View, TimelineView, ClockView) {
     'use strict';
     var ComparisonView;
     return ComparisonView = (function(_super) {
@@ -33,6 +33,12 @@
           el: '.module.top-5.person2'
         });
         this.timeline = new TimelineView();
+        this.clock1 = new ClockView({
+          el: '.module.clock.person1'
+        });
+        this.clock2 = new ClockView({
+          el: '.module.clock.person2'
+        });
         return this.renderModules(data);
       };
 
@@ -64,7 +70,7 @@
           popularChannels: data.person2.popularChannels,
           popularShows: data.person2.popularShows
         });
-        return this.timeline.render({
+        this.timeline.render({
           person1: {
             name: data.person1.person.name,
             timelineMentions: data.person1.person.timelineMentions
@@ -73,6 +79,14 @@
             name: data.person2.person.name,
             timelineMentions: data.person2.person.timelineMentions
           }
+        });
+        this.clock1.render({
+          broadcastHoursByDay: data.person1.broadcastHoursByDay,
+          personNumber: 1
+        });
+        return this.clock2.render({
+          broadcastHoursByDay: data.person2.broadcastHoursByDay,
+          personNumber: 2
         });
       };
 
