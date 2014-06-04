@@ -4,7 +4,7 @@
     <div class="name">
       <h1>
         <% if(topic1) { %>
-          <div class="img"><img src="images/topic--damien-cornu.jpg" /></div> <span class="name"><%= topic1.name %></span>
+          <div class="img"><img src="<%= topic1.picture %>" /></div> <span class="name"><%= topic1.name %></span>
         <% } else { print('Vous devez choisir un sujet') } %>
         <% if(topic1) { %> <span class="role">- Journaliste</span> <% } %></h1>
       <button class="delete"><i class="icon-cross_mark"></i></button>
@@ -20,7 +20,7 @@
     <div class="name">
       <h1>
         <% if(topic2) { %>
-          <div class="img"><img src="images/topic--damien-cornu.jpg" /></div> <%= topic2.name %>
+          <div class="img"><img src="<%= topic2.picture %>" /></div> <%= topic2.name %>
         <% } else { print('Vous devez choisir un sujet') } %>
         <% if(topic2) { %> <span>- Journaliste</span> <% } %></h1>
       <button class="delete"><i class="icon-cross_mark"></i></button>

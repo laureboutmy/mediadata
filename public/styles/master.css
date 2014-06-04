@@ -572,7 +572,6 @@ header#search-bar div.name form.search label { padding: 0 0.5em 0 1.5em; font-we
 header#search-bar div.name form.search label i { margin-right: 10px; font-size: 1em; color: #3498db; }
 header#search-bar div.name form.search ul.topics { display: none; top: 55px; position: absolute; background: #fff; width: 100%; box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2); }
 header#search-bar div.name form.search ul.topics li { padding: 0.5em 1.7em; height: 62px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; line-height: 2em; background: transparent; transition: background ease-out 0.3s; }
-header#search-bar div.name form.search ul.topics li:first-child { border-top: 1px solid #d9d9d9; }
 header#search-bar div.name form.search ul.topics li:hover, header#search-bar div.name form.search ul.topics li.active { background: #f5f5f5; cursor: pointer; }
 header#search-bar div.name form.search ul.topics li span { font-weight: normal; color: #acb8c0; }
 header#search-bar div.name form.search ul.topics li div.img { width: 40px; height: 40px; border-radius: 100%; overflow: hidden; position: relative; display: inline-block; }
@@ -598,7 +597,7 @@ section#main article.person header.header ul li i, section#main article.comparis
 section#main article.person section#filters, section#main article.comparison section#filters { border-top: 1px solid #d4d4d4; border-bottom: 1px solid #d4d4d4; width: 100%; background: #fff; }
 section#main article.person section#filters.fixed, section#main article.comparison section#filters.fixed { border-top: 0; position: fixed; top: 56px; z-index: 50; }
 section#main article.person section#filters.fixed ul, section#main article.comparison section#filters.fixed ul { height: 60px; }
-section#main article.person section#filters ul, section#main article.comparison section#filters ul { height: 80px; transition: height 0.3s ease-out; }
+section#main article.person section#filters ul, section#main article.comparison section#filters ul { height: 80px; }
 section#main article.person section#filters ul li, section#main article.comparison section#filters ul li { position: relative; top: 50%; overflow: hidden; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%); }
 section#main article.person section#filters ul li.period > div, section#main article.comparison section#filters ul li.period > div { width: 62%; position: relative; left: 19%; }
 section#main article.person section#filters label, section#main article.comparison section#filters label { font-size: 0.9375em; color: #6a7d90; font-weight: bold; }
