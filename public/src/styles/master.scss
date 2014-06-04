@@ -806,11 +806,17 @@ section.module {
 				font-family: $font-stack-serif; color: #111; font-weight: bold; }
 		}
 		path {
-			stroke-width: 0; opacity: 0.5; transition: all 0.3s ease-out; cursor: pointer;
+			fill: #2eb587; stroke-width: 0; opacity: 0.5; transition: all 0.3s ease-out; cursor: pointer;
 			&:hover { 
 				opacity: 1; }
 		}
-		#maintext1, #maintext2 {
+		&.person1 path {
+			fill: #2eb587;
+		}
+		&.person2 path {
+			fill: #2781bb;
+		}
+		#mainlabel {
 			position: relative;
 			left: -25px;
 			text {
@@ -820,7 +826,7 @@ section.module {
 				}
 			}
 		}
-		#filter1, #filter2 { 
+		#filter1 { 
 			position: relative; left: 45px; top: -10px }
 		#clockchart {
 			margin-top: 15px;
@@ -832,25 +838,24 @@ section.module {
 		}
 		.labels text { 
 			fill: #ccc; font-weight: 700; }
-		.arcs1 path {
-			fill: #2eb587;
-		}
-		.arcs2 path {
-			fill: #2781bb;
-		}
 		.circle { 
 			fill: none; stroke: #cccccc; stroke-width: 1px; }
-		.bar1, .bar2 { 
+		.bar { 
 			transition: all 0.3s ease-out; cursor: pointer;
-		}
-		.bar1 {
 			fill: #d9d9d9;
 			&.selected { 
 				fill: #29b988; }
 			&:hover { 
 				fill: #29b988; }
 		}
-		.bar2 {
+		&.person1 .bar {
+			fill: #d9d9d9;
+			&.selected { 
+				fill: #29b988; }
+			&:hover { 
+				fill: #29b988; }
+		}
+		&.person2 .bar {
 			fill: #d9d9d9;
 			&.selected { 
 				fill: #2781bb; }
