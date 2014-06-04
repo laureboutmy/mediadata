@@ -38,6 +38,7 @@ define [
 			evt.data.context.update()
 
 		render: () ->
+			console.log(@el)
 			@$el.html(@template(@collection))
 			@bind()
 			if md.Filters.dateMin then from = md.Filters.fromNumber

@@ -12,30 +12,40 @@ define [
 		el: '#search-bar'
 		collection: null
 		template: _.template(tplSearchbar)
-
-		initialize: (options) ->
-			md.Collections['topics'] = new TopicsCollection()
-			md.Collections['topics'].fetch 
-				success: () =>
-					md.Collections['topics'] = md.Collections['topics'].models[0].attributes.searchResults
-					@render(options)
-					@bind()
-
-
 		topics:
 			topic1: null
 			topic2: null
-
 		inputs: 'form.search input'
 		currentText: null
+
+		initialize: (options) ->
+			@collection = new TopicsCollection()
+			@collection.fetch 
+				success: () =>
+					@collection = @collection.models[0].attributes.searchResults
+					@render(options)
+					# @bind()
+		
 		render: (options) ->
+			console.log(options)
 			if options.name1
-				@topics.topic1 = _.where(md.Collections['topics'], { slug: options.name1 })[0]
+				@topics.topic1 = _.where(@collection, { slug: options.name1 })[0]
 			if options.name2
-				@topics.topic2 = _.where(md.Collections['topics'], { slug: options.name2 })[0]
+				@topics.topic2 = _.where(@collection, { slug: options.name2 })[0]
+			if options.name1 && !options.name2 then @topics.topic2 = null
+			if options.name2 && !options.name1 then @topics.topic1 = null
+			if !options.name2 && !options.name1 
+				@topics.topic1 = null
+				@topics.topic2 = null
 
 			@$el.html(@template(@topics))
+			# render Sidebar if comparison or search
 			if @topics.topic1 && @topics.topic2 then @$el.addClass('comparison').find('section.person').addClass('visible')
+			else if !@topics.topic1 && !@topics.topic2 then @$el.addClass('search')
+			else 
+				@$el.removeClass('search')
+				@$el.removeClass('comparison')
+			@bind()
 			return @
 
 		events: 
@@ -50,30 +60,34 @@ define [
 			$(_this.inputs).on('keydown', {context: this}, _this.keydown)
 			$(_this.inputs).on('blur', {context: this}, _this.stop)
 
+		# update name, picture in search-bar
 		update: (name, nb) ->
-			if nb = 1 
-				@topics.topic1 = _.where(md.Collections['topics'], { slug: name })[0]
-				el = $('#name-1').parent().parent().find('h1')
-				el.find('span.name').html(@topics.topic1.name);
-				el.find('span.role').html(@topics.topic1.role);
-				el.find('.img img').attr('src', @topics.topic1.picture);
-			else 
-				@topics.topic2 = _.where(md.Collections['topics'], { slug: name })[0]
-				el = $('#name-2').parent().parent().find('h1')
-				el.find('span.name').html(@topics.topic2.name);
-				el.find('span.role').html(@topics.topic2.role);
-				el.find('.img img').attr('src', @topics.topic2.picture);
+			console.log(@topics['topic' + nb])
+			@topics['topic' + nb] = _.where(@collection, { slug: name })[0]
+			el = $('#name-1').parent().parent().find('h1')
+			el.find('span.name').html(@topics['topic' + nb].name);
+			el.find('span.role').html(@topics['topic' + nb].role);
+			el.find('.img img').attr('src', @topics['topic' + nb].picture);
+			
 
+		# on click on "compare"
 		compare: () ->
 			@$el.addClass('comparison').find('section.person:not(.visible)').addClass('visible').find('form.search').addClass('visible').find('input').focus()
 
+		# on click on "x"
 		delete: (evt) ->
-			console.log(Backbone.history.fragment)
 			if @$el.hasClass('comparison') 
 				@$el.removeClass('comparison')
 				$(evt.currentTarget).parent().parent().removeClass('visible')
+				slug = $(evt.currentTarget).parent().parent().data('slug')
+				slug = (Backbone.history.fragment).replace(slug, '').replace('/', '')
+				md.Router.getPerson(slug)
+				md.Router.navigate(slug)
 			else 
 				@$el.addClass('search')
+				md.Router.getSearch()
+				md.Router.navigate('rechercher')
+
 			$(evt.currentTarget).parent().find('h1').html('Cliquez pour rechercher')
 
 		edit: (evt) ->
@@ -82,9 +96,6 @@ define [
 		stop: (evt) ->
 			if evt then evt.data.context.$el.find('form.search.visible').removeClass('visible')
 			else @$el.find('form.search.visible').removeClass('visible')
-		
-		onResize: () ->
-			# $('#search-bar').width($(window).width() - 250)
 
 		hasChanged: (keyword) ->
 			@currentText != keyword
@@ -143,9 +154,12 @@ define [
 			@stop()
 			@bind()
 
+		navigate: () ->
+
+
 		filter: (keyword) ->
 			keyword = keyword
-			_.filter md.Collections['topics'], (topic) ->
+			_.filter @collection, (topic) ->
 				topic.name.toLowerCase().substring(0, keyword.length) == keyword
 		
 		renderResults: (input, results) ->

@@ -11,7 +11,6 @@ define [
 		url: 'http://api.mediadata.fr/person.php'
 		initialize: (name) ->
 			@url = @url + '?slug=' + name
-			console.log(md.Filters)
 			if md.Filters.dateMin then @url = @url + '&datemin=' + md.Filters.dateMin
 			if md.Filters.dateMax then @url = @url + '&datemax=' + md.Filters.dateMax
 			if md.Filters.canal then @url = @url + '&canal=' + md.Filters.canal

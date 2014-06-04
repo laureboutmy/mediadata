@@ -21,7 +21,7 @@ define [
 			width: 960
 			height: 300
 		render: (data) ->
-			console.log(data)
+			# console.log(data)
 
 			@$el.html(@template())
 			@bind()

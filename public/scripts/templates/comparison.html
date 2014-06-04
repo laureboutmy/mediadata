@@ -4,7 +4,7 @@
       <div class="unit">
         <div class="sm-unit">
       	  <h1 class="name"><%= person1.person.firstName + ' ' + person1.person.lastName %></h1>
-      		<p class="desc"><%= person1.person.description %><%= person1.person.description %></p>
+      		<p class="desc"><%= person1.person.description %></p>
 
       		<% if(person1.person.tag1) { %>
           <ul class="tags">
@@ -29,7 +29,7 @@
       <div class="unit">
         <div class="sm-unit">
           <h1 class="name"><%= person2.person.firstName + ' ' + person2.person.lastName %></h1>
-          <p class="desc"><%= person2.person.description %><%= person2.person.description %></p>
+          <p class="desc"><%= person2.person.description %></p>
 
           <% if(person2.person.tag1) { %>
           <ul class="tags">
@@ -53,6 +53,7 @@
       </div><!-- div.unit -->
     </div><!-- div.wrapper -->
   </header><!-- header.header -->
+  <section id="filters"></section>
   <div class="grid">
     <section id="timeline">
       <h2>Timeline</h2>

@@ -19,19 +19,6 @@
 
       SearchbarView.prototype.template = _.template(tplSearchbar);
 
-      SearchbarView.prototype.initialize = function(options) {
-        md.Collections['topics'] = new TopicsCollection();
-        return md.Collections['topics'].fetch({
-          success: (function(_this) {
-            return function() {
-              md.Collections['topics'] = md.Collections['topics'].models[0].attributes.searchResults;
-              _this.render(options);
-              return _this.bind();
-            };
-          })(this)
-        });
-      };
-
       SearchbarView.prototype.topics = {
         topic1: null,
         topic2: null
@@ -41,21 +28,50 @@
 
       SearchbarView.prototype.currentText = null;
 
+      SearchbarView.prototype.initialize = function(options) {
+        this.collection = new TopicsCollection();
+        return this.collection.fetch({
+          success: (function(_this) {
+            return function() {
+              _this.collection = _this.collection.models[0].attributes.searchResults;
+              return _this.render(options);
+            };
+          })(this)
+        });
+      };
+
       SearchbarView.prototype.render = function(options) {
+        console.log(options);
         if (options.name1) {
-          this.topics.topic1 = _.where(md.Collections['topics'], {
+          this.topics.topic1 = _.where(this.collection, {
             slug: options.name1
           })[0];
         }
         if (options.name2) {
-          this.topics.topic2 = _.where(md.Collections['topics'], {
+          this.topics.topic2 = _.where(this.collection, {
             slug: options.name2
           })[0];
+        }
+        if (options.name1 && !options.name2) {
+          this.topics.topic2 = null;
+        }
+        if (options.name2 && !options.name1) {
+          this.topics.topic1 = null;
+        }
+        if (!options.name2 && !options.name1) {
+          this.topics.topic1 = null;
+          this.topics.topic2 = null;
         }
         this.$el.html(this.template(this.topics));
         if (this.topics.topic1 && this.topics.topic2) {
           this.$el.addClass('comparison').find('section.person').addClass('visible');
+        } else if (!this.topics.topic1 && !this.topics.topic2) {
+          this.$el.addClass('search');
+        } else {
+          this.$el.removeClass('search');
+          this.$el.removeClass('comparison');
         }
+        this.bind();
         return this;
       };
 
@@ -82,23 +98,14 @@
 
       SearchbarView.prototype.update = function(name, nb) {
         var el;
-        if (nb = 1) {
-          this.topics.topic1 = _.where(md.Collections['topics'], {
-            slug: name
-          })[0];
-          el = $('#name-1').parent().parent().find('h1');
-          el.find('span.name').html(this.topics.topic1.name);
-          el.find('span.role').html(this.topics.topic1.role);
-          return el.find('.img img').attr('src', this.topics.topic1.picture);
-        } else {
-          this.topics.topic2 = _.where(md.Collections['topics'], {
-            slug: name
-          })[0];
-          el = $('#name-2').parent().parent().find('h1');
-          el.find('span.name').html(this.topics.topic2.name);
-          el.find('span.role').html(this.topics.topic2.role);
-          return el.find('.img img').attr('src', this.topics.topic2.picture);
-        }
+        console.log(this.topics['topic' + nb]);
+        this.topics['topic' + nb] = _.where(this.collection, {
+          slug: name
+        })[0];
+        el = $('#name-1').parent().parent().find('h1');
+        el.find('span.name').html(this.topics['topic' + nb].name);
+        el.find('span.role').html(this.topics['topic' + nb].role);
+        return el.find('.img img').attr('src', this.topics['topic' + nb].picture);
       };
 
       SearchbarView.prototype.compare = function() {
@@ -106,12 +113,18 @@
       };
 
       SearchbarView.prototype["delete"] = function(evt) {
-        console.log(Backbone.history.fragment);
+        var slug;
         if (this.$el.hasClass('comparison')) {
           this.$el.removeClass('comparison');
           $(evt.currentTarget).parent().parent().removeClass('visible');
+          slug = $(evt.currentTarget).parent().parent().data('slug');
+          slug = Backbone.history.fragment.replace(slug, '').replace('/', '');
+          md.Router.getPerson(slug);
+          md.Router.navigate(slug);
         } else {
           this.$el.addClass('search');
+          md.Router.getSearch();
+          md.Router.navigate('rechercher');
         }
         return $(evt.currentTarget).parent().find('h1').html('Cliquez pour rechercher');
       };
@@ -127,8 +140,6 @@
           return this.$el.find('form.search.visible').removeClass('visible');
         }
       };
-
-      SearchbarView.prototype.onResize = function() {};
 
       SearchbarView.prototype.hasChanged = function(keyword) {
         return this.currentText !== keyword;
@@ -205,9 +216,11 @@
         return this.bind();
       };
 
+      SearchbarView.prototype.navigate = function() {};
+
       SearchbarView.prototype.filter = function(keyword) {
         keyword = keyword;
-        return _.filter(md.Collections['topics'], function(topic) {
+        return _.filter(this.collection, function(topic) {
           return topic.name.toLowerCase().substring(0, keyword.length) === keyword;
         });
       };

@@ -17,7 +17,6 @@
 
       PersonsCollection.prototype.initialize = function(name) {
         this.url = this.url + '?slug=' + name;
-        console.log(md.Filters);
         if (md.Filters.dateMin) {
           this.url = this.url + '&datemin=' + md.Filters.dateMin;
         }

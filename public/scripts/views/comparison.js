@@ -15,13 +15,18 @@
 
       ComparisonView.prototype.el = '#main';
 
-      ComparisonView.prototype.collection = null;
+      ComparisonView.prototype.collections = {};
+
+      ComparisonView.prototype.name = {};
 
       ComparisonView.prototype.template = _.template(tplComparison);
 
       ComparisonView.prototype.initialize = function(options) {
-        md.Collections[options.name1] = new PersonsCollection(options.name1);
-        md.Collections[options.name2] = new PersonsCollection(options.name2);
+        this.name.person1 = options.name1;
+        this.name.person2 = options.name2;
+        this.collections.person1 = new PersonsCollection(this.name.person1);
+        this.collections.person2 = new PersonsCollection(this.name.person2);
+        md.Status['currentView'] = 'comparison';
         return this.render(options);
       };
 
@@ -42,22 +47,31 @@
         return this.renderModules(data);
       };
 
-      ComparisonView.prototype.render = function(options) {
+      ComparisonView.prototype.bind = function() {
         var _this;
         _this = this;
-        _this.collection = {};
-        return md.Collections[options.name1].fetch({
-          success: function() {
-            _this.collection.person1 = md.Collections[options.name1].models[0].attributes;
-            md.Collections[options.name2].fetch({
-              success: function() {
-                _this.collection.person2 = md.Collections[options.name2].models[0].attributes;
-                _this.$el.html(_this.template(_this.collection));
-                return _this.initializeModules(_this.collection);
-              }
-            });
-            return _this;
-          }
+        $(window).on('scroll', this.stickFilters);
+        return $(window).on('resize', this.onResize);
+      };
+
+      ComparisonView.prototype.render = function(options) {
+        return this.collections.person1.fetch({
+          success: (function(_this) {
+            return function() {
+              _this.collections.person1 = _this.collections.person1.models[0].attributes;
+              _this.collections.person2.fetch({
+                success: function() {
+                  _this.collections.person2 = _this.collections.person2.models[0].attributes;
+                  md.Router.getFilters();
+                  _this.$el.html(_this.template(_this.collections));
+                  _this.initializeModules(_this.collections);
+                  _this.bind();
+                  return _this.onResize();
+                }
+              });
+              return _this;
+            };
+          })(this)
         });
       };
 
@@ -88,6 +102,36 @@
           broadcastHoursByDay: data.person2.broadcastHoursByDay,
           personNumber: 2
         });
+      };
+
+      ComparisonView.prototype.rerender = function() {
+        this.collections.person1 = new PersonsCollection(this.name.person1);
+        this.collections.person2 = new PersonsCollection(this.name.person2);
+        return this.collections.person1.fetch({
+          success: (function(_this) {
+            return function() {
+              _this.collections.person1 = _this.collections.person1.models[0].attributes;
+              return _this.collections.person2.fetch({
+                success: function() {
+                  _this.collections.person2 = _this.collections.person2.models[0].attributes;
+                  return _this.renderModules(_this.collections);
+                }
+              });
+            };
+          })(this)
+        });
+      };
+
+      ComparisonView.prototype.stickFilters = function() {
+        if ($(window).scrollTop() > $('header.header').outerHeight()) {
+          return $('#filters').addClass('fixed');
+        } else {
+          return $('#filters').removeClass('fixed');
+        }
+      };
+
+      ComparisonView.prototype.onResize = function() {
+        return $('#filters').width($(window).width() - 80);
       };
 
       return ComparisonView;

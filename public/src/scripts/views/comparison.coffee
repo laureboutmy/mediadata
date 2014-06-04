@@ -13,16 +13,20 @@ define [
 	'use strict'
 	class ComparisonView extends Backbone.View
 		el: '#main'
-		collection: null
+		collections: {}
+		name: {}
 		template: _.template(tplComparison)
 
 		initialize: (options) -> 
-			md.Collections[options.name1] = new PersonsCollection(options.name1)
-			md.Collections[options.name2] = new PersonsCollection(options.name2)
+			@name.person1 = options.name1
+			@name.person2 = options.name2
+			@collections.person1 = new PersonsCollection(@name.person1)
+			@collections.person2 = new PersonsCollection(@name.person2)
+			md.Status['currentView'] = 'comparison'
 			@render(options)
+			
 
 		initializeModules: (data) ->
-			# console.log(data)
 			@top51 = new Top5View({el: '.module.top-5.person1'})
 			@top52 = new Top5View({el: '.module.top-5.person2'})
 			@timeline = new TimelineView()
@@ -30,25 +34,49 @@ define [
 			@clock2 = new ClockView({el: '.module.clock.person2'})
 			@renderModules(data)
 
-		render: (options) ->
+		bind: () ->
 			_this = @
-			_this.collection = {}
-			md.Collections[options.name1].fetch
-				success: () ->
-					_this.collection.person1 = md.Collections[options.name1].models[0].attributes
-					md.Collections[options.name2].fetch
-						success: () ->
-							_this.collection.person2 = md.Collections[options.name2].models[0].attributes
-							_this.$el.html(_this.template(_this.collection))
-							_this.initializeModules(_this.collection)
-					return _this
+			$(window).on('scroll', @stickFilters)
+			$(window).on('resize', @onResize)
+
+		render: (options) ->
+			@collections.person1.fetch
+				success: () =>
+					@collections.person1 = @collections.person1.models[0].attributes
+					@collections.person2.fetch
+						success: () =>
+							@collections.person2 = @collections.person2.models[0].attributes
+							md.Router.getFilters()
+							@$el.html(@template(@collections))
+							@initializeModules(@collections)
+							@bind()
+							@onResize()
+					return @
 			
 		renderModules: (data) ->
 			@top51.render({ popularChannels: data.person1.popularChannels, popularShows: data.person1.popularShows })
 			@top52.render({ popularChannels: data.person2.popularChannels, popularShows: data.person2.popularShows })
-			@timeline.render({ 
+			@timeline.render
 				person1: { name: data.person1.person.name, timelineMentions: data.person1.person.timelineMentions }
 				person2: { name: data.person2.person.name, timelineMentions: data.person2.person.timelineMentions }
-				})
+			
 			@clock1.render({ broadcastHoursByDay: data.person1.broadcastHoursByDay, personNumber: 1 })
 			@clock2.render({ broadcastHoursByDay: data.person2.broadcastHoursByDay, personNumber: 2 })
+
+		rerender: () ->
+			@collections.person1 = new PersonsCollection(@name.person1)
+			@collections.person2 = new PersonsCollection(@name.person2)
+			@collections.person1.fetch
+				success: () =>
+					@collections.person1 = @collections.person1.models[0].attributes
+					@collections.person2.fetch
+						success: () =>
+							@collections.person2 = @collections.person2.models[0].attributes
+							@renderModules(@collections)
+
+		stickFilters: () ->
+			if $(window).scrollTop() > $('header.header').outerHeight()  then $('#filters').addClass('fixed')
+			else $('#filters').removeClass('fixed')
+					
+		onResize: () ->
+			$('#filters').width($(window).width() - 80)

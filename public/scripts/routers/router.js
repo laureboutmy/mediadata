@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', '../views/home', '../views/person', '../views/comparison'], function($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView) {
+  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', '../views/home', '../views/person', '../views/comparison', '../views/search'], function($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView, SearchView) {
     'use strict';
     var Router;
     return Router = (function(_super) {
@@ -15,6 +15,7 @@
 
       Router.prototype.routes = {
         '': 'home',
+        'rechercher': 'getSearch',
         ':person': 'getPerson',
         ':person/:otherPerson': 'getComparison'
       };
@@ -50,7 +51,10 @@
             };
           })(this));
         } else {
-          md.Views['search-bar'].render(name1);
+          md.Views['search-bar'].render({
+            name1: name1,
+            name2: name2
+          });
           return $(md.Views['search-bar'].el).addClass('visible');
         }
       };
@@ -62,21 +66,29 @@
               return md.Views['filters'] = new FiltersView();
             };
           })(this));
+        } else {
+          return md.Views['filters'].render();
         }
       };
 
       Router.prototype.getPerson = function(name) {
-        if (!md.Views['searchBar']) {
-          this.getSearchbar(name);
-        }
+        this.getSearchbar(name);
         return md.Views['person'] = new PersonView({
           name1: name
         });
       };
 
+      Router.prototype.getSearch = function() {
+        if (!md.Views['search-bar']) {
+          this.getSearchbar(name);
+        }
+        return md.Views['search'] = new SearchView();
+      };
+
       Router.prototype.getComparison = function(name1, name2) {
+        console.log('getcomparison');
         this.getSearchbar(name1, name2);
-        return md.Views['person'] = new ComparisonView({
+        return md.Views['comparison'] = new ComparisonView({
           name1: name1,
           name2: name2
         });

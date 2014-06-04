@@ -702,7 +702,17 @@ section.module {
 		border: 1px solid #d9d9d9;
 		border-radius: 5px;
 		overflow: hidden;
-
+		&.person2 {
+			section {
+				ol {
+					li {
+						div.gauge {
+							span { background-color: #2781bb; }
+						}
+					}
+				}
+			}
+		}
 		nav.tabs {
 			overflow: hidden;
 			ul li {
