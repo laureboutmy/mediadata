@@ -1,0 +1,25 @@
+<article class="index">
+  <header>
+    <div class="grid">
+      <h1><i class="icon-reorder_square"></i>Index des fiches</h1>
+      <h2>recherchez une fiche alphabétiquement</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+    </div>
+  </header>
+  <section>
+    <ul class="grid">
+      <% _.each(searchResults, function(person, i){ %>
+      <li <% if ((i+1)%5 == 0 && i != 0) { %> class="no-margin" <% } %>>
+        <a href="<%= person.slug %>" data-link="<%= person.slug %>">
+          <img src="<%= person.picture %>" alt="<%= person.name %>" />
+          <div>
+            <h4><%= person.name %></h4>
+            <p><% if(person.role.length > 20) { print(person.role.slice(0, 20) + '...') } else { print(person.role) } %></p>
+          </div>
+        </a>
+      </li>
+      <% }) %>
+      
+    </ul>
+  </section>
+</article>

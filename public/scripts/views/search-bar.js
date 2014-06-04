@@ -88,12 +88,9 @@
         $(_this.inputs).on('keyup', {
           context: this
         }, _this.keyup);
-        $(_this.inputs).on('keydown', {
+        return $(_this.inputs).on('keydown', {
           context: this
         }, _this.keydown);
-        return $(_this.inputs).on('blur', {
-          context: this
-        }, _this.stop);
       };
 
       SearchbarView.prototype.update = function(name, nb) {
@@ -188,6 +185,7 @@
       SearchbarView.prototype.submit = function(evt, input) {
         var selected;
         if (evt) {
+          evt.stopPropagation();
           selected = $(evt.currentTarget);
           input = selected.parent().parent().find('input');
         } else {

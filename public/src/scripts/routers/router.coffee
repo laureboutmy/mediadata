@@ -10,18 +10,20 @@ define [
 	# '../views/search-bar'
 	'../views/comparison'
 	'../views/search'
-], ($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView, SearchView) ->
+	'../views/index'
+], ($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView, SearchView, IndexView) ->
 	'use strict'
 	class Router extends Backbone.Router
 		routes:
 			'': 'home'
 			'rechercher': 'getSearch'
+			'index': 'getIndex'
 			':person': 'getPerson'
 			':person/:otherPerson': 'getComparison'
 
 		initialize: () ->
 			@onResize()
-			# @bind()
+			@bind()
 
 		compare: (person, otherPerson) ->
 			console.log person, otherPerson
@@ -56,6 +58,9 @@ define [
 			if !md.Views['search-bar'] then @getSearchbar(name)
 			md.Views['search'] = new SearchView()
 
+		getIndex: () ->
+			md.Views['index'] = new IndexView()
+
 		getComparison: (name1, name2) ->
 			console.log('getcomparison')
 			@getSearchbar(name1, name2)
@@ -68,3 +73,9 @@ define [
 			$('#main').width($(window).width() - 80)
 			$('#search-bar').width($(window).width() - 80)
 			$('#loader').width($(window).width() - 80)
+			$('#main').on('click', '[data-link]', @go)
+
+		go: (evt) ->
+			evt.preventDefault()
+			md.Router.navigate($(this).data('link'))
+			md.Router.getPerson($(this).data('link'))

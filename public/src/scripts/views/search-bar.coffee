@@ -58,7 +58,7 @@ define [
 			_this = @
 			$(_this.inputs).on('keyup', {context: this}, _this.keyup)
 			$(_this.inputs).on('keydown', {context: this}, _this.keydown)
-			$(_this.inputs).on('blur', {context: this}, _this.stop)
+			# $(_this.inputs).on('blur', {context: this}, _this.stop)
 
 		# update name, picture in search-bar
 		update: (name, nb) ->
@@ -128,6 +128,7 @@ define [
 
 		submit: (evt, input) ->
 			if evt 
+				evt.stopPropagation()
 				selected = $(evt.currentTarget)
 				input = selected.parent().parent().find('input')
 			else
