@@ -20,12 +20,11 @@
       SearchbarView.prototype.template = _.template(tplSearchbar);
 
       SearchbarView.prototype.initialize = function(options) {
-        console.log('INIT SEARCHBAR');
         md.Collections['topics'] = new TopicsCollection();
         return md.Collections['topics'].fetch({
           success: (function(_this) {
             return function() {
-              md.Collections['topics'] = md.Collections['topics'].models[0].attributes.results;
+              md.Collections['topics'] = md.Collections['topics'].models[0].attributes.searchResults;
               _this.render(options);
               return _this.bind();
             };

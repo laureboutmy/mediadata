@@ -8,6 +8,8 @@
       Views: {},
       Models: {},
       Collections: {},
+      Filters: {},
+      Status: {},
       initialize: function() {
         return require(['routers/router'], (function(_this) {
           return function(Router) {

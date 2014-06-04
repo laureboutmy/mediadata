@@ -15,16 +15,20 @@ define [
 		el: '#main'
 		collection: null
 		template: _.template(tplPerson)
-
+		name: null
 		initialize: (options) -> 
-			@collection = new PersonsCollection(options.name1)
+			# console.log(md.Filters)
+			# if md.Filters then console.log("yooo")
+			@name = options.name1
+			@collection = new PersonsCollection(@name)
+			md.Status['currentView'] = 'person'
 			@render(options)
 
 		machin: (options) ->
-			console.log('fetching', options)
+			# console.log('fetching', options)
 
 		initializeModules: (data) ->
-			console.log('data', data)
+			# console.log('data', data)
 			@top5 = new Top5View()
 			@timeline = new TimelineView()
 			@clock = new ClockView()
@@ -41,28 +45,32 @@ define [
 
 		render: (options) ->
 			_this = @
-			console.log(md.Router)
-			# md.Router.resetLoader();
-			# md.Router.load();
-			# $('div.loader').removeClass('loading', 'complete')
 			$('div.loader').addClass('loading')
 
 			@collection.fetch
-				success: (data) ->
+				success: (data) =>
 					$('div.loader').addClass('complete');
-					_this.$el.html(_this.template(_this.collection.models[0].attributes))
+					@collection = @collection.models[0].attributes
+					@$el.html(@template(@collection))
 					md.Router.getFilters()
-					_this.initializeModules(_this.collection.models[0].attributes)
-					_this.bind()
-					_this.onResize()
+					@initializeModules(@collection)
+					@bind()
+					@onResize()
 					return _this
 
 		renderModules: (data) ->
-			console.log(data)
 			@top5.render({ popularChannels: data.popularChannels, popularShows: data.popularShows })
 			@timeline.render({ person1: { name: data.person.name, timelineMentions: data.timelineMentions }})
 			@clock.render({broadcastHoursByDay: data.broadcastHoursByDay, personNumber: 1 })
 		
 		onResize: () ->
 			$('#filters').width($(window).width() - 80)
+
+		rerender: () ->
+			@collection = new PersonsCollection(@name)
+			@collection.fetch
+				success: () =>
+					@collection = @collection.models[0].attributes
+					@renderModules(@collection)
+
 		

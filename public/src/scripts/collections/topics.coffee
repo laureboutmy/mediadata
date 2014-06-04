@@ -6,4 +6,4 @@ define [
 ], ($, _, Backbone, TopicModel) ->
 	'use strict'
 	class TopicsCollection extends Backbone.Collection
-		url: 'http://localhost/mediadata/api/search-example.json'
+		url: 'http://api.mediadata.fr/search.php'

@@ -19,17 +19,18 @@
 
       PersonView.prototype.template = _.template(tplPerson);
 
+      PersonView.prototype.name = null;
+
       PersonView.prototype.initialize = function(options) {
-        this.collection = new PersonsCollection(options.name1);
+        this.name = options.name1;
+        this.collection = new PersonsCollection(this.name);
+        md.Status['currentView'] = 'person';
         return this.render(options);
       };
 
-      PersonView.prototype.machin = function(options) {
-        return console.log('fetching', options);
-      };
+      PersonView.prototype.machin = function(options) {};
 
       PersonView.prototype.initializeModules = function(data) {
-        console.log('data', data);
         this.top5 = new Top5View();
         this.timeline = new TimelineView();
         this.clock = new ClockView();
@@ -54,23 +55,24 @@
       PersonView.prototype.render = function(options) {
         var _this;
         _this = this;
-        console.log(md.Router);
         $('div.loader').addClass('loading');
         return this.collection.fetch({
-          success: function(data) {
-            $('div.loader').addClass('complete');
-            _this.$el.html(_this.template(_this.collection.models[0].attributes));
-            md.Router.getFilters();
-            _this.initializeModules(_this.collection.models[0].attributes);
-            _this.bind();
-            _this.onResize();
-            return _this;
-          }
+          success: (function(_this) {
+            return function(data) {
+              $('div.loader').addClass('complete');
+              _this.collection = _this.collection.models[0].attributes;
+              _this.$el.html(_this.template(_this.collection));
+              md.Router.getFilters();
+              _this.initializeModules(_this.collection);
+              _this.bind();
+              _this.onResize();
+              return _this;
+            };
+          })(this)
         });
       };
 
       PersonView.prototype.renderModules = function(data) {
-        console.log(data);
         this.top5.render({
           popularChannels: data.popularChannels,
           popularShows: data.popularShows
@@ -89,6 +91,18 @@
 
       PersonView.prototype.onResize = function() {
         return $('#filters').width($(window).width() - 80);
+      };
+
+      PersonView.prototype.rerender = function() {
+        this.collection = new PersonsCollection(this.name);
+        return this.collection.fetch({
+          success: (function(_this) {
+            return function() {
+              _this.collection = _this.collection.models[0].attributes;
+              return _this.renderModules(_this.collection);
+            };
+          })(this)
+        });
       };
 
       return PersonView;

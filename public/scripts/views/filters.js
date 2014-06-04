@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', 'mediadata', 'text!templates/filters.html', '../vendors/slider-1.9.1.min'], function($, _, Backbone, md, tplFilters) {
+  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/filters', 'text!templates/filters.html', '../vendors/slider-1.9.1.min'], function($, _, Backbone, md, FiltersCollection, tplFilters) {
     'use strict';
     var FiltersView;
     return FiltersView = (function(_super) {
@@ -17,24 +17,77 @@
 
       FiltersView.prototype.template = _.template(tplFilters);
 
+      FiltersView.prototype.collection = null;
+
+      FiltersView.prototype.monthsDisplayed = [];
+
+      FiltersView.prototype.monthsAPI = [];
+
       FiltersView.prototype.initialize = function(options) {
-        return this.render();
+        this.collection = new FiltersCollection();
+        return this.collection.fetch({
+          success: (function(_this) {
+            return function() {
+              _this.collection = _this.collection.models[0].attributes;
+              _.each(_this.collection.months, function(month) {
+                _this.monthsDisplayed.push(month.monthDisplayed);
+                return _this.monthsAPI.push(month.monthAPI);
+              });
+              return _this.render();
+            };
+          })(this)
+        });
       };
 
-      FiltersView.prototype.bind = function() {};
+      FiltersView.prototype.bind = function() {
+        var _this;
+        _this = this;
+        return $('#details, #medias').on('change', {
+          context: _this
+        }, _this.onChange);
+      };
+
+      FiltersView.prototype.onChange = function(evt) {
+        if ($(this).attr('name') === 'details') {
+          md.Filters['par'] = $(this).val();
+        } else if ($(this).attr('name') === 'medias') {
+          md.Filters['canal'] = $(this).val();
+        }
+        return evt.data.context.update();
+      };
 
       FiltersView.prototype.render = function() {
-        this.$el.html(this.template());
+        var from, to;
+        this.$el.html(this.template(this.collection));
+        this.bind();
+        if (md.Filters.dateMin) {
+          from = md.Filters.fromNumber;
+        }
+        if (md.Filters.dateMax) {
+          to = md.Filters.toNumber;
+        }
         $('#period').ionRangeSlider({
-          values: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+          values: this.monthsDisplayed,
           type: 'double',
+          from: from,
+          to: to,
           hasGrid: false,
           hideMinMax: true,
-          onFinish: function() {
-            return console.log('FINISH');
-          }
+          onFinish: (function(_this) {
+            return function(obj) {
+              md.Filters['fromNumber'] = obj.fromNumber;
+              md.Filters['toNumber'] = obj.toNumber;
+              md.Filters['dateMin'] = _this.monthsAPI[obj.fromNumber];
+              md.Filters['dateMax'] = _this.monthsAPI[obj.toNumber];
+              return _this.update();
+            };
+          })(this)
         });
         return this;
+      };
+
+      FiltersView.prototype.update = function() {
+        return md.Views[md.Status.currentView].rerender();
       };
 
       return FiltersView;

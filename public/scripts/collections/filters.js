@@ -3,19 +3,19 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', '../models/topic'], function($, _, Backbone, TopicModel) {
+  define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
     'use strict';
-    var TopicsCollection;
-    return TopicsCollection = (function(_super) {
-      __extends(TopicsCollection, _super);
+    var FiltersCollection;
+    return FiltersCollection = (function(_super) {
+      __extends(FiltersCollection, _super);
 
-      function TopicsCollection() {
-        return TopicsCollection.__super__.constructor.apply(this, arguments);
+      function FiltersCollection() {
+        return FiltersCollection.__super__.constructor.apply(this, arguments);
       }
 
-      TopicsCollection.prototype.url = 'http://api.mediadata.fr/search.php';
+      FiltersCollection.prototype.url = 'http://api.mediadata.fr/filters.php';
 
-      return TopicsCollection;
+      return FiltersCollection;
 
     })(Backbone.Collection);
   });

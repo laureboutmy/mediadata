@@ -14,11 +14,10 @@ define [
 		template: _.template(tplSearchbar)
 
 		initialize: (options) ->
-			console.log('INIT SEARCHBAR') 
 			md.Collections['topics'] = new TopicsCollection()
 			md.Collections['topics'].fetch 
 				success: () =>
-					md.Collections['topics'] = md.Collections['topics'].models[0].attributes.results
+					md.Collections['topics'] = md.Collections['topics'].models[0].attributes.searchResults
 					@render(options)
 					@bind()
 

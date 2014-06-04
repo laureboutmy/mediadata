@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', '../models/person'], function($, _, Backbone, PersonModel) {
+  define(['jquery', 'underscore', 'backbone', 'mediadata'], function($, _, Backbone, md) {
     'use strict';
     var PersonsCollection;
     return PersonsCollection = (function(_super) {
@@ -13,10 +13,24 @@
         return PersonsCollection.__super__.constructor.apply(this, arguments);
       }
 
-      PersonsCollection.prototype.url = 'http://37.187.178.169/mediadata/API.php?slug=';
+      PersonsCollection.prototype.url = 'http://api.mediadata.fr/person.php';
 
       PersonsCollection.prototype.initialize = function(name) {
-        return this.url = this.url + name;
+        this.url = this.url + '?slug=' + name;
+        console.log(md.Filters);
+        if (md.Filters.dateMin) {
+          this.url = this.url + '&datemin=' + md.Filters.dateMin;
+        }
+        if (md.Filters.dateMax) {
+          this.url = this.url + '&datemax=' + md.Filters.dateMax;
+        }
+        if (md.Filters.canal) {
+          this.url = this.url + '&canal=' + md.Filters.canal;
+        }
+        if (md.Filters.par) {
+          this.url = this.url + '&par=' + md.Filters.par;
+        }
+        return console.log(this.url);
       };
 
       return PersonsCollection;

@@ -4,19 +4,17 @@
 	<li class="details unit quarter">
 		<label for="details">Détails</label>
 		<select id="details" name="details">
-			<option value="">Mentions</option>
+			<% _.each(modes, function(mode){ %>
+			<option value="<%= mode.modeAPI %>"><%= mode.modeDisplayed %></option>
+			<% }) %>
 		</select>
 	</li>
 	<li class="medias unit quarter">
 		<label for="medias">Médias</label>
 		<select id="medias" name="medias">
-			<option value="">Radio, TNT</option>
-			<option value="">Radio, TNrezrei</option>
-			<option value="">Radio, TNrezrei</option>
-			<option value="">Radio, TNrezrei</option>
-			<option value="">Radio, TNrezrei</option>
-			<option value="">Radio, TNrezrei</option>
-
+			<% _.each(supports, function(support){ %>
+			<option value="<%= support.supportAPI %>"><%= support.supportDisplayed %></option>
+			<% }) %>
 		</select>
 	</li>
 	<li class="period unit">
