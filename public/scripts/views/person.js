@@ -82,7 +82,8 @@
           }
         });
         return this.clock.render({
-          broadcastHoursByDay: data.broadcastHoursByDay
+          broadcastHoursByDay: data.broadcastHoursByDay,
+          personNumber: 1
         });
       };
 

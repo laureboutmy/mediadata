@@ -637,7 +637,7 @@ section#main article.comparison header.header .sm-unit { margin: 0 auto; width: 
 
 /* section#main */
 /* @group of Modules */
-section.module { width: 100%; margin: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+section.module { width: 100%; margin: 0 0 50px 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 section.module.timeline { border: 1px solid #d9d9d9; border-radius: 5px; overflow: hidden; }
 section.module.timeline h3 { margin: 35px 30px; color: #29b988; font-size: 0.9375em; font-weight: 700; }
 section.module.timeline h3 span { display: block; color: #1c1f21; font-size: 1.33333em; font-family: "chaparral-pro", serif; }
@@ -659,6 +659,30 @@ section.module.top-5 section ol li span.total { margin-top: 0.4em; color: #ccc; 
 section.module.top-5 section ol li div.gauge { position: absolute; right: 1.875em; top: 2.375em; margin: 10px 0; width: 300px; height: 9px; border-radius: 20px; background-color: #f5f5f5; }
 section.module.top-5 section ol li div.gauge span { display: block; height: 100%; width: 0; position: relative; background-color: #29b988; border-radius: 20px; transition: width 0.3s ease-out; }
 section.module.top-5 section ol li div.gauge span.width { transition: none; }
+section.module.clock { border: 1px solid #d9d9d9; border-radius: 5px; overflow: hidden; padding: 29px 0 20px 59px; }
+section.module.clock text { font: 0.9375em "Source Sans Pro", sans-serif; -webkit-font-smoothing: antialiased; }
+section.module.clock text.time { fill: #6a7d90; font-weight: 600; }
+section.module.clock text.value { font-family: "chaparral-pro", serif; color: #111; font-weight: bold; }
+section.module.clock path { stroke-width: 0; opacity: 0.5; transition: all 0.3s ease-out; cursor: pointer; }
+section.module.clock path:hover { opacity: 1; }
+section.module.clock #maintext1, section.module.clock #maintext2 { position: relative; left: -25px; }
+section.module.clock #maintext1 text, section.module.clock #maintext2 text { text-anchor: left; }
+section.module.clock #maintext1 text.value, section.module.clock #maintext2 text.value { font-size: 1.5625em; }
+section.module.clock #filter1, section.module.clock #filter2 { position: relative; left: 45px; top: -10px; }
+section.module.clock #clockchart { margin-top: 15px; }
+section.module.clock .center text, section.module.clock .labels text { text-anchor: middle; }
+section.module.clock .center .value { font-size: 1.25em; }
+section.module.clock .labels text { fill: #ccc; font-weight: 700; }
+section.module.clock .arcs1 path { fill: #2eb587; }
+section.module.clock .arcs2 path { fill: #2781bb; }
+section.module.clock .circle { fill: none; stroke: #cccccc; stroke-width: 1px; }
+section.module.clock .bar1, section.module.clock .bar2 { transition: all 0.3s ease-out; cursor: pointer; }
+section.module.clock .bar1 { fill: #d9d9d9; }
+section.module.clock .bar1.selected { fill: #29b988; }
+section.module.clock .bar1:hover { fill: #29b988; }
+section.module.clock .bar2 { fill: #d9d9d9; }
+section.module.clock .bar2.selected { fill: #2781bb; }
+section.module.clock .bar2:hover { fill: #2781bb; }
 
 /* @end of Modules */
 /* @end of Master */

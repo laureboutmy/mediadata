@@ -8,7 +8,8 @@ define [
 	'text!templates/comparison.html'
 	'../views/modules/top-5'
 	'../views/modules/timeline'
-], ($, _, Backbone, md, PersonsCollection, PersonModel, tplComparison, Top5View, TimelineView) ->
+	'../views/modules/clock'
+], ($, _, Backbone, md, PersonsCollection, PersonModel, tplComparison, Top5View, TimelineView, ClockView) ->
 	'use strict'
 	class ComparisonView extends Backbone.View
 		el: '#main'
@@ -25,6 +26,8 @@ define [
 			@top51 = new Top5View({el: '.module.top-5.person1'})
 			@top52 = new Top5View({el: '.module.top-5.person2'})
 			@timeline = new TimelineView()
+			@clock1 = new ClockView({el: '.module.clock.person1'})
+			@clock2 = new ClockView({el: '.module.clock.person2'})
 			@renderModules(data)
 
 		render: (options) ->
@@ -47,5 +50,5 @@ define [
 				person1: { name: data.person1.person.name, timelineMentions: data.person1.person.timelineMentions }
 				person2: { name: data.person2.person.name, timelineMentions: data.person2.person.timelineMentions }
 				})
-		
-		
+			@clock1.render({ broadcastHoursByDay: data.person1.broadcastHoursByDay, personNumber: 1 })
+			@clock2.render({ broadcastHoursByDay: data.person2.broadcastHoursByDay, personNumber: 2 })
