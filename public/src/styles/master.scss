@@ -592,6 +592,8 @@ section#main {
 			ul li { display: inline-block; }	
 		} /* header.introduction */
 
+
+
 		section.tutorial {
 			padding: 130px 0;
 			background: #fff;
@@ -664,6 +666,82 @@ section#main {
 	} /* article.home */
 } /* section#main */
 
+article.index {
+
+
+	header {
+		background: #33485d;
+		div.grid { padding: 60px 30px; }
+		h1 {
+			color: #fff;
+			font-size: em(25px);
+			font-weight: bold;
+			i {
+				color: #39b188;
+				font-size: em(17px, 25px);
+				line-height: em(17px, 40px);
+				margin-right: 5px;
+				position: relative;
+				top: -1px;
+			}
+		}
+		h2 {
+			color: #96b7d9;
+			text-transform: uppercase;
+			font-size: em(15px);
+			line-height: em(40px, 15px);
+			font-weight: 600;
+			letter-spacing: 0.2em; } 
+		p {
+			color: #fff;
+			font-family: $font-stack-serif;
+			font-size: em(19px);
+			line-height: em(30px, 19px);
+			width: 450px;
+		}
+
+	}
+	section {
+		ul {
+			li {
+				border-radius: 4px;
+				overflow: hidden;
+				width: 180px;
+				float: left;
+				margin-right: 30px;
+				margin-bottom: 30px;
+				&.no-margin {
+					margin-right: 0;
+				}
+				a { 
+					display: block; width: 180px; overflow: hidden; text-decoration: none; opacity: 1; transition: opacity 0.3s ease-out;
+					&:hover { opacity: 0.7; }
+				}
+				div {
+					text-align: center;
+					border-radius: 4px;
+					border-top-left-radius: 0;
+					border-top-right-radius: 0;
+					border: 1px solid #d9d9d9;
+					padding: 15px 0;
+					border-top: 0;
+					h4 {
+						color: #1c1f21;
+						font-weight: bold;
+						font-size: em(15px);
+						margin-bottom: 5px;
+					}
+					p {
+						color: #acb8c0;
+						font-size: em(15px);
+					}
+				}
+			}
+		}
+	}
+}
+
+
 section#main {
 	article.comparison {
 		header.header {
@@ -702,7 +780,17 @@ section.module {
 		border: 1px solid #d9d9d9;
 		border-radius: 5px;
 		overflow: hidden;
-
+		&.person2 {
+			section {
+				ol {
+					li {
+						div.gauge {
+							span { background-color: #2781bb; }
+						}
+					}
+				}
+			}
+		}
 		nav.tabs {
 			overflow: hidden;
 			ul li {

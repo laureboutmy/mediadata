@@ -24,9 +24,6 @@ define [
 			md.Status['currentView'] = 'person'
 			@render(options)
 
-		machin: (options) ->
-			# console.log('fetching', options)
-
 		initializeModules: (data) ->
 			# console.log('data', data)
 			@top5 = new Top5View()
@@ -44,9 +41,7 @@ define [
 			else $('#filters').removeClass('fixed');
 
 		render: (options) ->
-			_this = @
 			$('div.loader').addClass('loading')
-
 			@collection.fetch
 				success: (data) =>
 					$('div.loader').addClass('complete');
@@ -56,7 +51,7 @@ define [
 					@initializeModules(@collection)
 					@bind()
 					@onResize()
-					return _this
+					return @
 
 		renderModules: (data) ->
 			@top5.render({ popularChannels: data.popularChannels, popularShows: data.popularShows })

@@ -9,17 +9,21 @@ define [
 	'../views/person'
 	# '../views/search-bar'
 	'../views/comparison'
-], ($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView) ->
+	'../views/search'
+	'../views/index'
+], ($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView, SearchView, IndexView) ->
 	'use strict'
 	class Router extends Backbone.Router
 		routes:
 			'': 'home'
+			'rechercher': 'getSearch'
+			'index': 'getIndex'
 			':person': 'getPerson'
 			':person/:otherPerson': 'getComparison'
 
 		initialize: () ->
 			@onResize()
-			# @bind()
+			@bind()
 
 		compare: (person, otherPerson) ->
 			console.log person, otherPerson
@@ -32,25 +36,46 @@ define [
 			if !md.Views['search-bar'] 
 				require ['views/search-bar'], (SearchbarView) =>
 					md.Views['search-bar'] = new SearchbarView({name1: name1, name2: name2})
-					$(md.Views['search-bar'].el).addClass('visible');
+					$(md.Views['search-bar'].el).addClass('visible')
 			else
-				md.Views['search-bar'].render(name1)
-				$(md.Views['search-bar'].el).addClass('visible');
+				md.Views['search-bar'].render({name1: name1, name2: name2})
+				$(md.Views['search-bar'].el).addClass('visible')
 
 		getFilters: () ->
 			if !md.Views['filters'] 
 				require ['views/filters'], (FiltersView) =>
 					md.Views['filters'] = new FiltersView()
+			else 
+				md.Views['filters'].render()
 
 		getPerson: (name) ->
-			if !md.Views['searchBar'] then @getSearchbar(name)
+			@getSearchbar(name)
+			# if !md.Views['search-bar'] then @getSearchbar(name)
+			# else md.Views['search-bar'].render({name1: name})
 			md.Views['person'] = new PersonView({name1: name})
 
+		getSearch: () ->
+			if !md.Views['search-bar'] then @getSearchbar(name)
+			md.Views['search'] = new SearchView()
+
+		getIndex: () ->
+			md.Views['index'] = new IndexView()
+
 		getComparison: (name1, name2) ->
+			console.log('getcomparison')
 			@getSearchbar(name1, name2)
-			md.Views['person'] = new ComparisonView({name1: name1, name2: name2})
+
+			# if !md.Views['search-bar'] then @getSearchbar(name1, name2)
+			# else md.Views['search-bar'].render({name1: name1, name2: name2})
+			md.Views['comparison'] = new ComparisonView({name1: name1, name2: name2})
 
 		onResize: () ->
 			$('#main').width($(window).width() - 80)
 			$('#search-bar').width($(window).width() - 80)
 			$('#loader').width($(window).width() - 80)
+			$('#main').on('click', '[data-link]', @go)
+
+		go: (evt) ->
+			evt.preventDefault()
+			md.Router.navigate($(this).data('link'))
+			md.Router.getPerson($(this).data('link'))

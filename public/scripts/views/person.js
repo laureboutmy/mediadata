@@ -28,8 +28,6 @@
         return this.render(options);
       };
 
-      PersonView.prototype.machin = function(options) {};
-
       PersonView.prototype.initializeModules = function(data) {
         this.top5 = new Top5View();
         this.timeline = new TimelineView();
@@ -53,8 +51,6 @@
       };
 
       PersonView.prototype.render = function(options) {
-        var _this;
-        _this = this;
         $('div.loader').addClass('loading');
         return this.collection.fetch({
           success: (function(_this) {
