@@ -27,9 +27,11 @@ d3.json 'person-' + person + '.json', (error, data) ->
   x.domain(data.channels.map((d) -> d.channelName))
   y.domain([0, d3.max(data.channels, (d) -> d.channelCount)])
 
-  xAxis = d3.svg.axis()
-          .scale(x)
-          .orient('bottom')
+  yAxis = d3.svg.axis()
+        .scale y
+        .orient 'left'
+        .ticks 4
+        .tickSize(-width, 0, 0)
 
 
   bar_svg = d3.select('body')
@@ -37,6 +39,12 @@ d3.json 'person-' + person + '.json', (error, data) ->
           .attr('id', 'barchart')
           .attr('width', width)
           .attr('height', height+margin.top+margin.bottom)
+
+  bar_svg.append('g')
+        .attr('class', 'grid')
+        .attr("transform", "translate(0,60)")
+        .call(yAxis)
+
   
   bar_svg.append('filter')
       .attr('id', 'f1')
@@ -54,9 +62,10 @@ d3.json 'person-' + person + '.json', (error, data) ->
       .attr( 'result', 'blur' )
 
 
-  bar_svg.selectAll('g')
+  bar_svg.selectAll('g.bar-g')
         .data(data.channels)
       .enter().append('g')
+        .attr('class', 'bar-g')
         .attr('transform', 'translate(0,'+margin.top+')')
       .append('rect')
         .attr('class', 'bar')
@@ -65,7 +74,7 @@ d3.json 'person-' + person + '.json', (error, data) ->
         .attr('y', (d) -> y(d.channelCount))
         .attr('height', (d,i) -> height-y(d.channelCount))
 
-  bar_svg.selectAll('g')
+  bar_svg.selectAll('g.bar-g')
         .data(data.channels)
       .append('image')
         .attr('xlink:href', (d) -> d.channelLogo)
@@ -74,7 +83,7 @@ d3.json 'person-' + person + '.json', (error, data) ->
         .attr('x', (d,i) -> x(d.channelName)+10)
         .attr('y', height)
 
-  bar_svg.selectAll('g')
+  bar_svg.selectAll('g.bar-g')
       .append('rect')
       .data(data.channels)
         .attr( 'filter', 'url(#f1)' ) 
@@ -86,7 +95,7 @@ d3.json 'person-' + person + '.json', (error, data) ->
         .attr('rx', 20)
         .attr('ry', 25)
 
-  bar_svg.selectAll('g')
+  bar_svg.selectAll('g.bar-g')
       .append('rect')
       .data(data.channels)
         .attr('class', 'tooltip')
@@ -97,7 +106,7 @@ d3.json 'person-' + person + '.json', (error, data) ->
         .attr('rx', 20)
         .attr('ry', 25)
 
-  bar_svg.selectAll('g')
+  bar_svg.selectAll('g.bar-g')
       .append('text')
       .data(data.channels)
         .attr('text-anchor', 'middle')
@@ -106,7 +115,7 @@ d3.json 'person-' + person + '.json', (error, data) ->
         .attr('y', (d) -> y(d.channelCount)-35)
         .text((d) -> d.channelName)
 
-  bar_svg.selectAll('g')
+  bar_svg.selectAll('g.bar-g')
       .append('text')
       .data(data.channels)
         .attr('text-anchor', 'middle')
