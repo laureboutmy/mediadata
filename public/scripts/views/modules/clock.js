@@ -299,7 +299,14 @@
         return d3.selectAll(this.$el).select('g.center').append('svg:text').attr('transform', 'translate(' + visWidth + ',' + (visWidth + 20) + ')').attr('class', 'value').text(maxHourValue[0]);
       };
 
+      ClockView.prototype.clear = function() {
+        return this.$el.children().remove();
+      };
+
       ClockView.prototype.render = function(data) {
+        if (this.$el.children().length > 0) {
+          this.clear();
+        }
         this.parse(data);
         this.svg();
         this.drawFilter(data);

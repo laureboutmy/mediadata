@@ -294,7 +294,13 @@ define [
 				.attr('class', 'value')
 				.text(maxHourValue[0])
 
+		clear: () ->
+			@$el.children().remove()
+
 		render: (data) ->
+			if (@$el.children().length > 0)
+				@clear()
+
 			@parse data
 			@svg()
 			@drawFilter data
