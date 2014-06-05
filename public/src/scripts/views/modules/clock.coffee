@@ -7,11 +7,12 @@ define [
 	'use strict'
 	class ClockView extends Backbone.View
 		el: '.module.clock'
+		defaults:
+			# Main label dimensions
+			mlw: 215
+			mlh: 50
 		days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 		daysFR = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche']
-		# Main label dimensions
-		tw = 215
-		th = 50
 		# Filter dimensions
 		fw = 125
 		fh = 40
@@ -19,17 +20,9 @@ define [
 		visWidth = 180
 		visHeight = 350
 		# Path/circle radius scaling
-		radiusScale =
-			d3.scale.linear()
-			.domain [0, 20]
-			.range [100, visWidth-40]
-			.clamp false
+		radiusScale = d3.scale.linear().domain([0, 20]).range([100, visWidth-40]).clamp(false)
 		# Arc settings
-		arcOptions = {
-			width: 7.1,
-			from: 50,
-			to: (d) -> d.outerRadius
-		}
+		arcOptions = { width: 7.1, from: 50, to: (d) -> d.outerRadius }
 		# Arc function
 		arc = (d,o) ->
 			return d3.svg.arc()
@@ -38,37 +31,37 @@ define [
 				.innerRadius o.from
 				.outerRadius (d) -> if d.mentions > 0 then o.to d else 0
 
+		# Do mouseout in a func to get current maxHourValue
+		mouseOut: (maxHourValue) ->
+			d3.selectAll @$el
+				.selectAll 'path'
+				.on 'mouseout', (d) ->
+					d3.select @.parentNode.parentNode 
+						.select '.center .time'
+						.text maxHourValue[1] + ' heures'
+					d3.select @.parentNode.parentNode 
+						.select '.center .value'
+						.text maxHourValue[0]
+
 		# Append SVG containers
 		svg: () ->
 			# Append SVG container for main label
-			d3.selectAll @$el
-				.append 'svg'
-					.attr 'id', 'mainlabel'
-					.attr 'width', tw
-					.attr 'height', th
+			d3.selectAll(@$el).append('svg')
+				.attr('id', 'mainlabel')
+				.attr('width', @defaults.mlw)
+				.attr('height', @defaults.mlh)
 
 			# Append SVG container for filter
-			d3.selectAll @$el
-				.append 'svg'
-					.attr 'id', 'filter'
-					.attr 'width', fw
-					.attr 'height', fh
+			d3.selectAll(@$el).append('svg')
+				.attr('id', 'filter')
+				.attr('width', fw)
+				.attr('height', fh)
 
 			# Append SVG container for clock
-			d3.selectAll @$el
-				.append 'svg'
-					.attr 'id', 'clockchart'
-					.attr 'height', visHeight
-					.append 'g'
-
-		# Path mouseOut event
-		mouseOut = (maxHourValue) ->
-			d3.selectAll 'path'
-				.on 'mouseout', (d) ->
-					d3.select '.center .time'
-						.text maxHourValue[1] + ' heures'
-					d3.select '.center .value' 
-						.text maxHourValue[0]
+			d3.selectAll(@$el).append('svg')
+				.attr('id', 'clockchart')
+				.attr('height', visHeight)
+				.append('g')
 
 		# parseInt JSON data
 		parse: (data) ->
@@ -81,28 +74,23 @@ define [
 			mentionsByDay = []
 			for i in [1 .. 7]
 				mentionsByDay.push {mentions: 0}
-			# Fill-in JSON mentionsByDay
+
+			# Fill-in mentionsByDay
 			for d,i in data.broadcastHoursByDay
 				for d2,i2 in days
 					if d.broadcastWeekday is days[i2]
 						mentionsByDay[i2].mentions += d.broadcastCount
 						mentionsByDay[i2].day = d2
 
-			d3.selectAll @$el
-				.select '#mainlabel'
-					.append 'svg:text'
-						.attr 'class', 'value'
-						.attr 'x', '0'
-						.attr 'y', '16'
-						.text mentionsByDay[0].mentions
+			d3.selectAll(@$el).select('#mainlabel').append('svg:text')
+				.attr('class', 'value')
+				.attr('x', '0').attr('y', '16')
+				.text(mentionsByDay[0].mentions)
 
-			d3.selectAll @$el
-				.select '#mainlabel'
-					.append 'svg:text'
-						.attr 'class', 'time'
-						.attr 'x', '0'
-						.attr 'y', '40'
-						.text 'Mentions horaires le ' + daysFR[0]
+			d3.selectAll(@$el).select('#mainlabel').append('svg:text')
+				.attr('class', 'time')
+				.attr('x', '0').attr('y', '40')
+				.text('Mentions horaires le ' + daysFR[0])
 
 		# Append filter chart
 		drawFilter: (data) ->
@@ -120,16 +108,13 @@ define [
 			# Find the maximum value to scale the filter chart
 			maxDayValue = 0
 			for d,i in mentionsByDay
-				if maxDayValue < d.mentions
-					maxDayValue = d.mentions
+				if maxDayValue < d.mentions then maxDayValue = d.mentions
 
 			# Draw the filter
-			xScale = d3.scale.ordinal()
-				.domain d3.range 7
-				.rangeRoundBands [0, fw], 0.3
-			yScale = d3.scale.linear()
-				.domain [0, maxDayValue, (d) -> return d]
-				.range [0, fh]
+			xScale = d3.scale.ordinal().domain(d3.range(7)).rangeRoundBands([0, fw], 0.3)
+			yScale = d3.scale.linear().domain([0, maxDayValue, (d) -> return d]).range([0, fh])
+
+			_this = @
 
 			d3.selectAll @$el
 				.selectAll '#filter'
@@ -143,39 +128,25 @@ define [
 						.attr 'height', (d) -> return yScale d.mentions
 						.attr 'class', 'bar'
 						.attr 'name', (d) -> d.day
+					.on 'click', (d) -> 
+						_this.redrawContent d.day,data,mentionsByDay
+						d3.select @.parentNode
+							.selectAll '.bar'
+							.classed 'selected', false
+						d3.select @
+							.classed 'selected', true
 
-			d3.selectAll @$el
-				.select ('[name=Monday]')
-					.classed 'selected', true
-
-			# On click event
-			for d,i in days
-				@.filterClick i,days[i],data,mentionsByDay
-
-		# Redraw chart when filter is clicked
-		filterClick: (i,day,data,mentionsByDay) ->
-			_this = @
-			$('[name=' + days[i] + ']').click -> 
-				_this.redrawContent day,data,mentionsByDay
-				d3.select @.parentNode
-					.selectAll '.bar'
-						.classed 'selected', false
-				d3.select @
-					.classed 'selected', true
+			d3.selectAll(@$el).select('[name=Monday]').classed('selected', true)
 
 		#  Update chart
 		redrawContent: (day,data,mentionsByDay) ->
+			# Init new data arrays/vars
 			mentionsByHour = []
 			for i in [1 .. 24]
 				mentionsByHour.push {mentions: 0, outerRadius: 0}
-
-			# Store max values (for current view and for overall)
 			maxHourValue = [0,]
 			overallMaxHourValue = [0,]
-
-			# Get current day index number
 			currentDay = days.indexOf day
-			console.log currentDay
 
 			# Get max value for current day
 			for d,i in data.broadcastHoursByDay
@@ -184,17 +155,15 @@ define [
 						maxHourValue[0] = d.broadcastCount
 						maxHourValue[1] = d.broadcastHour
 
+			@mouseOut(maxHourValue)
+
 			# Get overall max value
 			for d,i in data.broadcastHoursByDay
 				if d.broadcastCount > overallMaxHourValue[0]
 					overallMaxHourValue[0] = d.broadcastCount
 					overallMaxHourValue[1] = d.broadcastHour
 
-			pathScale =
-				d3.scale.linear()
-				.domain [0, overallMaxHourValue[0] + 20]
-				.range [80, visWidth - 40]
-				.clamp true
+			pathScale =	d3.scale.linear().domain([0, overallMaxHourValue[0] + 20]).range([80, visWidth - 40]).clamp(true)
 
 			# Init keys in new json
 			for d,i in data.broadcastHoursByDay
@@ -202,28 +171,17 @@ define [
 
 			# Fill-in empty keys to make new json fancier
 			for d,i in mentionsByHour
-				if !d.hour
-					d.hour = i
+				if !d.hour then d.hour = i
 
 			# Get mentions by hour for selected day
 			for d,i in data.broadcastHoursByDay
 				if d.broadcastWeekday == day
-					console.log 'New maxHourValue: ', maxHourValue[0]
 					mentionsByHour[d.broadcastHour].mentions += d.broadcastCount
 					mentionsByHour[d.broadcastHour].outerRadius = pathScale mentionsByHour[d.broadcastHour].mentions
-
-			console.log 'New mentionsByHour: ', mentionsByHour[0]
-
-			console.log 'New overallMaxHourValue: ', overallMaxHourValue[0]
 			
 			# Update main text
-			d3.selectAll @$el
-				.select '#mainlabel .value'
-				.text mentionsByDay[currentDay].mentions
-
-			d3.selectAll @$el
-				.select '#mainlabel .person'
-				.text 'Mentions horaires le ' + daysFR[currentDay]
+			d3.selectAll(@$el).select('#mainlabel .value').text(mentionsByDay[currentDay].mentions)
+			d3.selectAll(@$el).select('#mainlabel .person').text('Mentions horaires le ' + daysFR[currentDay])
 
 			# Update paths
 			d3.selectAll @$el
@@ -249,40 +207,28 @@ define [
 			# Clock's parameters
 			w = 360
 			h = 360
-			r = Math.min(w, h) / 2                       # center
-			p = 24                                       # labels padding
-			labels = ['00:00','06:00','12:00','18:00']   # labels names
+			r = Math.min(w, h) / 2                       		# center
+			p = 24                                       				# labels padding
+			labels = ['00:00','06:00','12:00','18:00']   	# labels names
 
 			# Circle settings
 			ticks = d3.range 20, 20.1
 			radiusFunction = radiusScale
 
 			# Append circle
-			d3.selectAll @$el
-				.select 'g'
-					.append 'svg:g'
-						.attr 'class', 'circle'
-					.selectAll 'circle'
-						.data ticks
-					.enter().append 'svg:circle'
-						.attr 'cx', r 
-						.attr 'cy', r
-						.attr 'r', radiusScale
+			d3.selectAll(@$el).select('g').append('svg:g').attr('class', 'circle').selectAll('circle').data(ticks).enter().append('svg:circle')
+				.attr('cx', r ).attr('cy', r).attr('r', radiusScale)
 
 			# Append outside labels
-			d3.selectAll @$el
-				.select 'g'
-					.append 'svg:g'
-				.attr 'class', 'labels'
-				.selectAll 'text'
-					.data d3.range 0, 360, 90
-				.enter().append 'svg:text'
-					.attr 'transform', (d) ->
-							return 'translate(' + r + ',' + p + ') rotate(' + d + ',0,' + (r-p) + ')'
-					.text (d) -> d / 15 + ':00'
+			d3.selectAll(@$el).select('g').append('svg:g')
+				.attr('class', 'labels')
+				.selectAll('text').data(d3.range 0, 360, 90).enter().append('svg:text')
+				.attr('transform', (d) -> return 'translate(' + r + ',' + p + ') rotate(' + d + ',0,' + (r-p) + ')')
+				.text ((d) -> d / 15 + ':00')
 
 		# Push data into the clock element and draw paths
 		drawContent: (data) ->
+			# Init new data arrays
 			maxHourValue = [0,]
 			overallMaxHourValue = [0,]
 			mentionsByHour = []
@@ -295,8 +241,7 @@ define [
 
 			# Fill-in empty keys to make new json fancier
 			for d,i in mentionsByHour
-				if !d.hour
-					d.hour = i
+				if !d.hour then d.hour = i
 
 			# Get overall max value
 			for d,i in data.broadcastHoursByDay
@@ -305,11 +250,7 @@ define [
 					overallMaxHourValue[1] = d.broadcastHour
 
 			# Scale paths with overall max value
-			pathScale =
-				d3.scale.linear()
-				.domain [0, overallMaxHourValue[0] + 20]
-				.range [80, visWidth - 40]
-				.clamp true
+			pathScale =	d3.scale.linear().domain([0, overallMaxHourValue[0] + 20]).range([80, visWidth - 40]).clamp(true)
 
 			# Get mentions by hour for selected day
 			for d,i in data.broadcastHoursByDay
@@ -324,6 +265,7 @@ define [
 						maxHourValue[0] = d.broadcastCount
 						maxHourValue[1] = d.broadcastHour
 
+			_this = @
 			# Append paths / Show labels paths mouseover
 			d3.selectAll @$el
 				.select 'g'
@@ -341,32 +283,21 @@ define [
 						d3.select @.parentNode.parentNode 
 							.select '.center .value'
 							.text d.mentions
-					.on 'mouseout', mouseOut(maxHourValue)
+					.on 'mouseout', (d) -> _this.mouseOut(maxHourValue)
 
 			# Append center labels
-			d3.selectAll @$el
-				.select 'g'
-					.append 'svg:g'
-					.attr 'class', 'center'
-
-			d3.selectAll @$el 
-				.select 'g.center'
-				.append 'svg:text'
-					.attr 'transform', 'translate(' + visWidth + ',' + visWidth + ')'
-					.attr 'class', 'time'
-					.text maxHourValue[1] + ' heures'
-
-			d3.selectAll @$el
-				.select 'g.center'
-				.append 'svg:text'
-					.attr 'transform', 'translate(' + visWidth + ',' + (visWidth+20) + ')'
-					.attr 'class', 'value'
-					.text maxHourValue[0]
+			d3.selectAll(@$el).select('g').append('svg:g').attr('class', 'center')
+			d3.selectAll(@$el).select('g.center').append('svg:text').attr('transform', 'translate(' + visWidth + ',' + visWidth + ')')
+				.attr('class', 'time')
+				.text(maxHourValue[1] + ' heures')
+			d3.selectAll(@$el).select('g.center').append('svg:text').attr('transform', 'translate(' + visWidth + ',' + (visWidth+20) + ')')
+				.attr('class', 'value')
+				.text(maxHourValue[0])
 
 		render: (data) ->
-			@.parse data
-			@.svg()
-			@.drawFilter data
-			@.drawClock data
-			@.drawContent data
-			@.appendMainLabel data
+			@parse data
+			@svg()
+			@drawFilter data
+			@drawClock data
+			@drawContent data
+			@appendMainLabel data

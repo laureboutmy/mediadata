@@ -670,7 +670,7 @@ section.module.clock.person2 path { fill: #2781bb; }
 section.module.clock #mainlabel { position: relative; left: -25px; }
 section.module.clock #mainlabel text { text-anchor: left; }
 section.module.clock #mainlabel text.value { font-size: 1.5625em; }
-section.module.clock #filter1 { position: relative; left: 45px; top: -10px; }
+section.module.clock #filter { position: relative; left: 50px; top: -10px; }
 section.module.clock #clockchart { margin-top: 15px; }
 section.module.clock .center text, section.module.clock .labels text { text-anchor: middle; }
 section.module.clock .center .value { font-size: 1.25em; }
