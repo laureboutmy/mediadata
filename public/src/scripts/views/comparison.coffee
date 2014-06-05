@@ -60,8 +60,8 @@ define [
 				person1: { name: data.person1.person.name, timelineMentions: data.person1.person.timelineMentions }
 				person2: { name: data.person2.person.name, timelineMentions: data.person2.person.timelineMentions }
 			
-			@clock1.render({ broadcastHoursByDay: data.person1.broadcastHoursByDay, personNumber: 1 })
-			@clock2.render({ broadcastHoursByDay: data.person2.broadcastHoursByDay, personNumber: 2 })
+			@clock1.render({ broadcastHoursByDay: data.person1.broadcastHoursByDay })
+			@clock2.render({ broadcastHoursByDay: data.person2.broadcastHoursByDay })
 
 		rerender: () ->
 			@collections.person1 = new PersonsCollection(@name.person1)
