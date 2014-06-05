@@ -95,7 +95,6 @@
 
       SearchbarView.prototype.update = function(name, nb) {
         var el;
-        console.log(this.topics['topic' + nb]);
         this.topics['topic' + nb] = _.where(this.collection, {
           slug: name
         })[0];
@@ -144,7 +143,6 @@
 
       SearchbarView.prototype.keyup = function(evt) {
         var keyword, _this;
-        console.log('KEYUP');
         _this = evt.data.context;
         keyword = $(this).val();
         if (_this.hasChanged(keyword) && keyword.length !== 0) {
@@ -188,6 +186,7 @@
           evt.stopPropagation();
           selected = $(evt.currentTarget);
           input = selected.parent().parent().find('input');
+          console.log('input', input);
         } else {
           selected = $(input).parent().find('ul').children('.active');
         }

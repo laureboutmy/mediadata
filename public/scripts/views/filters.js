@@ -58,13 +58,20 @@
 
       FiltersView.prototype.render = function() {
         var from, to;
-        this.$el.html(this.template(this.collection));
+        console.log('render filters', this.$el);
+        $('#filters').html(this.template(this.collection));
         this.bind();
         if (md.Filters.dateMin) {
           from = md.Filters.fromNumber;
         }
         if (md.Filters.dateMax) {
           to = md.Filters.toNumber;
+        }
+        if (md.Filters.canal) {
+          $('#filters').find('select#medias').val(md.Filters.canal);
+        }
+        if (md.Filters.par) {
+          $('#filters').find('select#details').val(md.Filters.par);
         }
         $('#period').ionRangeSlider({
           values: this.monthsDisplayed,

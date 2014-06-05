@@ -63,7 +63,6 @@ define [
 
 		# update name, picture in search-bar
 		update: (name, nb) ->
-			console.log(@topics['topic' + nb])
 			@topics['topic' + nb] = _.where(@collection, { slug: name })[0]
 			el = $('#name-1').parent().parent().find('h1')
 			el.find('span.name').html(@topics['topic' + nb].name);
@@ -102,7 +101,6 @@ define [
 			@currentText != keyword
 
 		keyup: (evt) ->
-			console.log('KEYUP')
 			_this = evt.data.context
 			keyword = $(this).val()
 			if _this.hasChanged(keyword) && keyword.length != 0
@@ -132,6 +130,7 @@ define [
 				evt.stopPropagation()
 				selected = $(evt.currentTarget)
 				input = selected.parent().parent().find('input')
+				console.log('input', input)
 			else
 				selected = $(input).parent().find('ul').children('.active')
 			

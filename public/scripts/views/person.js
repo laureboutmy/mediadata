@@ -68,10 +68,10 @@
               $('div.loader').addClass('complete');
               _this.collection = _this.collection.models[0].attributes;
               _this.$el.html(_this.template(_this.collection));
-              md.Router.getFilters();
               _this.initializeModules(_this.collection);
               _this.bind();
               _this.onResize();
+              md.Router.getFilters();
               return _this;
             };
           })(this)

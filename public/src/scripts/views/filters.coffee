@@ -38,10 +38,13 @@ define [
 			evt.data.context.update()
 
 		render: () ->
-			@$el.html(@template(@collection))
+			console.log('render filters', @$el)
+			$('#filters').html(@template(@collection))
 			@bind()
 			if md.Filters.dateMin then from = md.Filters.fromNumber
 			if md.Filters.dateMax then to = md.Filters.toNumber
+			if md.Filters.canal then $('#filters').find('select#medias').val(md.Filters.canal)
+			if md.Filters.par then $('#filters').find('select#details').val(md.Filters.par)
 			$('#period').ionRangeSlider
 				values: @monthsDisplayed
 				type: 'double'

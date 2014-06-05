@@ -54,16 +54,16 @@ define [
 			md.Status['currentView'] = 'person'
 			$('div.loader').addClass('loading')
 			document.body.scrollTop = document.documentElement.scrollTop = 0
-			
+
 			@collection.fetch
 				success: (data) =>
 					$('div.loader').addClass('complete');
 					@collection = @collection.models[0].attributes
 					@$el.html(@template(@collection))
-					md.Router.getFilters()
 					@initializeModules(@collection)
 					@bind()
 					@onResize()
+					md.Router.getFilters()
 					return @
 
 		renderModules: (data) ->
