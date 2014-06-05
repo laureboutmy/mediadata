@@ -53,6 +53,8 @@ define [
 		render: (options) ->
 			md.Status['currentView'] = 'person'
 			$('div.loader').addClass('loading')
+			document.body.scrollTop = document.documentElement.scrollTop = 0
+			
 			@collection.fetch
 				success: (data) =>
 					$('div.loader').addClass('complete');

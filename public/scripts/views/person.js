@@ -61,6 +61,7 @@
       PersonView.prototype.render = function(options) {
         md.Status['currentView'] = 'person';
         $('div.loader').addClass('loading');
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
         return this.collection.fetch({
           success: (function(_this) {
             return function(data) {

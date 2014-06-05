@@ -32,7 +32,6 @@ define [
 			@timeline = new TimelineView()
 			@clock1 = new ClockView({el: '.module.clock.person1'})
 			@clock2 = new ClockView({el: '.module.clock.person2'})
-			@xWithY = new XWithYView({el: '.module.x-with-y'})
 			@renderModules(data)
 
 		bind: () ->
@@ -48,6 +47,7 @@ define [
 
 		render: (options) ->
 			md.Status['currentView'] = 'comparison'
+			document.body.scrollTop = document.documentElement.scrollTop = 0
 			@collections.person1.fetch
 				success: () =>
 					@collections.person1 = @collections.person1.models[0].attributes

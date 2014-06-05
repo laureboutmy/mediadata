@@ -43,9 +43,6 @@
         this.clock2 = new ClockView({
           el: '.module.clock.person2'
         });
-        this.xWithY = new XWithYView({
-          el: '.module.x-with-y'
-        });
         return this.renderModules(data);
       };
 
@@ -65,6 +62,7 @@
 
       ComparisonView.prototype.render = function(options) {
         md.Status['currentView'] = 'comparison';
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
         return this.collections.person1.fetch({
           success: (function(_this) {
             return function() {
