@@ -396,8 +396,8 @@ section#main {
 	position: relative;
 	// left: 250px; top: 0;
 	article.person, article.comparison {
-		padding-top: 54px;
-
+		padding: 54px 0 100px;
+		background: #fff url(../images/bg--footer.png) repeat-x bottom;
 		header.header {
 			background: #2c3e50;
 			// background: linear-gradient(to right,  #2c3e50 0%,#2c3e50 50%,#34495e 50%,#34495e 100%);
@@ -780,6 +780,7 @@ section.module {
 		border: 1px solid #d9d9d9;
 		border-radius: 5px;
 		overflow: hidden;
+		min-height: 458px;
 		&.person2 {
 			section {
 				ol {
@@ -884,6 +885,7 @@ section.module {
 	&.clock {
 		border: 1px solid #d9d9d9;
 		border-radius: 5px;
+		min-height: 458px;
 		overflow: hidden;
 		padding: 29px 0 20px 59px;
 		text { 

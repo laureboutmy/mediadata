@@ -10,6 +10,8 @@ define [
 		template: _.template(tplTop5)
 
 		render: (data) ->
+			# if data.popularShows.length == 0 
+				# @$el.html(@template())
 			@$el.html(@template(data))
 			@bind()
 			@fillGauges('shows')

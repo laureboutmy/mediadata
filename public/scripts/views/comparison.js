@@ -94,6 +94,7 @@
             timelineMentions: data.person2.person.timelineMentions
           }
         });
+        this.getStackData(data);
         this.clock1.render({
           broadcastHoursByDay: data.person1.broadcastHoursByDay,
           personNumber: 1
@@ -132,6 +133,27 @@
 
       ComparisonView.prototype.onResize = function() {
         return $('#filters').width($(window).width() - 80);
+      };
+
+      ComparisonView.prototype.getStackedData = function(data) {
+        var channels, i;
+        channels = {
+          channelMap: [data.person1.person.name, data.person2.person.name],
+          channelDatas: []
+        };
+        i = 0;
+        while (i < data.person1.channels.length) {
+          channels.channelDatas.push({});
+          i++;
+        }
+        _.each(data.person1.channels, function(channel, i) {
+          channels.channelDatas[i]['channelName'] = channel.channelName;
+          return channels.channelDatas[i]['person1'] = channel.channelCount;
+        });
+        _.each(data.person2.channels, function(channel, i) {
+          return channels.channelDatas[i]['person2'] = channel.channelCount;
+        });
+        return channels;
       };
 
       return ComparisonView;

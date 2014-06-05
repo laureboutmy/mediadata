@@ -59,7 +59,8 @@ define [
 			@timeline.render
 				person1: { name: data.person1.person.name, timelineMentions: data.person1.person.timelineMentions }
 				person2: { name: data.person2.person.name, timelineMentions: data.person2.person.timelineMentions }
-			
+			@getStackData(data)
+			# tu devrais pouvoir faire un @stackedChart.render(@getStackData(data))
 			@clock1.render({ broadcastHoursByDay: data.person1.broadcastHoursByDay, personNumber: 1 })
 			@clock2.render({ broadcastHoursByDay: data.person2.broadcastHoursByDay, personNumber: 2 })
 
@@ -80,3 +81,20 @@ define [
 					
 		onResize: () ->
 			$('#filters').width($(window).width() - 80)
+
+		getStackedData: (data) ->
+			channels = 
+				channelMap: [data.person1.person.name, data.person2.person.name]
+				channelDatas: []
+			i = 0
+			while i < data.person1.channels.length
+			  channels.channelDatas.push({})
+			  i++
+			_.each data.person1.channels, (channel, i) ->
+				channels.channelDatas[i]['channelName'] = channel.channelName
+				channels.channelDatas[i]['person1'] = channel.channelCount
+			_.each data.person2.channels, (channel, i) ->
+				channels.channelDatas[i]['person2'] = channel.channelCount
+
+			return channels
+				
