@@ -1,0 +1,27 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700);
+
+text { font-family: 'Source Sans Pro', sans-serif; font-size: 15px;
+      -webkit-font-smoothing: antialiased; }
+
+svg { border: 1px solid rgba(217,217,217,1); border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;  }
+
+rect.bar { fill: rgba(41,185,136,.6); transition: all .4s; }
+
+g:hover rect.bar { fill: rgba(41,185,136,1); }
+
+
+.tooltip { opacity: 0; transition: all .4s; }
+g:hover .tooltip { opacity: 1; }
+rect.tooltip { fill: rgba(255,255,255,1);  }
+rect.shadow { fill: rgba(0,0,0,.15);  }
+
+text.name {
+	fill: #6a7d90;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+text.count {
+	fill: #1c1f21;
+}
+

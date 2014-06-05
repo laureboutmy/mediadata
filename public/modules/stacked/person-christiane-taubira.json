@@ -1,0 +1,50 @@
+{
+
+    "channels": [
+        {
+            "channelName": "TF1",
+            "channelCount": 600,
+            "channelLogo": "http://www.nkfu.com/resimler/youjizz.gif"
+        },
+        {
+            "channelName": "France 2",
+            "channelCount": 179,
+            "channelLogo": "http://www.nkfu.com/resimler/youjizz.gif"
+        },
+        {
+            "channelName": "France 3",
+            "channelCount": 56,
+            "channelLogo": "http://www.nkfu.com/resimler/youjizz.gif"
+        },
+        {
+            "channelName": "Canal plus",
+            "channelCount": 128,
+            "channelLogo": "http://www.nkfu.com/resimler/youjizz.gif"
+        },
+        {
+            "channelName": "M6",
+            "channelCount": 200,
+            "channelLogo": "http://www.nkfu.com/resimler/youjizz.gif"
+        },
+        {
+            "channelName": "Arte",
+            "channelCount": 170,
+            "channelLogo": "http://www.ftopia.com/wp-content/uploads/2011/04/Logo-BFM-TV.jpg"
+        },
+        {
+            "channelName": "Nrj 12",
+            "channelCount": 33,
+            "channelLogo": "http://www.ftopia.com/wp-content/uploads/2011/04/Logo-BFM-TV.jpg"
+        },
+        {
+            "channelName": "Eurosport",
+            "channelCount": 48,
+            "channelLogo": "http://www.ftopia.com/wp-content/uploads/2011/04/Logo-BFM-TV.jpg"
+        },
+        {
+            "channelName": "BFM",
+            "channelCount": 1500,
+            "channelLogo": "http://www.ftopia.com/wp-content/uploads/2011/04/Logo-BFM-TV.jpg"
+        }
+    ]
+}
