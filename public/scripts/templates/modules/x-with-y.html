@@ -1,0 +1,13 @@
+<ul>
+  <% _.each(persons, function(person, i){ %>
+  <li <% if ((i+1)%5 == 0 && i != 0) { %> class="no-margin" <% } %>>
+   
+      <div>
+        <h4><%= person.personName %></h4>
+       
+      </div>
+
+  </li>
+  <% }) %>
+  
+</ul>

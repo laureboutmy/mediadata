@@ -9,7 +9,8 @@ define [
 	'../views/modules/top-5'
 	'../views/modules/timeline'
 	'../views/modules/clock'
-], ($, _, Backbone, md, PersonsCollection, PersonModel, tplPerson, Top5View, TimelineView, ClockView) ->
+	'../views/modules/x-with-y'
+], ($, _, Backbone, md, PersonsCollection, PersonModel, tplPerson, Top5View, TimelineView, ClockView, XWithYView) ->
 	'use strict'
 	class PersonView extends Backbone.View
 		el: '#main'
@@ -21,7 +22,7 @@ define [
 			# if md.Filters then console.log("yooo")
 			@name = options.name1
 			@collection = new PersonsCollection(@name)
-			md.Status['currentView'] = 'person'
+			
 			@render(options)
 
 		initializeModules: (data) ->
@@ -29,18 +30,28 @@ define [
 			@top5 = new Top5View()
 			@timeline = new TimelineView()
 			@clock = new ClockView()
+			@xWithY = new XWithYView()
+			console.log(data)
 			@renderModules(data)
 
+
 		bind: () ->
-			_this = @
-			$(window).on('scroll', @stickFilters);
-			$(window).on('resize', @onResize);
+			$(window).on('scroll', @stickFilters)
+			$(window).on('resize', @onResize)
+
+		unbind: () ->
+			$(window).off('scroll', @stickFilters)
+			$(window).off('resize', @onResize)
+
+		destroy: () ->
+			@unbind()
 
 		stickFilters: () ->
 			if $(window).scrollTop() > $('header.header').outerHeight()  then $('#filters').addClass('fixed')
 			else $('#filters').removeClass('fixed');
 
 		render: (options) ->
+			md.Status['currentView'] = 'person'
 			$('div.loader').addClass('loading')
 			@collection.fetch
 				success: (data) =>
@@ -56,7 +67,8 @@ define [
 		renderModules: (data) ->
 			@top5.render({ popularChannels: data.popularChannels, popularShows: data.popularShows })
 			@timeline.render({ person1: { name: data.person.name, timelineMentions: data.timelineMentions }})
-			@clock.render({broadcastHoursByDay: data.broadcastHoursByDay })
+			@clock.render({ broadcastHoursByDay: data.broadcastHoursByDay })
+			@xWithY.render({ persons: data.seenWith })
 		
 		onResize: () ->
 			$('#filters').width($(window).width() - 80)

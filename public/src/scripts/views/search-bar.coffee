@@ -46,6 +46,7 @@ define [
 				@$el.removeClass('search')
 				@$el.removeClass('comparison')
 			@bind()
+			# @$el.addClass('visible')
 			return @
 
 		events: 

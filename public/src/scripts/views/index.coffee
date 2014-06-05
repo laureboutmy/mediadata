@@ -13,17 +13,28 @@ define [
 		template: _.template(tplIndex)
 		name: null
 		initialize: () ->
+			
 			@collection = new TopicsCollection()
 			@collection.fetch 
 				success: () =>
 					@collection = @collection.models[0].attributes
-					console.log(@collection)
 					@render() 
+					@bind()
+					@onResize()
 			
-
+		bind: () ->
+			$(window).on('scroll', @stickNavigation).on('resize', @onResize)
+		unbind: () ->
+			$(window).off('scroll', @stickNavigation).off('resize', @onResize)
 		render: () ->
 			@$el.html(@template(@collection))
 					
 			return @
+		destroy: () ->
+			@unbind()
+		stickNavigation: () ->
+			if $(window).scrollTop() > $('header.introduction').outerHeight() then $('nav.alphabet').addClass('fixed')
+			else $('nav.alphabet').removeClass('fixed');
 
-		
+		onResize: () ->
+			$('nav.alphabet').width($(window).width() - 80)

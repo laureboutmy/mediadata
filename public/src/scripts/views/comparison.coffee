@@ -22,7 +22,7 @@ define [
 			@name.person2 = options.name2
 			@collections.person1 = new PersonsCollection(@name.person1)
 			@collections.person2 = new PersonsCollection(@name.person2)
-			md.Status['currentView'] = 'comparison'
+			
 			@render(options)
 			
 
@@ -32,14 +32,22 @@ define [
 			@timeline = new TimelineView()
 			@clock1 = new ClockView({el: '.module.clock.person1'})
 			@clock2 = new ClockView({el: '.module.clock.person2'})
+			@xWithY = new XWithYView({el: '.module.x-with-y'})
 			@renderModules(data)
 
 		bind: () ->
-			_this = @
 			$(window).on('scroll', @stickFilters)
 			$(window).on('resize', @onResize)
 
+		unbind: () ->
+			$(window).off('scroll', @stickFilters)
+			$(window).off('resize', @onResize)
+
+		destroy: () ->
+			@unbind()
+
 		render: (options) ->
+			md.Status['currentView'] = 'comparison'
 			@collections.person1.fetch
 				success: () =>
 					@collections.person1 = @collections.person1.models[0].attributes
@@ -60,9 +68,8 @@ define [
 				person1: { name: data.person1.person.name, timelineMentions: data.person1.person.timelineMentions }
 				person2: { name: data.person2.person.name, timelineMentions: data.person2.person.timelineMentions }
 
-			@getStackData(data)
+			@getStackedData(data)
 			# tu devrais pouvoir faire un @stackedChart.render(@getStackData(data))
-
 			@clock1.render({ broadcastHoursByDay: data.person1.broadcastHoursByDay })
 			@clock2.render({ broadcastHoursByDay: data.person2.broadcastHoursByDay })
 

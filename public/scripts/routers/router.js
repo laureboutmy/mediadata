@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', '../views/home', '../views/person', '../views/comparison', '../views/search', '../views/index'], function($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView, SearchView, IndexView) {
+  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', '../views/home', '../views/person', '../views/comparison', '../views/search', '../views/index', '../views/about', '../views/suggestions'], function($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView, SearchView, IndexView, AboutView, SuggestionsView) {
     'use strict';
     var Router;
     return Router = (function(_super) {
@@ -16,6 +16,8 @@
       Router.prototype.routes = {
         '': 'home',
         'rechercher': 'getSearch',
+        'a-propos': 'getAbout',
+        'suggestions': 'getSuggestions',
         'index': 'getIndex',
         ':person': 'getPerson',
         ':person/:otherPerson': 'getComparison'
@@ -26,8 +28,10 @@
         return this.bind();
       };
 
-      Router.prototype.compare = function(person, otherPerson) {
-        return console.log(person, otherPerson);
+      Router.prototype.bind = function() {
+        $('#main').on('click', '[data-link]', this.go);
+        $('#sidebar').on('click', '[data-link]', this.go);
+        return $(window).on('resize', this.onResize);
       };
 
       Router.prototype.home = function() {
@@ -81,6 +85,7 @@
       };
 
       Router.prototype.getSearch = function() {
+        md.Status['currentView'] = 'search';
         if (!md.Views['search-bar']) {
           this.getSearchbar(name);
         }
@@ -88,11 +93,22 @@
       };
 
       Router.prototype.getIndex = function() {
+        md.Status['currentView'] = 'index';
+        if (md.Views['search-bar']) {
+          $(md.Views['search-bar'].el).removeClass('visible');
+        }
         return md.Views['index'] = new IndexView();
       };
 
+      Router.prototype.getAbout = function() {
+        md.Status['currentView'] = 'about';
+        if (md.Views['search-bar']) {
+          $(md.Views['search-bar'].el).removeClass('visible');
+        }
+        return md.Views['about'] = new AboutView();
+      };
+
       Router.prototype.getComparison = function(name1, name2) {
-        console.log('getcomparison');
         this.getSearchbar(name1, name2);
         return md.Views['comparison'] = new ComparisonView({
           name1: name1,
@@ -101,16 +117,21 @@
       };
 
       Router.prototype.onResize = function() {
-        $('#main').width($(window).width() - 80);
-        $('#search-bar').width($(window).width() - 80);
-        $('#loader').width($(window).width() - 80);
-        return $('#main').on('click', '[data-link]', this.go);
+        var wWidth;
+        wWidth = $(window).width();
+        $('#main').width(wWidth - 80);
+        $('#search-bar').width(wWidth - 80);
+        return $('#loader').width(wWidth - 80);
       };
 
       Router.prototype.go = function(evt) {
+        var url;
         evt.preventDefault();
-        md.Router.navigate($(this).data('link'));
-        return md.Router.getPerson($(this).data('link'));
+        md.Views[md.Status['currentView']].destroy();
+        url = $(this).data('link');
+        return md.Router.navigate(url, {
+          trigger: true
+        });
       };
 
       return Router;

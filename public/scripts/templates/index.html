@@ -1,25 +1,60 @@
 <article class="index">
-  <header>
+  <header class="introduction">
     <div class="grid">
       <h1><i class="icon-reorder_square"></i>Index des fiches</h1>
       <h2>recherchez une fiche alphabétiquement</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
     </div>
   </header>
+  <nav class="alphabet">
+    <div class="grid">
+      <ul>
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+        <li>D</li>
+        <li>E</li>
+        <li>F</li>
+        <li>G</li>
+        <li>H</li>
+        <li>I</li>
+        <li>J</li>
+        <li>K</li>
+        <li>L</li>
+        <li>M</li>
+        <li>N</li>
+        <li>O</li>
+        <li>P</li>
+        <li>Q</li>
+        <li>R</li>
+        <li>S</li>
+        <li>T</li>
+        <li>U</li>
+        <li>V</li>
+        <li>W</li>
+        <li>X</li>
+        <li>Y</li>
+        <li>Z</li>
+      </ul>
+    </div>
+  </nav>
   <section>
-    <ul class="grid">
-      <% _.each(searchResults, function(person, i){ %>
-      <li <% if ((i+1)%5 == 0 && i != 0) { %> class="no-margin" <% } %>>
-        <a href="<%= person.slug %>" data-link="<%= person.slug %>">
-          <img src="<%= person.picture %>" alt="<%= person.name %>" />
-          <div>
-            <h4><%= person.name %></h4>
-            <p><% if(person.role.length > 20) { print(person.role.slice(0, 20) + '...') } else { print(person.role) } %></p>
-          </div>
-        </a>
-      </li>
-      <% }) %>
-      
-    </ul>
+    <div class="grid">
+      <h3 class="letter" data-letter="a">A</h3>
+      <ul>
+        <% _.each(searchResults, function(person, i){ %>
+        <li <% if ((i+1)%5 == 0 && i != 0) { %> class="no-margin" <% } %>>
+          <a href="<%= person.slug %>" data-link="<%= person.slug %>">
+            <img src="<%= person.picture %>" alt="<%= person.name %>" />
+            <div>
+              <h4><%= person.name %></h4>
+              <p><% if(person.role.length > 20) { print(person.role.slice(0, 20) + '...') } else { print(person.role) } %></p>
+            </div>
+          </a>
+        </li>
+        <% }) %>
+        
+      </ul>
+    </div>
   </section>
 </article>

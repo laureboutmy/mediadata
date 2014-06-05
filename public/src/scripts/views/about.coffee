@@ -3,13 +3,13 @@ define [
 	'underscore'
 	'backbone'
 	'mediadata'
-	'text!templates/search.html'
-], ($, _, Backbone, md, tplSearch) ->
+	'text!templates/about.html'
+], ($, _, Backbone, md, tplAbout) ->
 	'use strict'
-	class SearchView extends Backbone.View
+	class AboutView extends Backbone.View
 		el: '#main'
 		collection: null
-		template: _.template(tplSearch)
+		template: _.template(tplAbout)
 		name: null
 		initialize: () -> 
 			@render()

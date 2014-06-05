@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', 'text!templates/person.html', '../views/modules/top-5', '../views/modules/timeline', '../views/modules/clock'], function($, _, Backbone, md, PersonsCollection, PersonModel, tplPerson, Top5View, TimelineView, ClockView) {
+  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', 'text!templates/person.html', '../views/modules/top-5', '../views/modules/timeline', '../views/modules/clock', '../views/modules/x-with-y'], function($, _, Backbone, md, PersonsCollection, PersonModel, tplPerson, Top5View, TimelineView, ClockView, XWithYView) {
     'use strict';
     var PersonView;
     return PersonView = (function(_super) {
@@ -24,7 +24,6 @@
       PersonView.prototype.initialize = function(options) {
         this.name = options.name1;
         this.collection = new PersonsCollection(this.name);
-        md.Status['currentView'] = 'person';
         return this.render(options);
       };
 
@@ -32,14 +31,23 @@
         this.top5 = new Top5View();
         this.timeline = new TimelineView();
         this.clock = new ClockView();
+        this.xWithY = new XWithYView();
+        console.log(data);
         return this.renderModules(data);
       };
 
       PersonView.prototype.bind = function() {
-        var _this;
-        _this = this;
         $(window).on('scroll', this.stickFilters);
         return $(window).on('resize', this.onResize);
+      };
+
+      PersonView.prototype.unbind = function() {
+        $(window).off('scroll', this.stickFilters);
+        return $(window).off('resize', this.onResize);
+      };
+
+      PersonView.prototype.destroy = function() {
+        return this.unbind();
       };
 
       PersonView.prototype.stickFilters = function() {
@@ -51,6 +59,7 @@
       };
 
       PersonView.prototype.render = function(options) {
+        md.Status['currentView'] = 'person';
         $('div.loader').addClass('loading');
         return this.collection.fetch({
           success: (function(_this) {
@@ -79,8 +88,11 @@
             timelineMentions: data.timelineMentions
           }
         });
-        return this.clock.render({
+        this.clock.render({
           broadcastHoursByDay: data.broadcastHoursByDay
+        });
+        return this.xWithY.render({
+          persons: data.seenWith
         });
       };
 

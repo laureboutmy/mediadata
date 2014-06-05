@@ -27,16 +27,41 @@
           success: (function(_this) {
             return function() {
               _this.collection = _this.collection.models[0].attributes;
-              console.log(_this.collection);
-              return _this.render();
+              _this.render();
+              _this.bind();
+              return _this.onResize();
             };
           })(this)
         });
       };
 
+      IndexView.prototype.bind = function() {
+        return $(window).on('scroll', this.stickNavigation).on('resize', this.onResize);
+      };
+
+      IndexView.prototype.unbind = function() {
+        return $(window).off('scroll', this.stickNavigation).off('resize', this.onResize);
+      };
+
       IndexView.prototype.render = function() {
         this.$el.html(this.template(this.collection));
         return this;
+      };
+
+      IndexView.prototype.destroy = function() {
+        return this.unbind();
+      };
+
+      IndexView.prototype.stickNavigation = function() {
+        if ($(window).scrollTop() > $('header.introduction').outerHeight()) {
+          return $('nav.alphabet').addClass('fixed');
+        } else {
+          return $('nav.alphabet').removeClass('fixed');
+        }
+      };
+
+      IndexView.prototype.onResize = function() {
+        return $('nav.alphabet').width($(window).width() - 80);
       };
 
       return IndexView;

@@ -25,6 +25,8 @@
         return this.render();
       };
 
+      SearchView.prototype.destroy = function() {};
+
       SearchView.prototype.render = function() {
         this.$el.html(this.template());
         return this;

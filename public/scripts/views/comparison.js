@@ -26,7 +26,6 @@
         this.name.person2 = options.name2;
         this.collections.person1 = new PersonsCollection(this.name.person1);
         this.collections.person2 = new PersonsCollection(this.name.person2);
-        md.Status['currentView'] = 'comparison';
         return this.render(options);
       };
 
@@ -44,17 +43,28 @@
         this.clock2 = new ClockView({
           el: '.module.clock.person2'
         });
+        this.xWithY = new XWithYView({
+          el: '.module.x-with-y'
+        });
         return this.renderModules(data);
       };
 
       ComparisonView.prototype.bind = function() {
-        var _this;
-        _this = this;
         $(window).on('scroll', this.stickFilters);
         return $(window).on('resize', this.onResize);
       };
 
+      ComparisonView.prototype.unbind = function() {
+        $(window).off('scroll', this.stickFilters);
+        return $(window).off('resize', this.onResize);
+      };
+
+      ComparisonView.prototype.destroy = function() {
+        return this.unbind();
+      };
+
       ComparisonView.prototype.render = function(options) {
+        md.Status['currentView'] = 'comparison';
         return this.collections.person1.fetch({
           success: (function(_this) {
             return function() {
@@ -94,7 +104,7 @@
             timelineMentions: data.person2.person.timelineMentions
           }
         });
-        this.getStackData(data);
+        this.getStackedData(data);
         this.clock1.render({
           broadcastHoursByDay: data.person1.broadcastHoursByDay
         });

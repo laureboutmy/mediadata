@@ -11,12 +11,16 @@ define [
 	'../views/comparison'
 	'../views/search'
 	'../views/index'
-], ($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView, SearchView, IndexView) ->
+	'../views/about'
+	'../views/suggestions'
+], ($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView, SearchView, IndexView, AboutView, SuggestionsView) ->
 	'use strict'
 	class Router extends Backbone.Router
 		routes:
 			'': 'home'
 			'rechercher': 'getSearch'
+			'a-propos': 'getAbout'
+			'suggestions': 'getSuggestions'
 			'index': 'getIndex'
 			':person': 'getPerson'
 			':person/:otherPerson': 'getComparison'
@@ -25,8 +29,10 @@ define [
 			@onResize()
 			@bind()
 
-		compare: (person, otherPerson) ->
-			console.log person, otherPerson
+		bind: () ->
+			$('#main').on('click', '[data-link]', @go)
+			$('#sidebar').on('click', '[data-link]', @go)
+			$(window).on('resize', @onResize)
 
 		home: () ->
 			md.Views['home'] = new HomeView()
@@ -50,32 +56,36 @@ define [
 
 		getPerson: (name) ->
 			@getSearchbar(name)
-			# if !md.Views['search-bar'] then @getSearchbar(name)
-			# else md.Views['search-bar'].render({name1: name})
 			md.Views['person'] = new PersonView({name1: name})
 
 		getSearch: () ->
+			md.Status['currentView'] = 'search'
+
 			if !md.Views['search-bar'] then @getSearchbar(name)
 			md.Views['search'] = new SearchView()
 
 		getIndex: () ->
+			md.Status['currentView'] = 'index'
+			if md.Views['search-bar'] then $(md.Views['search-bar'].el).removeClass('visible')
 			md.Views['index'] = new IndexView()
+		getAbout: () ->
+			md.Status['currentView'] = 'about'
+			if md.Views['search-bar'] then $(md.Views['search-bar'].el).removeClass('visible')
+			md.Views['about'] = new AboutView()
 
 		getComparison: (name1, name2) ->
-			console.log('getcomparison')
 			@getSearchbar(name1, name2)
-
-			# if !md.Views['search-bar'] then @getSearchbar(name1, name2)
-			# else md.Views['search-bar'].render({name1: name1, name2: name2})
 			md.Views['comparison'] = new ComparisonView({name1: name1, name2: name2})
 
 		onResize: () ->
-			$('#main').width($(window).width() - 80)
-			$('#search-bar').width($(window).width() - 80)
-			$('#loader').width($(window).width() - 80)
-			$('#main').on('click', '[data-link]', @go)
-
+			wWidth = $(window).width()
+			$('#main').width(wWidth - 80)
+			$('#search-bar').width(wWidth - 80)
+			$('#loader').width(wWidth - 80)
+			
 		go: (evt) ->
 			evt.preventDefault()
-			md.Router.navigate($(this).data('link'))
-			md.Router.getPerson($(this).data('link'))
+			md.Views[md.Status['currentView']].destroy()
+			url = $(this).data('link')
+			md.Router.navigate(url, {trigger: true})
+			# if url != 'rechercher' && url != 'index' && url != 'a-propos' && url != 'home'  then md.Router.getPerson(url)

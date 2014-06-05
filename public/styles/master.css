@@ -524,8 +524,8 @@ section#sidebar nav#nav-infos a:hover { color: #fff; }
 
 /* @end of Sidebar */
 /* @group Search-bar */
-header#search-bar { position: fixed; left: 80px; min-width: 1020px; border: 1px solid transparent; border-bottom: 1px solid #d4d4d4; background: #fff; width: 100%; height: 54px; z-index: 100; display: none; /* @group  Loader */ /* @end of Loader */ /* h1.person */ }
-header#search-bar.visible { display: block; }
+header#search-bar { position: fixed; left: 80px; min-width: 1020px; border: 1px solid transparent; border-bottom: 1px solid #d4d4d4; background: #fff; width: 100%; height: 54px; z-index: 100; display: none; top: -54px; transition: top 0.3s ease-out; /* @group  Loader */ /* @end of Loader */ /* h1.person */ }
+header#search-bar.visible { display: block; top: 0; }
 header#search-bar .grid { overflow: visible; }
 header#search-bar .grid section.unit { display: none; }
 header#search-bar .grid section.unit.visible { width: 80%; display: block; }
@@ -570,7 +570,7 @@ header#search-bar div.name form.search input:-ms-input-placeholder { color: #acb
 header#search-bar div.name form.search input:-moz-placeholder { color: #acb8c0; font-weight: normal; }
 header#search-bar div.name form.search label { padding: 0 0.5em 0 1.5em; font-weight: 400; color: #1c1f21; float: left; }
 header#search-bar div.name form.search label i { margin-right: 10px; font-size: 1em; color: #3498db; }
-header#search-bar div.name form.search ul.topics { display: none; top: 55px; position: absolute; background: #fff; width: 100%; box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2); }
+header#search-bar div.name form.search ul.topics { display: none; top: 54px; position: absolute; background: #fff; width: 100%; box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2); }
 header#search-bar div.name form.search ul.topics li { padding: 0.5em 1.7em; height: 62px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; line-height: 2em; background: transparent; transition: background ease-out 0.3s; }
 header#search-bar div.name form.search ul.topics li:hover, header#search-bar div.name form.search ul.topics li.active { background: #f5f5f5; cursor: pointer; }
 header#search-bar div.name form.search ul.topics li span { font-weight: normal; color: #acb8c0; }
@@ -595,7 +595,7 @@ section#main article.person header.header ul li, section#main article.comparison
 section#main article.person header.header ul li:first-letter, section#main article.comparison header.header ul li:first-letter { text-transform: uppercase; }
 section#main article.person header.header ul li i, section#main article.comparison header.header ul li i { color: #fff; display: inline-block; font-style: normal; font-size: 1.13333em; margin-right: 5px; }
 section#main article.person section#filters, section#main article.comparison section#filters { border-top: 1px solid #d4d4d4; border-bottom: 1px solid #d4d4d4; width: 100%; background: #fff; }
-section#main article.person section#filters.fixed, section#main article.comparison section#filters.fixed { border-top: 0; position: fixed; top: 56px; z-index: 50; }
+section#main article.person section#filters.fixed, section#main article.comparison section#filters.fixed { border-top: 0; position: fixed; top: 54px; z-index: 50; }
 section#main article.person section#filters.fixed ul, section#main article.comparison section#filters.fixed ul { height: 60px; }
 section#main article.person section#filters ul, section#main article.comparison section#filters ul { height: 80px; }
 section#main article.person section#filters ul li, section#main article.comparison section#filters ul li { position: relative; top: 50%; overflow: hidden; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%); }
@@ -633,12 +633,23 @@ section#main article.home footer.start p { color: white; font-size: 1.1875em; li
 section#main article.home footer.start p.scroll { margin: 110px auto 35px; color: #96b7d9; font-style: italic; }
 
 /* section#main */
-article.index header { background: #33485d; }
-article.index header div.grid { padding: 60px 30px; }
-article.index header h1 { color: #fff; font-size: 1.5625em; font-weight: bold; }
-article.index header h1 i { color: #39b188; font-size: 0.68em; line-height: 0.425em; margin-right: 5px; position: relative; top: -1px; }
-article.index header h2 { color: #96b7d9; text-transform: uppercase; font-size: 0.9375em; line-height: 2.66667em; font-weight: 600; letter-spacing: 0.2em; }
-article.index header p { color: #fff; font-family: "chaparral-pro", serif; font-size: 1.1875em; line-height: 1.57895em; width: 450px; }
+article.index header.introduction { background: #33485d; }
+article.index header.introduction div.grid { padding: 60px 30px; }
+article.index header.introduction h1 { color: #fff; font-size: 1.5625em; font-weight: bold; }
+article.index header.introduction h1 i { color: #39b188; font-size: 0.68em; line-height: 0.425em; margin-right: 5px; position: relative; top: -1px; }
+article.index header.introduction h2 { color: #96b7d9; text-transform: uppercase; font-size: 0.9375em; line-height: 2.66667em; font-weight: 600; letter-spacing: 0.2em; }
+article.index header.introduction p { color: #fff; font-family: "chaparral-pro", serif; font-size: 1.1875em; line-height: 1.57895em; width: 450px; }
+article.index nav.alphabet { width: 100%; height: 54px; border-bottom: 1px solid #d4d4d4; background: #fff; }
+article.index nav.alphabet.fixed { position: fixed; top: 0; z-index: 50; }
+article.index nav.alphabet ul { float: right; height: 54px; }
+article.index nav.alphabet ul li { font-size: 0.9375em; color: #cccccc; font-weight: bold; margin-left: 10px; display: inline-block; position: relative; top: 50%; overflow: hidden; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%); transition: color 0.3s ease-out; }
+article.index nav.alphabet ul li:hover { cursor: pointer; color: #1c1f21; }
+article.index nav.alphabet.fixed + section { padding-top: 54px; }
+article.index section { margin-top: 30px; }
+article.index section h3.letter { position: relative; color: #ccc; text-transform: uppercase; font-size: 1.125em; margin: 0 35px; font-weight: bold; }
+article.index section h3.letter:before { display: block; content: ''; width: 25px; left: -35px; top: 50%; position: absolute; border-bottom: 1px solid #e6e6e6; }
+article.index section h3.letter:after { display: block; content: ''; width: 965px; left: 20px; top: 50%; border-bottom: 1px solid #e6e6e6; position: absolute; }
+article.index section ul { margin-top: 25px; }
 article.index section ul li { border-radius: 4px; overflow: hidden; width: 180px; float: left; margin-right: 30px; margin-bottom: 30px; }
 article.index section ul li.no-margin { margin-right: 0; }
 article.index section ul li a { display: block; width: 180px; overflow: hidden; text-decoration: none; opacity: 1; transition: opacity 0.3s ease-out; }
@@ -655,6 +666,13 @@ section.module { width: 100%; margin: 0 0 50px 0; -webkit-box-sizing: border-box
 section.module.timeline { border: 1px solid #d9d9d9; border-radius: 5px; overflow: hidden; }
 section.module.timeline h3 { margin: 35px 30px; color: #29b988; font-size: 0.9375em; font-weight: 700; }
 section.module.timeline h3 span { display: block; color: #1c1f21; font-size: 1.33333em; font-family: "chaparral-pro", serif; }
+section.module.x-with-y ul li { border-radius: 4px; overflow: hidden; width: 180px; float: left; margin-right: 30px; margin-bottom: 30px; }
+section.module.x-with-y ul li.no-margin { margin-right: 0; }
+section.module.x-with-y ul li a { display: block; width: 180px; overflow: hidden; text-decoration: none; opacity: 1; transition: opacity 0.3s ease-out; }
+section.module.x-with-y ul li a:hover { opacity: 0.7; }
+section.module.x-with-y ul li div { text-align: center; border-radius: 4px; border-top-left-radius: 0; border-top-right-radius: 0; border: 1px solid #d9d9d9; padding: 15px 0; border-top: 0; }
+section.module.x-with-y ul li div h4 { color: #1c1f21; font-weight: bold; font-size: 0.9375em; margin-bottom: 5px; }
+section.module.x-with-y ul li div p { color: #acb8c0; font-size: 0.9375em; }
 section.module.top-5 { border: 1px solid #d9d9d9; border-radius: 5px; overflow: hidden; min-height: 458px; }
 section.module.top-5.person2 section ol li div.gauge span { background-color: #2781bb; }
 section.module.top-5 nav.tabs { overflow: hidden; }
