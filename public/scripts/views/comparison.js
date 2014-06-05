@@ -96,12 +96,10 @@
         });
         this.getStackData(data);
         this.clock1.render({
-          broadcastHoursByDay: data.person1.broadcastHoursByDay,
-          personNumber: 1
+          broadcastHoursByDay: data.person1.broadcastHoursByDay
         });
         return this.clock2.render({
-          broadcastHoursByDay: data.person2.broadcastHoursByDay,
-          personNumber: 2
+          broadcastHoursByDay: data.person2.broadcastHoursByDay
         });
       };
 
