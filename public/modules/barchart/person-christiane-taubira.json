@@ -1,0 +1,1585 @@
+{
+    "person": {
+        "id": "5",
+        "slug": "christiane-taubira",
+        "name": "Christiane Taubira",
+        "firstName": "Christiane",
+        "lastName": "Taubira",
+        "gender": "f",
+        "ageRange": "",
+        "tag1": "PRG",
+        "tag2": "Gouvernement-Ayrault-II",
+        "tag3": "",
+        "tag4": "",
+        "tag5": "",
+        "description": "Christiane Taubira, née le 2 février 1952 à Cayenne, est une femme politique française, actuelle garde des Sceaux, ministre de la Justice, nommée depuis le 16 mai 2012 dans les gouvernements Jean-Marc Ayrault I et II. Wikipédia",
+        "twitter": "ChTaubira"
+    },
+    "timelineMentions": [
+        {
+            "mentionDate": "1996-03",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "1999-02",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "1999-03",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "1999-10",
+            "mentionCount": "4"
+        },
+        {
+            "mentionDate": "2000-05",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2000-07",
+            "mentionCount": "4"
+        },
+        {
+            "mentionDate": "2000-11",
+            "mentionCount": "2"
+        },
+        {
+            "mentionDate": "2001-01",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2001-06",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2001-07",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2001-09",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2001-11",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2001-12",
+            "mentionCount": "7"
+        },
+        {
+            "mentionDate": "2002-01",
+            "mentionCount": "3"
+        },
+        {
+            "mentionDate": "2002-02",
+            "mentionCount": "3"
+        },
+        {
+            "mentionDate": "2002-03",
+            "mentionCount": "12"
+        },
+        {
+            "mentionDate": "2002-04",
+            "mentionCount": "107"
+        },
+        {
+            "mentionDate": "2002-05",
+            "mentionCount": "2"
+        },
+        {
+            "mentionDate": "2002-06",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2002-09",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2002-10",
+            "mentionCount": "2"
+        },
+        {
+            "mentionDate": "2003-04",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2003-06",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2003-12",
+            "mentionCount": "4"
+        },
+        {
+            "mentionDate": "2004-01",
+            "mentionCount": "3"
+        },
+        {
+            "mentionDate": "2004-02",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2004-04",
+            "mentionCount": "2"
+        },
+        {
+            "mentionDate": "2004-05",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2004-06",
+            "mentionCount": "7"
+        },
+        {
+            "mentionDate": "2004-09",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2004-10",
+            "mentionCount": "3"
+        },
+        {
+            "mentionDate": "2004-11",
+            "mentionCount": "2"
+        },
+        {
+            "mentionDate": "2004-12",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2005-01",
+            "mentionCount": "3"
+        },
+        {
+            "mentionDate": "2005-02",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2005-03",
+            "mentionCount": "7"
+        },
+        {
+            "mentionDate": "2005-04",
+            "mentionCount": "2"
+        },
+        {
+            "mentionDate": "2005-05",
+            "mentionCount": "10"
+        },
+        {
+            "mentionDate": "2005-06",
+            "mentionCount": "2"
+        },
+        {
+            "mentionDate": "2005-08",
+            "mentionCount": "5"
+        },
+        {
+            "mentionDate": "2005-09",
+            "mentionCount": "4"
+        },
+        {
+            "mentionDate": "2005-10",
+            "mentionCount": "2"
+        },
+        {
+            "mentionDate": "2005-11",
+            "mentionCount": "3"
+        },
+        {
+            "mentionDate": "2005-12",
+            "mentionCount": "9"
+        },
+        {
+            "mentionDate": "2006-01",
+            "mentionCount": "10"
+        },
+        {
+            "mentionDate": "2006-02",
+            "mentionCount": "3"
+        },
+        {
+            "mentionDate": "2006-04",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2006-05",
+            "mentionCount": "15"
+        },
+        {
+            "mentionDate": "2006-07",
+            "mentionCount": "5"
+        },
+        {
+            "mentionDate": "2006-09",
+            "mentionCount": "2"
+        },
+        {
+            "mentionDate": "2006-10",
+            "mentionCount": "12"
+        },
+        {
+            "mentionDate": "2006-11",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2006-12",
+            "mentionCount": "2"
+        },
+        {
+            "mentionDate": "2007-01",
+            "mentionCount": "12"
+        },
+        {
+            "mentionDate": "2007-02",
+            "mentionCount": "15"
+        },
+        {
+            "mentionDate": "2007-03",
+            "mentionCount": "3"
+        },
+        {
+            "mentionDate": "2007-04",
+            "mentionCount": "9"
+        },
+        {
+            "mentionDate": "2007-05",
+            "mentionCount": "9"
+        },
+        {
+            "mentionDate": "2007-06",
+            "mentionCount": "10"
+        },
+        {
+            "mentionDate": "2007-09",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2007-10",
+            "mentionCount": "4"
+        },
+        {
+            "mentionDate": "2007-12",
+            "mentionCount": "2"
+        },
+        {
+            "mentionDate": "2008-01",
+            "mentionCount": "2"
+        },
+        {
+            "mentionDate": "2008-02",
+            "mentionCount": "3"
+        },
+        {
+            "mentionDate": "2008-04",
+            "mentionCount": "6"
+        },
+        {
+            "mentionDate": "2008-05",
+            "mentionCount": "9"
+        },
+        {
+            "mentionDate": "2008-07",
+            "mentionCount": "3"
+        },
+        {
+            "mentionDate": "2008-09",
+            "mentionCount": "3"
+        },
+        {
+            "mentionDate": "2008-10",
+            "mentionCount": "5"
+        },
+        {
+            "mentionDate": "2008-11",
+            "mentionCount": "14"
+        },
+        {
+            "mentionDate": "2008-12",
+            "mentionCount": "3"
+        },
+        {
+            "mentionDate": "2009-01",
+            "mentionCount": "6"
+        },
+        {
+            "mentionDate": "2009-02",
+            "mentionCount": "41"
+        },
+        {
+            "mentionDate": "2009-03",
+            "mentionCount": "15"
+        },
+        {
+            "mentionDate": "2009-04",
+            "mentionCount": "7"
+        },
+        {
+            "mentionDate": "2009-05",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2009-06",
+            "mentionCount": "4"
+        },
+        {
+            "mentionDate": "2009-08",
+            "mentionCount": "17"
+        },
+        {
+            "mentionDate": "2009-09",
+            "mentionCount": "8"
+        },
+        {
+            "mentionDate": "2009-10",
+            "mentionCount": "4"
+        },
+        {
+            "mentionDate": "2009-11",
+            "mentionCount": "5"
+        },
+        {
+            "mentionDate": "2009-12",
+            "mentionCount": "7"
+        },
+        {
+            "mentionDate": "2010-01",
+            "mentionCount": "7"
+        },
+        {
+            "mentionDate": "2010-02",
+            "mentionCount": "3"
+        },
+        {
+            "mentionDate": "2010-03",
+            "mentionCount": "8"
+        },
+        {
+            "mentionDate": "2010-04",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2010-05",
+            "mentionCount": "3"
+        },
+        {
+            "mentionDate": "2010-06",
+            "mentionCount": "2"
+        },
+        {
+            "mentionDate": "2010-07",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2010-08",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2010-09",
+            "mentionCount": "2"
+        },
+        {
+            "mentionDate": "2010-11",
+            "mentionCount": "3"
+        },
+        {
+            "mentionDate": "2010-12",
+            "mentionCount": "3"
+        },
+        {
+            "mentionDate": "2011-01",
+            "mentionCount": "4"
+        },
+        {
+            "mentionDate": "2011-02",
+            "mentionCount": "6"
+        },
+        {
+            "mentionDate": "2011-03",
+            "mentionCount": "8"
+        },
+        {
+            "mentionDate": "2011-04",
+            "mentionCount": "7"
+        },
+        {
+            "mentionDate": "2011-05",
+            "mentionCount": "8"
+        },
+        {
+            "mentionDate": "2011-06",
+            "mentionCount": "2"
+        },
+        {
+            "mentionDate": "2011-07",
+            "mentionCount": "5"
+        },
+        {
+            "mentionDate": "2011-08",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2011-09",
+            "mentionCount": "3"
+        },
+        {
+            "mentionDate": "2011-10",
+            "mentionCount": "11"
+        },
+        {
+            "mentionDate": "2011-11",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2011-12",
+            "mentionCount": "1"
+        },
+        {
+            "mentionDate": "2012-01",
+            "mentionCount": "2"
+        },
+        {
+            "mentionDate": "2012-02",
+            "mentionCount": "7"
+        },
+        {
+            "mentionDate": "2012-03",
+            "mentionCount": "4"
+        },
+        {
+            "mentionDate": "2012-05",
+            "mentionCount": "248"
+        },
+        {
+            "mentionDate": "2012-06",
+            "mentionCount": "106"
+        },
+        {
+            "mentionDate": "2012-07",
+            "mentionCount": "33"
+        },
+        {
+            "mentionDate": "2012-08",
+            "mentionCount": "197"
+        },
+        {
+            "mentionDate": "2012-09",
+            "mentionCount": "297"
+        },
+        {
+            "mentionDate": "2012-10",
+            "mentionCount": "103"
+        },
+        {
+            "mentionDate": "2012-11",
+            "mentionCount": "220"
+        },
+        {
+            "mentionDate": "2012-12",
+            "mentionCount": "87"
+        },
+        {
+            "mentionDate": "2013-01",
+            "mentionCount": "246"
+        },
+        {
+            "mentionDate": "2013-02",
+            "mentionCount": "317"
+        },
+        {
+            "mentionDate": "2013-03",
+            "mentionCount": "169"
+        },
+        {
+            "mentionDate": "2013-04",
+            "mentionCount": "235"
+        },
+        {
+            "mentionDate": "2013-05",
+            "mentionCount": "171"
+        },
+        {
+            "mentionDate": "2013-06",
+            "mentionCount": "75"
+        },
+        {
+            "mentionDate": "2013-07",
+            "mentionCount": "115"
+        },
+        {
+            "mentionDate": "2013-08",
+            "mentionCount": "526"
+        },
+        {
+            "mentionDate": "2013-09",
+            "mentionCount": "184"
+        },
+        {
+            "mentionDate": "2013-10",
+            "mentionCount": "291"
+        },
+        {
+            "mentionDate": "2013-11",
+            "mentionCount": "557"
+        },
+        {
+            "mentionDate": "2013-12",
+            "mentionCount": "189"
+        },
+        {
+            "mentionDate": "2014-01",
+            "mentionCount": "263"
+        },
+        {
+            "mentionDate": "2014-02",
+            "mentionCount": "234"
+        },
+        {
+            "mentionDate": "2014-03",
+            "mentionCount": "554"
+        },
+        {
+            "mentionDate": "2014-04",
+            "mentionCount": "220"
+        },
+        {
+            "mentionDate": "2014-05",
+            "mentionCount": "7"
+        }
+    ],
+    "mentionsCount": "6259",
+    "popularTypes": [
+        {
+            "typeName": "Magazine",
+            "typeCount": 300
+        },
+        {
+            "typeName": "Journal Télévisé",
+            "typeCount": 200
+        }
+    ],
+    "popularShows": [
+        {
+            "showCount": "97",
+            "showChannel": "RMC",
+            "showName": "Les grandes gueules 11h00-12h00 "
+        },
+        {
+            "showCount": "89",
+            "showChannel": "La chaine parlementaire Assemblée Nationale",
+            "showName": "LCP Politique matin "
+        },
+        {
+            "showCount": "87",
+            "showChannel": "RMC",
+            "showName": "Les grandes gueules 12h00-13h00 "
+        },
+        {
+            "showCount": "82",
+            "showChannel": "RTL",
+            "showName": " RTL soir"
+        },
+        {
+            "showCount": "80",
+            "showChannel": "RTL",
+            "showName": "On refait le monde RTL soir"
+        },
+        {
+            "showCount": "70",
+            "showChannel": "France 2",
+            "showName": " Campagne officielle élection du Président de la République 1er tour : 21 avril 2002"
+        }
+    ],
+    "popularChannels": [
+        {
+            "channelCount": "924",
+            "channelName": "Europe 1"
+        },
+        {
+            "channelCount": "665",
+            "channelName": "RMC"
+        },
+        {
+            "channelCount": "657",
+            "channelName": "RTL"
+        },
+        {
+            "channelCount": "634",
+            "channelName": "LCI"
+        },
+        {
+            "channelCount": "516",
+            "channelName": "i>TELE"
+        },
+        {
+            "channelCount": "437",
+            "channelName": "BFM TV"
+        }
+    ],
+    "broadcastHoursByDay": [
+        {
+            "broadcastCount": "13",
+            "broadcastHour": "05",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "40",
+            "broadcastHour": "06",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "101",
+            "broadcastHour": "07",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "129",
+            "broadcastHour": "08",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "31",
+            "broadcastHour": "09",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "39",
+            "broadcastHour": "10",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "39",
+            "broadcastHour": "11",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "57",
+            "broadcastHour": "12",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "47",
+            "broadcastHour": "13",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "12",
+            "broadcastHour": "14",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "12",
+            "broadcastHour": "15",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "21",
+            "broadcastHour": "16",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "26",
+            "broadcastHour": "17",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "76",
+            "broadcastHour": "18",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "106",
+            "broadcastHour": "19",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "21",
+            "broadcastHour": "20",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "28",
+            "broadcastHour": "21",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "30",
+            "broadcastHour": "22",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "7",
+            "broadcastHour": "23",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "1",
+            "broadcastHour": "00",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "4",
+            "broadcastHour": "03",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "16",
+            "broadcastHour": "05",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "67",
+            "broadcastHour": "06",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "142",
+            "broadcastHour": "07",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "164",
+            "broadcastHour": "08",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "43",
+            "broadcastHour": "09",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "43",
+            "broadcastHour": "10",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "44",
+            "broadcastHour": "11",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "65",
+            "broadcastHour": "12",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "44",
+            "broadcastHour": "13",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "16",
+            "broadcastHour": "14",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "16",
+            "broadcastHour": "15",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "32",
+            "broadcastHour": "16",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "42",
+            "broadcastHour": "17",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "111",
+            "broadcastHour": "18",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "163",
+            "broadcastHour": "19",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "33",
+            "broadcastHour": "20",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "36",
+            "broadcastHour": "21",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "34",
+            "broadcastHour": "22",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "9",
+            "broadcastHour": "23",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "2",
+            "broadcastHour": "00",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "18",
+            "broadcastHour": "05",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "91",
+            "broadcastHour": "06",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "156",
+            "broadcastHour": "07",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "188",
+            "broadcastHour": "08",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "63",
+            "broadcastHour": "09",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "52",
+            "broadcastHour": "10",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "60",
+            "broadcastHour": "11",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "105",
+            "broadcastHour": "12",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "63",
+            "broadcastHour": "13",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "24",
+            "broadcastHour": "14",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "31",
+            "broadcastHour": "15",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "23",
+            "broadcastHour": "16",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "55",
+            "broadcastHour": "17",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "132",
+            "broadcastHour": "18",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "171",
+            "broadcastHour": "19",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "45",
+            "broadcastHour": "20",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "43",
+            "broadcastHour": "21",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "39",
+            "broadcastHour": "22",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "11",
+            "broadcastHour": "23",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "20",
+            "broadcastHour": "05",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "78",
+            "broadcastHour": "06",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "161",
+            "broadcastHour": "07",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "180",
+            "broadcastHour": "08",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "49",
+            "broadcastHour": "09",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "46",
+            "broadcastHour": "10",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "51",
+            "broadcastHour": "11",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "74",
+            "broadcastHour": "12",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "34",
+            "broadcastHour": "13",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "19",
+            "broadcastHour": "14",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "13",
+            "broadcastHour": "15",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "24",
+            "broadcastHour": "16",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "27",
+            "broadcastHour": "17",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "110",
+            "broadcastHour": "18",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "112",
+            "broadcastHour": "19",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "24",
+            "broadcastHour": "20",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "31",
+            "broadcastHour": "21",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "16",
+            "broadcastHour": "22",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "5",
+            "broadcastHour": "23",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "12",
+            "broadcastHour": "05",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "67",
+            "broadcastHour": "06",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "123",
+            "broadcastHour": "07",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "157",
+            "broadcastHour": "08",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "55",
+            "broadcastHour": "09",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "44",
+            "broadcastHour": "10",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "54",
+            "broadcastHour": "11",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "49",
+            "broadcastHour": "12",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "49",
+            "broadcastHour": "13",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "18",
+            "broadcastHour": "14",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "10",
+            "broadcastHour": "15",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "28",
+            "broadcastHour": "16",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "38",
+            "broadcastHour": "17",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "107",
+            "broadcastHour": "18",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "124",
+            "broadcastHour": "19",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "26",
+            "broadcastHour": "20",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "25",
+            "broadcastHour": "21",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "28",
+            "broadcastHour": "22",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "3",
+            "broadcastHour": "23",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "13",
+            "broadcastHour": "05",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "28",
+            "broadcastHour": "06",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "31",
+            "broadcastHour": "07",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "43",
+            "broadcastHour": "08",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "27",
+            "broadcastHour": "09",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "26",
+            "broadcastHour": "10",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "16",
+            "broadcastHour": "11",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "34",
+            "broadcastHour": "12",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "33",
+            "broadcastHour": "13",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "10",
+            "broadcastHour": "14",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "1",
+            "broadcastHour": "15",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "4",
+            "broadcastHour": "16",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "3",
+            "broadcastHour": "17",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "23",
+            "broadcastHour": "18",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "47",
+            "broadcastHour": "19",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "16",
+            "broadcastHour": "20",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "3",
+            "broadcastHour": "21",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "5",
+            "broadcastHour": "22",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "1",
+            "broadcastHour": "23",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "6",
+            "broadcastHour": "05",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "25",
+            "broadcastHour": "06",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "45",
+            "broadcastHour": "07",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "36",
+            "broadcastHour": "08",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "23",
+            "broadcastHour": "09",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "37",
+            "broadcastHour": "10",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "10",
+            "broadcastHour": "11",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "43",
+            "broadcastHour": "12",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "20",
+            "broadcastHour": "13",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "12",
+            "broadcastHour": "14",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "2",
+            "broadcastHour": "15",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "4",
+            "broadcastHour": "16",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "19",
+            "broadcastHour": "17",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "95",
+            "broadcastHour": "18",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "40",
+            "broadcastHour": "19",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "9",
+            "broadcastHour": "20",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "6",
+            "broadcastHour": "21",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "9",
+            "broadcastHour": "22",
+            "broadcastWeekday": "Sunday"
+        },
+        {
+            "broadcastCount": "4",
+            "broadcastHour": "23",
+            "broadcastWeekday": "Sunday"
+        }
+    ],
+    "broadcastHours": [
+        {
+            "broadcastCount": "3",
+            "broadcastHour": "00"
+        },
+        {
+            "broadcastCount": "4",
+            "broadcastHour": "03"
+        },
+        {
+            "broadcastCount": "98",
+            "broadcastHour": "05"
+        },
+        {
+            "broadcastCount": "396",
+            "broadcastHour": "06"
+        },
+        {
+            "broadcastCount": "759",
+            "broadcastHour": "07"
+        },
+        {
+            "broadcastCount": "897",
+            "broadcastHour": "08"
+        },
+        {
+            "broadcastCount": "291",
+            "broadcastHour": "09"
+        },
+        {
+            "broadcastCount": "287",
+            "broadcastHour": "10"
+        },
+        {
+            "broadcastCount": "274",
+            "broadcastHour": "11"
+        },
+        {
+            "broadcastCount": "427",
+            "broadcastHour": "12"
+        },
+        {
+            "broadcastCount": "290",
+            "broadcastHour": "13"
+        },
+        {
+            "broadcastCount": "111",
+            "broadcastHour": "14"
+        },
+        {
+            "broadcastCount": "85",
+            "broadcastHour": "15"
+        },
+        {
+            "broadcastCount": "136",
+            "broadcastHour": "16"
+        },
+        {
+            "broadcastCount": "210",
+            "broadcastHour": "17"
+        },
+        {
+            "broadcastCount": "654",
+            "broadcastHour": "18"
+        },
+        {
+            "broadcastCount": "763",
+            "broadcastHour": "19"
+        },
+        {
+            "broadcastCount": "174",
+            "broadcastHour": "20"
+        },
+        {
+            "broadcastCount": "172",
+            "broadcastHour": "21"
+        },
+        {
+            "broadcastCount": "161",
+            "broadcastHour": "22"
+        },
+        {
+            "broadcastCount": "40",
+            "broadcastHour": "23"
+        }
+    ],
+    "broadcastDays": [
+        {
+            "broadcastCount": "835",
+            "broadcastWeekday": "Monday"
+        },
+        {
+            "broadcastCount": "1125",
+            "broadcastWeekday": "Tuesday"
+        },
+        {
+            "broadcastCount": "1372",
+            "broadcastWeekday": "Wednesday"
+        },
+        {
+            "broadcastCount": "1074",
+            "broadcastWeekday": "Thursday"
+        },
+        {
+            "broadcastCount": "1017",
+            "broadcastWeekday": "Friday"
+        },
+        {
+            "broadcastCount": "364",
+            "broadcastWeekday": "Saturday"
+        },
+        {
+            "broadcastCount": "445",
+            "broadcastWeekday": "Sunday"
+        }
+    ],
+    "channels": [
+        {
+            "channelName": "France 2",
+            "channelCount": 300
+        },
+        {
+            "channelName": "TF1",
+            "channelCount": 200
+        }
+    ],
+    "seenWith": [
+        {
+            "personName": "Anne Hidalgo",
+            "seenCount": "252"
+        },
+        {
+            "personName": "Cécile Duflot",
+            "seenCount": "241"
+        },
+        {
+            "personName": "Vincent Peillon",
+            "seenCount": "230"
+        },
+        {
+            "personName": "Dominique Bertinotti",
+            "seenCount": "178"
+        },
+        {
+            "personName": "Nadine Morano",
+            "seenCount": "154"
+        },
+        {
+            "personName": "Marylise Lebranchu",
+            "seenCount": "140"
+        },
+        {
+            "personName": "Fleur Pellerin",
+            "seenCount": "125"
+        },
+        {
+            "personName": "Bernard Cazeneuve",
+            "seenCount": "99"
+        },
+        {
+            "personName": "Frigide Barjot",
+            "seenCount": "98"
+        },
+        {
+            "personName": "Sylvia Pinel",
+            "seenCount": "89"
+        },
+        {
+            "personName": "Pascal Canfin",
+            "seenCount": "83"
+        },
+        {
+            "personName": "Alain Vidalies",
+            "seenCount": "80"
+        },
+        {
+            "personName": "Nicole Bricq",
+            "seenCount": "75"
+        },
+        {
+            "personName": "Michèle Delaunay",
+            "seenCount": "72"
+        },
+        {
+            "personName": "Geneviève Fioraso",
+            "seenCount": "51"
+        },
+        {
+            "personName": "François Baroin",
+            "seenCount": "43"
+        },
+        {
+            "personName": "Marion Bartoli",
+            "seenCount": "38"
+        },
+        {
+            "personName": "David Douillet",
+            "seenCount": "35"
+        },
+        {
+            "personName": "Rama Yade",
+            "seenCount": "29"
+        },
+        {
+            "personName": "Frédéric Lefebvre",
+            "seenCount": "26"
+        },
+        {
+            "personName": "Patrick Ollier",
+            "seenCount": "23"
+        },
+        {
+            "personName": "Nabilla Benattia",
+            "seenCount": "21"
+        },
+        {
+            "personName": "Pierre Moscovici",
+            "seenCount": "20"
+        },
+        {
+            "personName": "Nicolas Gougain",
+            "seenCount": "12"
+        },
+        {
+            "personName": "Béatrice Bourges",
+            "seenCount": "9"
+        },
+        {
+            "personName": "Ludovine de la Rochère",
+            "seenCount": "7"
+        },
+        {
+            "personName": "Jeannette Bougrab",
+            "seenCount": "6"
+        },
+        {
+            "personName": "Marine Lorphelin",
+            "seenCount": "4"
+        },
+        {
+            "personName": "Valérie Pecresse",
+            "seenCount": "4"
+        },
+        {
+            "personName": "Aurélie Filipetti",
+            "seenCount": "3"
+        },
+        {
+            "personName": "Philippe Richert",
+            "seenCount": "2"
+        },
+        {
+            "personName": "Edouard Courtial",
+            "seenCount": "2"
+        },
+        {
+            "personName": "Claude Greff",
+            "seenCount": "2"
+        },
+        {
+            "personName": "Nora Berra",
+            "seenCount": "2"
+        },
+        {
+            "personName": "Gérard Longuet",
+            "seenCount": "2"
+        },
+        {
+            "personName": "Marc Laffineur",
+            "seenCount": "1"
+        }
+    ],
+    "seeAlso": [
+        {
+            "personName": "François Hollande",
+            "personPicture": "francois-hollande.jpg"
+        },
+        {
+            "personName": "Valérie Trierweiler",
+            "personPicture": "valerie-trierweiler.jpg"
+        }
+    ]
+}
