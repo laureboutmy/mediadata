@@ -5,6 +5,10 @@
   </ul>
 </nav>
 <section id="shows" class="visible">
+  <% if(popularShows.length == 0) { %>
+    PAS DE DONNEES
+
+  <% } else { %>
   <ol>
     <% _.each(popularShows, function(show){ %>
     <li>
@@ -18,8 +22,12 @@
     </li>
     <% }) %>
   </ol>
+  <% } %>
 </section>
 <section id="channels">
+  <% if(popularChannels.length == 0) { %>
+    PAS DE DONNEES
+  <% } else { %>
   <ol>
     <% _.each(popularChannels, function(channel){ %>
     <li>
@@ -33,4 +41,5 @@
     </li>
     <% }) %>
   </ol>
+  <% } %>
 </section>
