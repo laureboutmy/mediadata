@@ -683,9 +683,10 @@ section.module.timeline h3 { margin: 35px 30px; color: #29b988; font-size: 0.937
 section.module.timeline h3 span { display: block; color: #1c1f21; font-size: 1.33333em; font-family: "chaparral-pro", serif; }
 section.module.x-with-y ul li { border-radius: 4px; overflow: hidden; width: 180px; float: left; margin-right: 30px; margin-bottom: 30px; }
 section.module.x-with-y ul li.no-margin { margin-right: 0; }
-section.module.x-with-y ul li a { display: block; width: 180px; overflow: hidden; text-decoration: none; opacity: 1; transition: opacity 0.3s ease-out; }
+section.module.x-with-y ul li a { border-radius: 4px; display: block; width: 180px; overflow: hidden; text-decoration: none; opacity: 1; transition: opacity 0.3s ease-out; }
 section.module.x-with-y ul li a:hover { opacity: 0.7; }
-section.module.x-with-y ul li div { text-align: center; border-radius: 4px; border-top-left-radius: 0; border-top-right-radius: 0; border: 1px solid #d9d9d9; padding: 15px 0; border-top: 0; }
+section.module.x-with-y ul li div { position: relative; border-radius: 4px; border-top-left-radius: 0; border-top-right-radius: 0; border: 1px solid #d9d9d9; padding: 15px 0 15px 55px; border-top: 0; }
+section.module.x-with-y ul li div span.number { display: block; text-align: center; width: 55px; position: absolute; left: 0; font-family: "chaparral-pro", serif; font-size: 1.5em; color: #1c1f21; line-height: 1.66667em; font-weight: bold; }
 section.module.x-with-y ul li div h4 { color: #1c1f21; font-weight: bold; font-size: 0.9375em; margin-bottom: 5px; }
 section.module.x-with-y ul li div p { color: #acb8c0; font-size: 0.9375em; }
 section.module.top-5 { border: 1px solid #d9d9d9; border-radius: 5px; overflow: hidden; min-height: 458px; }

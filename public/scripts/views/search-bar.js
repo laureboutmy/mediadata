@@ -98,7 +98,8 @@
         this.topics['topic' + nb] = _.where(this.collection, {
           slug: name
         })[0];
-        el = $('#name-1').parent().parent().find('h1');
+        el = $('#name' + nb).parent().parent().find('h1');
+        console.log('eeee', el, nb, this.topics['topic' + nb]);
         el.find('span.name').html(this.topics['topic' + nb].name);
         el.find('span.role').html(this.topics['topic' + nb].role);
         return el.find('.img img').attr('src', this.topics['topic' + nb].picture);
@@ -192,11 +193,12 @@
         }
         $(input).parent().parent().find('h1').html(selected.html());
         if (this.$el.hasClass('comparison')) {
-          if ($(input).has('#name-2')) {
+          if ($(input).attr('id') === 'name-2') {
+            console.log('YEAH');
             this.update(selected.data('slug'), 2);
             md.Router.navigate(this.topics.topic1.slug + '/' + selected.data('slug'));
             md.Router.getComparison(this.topics.topic1.slug, selected.data('slug'));
-          } else if ($(input).has('#name-1')) {
+          } else if ($(input).attr('id') === 'name-1') {
             this.update(selected.data('slug'), 1);
             md.Router.navigate(selected.data('slug') + '/' + this.topics.topic2.slug);
             md.Router.getComparison(selected.data('slug'), this.topics.topic2.slug);

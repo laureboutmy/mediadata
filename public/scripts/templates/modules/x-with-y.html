@@ -4,8 +4,9 @@
   	<a href="<%= person.personSlug %>" data-link="<%= person.personSlug %>">
    		<img src="<%= person.personPicture %>" alt="<%= person.personName %>" />
       <div>
-        <h4><%= person.personName %></h4>
-       
+      	<span class="number"><%= person.seenCount %></span>
+        <h4><% if(person.personName.length > 13) { print(person.personName.slice(0, 13) + '...') } else { print(person.personName) } %></h4>
+       	<p>chose</p>
       </div>
      </a>
   </li>
