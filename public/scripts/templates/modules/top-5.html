@@ -27,7 +27,9 @@
 </section>
 <section id="channels">
   <% if(popularChannels.length == 0) { %>
-    PAS DE DONNEES
+    <div class="no-data">
+      <p><i class="icon-heart_broken"></i> Aucune donnée disponible</p>
+    </div>
   <% } else { %>
   <ol>
     <% _.each(popularChannels, function(channel){ %>
