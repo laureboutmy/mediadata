@@ -15,8 +15,9 @@ define [
 			@render()
 		destroy: () ->
 		render: () ->
+			document.body.scrollTop = document.documentElement.scrollTop = 0
 			@$el.html(@template())
-					
+			md.Router.hideLoader()	
 			return @
 
 		

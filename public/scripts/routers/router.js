@@ -35,6 +35,7 @@
       };
 
       Router.prototype.home = function() {
+        md.Router.showLoader();
         md.Views['home'] = new HomeView();
         return md.Views['home'].render();
       };
@@ -78,6 +79,7 @@
       };
 
       Router.prototype.getPerson = function(name) {
+        md.Router.showLoader();
         this.getSearchbar(name);
         return md.Views['person'] = new PersonView({
           name1: name
@@ -93,6 +95,7 @@
       };
 
       Router.prototype.getIndex = function() {
+        md.Router.showLoader();
         md.Status['currentView'] = 'index';
         if (md.Views['search-bar']) {
           $(md.Views['search-bar'].el).removeClass('visible');
@@ -101,6 +104,7 @@
       };
 
       Router.prototype.getAbout = function() {
+        md.Router.showLoader();
         md.Status['currentView'] = 'about';
         if (md.Views['search-bar']) {
           $(md.Views['search-bar'].el).removeClass('visible');
@@ -109,6 +113,7 @@
       };
 
       Router.prototype.getComparison = function(name1, name2) {
+        md.Router.showLoader();
         this.getSearchbar(name1, name2);
         return md.Views['comparison'] = new ComparisonView({
           name1: name1,
@@ -122,6 +127,27 @@
         $('#main').width(wWidth - 80);
         $('#search-bar').width(wWidth - 80);
         return $('#loader').width(wWidth - 80);
+      };
+
+      Router.prototype.showLoader = function() {
+        var loader;
+        console.log('yolo');
+        loader = $('#main-loader');
+        if (!loader.hasClass('visible')) {
+          return loader.addClass('z-index').addClass('visible');
+        }
+      };
+
+      Router.prototype.hideLoader = function() {
+        var loader;
+        loader = $('#main-loader');
+        if (loader.hasClass('debut')) {
+          loader.removeClass('debut');
+        }
+        loader.removeClass('visible');
+        setTimeout(function() {
+          return $("#main-loader").removeClass('z-index');
+        }, 300);
       };
 
       Router.prototype.go = function(evt) {

@@ -22,7 +22,7 @@
       IndexView.prototype.name = null;
 
       IndexView.prototype.initialize = function() {
-        this.collection = new TopicsCollection();
+        this.collection = new TopicsCollection('http://api.mediadata.fr/alphabetical-index.php');
         return this.collection.fetch({
           success: (function(_this) {
             return function() {
@@ -44,7 +44,9 @@
       };
 
       IndexView.prototype.render = function() {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
         this.$el.html(this.template(this.collection));
+        md.Router.hideLoader();
         return this;
       };
 

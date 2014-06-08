@@ -15,8 +15,9 @@ define [
 			@render()
 		destroy: () ->
 		render: () ->
+			
 			@$el.html(@template())
-					
+			md.Router.hideLoader()
 			return @
 
 		

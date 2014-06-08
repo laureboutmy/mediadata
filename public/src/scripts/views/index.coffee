@@ -14,10 +14,11 @@ define [
 		name: null
 		initialize: () ->
 			
-			@collection = new TopicsCollection()
+			@collection = new TopicsCollection('http://api.mediadata.fr/alphabetical-index.php')
 			@collection.fetch 
 				success: () =>
 					@collection = @collection.models[0].attributes
+
 					@render() 
 					@bind()
 					@onResize()
@@ -27,8 +28,10 @@ define [
 		unbind: () ->
 			$(window).off('scroll', @stickNavigation).off('resize', @onResize)
 		render: () ->
+			document.body.scrollTop = document.documentElement.scrollTop = 0
+
 			@$el.html(@template(@collection))
-					
+			md.Router.hideLoader()		
 			return @
 		destroy: () ->
 			@unbind()

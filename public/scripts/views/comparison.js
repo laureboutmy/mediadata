@@ -22,6 +22,7 @@
       ComparisonView.prototype.template = _.template(tplComparison);
 
       ComparisonView.prototype.initialize = function(options) {
+        md.Router.showLoader();
         this.name.person1 = options.name1;
         this.name.person2 = options.name2;
         this.collections.person1 = new PersonsCollection(this.name.person1);
@@ -74,7 +75,8 @@
                   _this.$el.html(_this.template(_this.collections));
                   _this.initializeModules(_this.collections);
                   _this.bind();
-                  return _this.onResize();
+                  _this.onResize();
+                  return md.Router.hideLoader();
                 }
               });
               return _this;
@@ -112,6 +114,7 @@
       };
 
       ComparisonView.prototype.rerender = function() {
+        md.Router.showLoader();
         this.collections.person1 = new PersonsCollection(this.name.person1);
         this.collections.person2 = new PersonsCollection(this.name.person2);
         return this.collections.person1.fetch({
@@ -121,7 +124,8 @@
               return _this.collections.person2.fetch({
                 success: function() {
                   _this.collections.person2 = _this.collections.person2.models[0].attributes;
-                  return _this.renderModules(_this.collections);
+                  _this.renderModules(_this.collections);
+                  return md.Router.hideLoader();
                 }
               });
             };

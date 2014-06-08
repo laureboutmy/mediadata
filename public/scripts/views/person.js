@@ -24,6 +24,7 @@
       PersonView.prototype.initialize = function(options) {
         this.name = options.name1;
         this.collection = new PersonsCollection(this.name);
+        md.Router.showLoader();
         return this.render(options);
       };
 
@@ -68,10 +69,12 @@
               $('div.loader').addClass('complete');
               _this.collection = _this.collection.models[0].attributes;
               _this.$el.html(_this.template(_this.collection));
+              md.Router.getFilters();
               _this.initializeModules(_this.collection);
               _this.bind();
               _this.onResize();
-              md.Router.getFilters();
+              $('div.loader').addClass('complete');
+              md.Router.hideLoader();
               return _this;
             };
           })(this)
@@ -102,12 +105,14 @@
       };
 
       PersonView.prototype.rerender = function() {
+        md.Router.showLoader();
         this.collection = new PersonsCollection(this.name);
         return this.collection.fetch({
           success: (function(_this) {
             return function() {
               _this.collection = _this.collection.models[0].attributes;
-              return _this.renderModules(_this.collection);
+              _this.renderModules(_this.collection);
+              return md.Router.hideLoader();
             };
           })(this)
         });

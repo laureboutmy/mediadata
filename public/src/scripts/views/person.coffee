@@ -22,7 +22,7 @@ define [
 			# if md.Filters then console.log("yooo")
 			@name = options.name1
 			@collection = new PersonsCollection(@name)
-			
+			md.Router.showLoader()
 			@render(options)
 
 		initializeModules: (data) ->
@@ -60,10 +60,12 @@ define [
 					$('div.loader').addClass('complete');
 					@collection = @collection.models[0].attributes
 					@$el.html(@template(@collection))
+					md.Router.getFilters()
 					@initializeModules(@collection)
 					@bind()
 					@onResize()
-					md.Router.getFilters()
+					$('div.loader').addClass('complete')
+					md.Router.hideLoader()
 					return @
 
 		renderModules: (data) ->
@@ -76,10 +78,12 @@ define [
 			$('#filters').width($(window).width() - 80)
 
 		rerender: () ->
+			md.Router.showLoader()
 			@collection = new PersonsCollection(@name)
 			@collection.fetch
 				success: () =>
 					@collection = @collection.models[0].attributes
 					@renderModules(@collection)
+					md.Router.hideLoader()
 
 		

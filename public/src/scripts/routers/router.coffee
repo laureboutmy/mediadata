@@ -35,6 +35,7 @@ define [
 			$(window).on('resize', @onResize)
 
 		home: () ->
+			md.Router.showLoader()
 			md.Views['home'] = new HomeView()
 			md.Views['home'].render()
 
@@ -55,25 +56,30 @@ define [
 				md.Views['filters'].render()
 
 		getPerson: (name) ->
+			md.Router.showLoader()
 			@getSearchbar(name)
 			md.Views['person'] = new PersonView({name1: name})
 
 		getSearch: () ->
+
 			md.Status['currentView'] = 'search'
 
 			if !md.Views['search-bar'] then @getSearchbar(name)
 			md.Views['search'] = new SearchView()
 
 		getIndex: () ->
+			md.Router.showLoader()
 			md.Status['currentView'] = 'index'
 			if md.Views['search-bar'] then $(md.Views['search-bar'].el).removeClass('visible')
 			md.Views['index'] = new IndexView()
 		getAbout: () ->
+			md.Router.showLoader()
 			md.Status['currentView'] = 'about'
 			if md.Views['search-bar'] then $(md.Views['search-bar'].el).removeClass('visible')
 			md.Views['about'] = new AboutView()
 
 		getComparison: (name1, name2) ->
+			md.Router.showLoader()
 			@getSearchbar(name1, name2)
 			md.Views['comparison'] = new ComparisonView({name1: name1, name2: name2})
 
@@ -82,7 +88,21 @@ define [
 			$('#main').width(wWidth - 80)
 			$('#search-bar').width(wWidth - 80)
 			$('#loader').width(wWidth - 80)
-			
+		
+		showLoader: () ->
+			console.log('yolo')
+			loader = $('#main-loader')
+			if !loader.hasClass('visible') then loader.addClass('z-index').addClass('visible')
+
+		hideLoader: () ->
+			loader = $('#main-loader')
+			if loader.hasClass('debut') then loader.removeClass('debut');
+			loader.removeClass('visible')
+			setTimeout () ->
+				$("#main-loader").removeClass('z-index')
+			, 300
+			return
+
 		go: (evt) ->
 			evt.preventDefault()
 			md.Views[md.Status['currentView']].destroy()

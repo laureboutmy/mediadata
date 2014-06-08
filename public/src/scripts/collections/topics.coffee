@@ -7,3 +7,5 @@ define [
 	'use strict'
 	class TopicsCollection extends Backbone.Collection
 		url: 'http://api.mediadata.fr/search.php'
+		initialize: (url) ->
+			if url then @url = url

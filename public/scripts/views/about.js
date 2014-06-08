@@ -29,6 +29,7 @@
 
       AboutView.prototype.render = function() {
         this.$el.html(this.template());
+        md.Router.hideLoader();
         return this;
       };
 

@@ -40,9 +40,10 @@
   </nav>
   <section>
     <div class="grid">
-      <h3 class="letter" data-letter="a">A</h3>
+      <% _.each(index, function(letter){ %>
+      <h3 class="letter" data-letter="a"><%= letter[0].alpha %></h3>
       <ul>
-        <% _.each(searchResults, function(person, i){ %>
+        <% _.each(letter, function(person, i){ %>
         <li <% if ((i+1)%5 == 0 && i != 0) { %> class="no-margin" <% } %>>
           <a href="<%= person.slug %>" data-link="<%= person.slug %>">
             <img src="<%= person.picture %>" alt="<%= person.name %>" />
@@ -53,8 +54,8 @@
           </a>
         </li>
         <% }) %>
-        
       </ul>
+      <% }) %>    
     </div>
   </section>
 </article>

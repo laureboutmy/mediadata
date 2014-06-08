@@ -1,12 +1,13 @@
 <ul>
   <% _.each(persons, function(person, i){ %>
   <li <% if ((i+1)%5 == 0 && i != 0) { %> class="no-margin" <% } %>>
-   
+  	<a href="<%= person.personSlug %>" data-link="<%= person.personSlug %>">
+   		<img src="<%= person.personPicture %>" alt="<%= person.personName %>" />
       <div>
         <h4><%= person.personName %></h4>
        
       </div>
-
+     </a>
   </li>
   <% }) %>
   

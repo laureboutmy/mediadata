@@ -15,6 +15,12 @@
 
       TopicsCollection.prototype.url = 'http://api.mediadata.fr/search.php';
 
+      TopicsCollection.prototype.initialize = function(url) {
+        if (url) {
+          return this.url = url;
+        }
+      };
+
       return TopicsCollection;
 
     })(Backbone.Collection);

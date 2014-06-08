@@ -18,6 +18,7 @@ define [
 		template: _.template(tplComparison)
 
 		initialize: (options) -> 
+			md.Router.showLoader()
 			@name.person1 = options.name1
 			@name.person2 = options.name2
 			@collections.person1 = new PersonsCollection(@name.person1)
@@ -59,6 +60,7 @@ define [
 							@initializeModules(@collections)
 							@bind()
 							@onResize()
+							md.Router.hideLoader()
 					return @
 			
 		renderModules: (data) ->
@@ -75,6 +77,7 @@ define [
 
 
 		rerender: () ->
+			md.Router.showLoader()
 			@collections.person1 = new PersonsCollection(@name.person1)
 			@collections.person2 = new PersonsCollection(@name.person2)
 			@collections.person1.fetch
@@ -84,6 +87,7 @@ define [
 						success: () =>
 							@collections.person2 = @collections.person2.models[0].attributes
 							@renderModules(@collections)
+							md.Router.hideLoader()
 
 		stickFilters: () ->
 			if $(window).scrollTop() > $('header.header').outerHeight()  then $('#filters').addClass('fixed')

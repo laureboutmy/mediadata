@@ -216,7 +216,7 @@
       SearchbarView.prototype.navigate = function() {};
 
       SearchbarView.prototype.filter = function(keyword) {
-        keyword = keyword;
+        keyword = keyword.toLowerCase();
         return _.filter(this.collection, function(topic) {
           return topic.name.toLowerCase().substring(0, keyword.length) === keyword;
         });
@@ -227,7 +227,7 @@
         ul = input.parent().find('ul').html('');
         return _.each(results, function(result) {
           var el;
-          el = $('<li>').data('slug', result.slug).append($('<div>').attr('class', 'img').append($('<img>').attr('src', 'images/topic--damien-cornu.jpg')), result.name);
+          el = $('<li>').data('slug', result.slug).append($('<div>').attr('class', 'img').append($('<img>').attr('src', result.picture)), result.name);
           return ul.append(el);
         });
       };

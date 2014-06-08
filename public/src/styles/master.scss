@@ -60,6 +60,7 @@ section#sidebar {
 	position: fixed;
 	width: 80px;
 	height: 100%;
+	z-index: 200;
 	background: #1b1f22; 
 	text-align: center;
 
@@ -97,7 +98,63 @@ section#sidebar {
 }
 /* @end of Sidebar */
 
+section#main-loader {
+	background: #fff;
+	width: 100%; height: 100%;
+	position: fixed;
+	top: 0; left: 0;
+	opacity: 0;
+	transition: opacity 0.3s ease-out;
+	&.visible { opacity: 1; }
+	&.debut { z-index: 500; opacity: 1; }
+	&.z-index {
+		z-index: 100;
+	}
+	div {
+		width: 30px;
+		height: 20px;
+		position: absolute;
+		left: 0; right: 0; top: 0; bottom: 0;
+		margin: auto;
+		span.circle {
+			display: block;
+			width: 20px; height: 20px;
+			border-radius: 100%;
+			position: absolute;
+			left: 0;
+			top: 0;
+			// transition: left 0.1s ease-in-out;
+			&.green { background: #2781bb; opacity: 0.8; -webkit-animation: spin1 1.5s ease-in-out infinite; }
+			&.blue { background: #29b988; opacity: 0.8; -webkit-animation: spin2 1.5s ease-in-out infinite; }
+		}
+	}
 
+
+	
+}
+
+@-webkit-keyframes spin1 {
+  0% {
+    left: 0;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 0;
+  }
+}
+@-webkit-keyframes spin2 {
+  0% {
+    left: 100%;
+  }
+  50% {
+    left: 0;
+  }
+  100% {
+    left: 100%;
+  }
+}
 
 /* @group Search-bar */
 header#search-bar {
@@ -109,7 +166,7 @@ header#search-bar {
 	// top: 0; left: 250px;
 	background: #fff;
 	width: 100%; height: 54px;
-	z-index: 100;
+	z-index: 200;
 	// box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
 	display: none;
 	top: -54px;
@@ -131,6 +188,9 @@ header#search-bar {
 	}
 
 	/* @group  Loader */
+
+
+
 	section#loader {
 		z-index: 500;
 		position: absolute;
@@ -147,8 +207,8 @@ header#search-bar {
 			&.loading {
 				-webkit-transition: -webkit-transform 5s ease-in;
 								transition: transform 5s ease-in;
-				-webkit-transform: translate3d(-20%, 0, 0);
-								transform: translate3d(-20%, 0, 0);
+				-webkit-transform: translate3d(-40%, 0, 0);
+								transform: translate3d(-40%, 0, 0);
 			}
 			&.complete { 
 				-webkit-transition: -webkit-transform 0.3s ease-in;
@@ -395,6 +455,7 @@ section#main {
 	width: 100%;
 	left: 80px;
 	position: relative;
+	background: #fff;
 	// left: 250px; top: 0;
 	article.person, article.comparison {
 		padding: 54px 0 100px;
@@ -486,8 +547,8 @@ section#main {
 			select {
 				display: block;
 				-webkit-appearance: none;
-				font-family: $font-stack-serif;
-				font-size: em(20px);
+				// font-family: $font-stack-serif;
+				font-size: em(19px);
 				border: 0;
 				padding-right: 40px;
 				background: transparent url(../images/i--arrow-down--grey.png) no-repeat center right;
@@ -502,10 +563,10 @@ section#main {
 
 
 			.irs-from, .irs-to, .irs-single {
-				font-family: $font-stack-serif;
+				// font-family: $font-stack-serif;
 				font-weight: bold;
 				color: #1c1f21;
-				font-size: em(20px);
+				font-size: em(19px);
 			}
 
 
@@ -764,6 +825,7 @@ article.index {
 		}
 		ul {
 			margin-top: 25px;
+			overflow: hidden;
 			li {
 				border-radius: 4px;
 				overflow: hidden;

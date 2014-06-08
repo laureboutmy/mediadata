@@ -159,7 +159,7 @@ define [
 
 
 		filter: (keyword) ->
-			keyword = keyword
+			keyword = keyword.toLowerCase()
 			_.filter @collection, (topic) ->
 				topic.name.toLowerCase().substring(0, keyword.length) == keyword
 		
@@ -168,7 +168,7 @@ define [
 			_.each results, (result) ->
 				el = $('<li>')
 					.data('slug', result.slug)
-					.append $('<div>').attr('class', 'img').append($('<img>').attr('src', 'images/topic--damien-cornu.jpg')), result.name
+					.append $('<div>').attr('class', 'img').append($('<img>').attr('src', result.picture)), result.name
 				ul.append(el)
 
 				

@@ -511,7 +511,7 @@ button, input, textarea, select { font: 100% "Source Sans Pro", sans-serif; outl
 
 /* @end of Grid */
 /* @group Sidebar */
-section#sidebar { position: fixed; width: 80px; height: 100%; background: #1b1f22; text-align: center; }
+section#sidebar { position: fixed; width: 80px; height: 100%; z-index: 200; background: #1b1f22; text-align: center; }
 section#sidebar nav#nav { margin: 70px auto; }
 section#sidebar nav#nav ul li { margin: 30px auto; }
 section#sidebar nav#nav i { font-size: 1.3125em; }
@@ -523,8 +523,23 @@ section#sidebar nav#nav-infos a { color: #454a4d; text-decoration: none; transit
 section#sidebar nav#nav-infos a:hover { color: #fff; }
 
 /* @end of Sidebar */
+section#main-loader { background: #fff; width: 100%; height: 100%; position: fixed; top: 0; left: 0; opacity: 0; transition: opacity 0.3s ease-out; }
+section#main-loader.visible { opacity: 1; }
+section#main-loader.debut { z-index: 500; opacity: 1; }
+section#main-loader.z-index { z-index: 100; }
+section#main-loader div { width: 30px; height: 20px; position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: auto; }
+section#main-loader div span.circle { display: block; width: 20px; height: 20px; border-radius: 100%; position: absolute; left: 0; top: 0; }
+section#main-loader div span.circle.green { background: #2781bb; opacity: 0.8; -webkit-animation: spin1 1.5s ease-in-out infinite; }
+section#main-loader div span.circle.blue { background: #29b988; opacity: 0.8; -webkit-animation: spin2 1.5s ease-in-out infinite; }
+
+@-webkit-keyframes spin1 { 0% { left: 0; }
+  50% { left: 100%; }
+  100% { left: 0; } }
+@-webkit-keyframes spin2 { 0% { left: 100%; }
+  50% { left: 0; }
+  100% { left: 100%; } }
 /* @group Search-bar */
-header#search-bar { position: fixed; left: 80px; min-width: 1020px; border: 1px solid transparent; border-bottom: 1px solid #d4d4d4; background: #fff; width: 100%; height: 54px; z-index: 100; display: none; top: -54px; transition: top 0.3s ease-out; /* @group  Loader */ /* @end of Loader */ /* h1.person */ }
+header#search-bar { position: fixed; left: 80px; min-width: 1020px; border: 1px solid transparent; border-bottom: 1px solid #d4d4d4; background: #fff; width: 100%; height: 54px; z-index: 200; display: none; top: -54px; transition: top 0.3s ease-out; /* @group  Loader */ /* @end of Loader */ /* h1.person */ }
 header#search-bar.visible { display: block; top: 0; }
 header#search-bar .grid { overflow: visible; }
 header#search-bar .grid section.unit { display: none; }
@@ -533,7 +548,7 @@ header#search-bar .grid section.unit.visible div.name { border-right: 1px solid 
 header#search-bar .grid section#compare.unit { width: 20%; display: block; }
 header#search-bar section#loader { z-index: 500; position: absolute; overflow-x: hidden; width: 100%; height: 3px; left: -1px; top: -1px; }
 header#search-bar section#loader div.loader { float: left; width: 100%; height: 3px; -webkit-transform: translate3d(-100%, 0, 0); transform: translate3d(-100%, 0, 0); }
-header#search-bar section#loader div.loader.loading { -webkit-transition: -webkit-transform 5s ease-in; transition: transform 5s ease-in; -webkit-transform: translate3d(-20%, 0, 0); transform: translate3d(-20%, 0, 0); }
+header#search-bar section#loader div.loader.loading { -webkit-transition: -webkit-transform 5s ease-in; transition: transform 5s ease-in; -webkit-transform: translate3d(-40%, 0, 0); transform: translate3d(-40%, 0, 0); }
 header#search-bar section#loader div.loader.complete { -webkit-transition: -webkit-transform 0.3s ease-in; transition: transform 0.3s ease-in; -webkit-transform: translate3d(0%, 0, 0); transform: translate3d(0%, 0, 0); }
 header#search-bar section#loader div.loader.topic1 { background: #29b988; box-shadow: 0 1px 3px rgba(41, 185, 136, 0.35); }
 header#search-bar section#loader div.loader.topic2 { background: #2781bb; box-shadow: 0 1px 3px rgba(39, 129, 187, 0.35); }
@@ -583,7 +598,7 @@ header#search-bar button.compare i { margin-right: 10px; font-size: 1.05263em; c
 
 /* header#search-bar */
 /* @end of Searchbar */
-section#main { width: 100%; left: 80px; position: relative; /* article */ /* article.home */ }
+section#main { width: 100%; left: 80px; position: relative; background: #fff; /* article */ /* article.home */ }
 section#main article.person, section#main article.comparison { padding: 54px 0 100px; background: white url(../images/bg--footer.png) repeat-x bottom; }
 section#main article.person header.header, section#main article.comparison header.header { background: #2c3e50; padding: 54px 0; }
 section#main article.person header.header .sm-unit, section#main article.comparison header.header .sm-unit { margin: 0 auto; width: 620px; }
@@ -601,9 +616,9 @@ section#main article.person section#filters ul, section#main article.comparison 
 section#main article.person section#filters ul li, section#main article.comparison section#filters ul li { position: relative; top: 50%; overflow: hidden; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%); }
 section#main article.person section#filters ul li.period > div, section#main article.comparison section#filters ul li.period > div { width: 62%; position: relative; left: 19%; }
 section#main article.person section#filters label, section#main article.comparison section#filters label { font-size: 0.9375em; color: #6a7d90; font-weight: bold; }
-section#main article.person section#filters select, section#main article.comparison section#filters select { display: block; -webkit-appearance: none; font-family: "chaparral-pro", serif; font-size: 1.25em; border: 0; padding-right: 40px; background: transparent url(../images/i--arrow-down--grey.png) no-repeat center right; font-weight: bold; color: #1c1f21; transition: background 0.3s ease-out; }
+section#main article.person section#filters select, section#main article.comparison section#filters select { display: block; -webkit-appearance: none; font-size: 1.1875em; border: 0; padding-right: 40px; background: transparent url(../images/i--arrow-down--grey.png) no-repeat center right; font-weight: bold; color: #1c1f21; transition: background 0.3s ease-out; }
 section#main article.person section#filters select:hover, section#main article.comparison section#filters select:hover { background: transparent url(../images/i--arrow-down--black.png) no-repeat center right; }
-section#main article.person section#filters .irs-from, section#main article.person section#filters .irs-to, section#main article.person section#filters .irs-single, section#main article.comparison section#filters .irs-from, section#main article.comparison section#filters .irs-to, section#main article.comparison section#filters .irs-single { font-family: "chaparral-pro", serif; font-weight: bold; color: #1c1f21; font-size: 1.25em; }
+section#main article.person section#filters .irs-from, section#main article.person section#filters .irs-to, section#main article.person section#filters .irs-single, section#main article.comparison section#filters .irs-from, section#main article.comparison section#filters .irs-to, section#main article.comparison section#filters .irs-single { font-weight: bold; color: #1c1f21; font-size: 1.1875em; }
 section#main article.person section#filters.fixed + div.grid, section#main article.comparison section#filters.fixed + div.grid { padding-top: 80px; }
 section#main article.person section h2, section#main article.comparison section h2 { width: 420px; margin: 58px 30px 0 30px; font-weight: 700; color: #1c1f21; line-height: 1.6em; font-size: 1.5625em; }
 section#main article.person section h2 + p, section#main article.comparison section h2 + p { width: 420px; margin: 0 30px 40px 30px; font-family: "chaparral-pro", serif; color: #6a7d90; font-size: 1.1875em; line-height: 1.57895em; }
@@ -649,7 +664,7 @@ article.index section { margin-top: 30px; }
 article.index section h3.letter { position: relative; color: #ccc; text-transform: uppercase; font-size: 1.125em; margin: 0 35px; font-weight: bold; }
 article.index section h3.letter:before { display: block; content: ''; width: 25px; left: -35px; top: 50%; position: absolute; border-bottom: 1px solid #e6e6e6; }
 article.index section h3.letter:after { display: block; content: ''; width: 965px; left: 20px; top: 50%; border-bottom: 1px solid #e6e6e6; position: absolute; }
-article.index section ul { margin-top: 25px; }
+article.index section ul { margin-top: 25px; overflow: hidden; }
 article.index section ul li { border-radius: 4px; overflow: hidden; width: 180px; float: left; margin-right: 30px; margin-bottom: 30px; }
 article.index section ul li.no-margin { margin-right: 0; }
 article.index section ul li a { display: block; width: 180px; overflow: hidden; text-decoration: none; opacity: 1; transition: opacity 0.3s ease-out; }

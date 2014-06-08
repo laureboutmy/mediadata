@@ -28,7 +28,9 @@
       SearchView.prototype.destroy = function() {};
 
       SearchView.prototype.render = function() {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
         this.$el.html(this.template());
+        md.Router.hideLoader();
         return this;
       };
 
