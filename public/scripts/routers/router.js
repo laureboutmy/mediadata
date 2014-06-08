@@ -131,7 +131,6 @@
 
       Router.prototype.showLoader = function() {
         var loader;
-        console.log('yolo');
         loader = $('#main-loader');
         if (!loader.hasClass('visible')) {
           return loader.addClass('z-index').addClass('visible');

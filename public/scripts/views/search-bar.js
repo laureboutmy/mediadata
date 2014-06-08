@@ -41,7 +41,6 @@
       };
 
       SearchbarView.prototype.render = function(options) {
-        console.log(options);
         if (options.name1) {
           this.topics.topic1 = _.where(this.collection, {
             slug: options.name1
@@ -99,7 +98,6 @@
           slug: name
         })[0];
         el = $('#name' + nb).parent().parent().find('h1');
-        console.log('eeee', el, nb, this.topics['topic' + nb]);
         el.find('span.name').html(this.topics['topic' + nb].name);
         el.find('span.role').html(this.topics['topic' + nb].role);
         return el.find('.img img').attr('src', this.topics['topic' + nb].picture);
@@ -187,14 +185,12 @@
           evt.stopPropagation();
           selected = $(evt.currentTarget);
           input = selected.parent().parent().find('input');
-          console.log('input', input);
         } else {
           selected = $(input).parent().find('ul').children('.active');
         }
         $(input).parent().parent().find('h1').html(selected.html());
         if (this.$el.hasClass('comparison')) {
           if ($(input).attr('id') === 'name-2') {
-            console.log('YEAH');
             this.update(selected.data('slug'), 2);
             md.Router.navigate(this.topics.topic1.slug + '/' + selected.data('slug'));
             md.Router.getComparison(this.topics.topic1.slug, selected.data('slug'));

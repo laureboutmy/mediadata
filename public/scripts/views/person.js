@@ -33,7 +33,6 @@
         this.timeline = new TimelineView();
         this.clock = new ClockView();
         this.xWithY = new XWithYView();
-        console.log(data);
         return this.renderModules(data);
       };
 

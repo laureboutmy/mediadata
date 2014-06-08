@@ -58,7 +58,6 @@
 
       FiltersView.prototype.render = function() {
         var from, to;
-        console.log('render filters', this.$el);
         $('#filters').html(this.template(this.collection));
         this.bind();
         if (md.Filters.dateMin) {

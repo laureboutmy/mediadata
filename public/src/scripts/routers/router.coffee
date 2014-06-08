@@ -90,7 +90,6 @@ define [
 			$('#loader').width(wWidth - 80)
 		
 		showLoader: () ->
-			console.log('yolo')
 			loader = $('#main-loader')
 			if !loader.hasClass('visible') then loader.addClass('z-index').addClass('visible')
 

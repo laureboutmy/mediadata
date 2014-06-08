@@ -31,7 +31,7 @@ define [
 			@timeline = new TimelineView()
 			@clock = new ClockView()
 			@xWithY = new XWithYView()
-			console.log(data)
+			
 			@renderModules(data)
 
 

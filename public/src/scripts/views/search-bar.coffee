@@ -27,7 +27,6 @@ define [
 					# @bind()
 		
 		render: (options) ->
-			console.log(options)
 			if options.name1
 				@topics.topic1 = _.where(@collection, { slug: options.name1 })[0]
 			if options.name2
@@ -65,7 +64,7 @@ define [
 		update: (name, nb) ->
 			@topics['topic' + nb] = _.where(@collection, { slug: name })[0]
 			el = $('#name' + nb).parent().parent().find('h1')
-			console.log('eeee', el, nb, @topics['topic' + nb])
+
 			el.find('span.name').html(@topics['topic' + nb].name);
 			el.find('span.role').html(@topics['topic' + nb].role);
 			el.find('.img img').attr('src', @topics['topic' + nb].picture);
@@ -131,7 +130,6 @@ define [
 				evt.stopPropagation()
 				selected = $(evt.currentTarget)
 				input = selected.parent().parent().find('input')
-				console.log('input', input)
 			else
 				selected = $(input).parent().find('ul').children('.active')
 			
@@ -140,7 +138,6 @@ define [
 			if @$el.hasClass('comparison')
 
 				if $(input).attr('id') is 'name-2'
-					console.log('YEAH')
 					@update(selected.data('slug'), 2)
 					md.Router.navigate(@topics.topic1.slug + '/' + selected.data('slug'))
 					md.Router.getComparison(@topics.topic1.slug, selected.data('slug'))
