@@ -695,8 +695,11 @@ section.module.top-5 nav.tabs { overflow: hidden; }
 section.module.top-5 nav.tabs ul li { cursor: pointer; float: left; width: 50%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding: 1.17647em; font-size: 1.0625em; font-weight: 700; text-transform: uppercase; background-color: #f5f5f5; color: #ccc; text-align: center; border-bottom: 1px solid #d9d9d9; }
 section.module.top-5 nav.tabs ul li.active { background-color: #fff; color: #1c1f21; }
 section.module.top-5 nav.tabs ul li:nth-child(2) { border-left: 1px solid #d9d9d9; }
-section.module.top-5 section { display: none; }
+section.module.top-5 section { display: none; min-height: 395px; position: relative; }
 section.module.top-5 section.visible { display: block; }
+section.module.top-5 section div.no-data { background: #f5f5f5; height: 100%; position: absolute; width: 100%; }
+section.module.top-5 section div.no-data p { position: relative; top: 50%; margin: 0 auto; text-align: center; overflow: hidden; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%); color: #cccccc; font-size: 0.9375em; font-weight: bold; }
+section.module.top-5 section div.no-data p i { font-size: 2em; position: relative; top: 5px; }
 section.module.top-5 section ol { counter-reset: li-counter; }
 section.module.top-5 section ol li { display: block; position: relative; padding: 0.75em 1.875em; overflow: hidden; border-bottom: 1px solid #d9d9d9; }
 section.module.top-5 section ol li:last-child { border-bottom: 0; }
