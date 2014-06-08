@@ -97,11 +97,11 @@
         this.timeline.render({
           person1: {
             name: data.person1.person.name,
-            timelineMentions: data.person1.person.timelineMentions
+            timelineMentions: data.person1.timelineMentions
           },
           person2: {
             name: data.person2.person.name,
-            timelineMentions: data.person2.person.timelineMentions
+            timelineMentions: data.person2.timelineMentions
           }
         });
         this.getStackedData(data);

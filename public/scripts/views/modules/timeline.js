@@ -7,6 +7,8 @@
     'use strict';
     var TimelineView;
     return TimelineView = (function(_super) {
+      var area, currentDateFormat, d3_locale_fr, dates, height, margin, maxXValues, maxYValues, minMaxX, minMaxY, minXValues, minYValues, newData, parseDate, person1, person2, valueline, width, xAxis, xScale, yAxis, yGrid, yScale, years;
+
       __extends(TimelineView, _super);
 
       function TimelineView() {
@@ -17,27 +19,291 @@
 
       TimelineView.prototype.template = _.template(tplTimeline);
 
-      TimelineView.prototype.defaults = {
-        minXValues: [],
-        minYValues: [],
-        maxXValues: [],
-        maxYValues: [],
-        minMaxY: [],
-        minMaxX: [],
-        margin: {
-          top: 20,
-          right: 20,
-          bottom: 30,
-          left: 50
-        },
-        width: 960,
-        height: 300
+      person1 = 'anne-hidalgo';
+
+      person2 = 'christiane-taubira';
+
+      newData = {};
+
+      minXValues = [];
+
+      minYValues = [];
+
+      maxXValues = [];
+
+      maxYValues = [];
+
+      minMaxX = [];
+
+      minMaxY = [];
+
+      dates = [];
+
+      years = [];
+
+      currentDateFormat = d3.time.year;
+
+      d3_locale_fr = d3.locale({
+        "decimal": ".",
+        "thousands": ",",
+        "grouping": [3],
+        "currency": ["$", ""],
+        "dateTime": "%a %b %e %X %Y",
+        "date": "%m/%d/%Y",
+        "time": "%H:%M:%S",
+        "periods": ["AM", "PM"],
+        "days": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "shortDays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        "months": ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+        "shortMonths": ["Janv", "Févr", "Mars", "Avr", "Mai", "Juin", "Juill", "Août", "Sept", "Oct", "Nov", "Déc"]
+      });
+
+      d3.time.format = d3_locale_fr.timeFormat;
+
+      parseDate = d3.time.format('%Y-%m').parse;
+
+      margin = {
+        top: 20,
+        right: 0,
+        bottom: 30,
+        left: 50
+      };
+
+      width = 920;
+
+      height = 300;
+
+      xScale = d3.time.scale().range([0, width]);
+
+      yScale = d3.scale.linear().range([height, 0]);
+
+      xAxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(currentDateFormat, 2);
+
+      yAxis = d3.svg.axis().scale(yScale).orient('left').ticks(5);
+
+      area = d3.svg.area().x(function(d) {
+        if (d) {
+          return xScale(d.mentionDate);
+        }
+      }).y0(height).y1(function(d) {
+        if (d) {
+          return yScale(d.mentionCount);
+        }
+      });
+
+      valueline = d3.svg.line().x(function(d) {
+        if (d) {
+          return xScale(d.mentionDate);
+        }
+      }).y(function(d) {
+        if (d) {
+          return yScale(d.mentionCount);
+        }
+      });
+
+      yGrid = function() {
+        return d3.svg.axis().scale(yScale).orient('left').ticks(5);
+      };
+
+      TimelineView.prototype.drawFilter = function(data) {
+        var d, getYears, i, iArrow, _i, _j, _len, _len1, _ref, _ref1, _this;
+        _this = this;
+        iArrow = 0;
+        years = [];
+        getYears = [];
+        getYears = JSON.parse(JSON.stringify(data));
+        _ref = getYears.person1.timelineMentions;
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          d = _ref[i];
+          d.mentionRawDate = d.mentionDate;
+          d.year = d.mentionRawDate.substring(0, 4);
+          d.year = +d.year;
+        }
+        _ref1 = getYears.person1.timelineMentions;
+        for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
+          d = _ref1[i];
+          if (years.indexOf(d.year) < 0) {
+            years.push(d.year);
+          }
+        }
+        console.log(years);
+        $('#filter > ul ul li').html('Par années (' + years[0] + '-' + years[years.length - 1] + ')');
+        $('#filter > ul').on('click', function() {
+          return $(this).toggleClass('active');
+        });
+        $('#filter > ul ul li').on('click', function() {
+          iArrow = 0;
+          $(this).siblings().remove();
+          if ($(this).hasClass('get-all')) {
+            $(this).parent().parent().find('>:first-child').html($(this).html());
+            $(this).html('Par années (' + years[0] + '-' + years[years.length - 1] + ')');
+            $('.arrow').removeClass('enabled').addClass('disabled');
+            $(this).toggleClass('get-all');
+            return _this.redraw(data);
+          } else {
+            $(this).parent().parent().find('>:first-child').html('Année ' + years[0]);
+            $('.arrow:last-child').toggleClass('enabled disabled');
+            $(this).html('Toutes les mentions').toggleClass('get-all');
+            return _this.redraw(data, years[0]);
+          }
+        });
+        return $('.arrow').on('click', function() {
+          if ($(this).hasClass('enabled')) {
+            if ($(this).hasClass('next')) {
+              iArrow++;
+              _this.redraw(data, years[iArrow]);
+              console.log(iArrow);
+              if (years[iArrow]) {
+                $('#filter > ul > li').html('Année ' + years[iArrow]);
+                $('.arrow:first-child').removeClass('disabled').addClass('enabled');
+              }
+              if (!years[iArrow + 1]) {
+                return $('.arrow:last-child').toggleClass('enabled disabled');
+              }
+            } else if ($(this).hasClass('prev')) {
+              iArrow--;
+              _this.redraw(data, years[iArrow]);
+              console.log(iArrow);
+              if (years[iArrow]) {
+                $('#filter > ul > li').html('Année ' + years[iArrow]);
+                $('.arrow:last-child').removeClass('disabled').addClass('enabled');
+              }
+              if (!years[iArrow - 1]) {
+                return $('.arrow:first-child').toggleClass('enabled disabled');
+              }
+            }
+          }
+        });
+      };
+
+      TimelineView.prototype.drawChart = function(data) {
+        var d, i, maxXValue, maxYValue, minXValue, minYValue, _i, _len, _ref;
+        _ref = data.person1.timelineMentions;
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          d = _ref[i];
+          d.mentionDate = parseDate(d.mentionDate);
+          d.mentionCount = +d.mentionCount;
+        }
+        console.log(data);
+        minXValues.push(d3.min(data.person1.timelineMentions, function(d) {
+          return d.mentionDate;
+        }));
+        maxXValues.push(d3.max(data.person1.timelineMentions, function(d) {
+          return d.mentionDate;
+        }));
+        minYValues.push(d3.min(data.person1.timelineMentions, function(d) {
+          return d.mentionCount;
+        }));
+        maxYValues.push(d3.max(data.person1.timelineMentions, function(d) {
+          return d.mentionCount;
+        }));
+        minXValue = d3.min(minXValues);
+        maxXValue = d3.max(maxXValues);
+        minMaxX.push(minXValue, maxXValue);
+        minYValue = d3.max(minYValues);
+        maxYValue = d3.max(maxYValues);
+        minMaxY.push(minYValue, maxYValue);
+        xScale.domain(minMaxX);
+        yScale.domain(minMaxY);
+        return this.appendChart(data, 1);
+      };
+
+      TimelineView.prototype.appendChart = function(data, datasetnumber) {
+        var path, totalLength;
+        if (datasetnumber === 1) {
+          d3.select('g.thetimeline').append('g').attr('class', 'grid').call(yGrid().tickSize(-width, 0, 0).tickFormat(''));
+        }
+        path = d3.select('g.thetimeline').append('path').datum(data.person1.timelineMentions).attr('class', 'line' + datasetnumber).attr('d', valueline);
+        totalLength = path.node().getTotalLength();
+        path.attr("stroke-dasharray", totalLength + "," + totalLength).attr("stroke-dashoffset", totalLength).transition().duration(3000).ease("linear-in-out").attr("stroke-dashoffset", 0);
+        d3.select('g.thetimeline').append('path').datum(data.person1.timelineMentions).attr('class', 'area' + datasetnumber).attr('d', area).transition().delay(3000).style('opacity', 1);
+        d3.select('g.thetimeline').selectAll('circle' + datasetnumber).data(data.person1.timelineMentions).enter().append('circle').attr('class', 'circle' + datasetnumber).attr('r', 3.5).attr('cx', function(d) {
+          return xScale(d.mentionDate);
+        }).attr('cy', function(d) {
+          return yScale(d.mentionCount);
+        });
+        if (datasetnumber === 1) {
+          d3.select('g.thetimeline').append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call(xAxis);
+          return d3.select('g.thetimeline').append('g').attr('class', 'y axis').call(yAxis).append('text').datum(data.person1.timelineMentions).attr('transform', 'rotate(-90)').attr('y', 6).attr('dy', '.71em').style('text-anchor', 'end');
+        }
+      };
+
+      TimelineView.prototype.redraw = function(data, year) {
+        var d, i, newXaxis, tmpArray, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2;
+        console.log(year);
+        newData = [];
+        newData = JSON.parse(JSON.stringify(data));
+        _ref = newData.person1.timelineMentions;
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          d = _ref[i];
+          d.mentionRawDate = d.mentionDate;
+          d.mentionDate = parseDate(d.mentionDate);
+          d.year = d.mentionRawDate.substring(0, 4);
+          d.year = +d.year;
+          d.month = d.mentionRawDate.substring(5, 7);
+          d.month = +d.month;
+          d.mentionCount = +d.mentionCount;
+        }
+        console.log(newData);
+        if (year) {
+          _ref1 = newData.person1.timelineMentions;
+          for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
+            d = _ref1[i];
+            if (newData.person1.timelineMentions[i].year) {
+              if (newData.person1.timelineMentions[i].year !== year) {
+                delete newData.person1.timelineMentions[i];
+              }
+            }
+          }
+          tmpArray = [];
+          _ref2 = newData.person1.timelineMentions;
+          for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
+            d = _ref2[_k];
+            if (d) {
+              tmpArray.push(d);
+            }
+          }
+          newData.person1.timelineMentions = tmpArray;
+          newXaxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(d3.time.month, 1);
+        } else {
+          newXaxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(d3.time.month, 2);
+        }
+        xScale.domain(d3.extent(newData.person1.timelineMentions, function(d) {
+          return d.mentionDate;
+        }));
+        yScale.domain([
+          0, d3.max(newData.person1.timelineMentions, function(d) {
+            return d.mentionCount;
+          })
+        ]);
+        d3.select('g.thetimeline').select('g.x').transition().duration(1500).ease('sin-in-out').call(newXaxis);
+        d3.select('g.thetimeline').select('g.y').transition().duration(1500).ease('sin-in-out').call(yAxis);
+        d3.select('g.thetimeline').select('path.line1').datum(newData.person1.timelineMentions).transition().duration(1500).attr('d', valueline);
+        d3.select('g.thetimeline').select('path.area1').datum(newData.person1.timelineMentions).transition().duration(1500).attr('d', area);
+        d3.selectAll('circle').remove();
+        return d3.select('g.thetimeline').selectAll('circle1').data(newData.person1.timelineMentions).enter().append('circle').attr('class', 'circle1').attr('r', 3.5).attr('cx', function(d) {
+          return xScale(d.mentionDate);
+        }).attr('cy', function(d) {
+          return yScale(d.mentionCount);
+        });
+      };
+
+      TimelineView.prototype.svg = function() {
+        return d3.selectAll(this.$el).append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')').attr('class', 'thetimeline');
       };
 
       TimelineView.prototype.render = function(data) {
+        var originalData;
+        console.log('originalData', data);
+        originalData = JSON.parse(JSON.stringify(data));
+        d3.selectAll(this.$el).append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
         this.$el.html(this.template());
-        this.bind();
-        return this;
+        this.svg();
+        this.drawChart(data);
+        this.drawFilter(originalData);
+        return $('.rescale').on('click', function() {
+          return _this.redraw(originalData, $(this).data('value'));
+        });
       };
 
       return TimelineView;
