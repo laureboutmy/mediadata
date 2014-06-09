@@ -90,6 +90,18 @@ define [
 				.orient 'left'
 				.ticks 5
 
+		getTotals: (data) ->
+			total = 0
+			for d,i in data.person1.timelineMentions
+				d.mentionCount = +d.mentionCount
+				total += d.mentionCount
+			$('.module.timeline h4:first-of-type').html(data.person1.name)
+			$('.module.timeline h3:first-of-type span').html(total.toLocaleString())
+			# Align blocs
+			widthFirstBloc = $('.module.timeline h4:first-of-type').width()
+			if widthFirstBloc > $('.module.timeline h3:first-of-type').width()
+				$('.module.timeline h3:first-of-type').width(widthFirstBloc + 2)
+
 		# Make dynamic filter
 		drawFilter: (data) ->
 			_this = @
@@ -346,14 +358,7 @@ define [
 					.attr 'transform', 'translate(' + margin.left + ',' + margin.top + ')'
 
 			@$el.html(@template())
+			@getTotals originalData
 			@svg()
 			@drawChart data
 			@drawFilter originalData
-
-			# for d,i in data.person1.timelineMentions
-			# 	d.year = d.mentionRawDate.substring(0,4)
-			# 	d.year = +d.year
-
-			$('.rescale').on('click', ->
-				_this.redraw(originalData,$(@).data('value'))
-			)

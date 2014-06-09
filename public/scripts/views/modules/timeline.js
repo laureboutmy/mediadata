@@ -105,6 +105,23 @@
         return d3.svg.axis().scale(yScale).orient('left').ticks(5);
       };
 
+      TimelineView.prototype.getTotals = function(data) {
+        var d, i, total, widthFirstBloc, _i, _len, _ref;
+        total = 0;
+        _ref = data.person1.timelineMentions;
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          d = _ref[i];
+          d.mentionCount = +d.mentionCount;
+          total += d.mentionCount;
+        }
+        $('.module.timeline h4:first-of-type').html(data.person1.name);
+        $('.module.timeline h3:first-of-type span').html(total.toLocaleString());
+        widthFirstBloc = $('.module.timeline h4:first-of-type').width();
+        if (widthFirstBloc > $('.module.timeline h3:first-of-type').width()) {
+          return $('.module.timeline h3:first-of-type').width(widthFirstBloc + 2);
+        }
+      };
+
       TimelineView.prototype.drawFilter = function(data) {
         var d, getYears, i, iArrow, _i, _j, _len, _len1, _ref, _ref1, _this;
         _this = this;
@@ -298,12 +315,10 @@
         originalData = JSON.parse(JSON.stringify(data));
         d3.selectAll(this.$el).append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
         this.$el.html(this.template());
+        this.getTotals(originalData);
         this.svg();
         this.drawChart(data);
-        this.drawFilter(originalData);
-        return $('.rescale').on('click', function() {
-          return _this.redraw(originalData, $(this).data('value'));
-        });
+        return this.drawFilter(originalData);
       };
 
       return TimelineView;
