@@ -40,8 +40,6 @@
     yAxis = d3.svg.axis().scale(y).orient('left').ticks(4).tickSize(-width, 0, 0);
     bar_svg = d3.select('body').append('svg').attr('id', 'barchart').attr('width', width).attr('height', height + margin.top + margin.bottom);
     bar_svg.append('g').attr('class', 'grid').attr("transform", "translate(0,60)").call(yAxis);
-    bar_svg.append('filter').attr('id', 'f1').attr('width', '150%').attr('height', '150%').append('feOffset').attr('result', 'offOut').attr('in', 'SourceAlpha').attr('dx', 0).attr('dy', 3);
-    bar_svg.select('filter').append('feGaussianBlur').attr('stdDeviation', 1).attr('result', 'blur');
     bar_svg.selectAll('g.bar-g').data(data.channels).enter().append('g').attr('class', 'bar-g').attr('transform', 'translate(0,' + margin.top + ')').append('rect').attr('class', 'bar').attr('x', function(d, i) {
       return x(d.channelName) + 27;
     }).attr('width', 35).attr('y', function(d) {
@@ -54,6 +52,8 @@
     }).attr('height', 80).attr('width', 70).attr('x', function(d, i) {
       return x(d.channelName) + 10;
     }).attr('y', height);
+    bar_svg.append('filter').attr('id', 'f1').attr('width', '150%').attr('height', '150%').append('feOffset').attr('result', 'offOut').attr('in', 'SourceAlpha').attr('dx', 0).attr('dy', 3);
+    bar_svg.select('filter').append('feGaussianBlur').attr('stdDeviation', 1).attr('result', 'blur');
     bar_svg.selectAll('g.bar-g').append('rect').data(data.channels).attr('filter', 'url(#f1)').attr('class', 'tooltip shadow').attr('height', 45).attr('width', 76).attr('x', function(d, i) {
       return x(d.channelName) + 5;
     }).attr('y', function(d) {

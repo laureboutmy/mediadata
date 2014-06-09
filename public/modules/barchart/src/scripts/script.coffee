@@ -19,11 +19,6 @@ d3.json 'person-' + person + '.json', (error, data) ->
     d.channelCount = +d.channelCount
 
 
-  
-
-  # x.domain(channelNames.map)
-  # y.domain([0, d3.max(channelCounts)])
-
   x.domain(data.channels.map((d) -> d.channelName))
   y.domain([0, d3.max(data.channels, (d) -> d.channelCount)])
 
@@ -44,23 +39,6 @@ d3.json 'person-' + person + '.json', (error, data) ->
         .attr('class', 'grid')
         .attr("transform", "translate(0,60)")
         .call(yAxis)
-
-  
-  bar_svg.append('filter')
-      .attr('id', 'f1')
-      .attr('width', '150%')
-      .attr('height', '150%')
-    .append('feOffset')
-      .attr('result', 'offOut')
-      .attr('in', 'SourceAlpha')
-      .attr('dx', 0)
-      .attr('dy', 3)
-
-  bar_svg.select('filter')
-    .append( 'feGaussianBlur' )
-      .attr( 'stdDeviation', 1 )
-      .attr( 'result', 'blur' )
-
 
   bar_svg.selectAll('g.bar-g')
         .data(data.channels)
@@ -83,6 +61,25 @@ d3.json 'person-' + person + '.json', (error, data) ->
         .attr('x', (d,i) -> x(d.channelName)+10)
         .attr('y', height)
 
+## TOOLTIP ##
+
+  # Filtre servant à faire l'ombre du tooltip
+  bar_svg.append('filter')
+      .attr('id', 'f1')
+      .attr('width', '150%')
+      .attr('height', '150%')
+    .append('feOffset')
+      .attr('result', 'offOut')
+      .attr('in', 'SourceAlpha')
+      .attr('dx', 0)
+      .attr('dy', 3)
+
+  bar_svg.select('filter')
+    .append( 'feGaussianBlur' )
+      .attr( 'stdDeviation', 1 )
+      .attr( 'result', 'blur' )
+
+  # Rect avec le filtre "shadow" url(#f1)
   bar_svg.selectAll('g.bar-g')
       .append('rect')
       .data(data.channels)
@@ -95,6 +92,7 @@ d3.json 'person-' + person + '.json', (error, data) ->
         .attr('rx', 20)
         .attr('ry', 25)
 
+  # Rect superieur avec un Background #fff
   bar_svg.selectAll('g.bar-g')
       .append('rect')
       .data(data.channels)
@@ -106,6 +104,7 @@ d3.json 'person-' + person + '.json', (error, data) ->
         .attr('rx', 20)
         .attr('ry', 25)
 
+  # Nom de la chaine
   bar_svg.selectAll('g.bar-g')
       .append('text')
       .data(data.channels)
@@ -115,6 +114,7 @@ d3.json 'person-' + person + '.json', (error, data) ->
         .attr('y', (d) -> y(d.channelCount)-35)
         .text((d) -> d.channelName)
 
+  # Nombre de mentions par chaines
   bar_svg.selectAll('g.bar-g')
       .append('text')
       .data(data.channels)
@@ -124,5 +124,6 @@ d3.json 'person-' + person + '.json', (error, data) ->
         .attr('y', (d) -> y(d.channelCount)-20)
         .html((d) -> d.channelCount)
 
+## FIN - TOOLTIP ##
 
   return
