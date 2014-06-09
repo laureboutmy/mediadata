@@ -67,8 +67,8 @@ define [
 			@top51.render({ popularChannels: data.person1.popularChannels, popularShows: data.person1.popularShows })
 			@top52.render({ popularChannels: data.person2.popularChannels, popularShows: data.person2.popularShows })
 			@timeline.render
-				person1: { name: data.person1.person.name, timelineMentions: data.person1.person.timelineMentions }
-				person2: { name: data.person2.person.name, timelineMentions: data.person2.person.timelineMentions }
+				person1: { name: data.person1.person.name, timelineMentions: data.person1.timelineMentions }
+				person2: { name: data.person2.person.name, timelineMentions: data.person2.timelineMentions }
 
 			@getStackedData(data)
 			# tu devrais pouvoir faire un @stackedChart.render(@getStackData(data))
