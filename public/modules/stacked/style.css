@@ -5,6 +5,6 @@ text { font-family: 'Source Sans Pro', sans-serif; font-size: 15px;
 
 svg { border: 1px solid rgba(217,217,217,1); border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;  }
 
-rect { fill: rgba(41,185,136,.6); transition: all .4s; }
+/*rect { fill: rgba(41,185,136,.6); transition: all .4s; }*/
 
 rect:hover { fill: rgba(41,185,136,1); }
