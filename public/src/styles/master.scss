@@ -889,10 +889,10 @@ section.module {
 			font-size: em(15px);
 			font-weight: 700;
 			&:first-of-type {
-				color: #29b988;
+				color: #2781bb;
 			}
 			&:last-of-type {
-				color: #2781bb;
+				color: #29b988;
 			}
 			span {
 				display: block;
@@ -920,10 +920,10 @@ section.module {
 				height: 12px;
 			}
 			&:first-of-type:before {
-				background-color: #29b988;
+				background-color: #2781bb;
 			}
 			&:last-of-type:before {
-				background-color: #2781bb;
+				background-color: #29b988;
 			}
 		}
 
@@ -1070,10 +1070,10 @@ section.module {
 		path { 
 			fill: none;
 			stroke-width: 2;
-			&.line1 { stroke: #2980B9; }
-			&.line2 { stroke: #29A87D; }
-			&.area1 { fill: rgba(48,147,203,0.5); stroke-width: 0; opacity: 0}
-			&.area2 { fill: rgba(46,181,135,0.5); stroke-width: 0; opacity: 0}
+			&.line1 { stroke: #29A87D; }
+			&.line2 { stroke: #2980B9; }
+			&.area1 { fill: rgba(46,181,135,0.5); stroke-width: 0; opacity: 0}
+			&.area2 { fill: rgba(48,147,203,0.5); stroke-width: 0; opacity: 0}
 		}
 
 		circle, { 
@@ -1081,8 +1081,8 @@ section.module {
 		  transition: opacity .25s ease-in-out;
 		  -moz-transition: opacity .25s ease-in-out;
 		  -webkit-transition: opacity .25s ease-in-out;
-			&.circle1 { stroke: #3192CA; }
-			&.circle2 { stroke: #2EB587; }
+			&.circle1 { stroke: #2EB587; }
+			&.circle2 { stroke: #3192CA; }
 		}
 
 		.grid {
@@ -1307,6 +1307,7 @@ section.module {
 			text {
 				text-anchor: left;
 				&.value {
+					color: #1c1f21;
 					font-size: em(25px);
 				}
 			}
@@ -1319,7 +1320,8 @@ section.module {
 		.center text, .labels text { 
 			text-anchor: middle; }
 		.center .value {
-			font-size: em(20px)
+			color: #1c1f21;
+			font-size: em(20px);
 		}
 		.labels text { 
 			fill: #ccc; font-weight: 700; }
