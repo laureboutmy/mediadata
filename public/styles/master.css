@@ -695,8 +695,9 @@ section.module.timeline #filter > ul ul { position: absolute; color: #d9d9d9; to
 section.module.timeline #filter li { position: relative; height: 37px; line-height: 37px; background-color: #fff; }
 section.module.timeline #filter li:hover { color: #6a7d90; }
 section.module.timeline #filter li:not(:last-child) { border-bottom: 1px solid #d9d9d9; }
-section.module.timeline #filter .arrow { display: inline-block; width: 33px; height: 37px; border: 1px solid #d9d9d9; cursor: pointer; position: relative; left: -4px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+section.module.timeline #filter .arrow { display: inline-block; width: 33px; height: 37px; border: 1px solid #d9d9d9; position: relative; left: -4px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 section.module.timeline #filter .arrow.disabled span { border-color: #d9d9d9; }
+section.module.timeline #filter .arrow.enabled { cursor: pointer; }
 section.module.timeline #filter .arrow.enabled span { border-color: #6a7d90; }
 section.module.timeline #filter .arrow.prev { position: absolute; left: -32px; }
 section.module.timeline #filter .arrow.prev span { float: left; width: 8px; height: 8px; border-style: solid; border-width: 2px 2px 0 0; -webkit-transform: rotate(-135deg); -moz-transform: rotate(-135deg); -ms-transform: rotate(-135deg); -o-transform: rotate(-135deg); transform: rotate(-135deg); margin: 14px 0 0 13px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
@@ -711,7 +712,7 @@ section.module.timeline path.line1 { stroke: #29A87D; }
 section.module.timeline path.line2 { stroke: #2980B9; }
 section.module.timeline path.area1 { fill: rgba(46, 181, 135, 0.5); stroke-width: 0; opacity: 0; }
 section.module.timeline path.area2 { fill: rgba(48, 147, 203, 0.5); stroke-width: 0; opacity: 0; }
-section.module.timeline circle { opacity: 0; fill: #fff; stroke-width: 2; transition: opacity .25s ease-in-out; -moz-transition: opacity .25s ease-in-out; -webkit-transition: opacity .25s ease-in-out; }
+section.module.timeline circle { cursor: pointer; opacity: 0; fill: #fff; stroke-width: 2; transition: opacity .25s ease-in-out; -moz-transition: opacity .25s ease-in-out; -webkit-transition: opacity .25s ease-in-out; }
 section.module.timeline circle.circle1 { stroke: #2EB587; }
 section.module.timeline circle.circle2 { stroke: #3192CA; }
 section.module.timeline .grid path { stroke-width: 0; }

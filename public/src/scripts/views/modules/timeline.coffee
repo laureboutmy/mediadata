@@ -28,8 +28,6 @@ define [
 		dates = []
 		years = []
 
-		currentDateFormat = d3.time.year
-
 		d3_locale_fr = d3.locale ({
 			"decimal": ".",
 			"thousands": ",",
@@ -51,7 +49,7 @@ define [
 		parseDate = d3.time.format('%Y-%m').parse
 
 		# Set up chart size
-		margin = {top: 20, right: 0, bottom: 30, left: 50}
+		margin = {top: 20, right: 20, bottom: 30, left: 50}
 		width = 920
 		height = 300
 
@@ -65,7 +63,7 @@ define [
 		xAxis = d3.svg.axis()
 			.scale xScale
 			.orient 'bottom'
-			.ticks currentDateFormat, 2 # manual, should be auto
+			.ticks d3.time.year, 2 # manual, should be auto
 
 		yAxis = d3.svg.axis()
 			.scale yScale
@@ -102,26 +100,18 @@ define [
 			if widthFirstBloc > $('.module.timeline h3:first-of-type').width()
 				$('.module.timeline h3:first-of-type').width(widthFirstBloc + 2)
 
-		# Make dynamic filter
-		drawFilter: (data) ->
+		# Return number of values in year to check if it this year is useless
+		getCount: (getYears, year) ->
+			count = 0;
+			for d,i in getYears.person1.timelineMentions
+				if +d.year == year
+					count++
+			return count
+
+		drawFilter: (years,data) ->
 			_this = @
 			iArrow = 0
-			years = []
-
-			getYears = []
-
-			# Make a filtered copy of data
-			getYears = JSON.parse(JSON.stringify(data))
-			for d,i in getYears.person1.timelineMentions
-				d.mentionRawDate = d.mentionDate
-				d.year = d.mentionRawDate.substring(0,4)
-				d.year = +d.year
-
-			for d,i in getYears.person1.timelineMentions
-				if years.indexOf(d.year) < 0
-					years.push d.year
-			console.log years
-
+			### Filter / Draw years from the list ###
 			$('#filter > ul ul li').html('Par années (' + years[0] + '-' + years[years.length - 1] + ')')
 			# Dropdown
 			$('#filter > ul').on('click', ->
@@ -129,7 +119,9 @@ define [
 			)
 			# Click on dropdown's buttons
 			$('#filter > ul ul li').on('click', ->
-				iArrow = 0
+				console.log 'tert', years[years.length - 1]
+				console.log 'tert2', years[0]
+				iArrow = years.length - 1
 				$(@).siblings().remove()
 				if $(@).hasClass('get-all')
 					$(@).parent().parent().find('>:first-child').html($(@).html())
@@ -138,10 +130,10 @@ define [
 					$(@).toggleClass('get-all')
 					_this.redraw(data)
 				else
-					$(@).parent().parent().find('>:first-child').html('Année ' + years[0])
-					$('.arrow:last-child').toggleClass('enabled disabled')
+					$(@).parent().parent().find('>:first-child').html('Année ' + years[years.length - 1])
+					$('.arrow:first-child').toggleClass('enabled disabled')
 					$(@).html('Toutes les mentions').toggleClass('get-all')
-					_this.redraw(data, years[0])
+					_this.redraw(data, years[years.length - 1])
 			)
 			# Click on prev/next arrows
 			$('.arrow').on('click', ->
@@ -165,6 +157,33 @@ define [
 						if !years[iArrow - 1]
 							$('.arrow:first-child').toggleClass('enabled disabled')
 			)
+		
+		# Make dynamic filter
+		getYears: (data) ->
+			_this = @
+			years = []
+
+			getYears = []
+			# Make a filtered copy of data
+			getYears = JSON.parse(JSON.stringify(data))
+			for d,i in getYears.person1.timelineMentions
+				d.mentionRawDate = d.mentionDate
+				d.year = d.mentionRawDate.substring(0,4)
+				d.year = +d.year
+
+			# Store years in years list
+			for d,i in getYears.person1.timelineMentions
+				if years.indexOf(d.year) < 0
+					years.push d.year
+
+			# If less than 3 values in year, remove it from the years list.
+			for d,i in years
+				if @getCount(getYears, years[i]) < 3
+					j = years.indexOf(years[i])
+					if (j > -1)
+						years.splice(j, 1)
+
+			@drawFilter years,data
 
 		# Find min/max values in dataset
 		drawChart: (data) ->
@@ -294,9 +313,9 @@ define [
 			else 
 				newXaxis =
 					d3.svg.axis()
-						.scale xScale
-						.orient 'bottom'
-						.ticks d3.time.month, 2
+					.scale xScale
+					.orient 'bottom'
+					.ticks d3.time.year, 2 # manual, should be auto
 
 			# Scale with new data
 			xScale.domain(d3.extent(newData.person1.timelineMentions, (d) -> return d.mentionDate))
@@ -321,6 +340,9 @@ define [
 				.datum newData.person1.timelineMentions
 				.transition().duration(1500)
 				.attr 'd', area
+				.transition()
+				.delay(1500)
+				.style 'opacity', 1
 				
 			# Redraw dots
 			d3.selectAll 'circle'
@@ -333,6 +355,9 @@ define [
 					.attr 'r', 3.5
 					.attr 'cx', (d) -> return xScale d.mentionDate
 					.attr 'cy', (d) -> return yScale d.mentionCount
+					.transition()
+					.delay(1300)
+					.style 'opacity', 1
 
 		svg: () ->
 			d3.selectAll(@$el)
@@ -361,4 +386,4 @@ define [
 			@getTotals originalData
 			@svg()
 			@drawChart data
-			@drawFilter originalData
+			@getYears originalData
