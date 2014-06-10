@@ -21,6 +21,7 @@ svg = d3.select('body')
       .attr('height', diameter)
     .append('g')
       # .attr("transform", "translate(" + radius + "," + radius + ")")
+      .attr('class', 'g-round')
       .attr('transform', 'translate('+ radius + ',' + radius + ')')
 
 
@@ -88,27 +89,27 @@ d3.select(self.frameElement).style('height', diameter + 'px')
 packageHierarchy = (classes) ->
   map = {}
 
-  find = (name, data) ->
+  find = (groupe, data) ->
     
-    nodes = map[name]
+    nodes = map[groupe]
 
     # if(!nodes)
     unless nodes
-      nodes = map[name] = data or
-        name: name
+      nodes = map[groupe] = data or
+        groupe: groupe
         children: []
 
-      if name.length
-        nodes.parent = find(name.substring(0, i = name.lastIndexOf('.')))
+      if groupe.length
+        nodes.parent = find(groupe.substring(0, i = groupe.lastIndexOf('.')))
         console.log(nodes.parent)
         nodes.parent.children.push nodes
-        nodes.key = name.substring(i + 1)
+        nodes.key = groupe.substring(i + 1)
 
     return nodes
 
   classes.forEach (d) ->
     console.log(d)
-    find d.name, d
+    find d.groupe, d
 
 
   map['']
@@ -118,9 +119,9 @@ packageImports = (nodes) ->
   map = {}
   imports = []
   
-  # Compute a map from name to node.
+  # Compute a map from groupe to node.
   nodes.forEach (d) ->
-    map[d.name] = d
+    map[d.groupe] = d
     return
 
   
@@ -129,7 +130,7 @@ packageImports = (nodes) ->
     if d.imports
       d.imports.forEach (i) ->
         imports.push
-          source: map[d.name]
+          source: map[d.groupe]
           target: map[i]
 
         return

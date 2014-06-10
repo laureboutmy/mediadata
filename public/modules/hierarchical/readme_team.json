@@ -1,16 +1,16 @@
 [
-{"name":"anne-hidalgo.Remy",   		"imports":[]},
-{"name":"anne-hidalgo.Lucas",  		"imports":["anne-hidalgo.Remy"]},
-{"name":"anne-hidalgo.Anthony",		"imports":["anne-hidalgo.Remy", "anne-hidalgo.Lucas", "christiane-taubira.Laure"]},
-{"name":"anne-hidalgo.Yves",   		"imports":["anne-hidalgo.Remy"]},
-{"name":"christiane-taubira.Thomas","imports":["anne-hidalgo.Remy"]},
-{"name":"christiane-taubira.Laure", "imports":["anne-hidalgo.Remy"]},
+{"name":"Remy",   "groupe":"anne-hidalgo.Remy",   		"imports":[]},
+{"name":"Lucas",  "groupe":"anne-hidalgo.Lucas",  		"imports":["anne-hidalgo.Remy"]},
+{"name":"Anthony","groupe":"anne-hidalgo.Anthony",		"imports":["anne-hidalgo.Remy", "anne-hidalgo.Lucas", "christiane-taubira.Laure"]},
+{"name":"Yves",   "groupe":"anne-hidalgo.Yves",   		"imports":["anne-hidalgo.Remy"]},
+{"name":"Thomas", "groupe":"christiane-taubira.Thomas", "imports":["anne-hidalgo.Remy"]},
+{"name":"Laure",  "groupe":"christiane-taubira.Laure",  "imports":["anne-hidalgo.Remy"]},
 
-{"name":"anne-hidalgo.christiane-taubira.Steve", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
-{"name":"anne-hidalgo.christiane-taubira.Max", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
-{"name":"anne-hidalgo.christiane-taubira.Andre", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
-{"name":"anne-hidalgo.christiane-taubira.Tom", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
-{"name":"anne-hidalgo.christiane-taubira.Lies", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
-{"name":"anne-hidalgo.christiane-taubira.Audrey", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]}
+{"name":"Steve", "groupe":"anne-hidalgo.christiane-taubira.Steve", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
+{"name":"Max",   "groupe":"anne-hidalgo.christiane-taubira.Max", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
+{"name":"Andre", "groupe":"anne-hidalgo.christiane-taubira.Andre", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
+{"name":"Tom",   "groupe":"anne-hidalgo.christiane-taubira.Tom", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
+{"name":"Lies",  "groupe":"anne-hidalgo.christiane-taubira.Lies", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
+{"name":"Audrey","groupe":"anne-hidalgo.christiane-taubira.Audrey", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]}
 
 ]
