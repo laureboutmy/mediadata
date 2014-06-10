@@ -949,11 +949,11 @@ section.module {
 			& > ul {
 				color: #6a7d90;
 				height: 37px;
-				overflow-y: hidden;
+				overflow: hidden;
 				font-size: em(14px);
 
 				&.active {
-					overflow-y: visible;
+					overflow: visible;
 				}
 
 				ul {
