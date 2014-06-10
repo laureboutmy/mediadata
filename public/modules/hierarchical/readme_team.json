@@ -1,0 +1,8 @@
+[
+{"name":"anne-hidalgo.Remy",   		"imports":[]},
+{"name":"anne-hidalgo.Lucas",  		"imports":["anne-hidalgo.Remy"]},
+{"name":"anne-hidalgo.Anthony",		"imports":["anne-hidalgo.Remy", "anne-hidalgo.Lucas", "christiane-taubira.Laure"]},
+{"name":"anne-hidalgo.Yves",   		"imports":["anne-hidalgo.Remy"]},
+{"name":"christiane-taubira.Thomas","imports":["anne-hidalgo.Remy"]},
+{"name":"christiane-taubira.Laure", "imports":["anne-hidalgo.Remy"]}
+]

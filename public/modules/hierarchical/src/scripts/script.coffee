@@ -28,7 +28,7 @@ svg = d3.select('body')
 link = svg.append('g').selectAll('.link')
 node = svg.append('g').selectAll('.node')
 
-d3.json 'readme-flare-imports.json', (error, classes) -> 
+d3.json 'readme_team.json', (error, classes) -> 
   nodes = cluster.nodes(packageHierarchy(classes))
   links = packageImports(nodes)
 

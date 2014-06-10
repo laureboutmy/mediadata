@@ -26,7 +26,7 @@
 
   node = svg.append('g').selectAll('.node');
 
-  d3.json('readme-flare-imports.json', function(error, classes) {
+  d3.json('readme_team.json', function(error, classes) {
     var links, nodes;
     nodes = cluster.nodes(packageHierarchy(classes));
     links = packageImports(nodes);
