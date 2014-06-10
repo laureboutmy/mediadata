@@ -679,34 +679,42 @@ section#main article.comparison header.header .sm-unit { margin: 0 auto; width: 
 /* @group of Modules */
 section.module { width: 100%; margin: 0 0 50px 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 section.module.timeline { border: 1px solid #d9d9d9; border-radius: 5px; overflow: hidden; }
-section.module.timeline h3 { float: left; margin: 30px 30px; color: #29b988; font-size: 0.9375em; font-weight: 700; }
+section.module.timeline h3 { float: left; margin: 30px 0 30px 30px; font-size: 0.9375em; font-weight: 700; }
+section.module.timeline h3:first-of-type { color: #2781bb; }
+section.module.timeline h3:last-of-type { color: #29b988; }
 section.module.timeline h3 span { display: block; color: #1c1f21; font-size: 1.33333em; font-family: "chaparral-pro", serif; }
-section.module.timeline #filter { position: relative; float: right; margin-top: 30px; margin-right: 60px; }
-section.module.timeline #filter ul { display: inline-block; position: relative; width: 190px; border: 1px solid #d9d9d9; font-family: "Source Sans Pro", sans-serif; font-weight: bold; color: #6a7d90; text-align: center; cursor: pointer; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+section.module.timeline h4 { display: inline; margin-left: 30px; line-height: 36px; color: #1c1f21; font-size: 0.9375em; font-weight: 700; }
+section.module.timeline h4:before { content: ''; display: inline-block; position: relative; top: 1px; margin-right: 10px; border-radius: 50%; width: 12px; height: 12px; }
+section.module.timeline h4:first-of-type:before { background-color: #2781bb; }
+section.module.timeline h4:last-of-type:before { background-color: #29b988; }
+section.module.timeline #filter { position: relative; float: right; margin-top: 33px; margin-right: 64px; }
+section.module.timeline #filter ul { display: inline-block; position: relative; width: 190px; border: 1px solid #d9d9d9; font-family: "Source Sans Pro", sans-serif; font-weight: 700; color: #6a7d90; text-align: center; cursor: pointer; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 section.module.timeline #filter > ul { color: #6a7d90; height: 37px; overflow-y: hidden; font-size: 0.875em; }
 section.module.timeline #filter > ul.active { overflow-y: visible; }
-section.module.timeline #filter > ul ul { position: absolute; color: #d9d9d9; top: 35px; left: -1px; }
+section.module.timeline #filter > ul ul { position: absolute; color: #d9d9d9; top: 35px; left: -1px; box-shadow: 0px 0px 0px rgba(1, 1, 1, 0.05), -1px 1px 1px rgba(1, 1, 1, 0.05), 1px 2px 2px rgba(1, 1, 1, 0.05); }
 section.module.timeline #filter li { position: relative; height: 37px; line-height: 37px; background-color: #fff; }
 section.module.timeline #filter li:hover { color: #6a7d90; }
 section.module.timeline #filter li:not(:last-child) { border-bottom: 1px solid #d9d9d9; }
-section.module.timeline #filter .arrow { display: inline-block; width: 33px; height: 37px; border: 1px solid #d9d9d9; cursor: pointer; position: relative; left: -4px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+section.module.timeline #filter .arrow { display: inline-block; width: 33px; height: 37px; border: 1px solid #d9d9d9; position: relative; left: -4px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 section.module.timeline #filter .arrow.disabled span { border-color: #d9d9d9; }
+section.module.timeline #filter .arrow.enabled { cursor: pointer; }
 section.module.timeline #filter .arrow.enabled span { border-color: #6a7d90; }
 section.module.timeline #filter .arrow.prev { position: absolute; left: -32px; }
 section.module.timeline #filter .arrow.prev span { float: left; width: 8px; height: 8px; border-style: solid; border-width: 2px 2px 0 0; -webkit-transform: rotate(-135deg); -moz-transform: rotate(-135deg); -ms-transform: rotate(-135deg); -o-transform: rotate(-135deg); transform: rotate(-135deg); margin: 14px 0 0 13px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 section.module.timeline #filter .arrow.next { position: absolute; top: 0; left: 189px; }
 section.module.timeline #filter .arrow.next span { float: left; width: 8px; height: 8px; border-style: solid; border-width: 2px 2px 0 0; -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); transform: rotate(45deg); margin: 14px 0 0 10px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+section.module.timeline hr { border: 0; width: 100%; height: 1px; background: #d9d9d9; }
 section.module.timeline g:hover circle { opacity: 1; }
 section.module.timeline .axis path, section.module.timeline .axis line { fill: none; stroke: #d9d9d9; stroke-width: 1; shape-rendering: crispEdges; }
 section.module.timeline .axis text { fill: #d9d9d9; font-family: 'Chaparral Pro'; font-size: 15px; font-weight: 600; -webkit-font-smoothing: antialiased; }
 section.module.timeline path { fill: none; stroke-width: 2; }
-section.module.timeline path.line1 { stroke: #2980B9; }
-section.module.timeline path.line2 { stroke: #29A87D; }
-section.module.timeline path.area1 { fill: rgba(48, 147, 203, 0.5); stroke-width: 0; opacity: 0; }
-section.module.timeline path.area2 { fill: rgba(46, 181, 135, 0.5); stroke-width: 0; opacity: 0; }
-section.module.timeline circle { opacity: 0; fill: #fff; stroke-width: 2; transition: opacity .25s ease-in-out; -moz-transition: opacity .25s ease-in-out; -webkit-transition: opacity .25s ease-in-out; }
-section.module.timeline circle.circle1 { stroke: #3192CA; }
-section.module.timeline circle.circle2 { stroke: #2EB587; }
+section.module.timeline path.line1 { stroke: #29A87D; }
+section.module.timeline path.line2 { stroke: #2980B9; }
+section.module.timeline path.area1 { fill: rgba(46, 181, 135, 0.5); stroke-width: 0; opacity: 0; }
+section.module.timeline path.area2 { fill: rgba(48, 147, 203, 0.5); stroke-width: 0; opacity: 0; }
+section.module.timeline circle { cursor: pointer; opacity: 0; fill: #fff; stroke-width: 2; transition: opacity .25s ease-in-out; -moz-transition: opacity .25s ease-in-out; -webkit-transition: opacity .25s ease-in-out; }
+section.module.timeline circle.circle1 { stroke: #2EB587; }
+section.module.timeline circle.circle2 { stroke: #3192CA; }
 section.module.timeline .grid path { stroke-width: 0; }
 section.module.timeline .grid .tick { stroke: #d9d9d9; }
 section.module.x-with-y ul li { border-radius: 4px; overflow: hidden; width: 180px; float: left; margin-right: 30px; margin-bottom: 30px; }
@@ -742,18 +750,18 @@ section.module.top-5 section ol li div.gauge span.width { transition: none; }
 section.module.clock { border: 1px solid #d9d9d9; border-radius: 5px; min-height: 458px; overflow: hidden; padding: 29px 0 20px 59px; }
 section.module.clock text { font: 0.9375em "Source Sans Pro", sans-serif; -webkit-font-smoothing: antialiased; }
 section.module.clock text.time { fill: #6a7d90; font-weight: 600; }
-section.module.clock text.value { font-family: "chaparral-pro", serif; color: #111; font-weight: bold; }
+section.module.clock text.value { font-family: "chaparral-pro", serif; color: #1c1f21; font-weight: bold; }
 section.module.clock path { fill: #2eb587; stroke-width: 0; opacity: 0.5; transition: all 0.3s ease-out; cursor: pointer; }
 section.module.clock path:hover { opacity: 1; }
 section.module.clock.person1 path { fill: #2eb587; }
 section.module.clock.person2 path { fill: #2781bb; }
 section.module.clock #mainlabel { position: relative; left: -25px; }
 section.module.clock #mainlabel text { text-anchor: left; }
-section.module.clock #mainlabel text.value { font-size: 1.5625em; }
+section.module.clock #mainlabel text.value { color: #1c1f21; font-size: 1.5625em; }
 section.module.clock #filter { position: relative; left: 50px; top: -10px; }
 section.module.clock #clockchart { margin-top: 15px; }
 section.module.clock .center text, section.module.clock .labels text { text-anchor: middle; }
-section.module.clock .center .value { font-size: 1.25em; }
+section.module.clock .center .value { color: #1c1f21; font-size: 1.25em; }
 section.module.clock .labels text { fill: #ccc; font-weight: 700; }
 section.module.clock .circle { fill: none; stroke: #cccccc; stroke-width: 1px; }
 section.module.clock .bar { transition: all 0.3s ease-out; cursor: pointer; fill: #d9d9d9; }

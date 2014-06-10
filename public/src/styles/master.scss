@@ -883,13 +883,17 @@ section.module {
 		border: 1px solid #d9d9d9;
 		border-radius: 5px;
 		overflow: hidden;
-
 		h3 {
 			float: left;
-			margin: 30px 30px;
-			color: #29b988;
+			margin: 30px 0 30px 30px;
 			font-size: em(15px);
 			font-weight: 700;
+			&:first-of-type {
+				color: #2781bb;
+			}
+			&:last-of-type {
+				color: #29b988;
+			}
 			span {
 				display: block;
 				color: #1c1f21;
@@ -898,11 +902,36 @@ section.module {
 			}
 		}
 
+		h4 {
+			display: inline;
+			margin-left: 30px;
+			line-height: 36px;
+			color: #1c1f21;
+			font-size: em(15px);
+			font-weight: 700;
+			&:before {
+				content: '';
+				display: inline-block;
+				position: relative;
+				top: 1px;
+				margin-right: 10px;
+				border-radius: 50%;
+				width: 12px;
+				height: 12px;
+			}
+			&:first-of-type:before {
+				background-color: #2781bb;
+			}
+			&:last-of-type:before {
+				background-color: #29b988;
+			}
+		}
+
 		#filter {
 			position: relative;
 			float: right;
-			margin-top: 30px;
-			margin-right: 60px;
+			margin-top: 33px;
+			margin-right: 64px;
 
 			ul {
 				display: inline-block;
@@ -910,7 +939,7 @@ section.module {
 				width: 190px;
 				border: 1px solid #d9d9d9;
 				font-family: $font-stack;
-				font-weight: bold;
+				font-weight: 700;
 				color: #6a7d90;
 				text-align: center;
 				cursor: pointer;
@@ -932,6 +961,7 @@ section.module {
 					color: #d9d9d9;
 					top: 35px;
 					left: -1px;
+					box-shadow: 0px 0px 0px rgba(1,1,1,0.05), -1px 1px 1px rgba(1,1,1,0.05), 1px 2px 2px rgba(1,1,1,0.05)
 				}
 			}
 
@@ -954,7 +984,6 @@ section.module {
 				width: 33px;
 				height: 37px;
 				border: 1px solid #d9d9d9;
-				cursor: pointer;
 				position: relative;
 				left: -4px;
 				@include box-sizing(border-box);
@@ -965,6 +994,7 @@ section.module {
 					}
 				}
 				&.enabled {
+					cursor: pointer;
 					span {
 						border-color: #6a7d90;
 					}
@@ -1010,6 +1040,13 @@ section.module {
 			}
 		}
 
+		hr {
+			border: 0;
+			width: 100%;
+			height: 1px;
+			background: #d9d9d9;
+		}
+
 		g {
 			&:hover circle { opacity: 1; }
 		}
@@ -1033,19 +1070,20 @@ section.module {
 		path { 
 			fill: none;
 			stroke-width: 2;
-			&.line1 { stroke: #2980B9; }
-			&.line2 { stroke: #29A87D; }
-			&.area1 { fill: rgba(48,147,203,0.5); stroke-width: 0; opacity: 0}
-			&.area2 { fill: rgba(46,181,135,0.5); stroke-width: 0; opacity: 0}
+			&.line1 { stroke: #29A87D; }
+			&.line2 { stroke: #2980B9; }
+			&.area1 { fill: rgba(46,181,135,0.5); stroke-width: 0; opacity: 0}
+			&.area2 { fill: rgba(48,147,203,0.5); stroke-width: 0; opacity: 0}
 		}
 
 		circle, { 
+			cursor: pointer;
 			opacity: 0; fill: #fff; stroke-width: 2; 
 		  transition: opacity .25s ease-in-out;
 		  -moz-transition: opacity .25s ease-in-out;
 		  -webkit-transition: opacity .25s ease-in-out;
-			&.circle1 { stroke: #3192CA; }
-			&.circle2 { stroke: #2EB587; }
+			&.circle1 { stroke: #2EB587; }
+			&.circle2 { stroke: #3192CA; }
 		}
 
 		.grid {
@@ -1251,7 +1289,7 @@ section.module {
 			&.time {
 				fill: #6a7d90; font-weight: 600; }
 			&.value {
-				font-family: $font-stack-serif; color: #111; font-weight: bold; }
+				font-family: $font-stack-serif; color: #1c1f21; font-weight: bold; }
 		}
 		path {
 			fill: #2eb587; stroke-width: 0; opacity: 0.5; transition: all 0.3s ease-out; cursor: pointer;
@@ -1270,6 +1308,7 @@ section.module {
 			text {
 				text-anchor: left;
 				&.value {
+					color: #1c1f21;
 					font-size: em(25px);
 				}
 			}
@@ -1282,7 +1321,8 @@ section.module {
 		.center text, .labels text { 
 			text-anchor: middle; }
 		.center .value {
-			font-size: em(20px)
+			color: #1c1f21;
+			font-size: em(20px);
 		}
 		.labels text { 
 			fill: #ccc; font-weight: 700; }

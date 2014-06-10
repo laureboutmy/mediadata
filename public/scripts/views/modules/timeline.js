@@ -7,7 +7,7 @@
     'use strict';
     var TimelineView;
     return TimelineView = (function(_super) {
-      var area, currentDateFormat, d3_locale_fr, dates, height, margin, maxXValues, maxYValues, minMaxX, minMaxY, minXValues, minYValues, newData, parseDate, person1, person2, valueline, width, xAxis, xScale, yAxis, yGrid, yScale, years;
+      var area, d3_locale_fr, dates, height, margin, maxXValues, maxYValues, minMaxX, minMaxY, minXValues, minYValues, newData, parseDate, person1, person2, valueline, width, xAxis, xScale, yAxis, yGrid, yScale, years;
 
       __extends(TimelineView, _super);
 
@@ -41,8 +41,6 @@
 
       years = [];
 
-      currentDateFormat = d3.time.year;
-
       d3_locale_fr = d3.locale({
         "decimal": ".",
         "thousands": ",",
@@ -64,7 +62,7 @@
 
       margin = {
         top: 20,
-        right: 0,
+        right: 20,
         bottom: 30,
         left: 50
       };
@@ -77,7 +75,7 @@
 
       yScale = d3.scale.linear().range([height, 0]);
 
-      xAxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(currentDateFormat, 2);
+      xAxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(d3.time.year, 2);
 
       yAxis = d3.svg.axis().scale(yScale).orient('left').ticks(5);
 
@@ -105,34 +103,50 @@
         return d3.svg.axis().scale(yScale).orient('left').ticks(5);
       };
 
-      TimelineView.prototype.drawFilter = function(data) {
-        var d, getYears, i, iArrow, _i, _j, _len, _len1, _ref, _ref1, _this;
-        _this = this;
-        iArrow = 0;
-        years = [];
-        getYears = [];
-        getYears = JSON.parse(JSON.stringify(data));
+      TimelineView.prototype.getTotals = function(data) {
+        var d, i, total, widthFirstBloc, _i, _len, _ref;
+        total = 0;
+        _ref = data.person1.timelineMentions;
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          d = _ref[i];
+          d.mentionCount = +d.mentionCount;
+          total += d.mentionCount;
+        }
+        $('.module.timeline h4:first-of-type').html(data.person1.name);
+        $('.module.timeline h3:first-of-type span').html(total.toLocaleString());
+        widthFirstBloc = $('.module.timeline h4:first-of-type').width();
+        if (widthFirstBloc > $('.module.timeline h3:first-of-type').width()) {
+          return $('.module.timeline h3:first-of-type').width(widthFirstBloc + 2);
+        }
+      };
+
+      TimelineView.prototype.getCount = function(getYears, year) {
+        var count, d, i, _i, _len, _ref;
+        count = 0;
         _ref = getYears.person1.timelineMentions;
         for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
           d = _ref[i];
-          d.mentionRawDate = d.mentionDate;
-          d.year = d.mentionRawDate.substring(0, 4);
-          d.year = +d.year;
-        }
-        _ref1 = getYears.person1.timelineMentions;
-        for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
-          d = _ref1[i];
-          if (years.indexOf(d.year) < 0) {
-            years.push(d.year);
+          if (+d.year === year) {
+            count++;
           }
         }
-        console.log(years);
+        return count;
+      };
+
+      TimelineView.prototype.drawFilter = function(years, data) {
+        var iArrow, _this;
+        _this = this;
+        iArrow = 0;
+
+        /* Filter / Draw years from the list */
         $('#filter > ul ul li').html('Par années (' + years[0] + '-' + years[years.length - 1] + ')');
         $('#filter > ul').on('click', function() {
           return $(this).toggleClass('active');
         });
         $('#filter > ul ul li').on('click', function() {
-          iArrow = 0;
+          console.log('tert', years[years.length - 1]);
+          console.log('tert2', years[0]);
+          iArrow = years.length - 1;
           $(this).siblings().remove();
           if ($(this).hasClass('get-all')) {
             $(this).parent().parent().find('>:first-child').html($(this).html());
@@ -141,10 +155,10 @@
             $(this).toggleClass('get-all');
             return _this.redraw(data);
           } else {
-            $(this).parent().parent().find('>:first-child').html('Année ' + years[0]);
-            $('.arrow:last-child').toggleClass('enabled disabled');
+            $(this).parent().parent().find('>:first-child').html('Année ' + years[years.length - 1]);
+            $('.arrow:first-child').toggleClass('enabled disabled');
             $(this).html('Toutes les mentions').toggleClass('get-all');
-            return _this.redraw(data, years[0]);
+            return _this.redraw(data, years[years.length - 1]);
           }
         });
         return $('.arrow').on('click', function() {
@@ -174,6 +188,38 @@
             }
           }
         });
+      };
+
+      TimelineView.prototype.getYears = function(data) {
+        var d, getYears, i, j, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _this;
+        _this = this;
+        years = [];
+        getYears = [];
+        getYears = JSON.parse(JSON.stringify(data));
+        _ref = getYears.person1.timelineMentions;
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          d = _ref[i];
+          d.mentionRawDate = d.mentionDate;
+          d.year = d.mentionRawDate.substring(0, 4);
+          d.year = +d.year;
+        }
+        _ref1 = getYears.person1.timelineMentions;
+        for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
+          d = _ref1[i];
+          if (years.indexOf(d.year) < 0) {
+            years.push(d.year);
+          }
+        }
+        for (i = _k = 0, _len2 = years.length; _k < _len2; i = ++_k) {
+          d = years[i];
+          if (this.getCount(getYears, years[i]) < 3) {
+            j = years.indexOf(years[i]);
+            if (j > -1) {
+              years.splice(j, 1);
+            }
+          }
+        }
+        return this.drawFilter(years, data);
       };
 
       TimelineView.prototype.drawChart = function(data) {
@@ -266,7 +312,7 @@
           newData.person1.timelineMentions = tmpArray;
           newXaxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(d3.time.month, 1);
         } else {
-          newXaxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(d3.time.month, 2);
+          newXaxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(d3.time.year, 2);
         }
         xScale.domain(d3.extent(newData.person1.timelineMentions, function(d) {
           return d.mentionDate;
@@ -279,13 +325,13 @@
         d3.select('g.thetimeline').select('g.x').transition().duration(1500).ease('sin-in-out').call(newXaxis);
         d3.select('g.thetimeline').select('g.y').transition().duration(1500).ease('sin-in-out').call(yAxis);
         d3.select('g.thetimeline').select('path.line1').datum(newData.person1.timelineMentions).transition().duration(1500).attr('d', valueline);
-        d3.select('g.thetimeline').select('path.area1').datum(newData.person1.timelineMentions).transition().duration(1500).attr('d', area);
+        d3.select('g.thetimeline').select('path.area1').datum(newData.person1.timelineMentions).transition().duration(1500).attr('d', area).transition().delay(1500).style('opacity', 1);
         d3.selectAll('circle').remove();
         return d3.select('g.thetimeline').selectAll('circle1').data(newData.person1.timelineMentions).enter().append('circle').attr('class', 'circle1').attr('r', 3.5).attr('cx', function(d) {
           return xScale(d.mentionDate);
         }).attr('cy', function(d) {
           return yScale(d.mentionCount);
-        });
+        }).transition().delay(1300).style('opacity', 1);
       };
 
       TimelineView.prototype.svg = function() {
@@ -298,12 +344,10 @@
         originalData = JSON.parse(JSON.stringify(data));
         d3.selectAll(this.$el).append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
         this.$el.html(this.template());
+        this.getTotals(originalData);
         this.svg();
         this.drawChart(data);
-        this.drawFilter(originalData);
-        return $('.rescale').on('click', function() {
-          return _this.redraw(originalData, $(this).data('value'));
-        });
+        return this.getYears(originalData);
       };
 
       return TimelineView;
