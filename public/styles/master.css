@@ -689,8 +689,8 @@ section.module.timeline h4:first-of-type:before { background-color: #29b988; }
 section.module.timeline h4:last-of-type:before { background-color: #2781bb; }
 section.module.timeline #filter { position: relative; float: right; margin-top: 33px; margin-right: 64px; }
 section.module.timeline #filter ul { display: inline-block; position: relative; width: 190px; border: 1px solid #d9d9d9; font-family: "Source Sans Pro", sans-serif; font-weight: 700; color: #6a7d90; text-align: center; cursor: pointer; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
-section.module.timeline #filter > ul { color: #6a7d90; height: 37px; overflow-y: hidden; font-size: 0.875em; }
-section.module.timeline #filter > ul.active { overflow-y: visible; }
+section.module.timeline #filter > ul { color: #6a7d90; height: 37px; overflow: hidden; font-size: 0.875em; }
+section.module.timeline #filter > ul.active { overflow: visible; }
 section.module.timeline #filter > ul ul { position: absolute; color: #d9d9d9; top: 35px; left: -1px; box-shadow: 0px 0px 0px rgba(1, 1, 1, 0.05), -1px 1px 1px rgba(1, 1, 1, 0.05), 1px 2px 2px rgba(1, 1, 1, 0.05); }
 section.module.timeline #filter li { position: relative; height: 37px; line-height: 37px; background-color: #fff; }
 section.module.timeline #filter li:hover { color: #6a7d90; }
