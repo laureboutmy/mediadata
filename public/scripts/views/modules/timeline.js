@@ -7,7 +7,7 @@
     'use strict';
     var TimelineView;
     return TimelineView = (function(_super) {
-      var area, d3_locale_fr, dates, height, margin, maxXValues, maxYValues, minMaxX, minMaxY, minXValues, minYValues, newData, parseDate, person1, person2, valueline, width, xAxis, xScale, yAxis, yGrid, yScale, years;
+      var area, d3_locale_fr, height, margin, parseDate, valueline, width, xAxis, xScale, yAxis, yGrid, yScale;
 
       __extends(TimelineView, _super);
 
@@ -18,28 +18,6 @@
       TimelineView.prototype.el = '.module.timeline';
 
       TimelineView.prototype.template = _.template(tplTimeline);
-
-      person1 = 'anne-hidalgo';
-
-      person2 = 'christiane-taubira';
-
-      newData = {};
-
-      minXValues = [];
-
-      minYValues = [];
-
-      maxXValues = [];
-
-      maxYValues = [];
-
-      minMaxX = [];
-
-      minMaxY = [];
-
-      dates = [];
-
-      years = [];
 
       d3_locale_fr = d3.locale({
         "decimal": ".",
@@ -61,9 +39,9 @@
       parseDate = d3.time.format('%Y-%m').parse;
 
       margin = {
-        top: 20,
-        right: 20,
-        bottom: 30,
+        top: 30,
+        right: 50,
+        bottom: 50,
         left: 50
       };
 
@@ -104,7 +82,7 @@
       };
 
       TimelineView.prototype.getTotals = function(data) {
-        var d, i, total, widthFirstBloc, _i, _len, _ref;
+        var d, i, total, widthFirstBloc, _i, _j, _len, _len1, _ref, _ref1;
         total = 0;
         _ref = data.person1.timelineMentions;
         for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
@@ -116,12 +94,26 @@
         $('.module.timeline h3:first-of-type span').html(total.toLocaleString());
         widthFirstBloc = $('.module.timeline h4:first-of-type').width();
         if (widthFirstBloc > $('.module.timeline h3:first-of-type').width()) {
-          return $('.module.timeline h3:first-of-type').width(widthFirstBloc + 2);
+          $('.module.timeline h3:first-of-type').width(widthFirstBloc + 2);
+        }
+        if (data.person2) {
+          total = 0;
+          _ref1 = data.person2.timelineMentions;
+          for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
+            d = _ref1[i];
+            d.mentionCount = +d.mentionCount;
+            total += d.mentionCount;
+          }
+          $('.module.timeline h4:last-of-type').html(data.person2.name);
+          return $('.module.timeline h3:last-of-type span').html(total.toLocaleString());
+        } else {
+          $('.module.timeline h3:last-of-type').hide();
+          return $('.module.timeline h4:last-of-type').hide();
         }
       };
 
-      TimelineView.prototype.getCount = function(getYears, year) {
-        var count, d, i, _i, _len, _ref;
+      TimelineView.prototype.getCount = function(getYears, year, comparison) {
+        var count, d, i, _i, _j, _len, _len1, _ref, _ref1;
         count = 0;
         _ref = getYears.person1.timelineMentions;
         for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
@@ -130,10 +122,19 @@
             count++;
           }
         }
+        if (comparison === true) {
+          _ref1 = getYears.person2.timelineMentions;
+          for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
+            d = _ref1[i];
+            if (+d.year === year) {
+              count++;
+            }
+          }
+        }
         return count;
       };
 
-      TimelineView.prototype.drawFilter = function(years, data) {
+      TimelineView.prototype.drawFilter = function(years, data, comparison) {
         var iArrow, _this;
         _this = this;
         iArrow = 0;
@@ -144,6 +145,7 @@
           return $(this).toggleClass('active');
         });
         $('#filter > ul ul li').on('click', function() {
+          var dataAll, dataYear, maxYValuesAll, maxYValuesYear;
           console.log('tert', years[years.length - 1]);
           console.log('tert2', years[0]);
           iArrow = years.length - 1;
@@ -153,19 +155,67 @@
             $(this).html('Par années (' + years[0] + '-' + years[years.length - 1] + ')');
             $('.arrow').removeClass('enabled').addClass('disabled');
             $(this).toggleClass('get-all');
-            return _this.redraw(data);
+            if (comparison === true) {
+              dataAll = _this.getDataYear(data, null, true);
+              maxYValuesAll = _this.getMaxYValuesYear(dataAll, true);
+              if (maxYValuesAll[0] < maxYValuesAll[1]) {
+                _this.loadRedraw(dataAll, null, 2, d3.max(maxYValuesAll));
+                return _this.loadRedraw(dataAll, null, 1, d3.max(maxYValuesAll));
+              } else {
+                _this.loadRedraw(dataAll, null, 1, d3.max(maxYValuesAll));
+                return _this.loadRedraw(dataAll, null, 2, d3.max(maxYValuesAll));
+              }
+            } else {
+              dataAll = _this.getDataYear(data, null, false);
+              maxYValuesAll = _this.getMaxYValuesYear(dataAll, false);
+              return _this.loadRedraw(dataAll, null, 1, d3.max(maxYValuesAll));
+            }
           } else {
             $(this).parent().parent().find('>:first-child').html('Année ' + years[years.length - 1]);
             $('.arrow:first-child').toggleClass('enabled disabled');
             $(this).html('Toutes les mentions').toggleClass('get-all');
-            return _this.redraw(data, years[years.length - 1]);
+            if (comparison === true) {
+              dataYear = _this.getDataYear(data, years[years.length - 1], true);
+              maxYValuesYear = _this.getMaxYValuesYear(dataYear, true);
+              if (maxYValuesYear[0] < maxYValuesYear[1]) {
+                _this.loadRedraw(dataYear, years[years.length - 1], 2, d3.max(maxYValuesYear));
+                return _this.loadRedraw(dataYear, years[years.length - 1], 1, d3.max(maxYValuesYear));
+              } else {
+                _this.loadRedraw(dataYear, years[years.length - 1], 1, d3.max(maxYValuesYear));
+                return _this.loadRedraw(dataYear, years[years.length - 1], 2, d3.max(maxYValuesYear));
+              }
+            } else {
+              dataYear = _this.getDataYear(data, years[years.length - 1], false);
+              maxYValuesYear = _this.getMaxYValuesYear(dataYear, false);
+              return _this.loadRedraw(dataYear, years[years.length - 1], 1, maxYValuesYear[0]);
+            }
           }
         });
         return $('.arrow').on('click', function() {
+          var dataYear, maxYValuesYear;
           if ($(this).hasClass('enabled')) {
             if ($(this).hasClass('next')) {
               iArrow++;
-              _this.redraw(data, years[iArrow]);
+              console.log('present data:', data);
+              if (comparison === true) {
+                dataYear = [];
+                maxYValuesYear = [];
+                dataYear = _this.getDataYear(data, years[iArrow], true);
+                maxYValuesYear = _this.getMaxYValuesYear(dataYear, true);
+                if (maxYValuesYear[0] < maxYValuesYear[1]) {
+                  _this.loadRedraw(dataYear, years[iArrow], 2, d3.max(maxYValuesYear));
+                  _this.loadRedraw(dataYear, years[iArrow], 1, d3.max(maxYValuesYear));
+                } else {
+                  _this.loadRedraw(dataYear, years[iArrow], 1, d3.max(maxYValuesYear));
+                  _this.loadRedraw(dataYear, years[iArrow], 2, d3.max(maxYValuesYear));
+                }
+              } else {
+                dataYear = [];
+                maxYValuesYear = [];
+                dataYear = _this.getDataYear(data, years[iArrow], false);
+                maxYValuesYear = _this.getMaxYValuesYear(dataYear, false);
+                _this.loadRedraw(dataYear, years[iArrow], 1, d3.max(maxYValuesYear));
+              }
               console.log(iArrow);
               if (years[iArrow]) {
                 $('#filter > ul > li').html('Année ' + years[iArrow]);
@@ -176,7 +226,26 @@
               }
             } else if ($(this).hasClass('prev')) {
               iArrow--;
-              _this.redraw(data, years[iArrow]);
+              console.log('present data:', data);
+              if (comparison === true) {
+                dataYear = [];
+                maxYValuesYear = [];
+                dataYear = _this.getDataYear(data, years[iArrow], true);
+                maxYValuesYear = _this.getMaxYValuesYear(dataYear, true);
+                if (maxYValuesYear[0] < maxYValuesYear[1]) {
+                  _this.loadRedraw(dataYear, years[iArrow], 2, d3.max(maxYValuesYear));
+                  _this.loadRedraw(dataYear, years[iArrow], 1, d3.max(maxYValuesYear));
+                } else {
+                  _this.loadRedraw(dataYear, years[iArrow], 1, d3.max(maxYValuesYear));
+                  _this.loadRedraw(dataYear, years[iArrow], 2, d3.max(maxYValuesYear));
+                }
+              } else {
+                dataYear = [];
+                maxYValuesYear = [];
+                dataYear = _this.getDataYear(data, years[iArrow], false);
+                maxYValuesYear = _this.getMaxYValuesYear(dataYear, false);
+                _this.loadRedraw(dataYear, years[iArrow], 1, d3.max(maxYValuesYear));
+              }
               console.log(iArrow);
               if (years[iArrow]) {
                 $('#filter > ul > li').html('Année ' + years[iArrow]);
@@ -190,8 +259,8 @@
         });
       };
 
-      TimelineView.prototype.getYears = function(data) {
-        var d, getYears, i, j, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _this;
+      TimelineView.prototype.getYears = function(data, comparison) {
+        var d, getYears, i, j, years, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m, _ref, _ref1, _ref2, _ref3, _this;
         _this = this;
         years = [];
         getYears = [];
@@ -203,34 +272,66 @@
           d.year = d.mentionRawDate.substring(0, 4);
           d.year = +d.year;
         }
-        _ref1 = getYears.person1.timelineMentions;
-        for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
-          d = _ref1[i];
+        if (comparison === true) {
+          _ref1 = getYears.person2.timelineMentions;
+          for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
+            d = _ref1[i];
+            d.mentionRawDate = d.mentionDate;
+            d.year = d.mentionRawDate.substring(0, 4);
+            d.year = +d.year;
+          }
+        }
+        _ref2 = getYears.person1.timelineMentions;
+        for (i = _k = 0, _len2 = _ref2.length; _k < _len2; i = ++_k) {
+          d = _ref2[i];
           if (years.indexOf(d.year) < 0) {
             years.push(d.year);
           }
         }
-        for (i = _k = 0, _len2 = years.length; _k < _len2; i = ++_k) {
+        if (comparison === true) {
+          _ref3 = getYears.person2.timelineMentions;
+          for (i = _l = 0, _len3 = _ref3.length; _l < _len3; i = ++_l) {
+            d = _ref3[i];
+            if (years.indexOf(d.year) < 0) {
+              years.push(d.year);
+            }
+          }
+        }
+        years.sort();
+        for (i = _m = 0, _len4 = years.length; _m < _len4; i = ++_m) {
           d = years[i];
-          if (this.getCount(getYears, years[i]) < 3) {
+          if (this.getCount(getYears, years[i], comparison === true ? true : false) < 3) {
             j = years.indexOf(years[i]);
             if (j > -1) {
               years.splice(j, 1);
             }
           }
         }
-        return this.drawFilter(years, data);
+        return this.drawFilter(years, data, comparison === true ? true : false);
       };
 
-      TimelineView.prototype.drawChart = function(data) {
-        var d, i, maxXValue, maxYValue, minXValue, minYValue, _i, _len, _ref;
+      TimelineView.prototype.loadChart = function(data, comparison) {
+        var d, i, maxXValue, maxXValues, maxYValue, maxYValues, minMaxX, minMaxY, minXValue, minXValues, minYValue, minYValues, _i, _j, _len, _len1, _ref, _ref1;
         _ref = data.person1.timelineMentions;
         for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
           d = _ref[i];
           d.mentionDate = parseDate(d.mentionDate);
           d.mentionCount = +d.mentionCount;
         }
-        console.log(data);
+        if (comparison) {
+          _ref1 = data.person2.timelineMentions;
+          for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
+            d = _ref1[i];
+            d.mentionDate = parseDate(d.mentionDate);
+            d.mentionCount = +d.mentionCount;
+          }
+        }
+        minXValues = [];
+        minYValues = [];
+        maxXValues = [];
+        maxYValues = [];
+        minMaxX = [];
+        minMaxY = [];
         minXValues.push(d3.min(data.person1.timelineMentions, function(d) {
           return d.mentionDate;
         }));
@@ -243,6 +344,20 @@
         maxYValues.push(d3.max(data.person1.timelineMentions, function(d) {
           return d.mentionCount;
         }));
+        if (comparison) {
+          minXValues.push(d3.min(data.person2.timelineMentions, function(d) {
+            return d.mentionDate;
+          }));
+          maxXValues.push(d3.max(data.person2.timelineMentions, function(d) {
+            return d.mentionDate;
+          }));
+          minYValues.push(d3.min(data.person2.timelineMentions, function(d) {
+            return d.mentionCount;
+          }));
+          maxYValues.push(d3.max(data.person2.timelineMentions, function(d) {
+            return d.mentionCount;
+          }));
+        }
         minXValue = d3.min(minXValues);
         maxXValue = d3.max(maxXValues);
         minMaxX.push(minXValue, maxXValue);
@@ -251,32 +366,39 @@
         minMaxY.push(minYValue, maxYValue);
         xScale.domain(minMaxX);
         yScale.domain(minMaxY);
-        return this.appendChart(data, 1);
+        if (comparison) {
+          if (maxYValues[0] < maxYValues[1]) {
+            this.appendChart(data.person2.timelineMentions, 2, true);
+            return this.appendChart(data.person1.timelineMentions, 1);
+          } else {
+            this.appendChart(data.person1.timelineMentions, 1, true);
+            return this.appendChart(data.person2.timelineMentions, 2);
+          }
+        } else {
+          return this.appendChart(data.person1.timelineMentions, 1, true);
+        }
       };
 
-      TimelineView.prototype.appendChart = function(data, datasetnumber) {
-        var path, totalLength;
-        if (datasetnumber === 1) {
+      TimelineView.prototype.appendChart = function(data, datasetnumber, drawGrid) {
+        var path;
+        if (drawGrid === true) {
           d3.select('g.thetimeline').append('g').attr('class', 'grid').call(yGrid().tickSize(-width, 0, 0).tickFormat(''));
         }
-        path = d3.select('g.thetimeline').append('path').datum(data.person1.timelineMentions).attr('class', 'line' + datasetnumber).attr('d', valueline);
-        totalLength = path.node().getTotalLength();
-        path.attr("stroke-dasharray", totalLength + "," + totalLength).attr("stroke-dashoffset", totalLength).transition().duration(3000).ease("linear-in-out").attr("stroke-dashoffset", 0);
-        d3.select('g.thetimeline').append('path').datum(data.person1.timelineMentions).attr('class', 'area' + datasetnumber).attr('d', area).transition().delay(3000).style('opacity', 1);
-        d3.select('g.thetimeline').selectAll('circle' + datasetnumber).data(data.person1.timelineMentions).enter().append('circle').attr('class', 'circle' + datasetnumber).attr('r', 3.5).attr('cx', function(d) {
+        path = d3.select('g.thetimeline').append('path').datum(data).attr('class', 'line' + datasetnumber).attr('d', valueline);
+        d3.select('g.thetimeline').append('path').datum(data).attr('class', 'area' + datasetnumber).attr('d', area).style('opacity', 1);
+        d3.select('g.thetimeline').selectAll('circle' + datasetnumber).data(data).enter().append('circle').attr('class', 'circle' + datasetnumber).attr('r', 3.5).attr('cx', function(d) {
           return xScale(d.mentionDate);
         }).attr('cy', function(d) {
           return yScale(d.mentionCount);
         });
         if (datasetnumber === 1) {
           d3.select('g.thetimeline').append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call(xAxis);
-          return d3.select('g.thetimeline').append('g').attr('class', 'y axis').call(yAxis).append('text').datum(data.person1.timelineMentions).attr('transform', 'rotate(-90)').attr('y', 6).attr('dy', '.71em').style('text-anchor', 'end');
+          return d3.select('g.thetimeline').append('g').attr('class', 'y axis').call(yAxis).append('text').datum(data).attr('transform', 'rotate(-90)').attr('y', 6).attr('dy', '.71em').style('text-anchor', 'end');
         }
       };
 
-      TimelineView.prototype.redraw = function(data, year) {
-        var d, i, newXaxis, tmpArray, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2;
-        console.log(year);
+      TimelineView.prototype.getDataYear = function(data, year, comparison) {
+        var d, i, newData, tmpArray, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _len5, _m, _n, _ref, _ref1, _ref2, _ref3, _ref4, _ref5;
         newData = [];
         newData = JSON.parse(JSON.stringify(data));
         _ref = newData.person1.timelineMentions;
@@ -290,48 +412,113 @@
           d.month = +d.month;
           d.mentionCount = +d.mentionCount;
         }
-        console.log(newData);
-        if (year) {
-          _ref1 = newData.person1.timelineMentions;
+        if (comparison === true) {
+          _ref1 = newData.person2.timelineMentions;
           for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
             d = _ref1[i];
+            d.mentionRawDate = d.mentionDate;
+            d.mentionDate = parseDate(d.mentionDate);
+            d.year = d.mentionRawDate.substring(0, 4);
+            d.year = +d.year;
+            d.month = d.mentionRawDate.substring(5, 7);
+            d.month = +d.month;
+            d.mentionCount = +d.mentionCount;
+          }
+        }
+        if (year) {
+          _ref2 = newData.person1.timelineMentions;
+          for (i = _k = 0, _len2 = _ref2.length; _k < _len2; i = ++_k) {
+            d = _ref2[i];
             if (newData.person1.timelineMentions[i].year) {
               if (newData.person1.timelineMentions[i].year !== year) {
                 delete newData.person1.timelineMentions[i];
               }
             }
           }
+          if (comparison === true) {
+            _ref3 = newData.person2.timelineMentions;
+            for (i = _l = 0, _len3 = _ref3.length; _l < _len3; i = ++_l) {
+              d = _ref3[i];
+              if (newData.person2.timelineMentions[i].year) {
+                if (newData.person2.timelineMentions[i].year !== year) {
+                  delete newData.person2.timelineMentions[i];
+                }
+              }
+            }
+          }
           tmpArray = [];
-          _ref2 = newData.person1.timelineMentions;
-          for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
-            d = _ref2[_k];
+          _ref4 = newData.person1.timelineMentions;
+          for (_m = 0, _len4 = _ref4.length; _m < _len4; _m++) {
+            d = _ref4[_m];
             if (d) {
               tmpArray.push(d);
             }
           }
           newData.person1.timelineMentions = tmpArray;
+          if (comparison === true) {
+            tmpArray = [];
+            _ref5 = newData.person2.timelineMentions;
+            for (_n = 0, _len5 = _ref5.length; _n < _len5; _n++) {
+              d = _ref5[_n];
+              if (d) {
+                tmpArray.push(d);
+              }
+            }
+            newData.person2.timelineMentions = tmpArray;
+          }
+        }
+        return newData;
+      };
+
+      TimelineView.prototype.getMaxYValuesYear = function(data, comparison) {
+        var maxYValuesYear;
+        maxYValuesYear = 0;
+        maxYValuesYear = [];
+        maxYValuesYear.push(d3.max(data.person1.timelineMentions, function(d) {
+          return d.mentionCount;
+        }));
+        if (comparison === true) {
+          maxYValuesYear.push(d3.max(data.person2.timelineMentions, function(d) {
+            return d.mentionCount;
+          }));
+        }
+        return maxYValuesYear;
+      };
+
+      TimelineView.prototype.loadRedraw = function(data, year, personNumber, maxYValueYear) {
+        var newXaxis;
+        if (year) {
           newXaxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(d3.time.month, 1);
         } else {
           newXaxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(d3.time.year, 2);
         }
-        xScale.domain(d3.extent(newData.person1.timelineMentions, function(d) {
+        console.log(maxYValueYear);
+        xScale.domain(d3.extent(data['person' + personNumber].timelineMentions, function(d) {
           return d.mentionDate;
         }));
-        yScale.domain([
-          0, d3.max(newData.person1.timelineMentions, function(d) {
-            return d.mentionCount;
-          })
-        ]);
+        yScale.domain([0, maxYValueYear]);
+        d3.select('g.grid').transition().duration(1500).ease('sin-in-out').call(yGrid().tickSize(-width, 0, 0).tickFormat(''));
         d3.select('g.thetimeline').select('g.x').transition().duration(1500).ease('sin-in-out').call(newXaxis);
         d3.select('g.thetimeline').select('g.y').transition().duration(1500).ease('sin-in-out').call(yAxis);
-        d3.select('g.thetimeline').select('path.line1').datum(newData.person1.timelineMentions).transition().duration(1500).attr('d', valueline);
-        d3.select('g.thetimeline').select('path.area1').datum(newData.person1.timelineMentions).transition().duration(1500).attr('d', area).transition().delay(1500).style('opacity', 1);
-        d3.selectAll('circle').remove();
-        return d3.select('g.thetimeline').selectAll('circle1').data(newData.person1.timelineMentions).enter().append('circle').attr('class', 'circle1').attr('r', 3.5).attr('cx', function(d) {
-          return xScale(d.mentionDate);
-        }).attr('cy', function(d) {
-          return yScale(d.mentionCount);
-        }).transition().delay(1300).style('opacity', 1);
+        d3.select('g.thetimeline').select('path.line' + personNumber).remove();
+        d3.select('g.thetimeline').append('path').attr('class', 'line' + personNumber).datum(data['person' + personNumber].timelineMentions).transition().duration(1500).ease('sin-in-out').attr('d', valueline);
+        d3.select('g.thetimeline').select('path.area' + personNumber).remove();
+        d3.select('g.thetimeline').append('path').attr('class', 'area' + personNumber).datum(data['person' + personNumber].timelineMentions).transition().duration(1500).ease('sin-in-out').attr('d', area).style('opacity', 1);
+        if (year) {
+          if (data['person2']) {
+            d3.selectAll('circle:not(.stay)').remove();
+          } else {
+            d3.selectAll('circle').remove();
+          }
+          d3.selectAll('circle.stay').classed('stay', false);
+          return d3.select('g.thetimeline').selectAll('circle' + personNumber).data(data['person' + personNumber].timelineMentions).enter().append('circle').attr('class', 'circle' + personNumber).classed('stay', true).attr('r', 3.5).attr('cx', function(d) {
+            return xScale(d.mentionDate);
+          }).attr('cy', function(d) {
+            return yScale(d.mentionCount);
+          }).transition().delay(1300).style('opacity', 1);
+        } else {
+          return d3.selectAll('circle').remove();
+        }
       };
 
       TimelineView.prototype.svg = function() {
@@ -346,8 +533,13 @@
         this.$el.html(this.template());
         this.getTotals(originalData);
         this.svg();
-        this.drawChart(data);
-        return this.getYears(originalData);
+        if (data.person2) {
+          this.loadChart(data, true);
+          return this.getYears(originalData, true);
+        } else {
+          this.loadChart(data, false);
+          return this.getYears(originalData);
+        }
       };
 
       return TimelineView;

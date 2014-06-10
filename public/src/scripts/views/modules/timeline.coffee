@@ -10,24 +10,6 @@ define [
 		el: '.module.timeline'
 		template: _.template(tplTimeline)
 
-		# Store person names (slugs)
-		person1 = 'anne-hidalgo'
-		person2 = 'christiane-taubira'
-
-		newData = {}
-
-		# Store minimum/maximum X/Y values from each dataset
-		minXValues = []
-		minYValues = []
-		maxXValues = []
-		maxYValues = []
-		# Store minimum/maximum X/Y values from both datasets
-		minMaxX = []
-		minMaxY = []
-		# Store first/last date
-		dates = []
-		years = []
-
 		d3_locale_fr = d3.locale ({
 			"decimal": ".",
 			"thousands": ",",
@@ -49,7 +31,7 @@ define [
 		parseDate = d3.time.format('%Y-%m').parse
 
 		# Set up chart size
-		margin = {top: 20, right: 20, bottom: 30, left: 50}
+		margin = {top: 30, right: 50, bottom: 50, left: 50}
 		width = 920
 		height = 300
 
@@ -100,15 +82,30 @@ define [
 			if widthFirstBloc > $('.module.timeline h3:first-of-type').width()
 				$('.module.timeline h3:first-of-type').width(widthFirstBloc + 2)
 
+			if data.person2 
+				total = 0
+				for d,i in data.person2.timelineMentions
+					d.mentionCount = +d.mentionCount
+					total += d.mentionCount
+				$('.module.timeline h4:last-of-type').html(data.person2.name)
+				$('.module.timeline h3:last-of-type span').html(total.toLocaleString())
+			else
+				$('.module.timeline h3:last-of-type').hide()
+				$('.module.timeline h4:last-of-type').hide()
+
 		# Return number of values in year to check if it this year is useless
-		getCount: (getYears, year) ->
-			count = 0;
+		getCount: (getYears, year, comparison) ->
+			count = 0
 			for d,i in getYears.person1.timelineMentions
 				if +d.year == year
 					count++
+			if comparison is true
+				for d,i in getYears.person2.timelineMentions
+					if +d.year == year
+						count++
 			return count
 
-		drawFilter: (years,data) ->
+		drawFilter: (years,data,comparison) ->
 			_this = @
 			iArrow = 0
 			### Filter / Draw years from the list ###
@@ -128,19 +125,60 @@ define [
 					$(@).html('Par années (' + years[0] + '-' + years[years.length - 1] + ')')
 					$('.arrow').removeClass('enabled').addClass('disabled')
 					$(@).toggleClass('get-all')
-					_this.redraw(data)
+					if comparison is true
+						dataAll = _this.getDataYear(data,null,true)
+						maxYValuesAll = _this.getMaxYValuesYear(dataAll, true)
+						if maxYValuesAll[0] < maxYValuesAll[1]
+							_this.loadRedraw(dataAll, null, 2, d3.max maxYValuesAll)
+							_this.loadRedraw(dataAll, null, 1, d3.max maxYValuesAll)
+						else
+							_this.loadRedraw(dataAll, null, 1, d3.max maxYValuesAll)
+							_this.loadRedraw(dataAll, null, 2, d3.max maxYValuesAll)		
+					else
+						dataAll = _this.getDataYear(data,null,false)
+						maxYValuesAll = _this.getMaxYValuesYear(dataAll, false)
+						_this.loadRedraw(dataAll, null, 1, d3.max maxYValuesAll)
 				else
 					$(@).parent().parent().find('>:first-child').html('Année ' + years[years.length - 1])
 					$('.arrow:first-child').toggleClass('enabled disabled')
 					$(@).html('Toutes les mentions').toggleClass('get-all')
-					_this.redraw(data, years[years.length - 1])
+					if comparison is true
+						dataYear = _this.getDataYear(data,years[years.length - 1], true)
+						maxYValuesYear = _this.getMaxYValuesYear(dataYear, true)
+						if maxYValuesYear[0] < maxYValuesYear[1]
+							_this.loadRedraw(dataYear, years[years.length - 1], 2, d3.max maxYValuesYear)
+							_this.loadRedraw(dataYear, years[years.length - 1], 1, d3.max maxYValuesYear)
+						else
+							_this.loadRedraw(dataYear, years[years.length - 1], 1, d3.max maxYValuesYear)
+							_this.loadRedraw(dataYear, years[years.length - 1], 2, d3.max maxYValuesYear)
+					else
+						dataYear = _this.getDataYear(data,years[years.length - 1], false)
+						maxYValuesYear = _this.getMaxYValuesYear(dataYear, false)
+						_this.loadRedraw(dataYear, years[years.length - 1], 1, maxYValuesYear[0])
 			)
 			# Click on prev/next arrows
 			$('.arrow').on('click', ->
 				if $(@).hasClass('enabled')
 					if $(@).hasClass('next')
 						iArrow++
-						_this.redraw(data,years[iArrow])
+						console.log 'present data:', data
+						if comparison is true
+							dataYear = []
+							maxYValuesYear = []
+							dataYear = _this.getDataYear(data,years[iArrow],true)
+							maxYValuesYear = _this.getMaxYValuesYear(dataYear, true)
+							if maxYValuesYear[0] < maxYValuesYear[1]
+								_this.loadRedraw(dataYear,years[iArrow], 2, d3.max maxYValuesYear)
+								_this.loadRedraw(dataYear,years[iArrow], 1, d3.max maxYValuesYear)
+							else
+								_this.loadRedraw(dataYear,years[iArrow], 1, d3.max maxYValuesYear)
+								_this.loadRedraw(dataYear,years[iArrow], 2, d3.max maxYValuesYear)
+						else
+							dataYear = []
+							maxYValuesYear = []
+							dataYear = _this.getDataYear(data,years[iArrow],false)
+							maxYValuesYear = _this.getMaxYValuesYear(dataYear, false)
+							_this.loadRedraw(dataYear,years[iArrow], 1, d3.max maxYValuesYear)
 						console.log iArrow
 						if years[iArrow]
 							$('#filter > ul > li').html('Année ' + years[iArrow])
@@ -149,7 +187,24 @@ define [
 							$('.arrow:last-child').toggleClass('enabled disabled')
 					else if $(@).hasClass('prev')
 						iArrow--
-						_this.redraw(data,years[iArrow])
+						console.log 'present data:', data
+						if comparison is true
+							dataYear = []
+							maxYValuesYear = []
+							dataYear = _this.getDataYear(data,years[iArrow],true)
+							maxYValuesYear = _this.getMaxYValuesYear(dataYear, true)
+							if maxYValuesYear[0] < maxYValuesYear[1]
+								_this.loadRedraw(dataYear,years[iArrow], 2, d3.max maxYValuesYear)
+								_this.loadRedraw(dataYear,years[iArrow], 1, d3.max maxYValuesYear)
+							else
+								_this.loadRedraw(dataYear,years[iArrow], 1, d3.max maxYValuesYear)
+								_this.loadRedraw(dataYear,years[iArrow], 2, d3.max maxYValuesYear)
+						else
+							dataYear = []
+							maxYValuesYear = []
+							dataYear = _this.getDataYear(data,years[iArrow],false)
+							maxYValuesYear = _this.getMaxYValuesYear(dataYear, false)
+							_this.loadRedraw(dataYear,years[iArrow], 1, d3.max maxYValuesYear)
 						console.log iArrow
 						if years[iArrow]
 							$('#filter > ul > li').html('Année ' + years[iArrow])
@@ -159,7 +214,7 @@ define [
 			)
 		
 		# Make dynamic filter
-		getYears: (data) ->
+		getYears: (data,comparison) ->
 			_this = @
 			years = []
 
@@ -170,34 +225,63 @@ define [
 				d.mentionRawDate = d.mentionDate
 				d.year = d.mentionRawDate.substring(0,4)
 				d.year = +d.year
+			if comparison is true
+				for d,i in getYears.person2.timelineMentions
+					d.mentionRawDate = d.mentionDate
+					d.year = d.mentionRawDate.substring(0,4)
+					d.year = +d.year
 
 			# Store years in years list
 			for d,i in getYears.person1.timelineMentions
 				if years.indexOf(d.year) < 0
 					years.push d.year
+			if comparison is true
+				for d,i in getYears.person2.timelineMentions
+					if years.indexOf(d.year) < 0
+						years.push d.year
+			years.sort()
+
 
 			# If less than 3 values in year, remove it from the years list.
 			for d,i in years
-				if @getCount(getYears, years[i]) < 3
+				if @getCount(getYears, years[i], if comparison is true then true else false) < 3
 					j = years.indexOf(years[i])
 					if (j > -1)
 						years.splice(j, 1)
 
-			@drawFilter years,data
+			@drawFilter years,data, if comparison is true then true else false
 
 		# Find min/max values in dataset
-		drawChart: (data) ->
+		loadChart: (data, comparison) ->
 			# Parse dates
 			for d,i in data.person1.timelineMentions
 				d.mentionDate = parseDate d.mentionDate
 				d.mentionCount = +d.mentionCount
 
-			console.log data
+			if comparison
+				for d,i in data.person2.timelineMentions
+					d.mentionDate = parseDate d.mentionDate
+					d.mentionCount = +d.mentionCount
+
+			# Store minimum/maximum X/Y values from each dataset
+			minXValues = []
+			minYValues = []
+			maxXValues = []
+			maxYValues = []
+			# Store minimum/maximum X/Y values from both datasets
+			minMaxX = []
+			minMaxY = []
 
 			minXValues.push d3.min data.person1.timelineMentions, (d) -> return d.mentionDate
 			maxXValues.push d3.max data.person1.timelineMentions, (d) -> return d.mentionDate
 			minYValues.push d3.min data.person1.timelineMentions, (d) -> return d.mentionCount
 			maxYValues.push d3.max data.person1.timelineMentions, (d) -> return d.mentionCount
+
+			if comparison
+				minXValues.push d3.min data.person2.timelineMentions, (d) -> return d.mentionDate
+				maxXValues.push d3.max data.person2.timelineMentions, (d) -> return d.mentionDate
+				minYValues.push d3.min data.person2.timelineMentions, (d) -> return d.mentionCount
+				maxYValues.push d3.max data.person2.timelineMentions, (d) -> return d.mentionCount
 
 			minXValue = d3.min minXValues
 			maxXValue = d3.max maxXValues
@@ -211,11 +295,19 @@ define [
 			yScale.domain minMaxY
 
 			# Append everything
-			@appendChart data, 1
+			if comparison
+				if maxYValues[0] < maxYValues[1]
+					@appendChart data.person2.timelineMentions, 2, true
+					@appendChart data.person1.timelineMentions, 1
+				else
+					@appendChart data.person1.timelineMentions, 1, true
+					@appendChart data.person2.timelineMentions, 2
+			else
+				@appendChart data.person1.timelineMentions, 1, true
 
 		# Append chart elements from dataset
-		appendChart: (data, datasetnumber) ->
-			if datasetnumber is 1 # (don't draw two grids)
+		appendChart: (data, datasetnumber, drawGrid) ->
+			if drawGrid is true # (don't draw two grids)
 				# Draw horizontal grid
 				d3.select('g.thetimeline').append 'g'
 					.attr 'class', 'grid'
@@ -225,31 +317,31 @@ define [
 
 			# Draw main path
 			path = d3.select('g.thetimeline').append 'path'
-				.datum data.person1.timelineMentions
+				.datum data
 				.attr 'class', 'line' + datasetnumber
 				.attr 'd', valueline
 
-			totalLength = path.node().getTotalLength()
-			path
-				.attr("stroke-dasharray", totalLength+","+totalLength)
-				.attr("stroke-dashoffset", totalLength)
-				.transition()
-				.duration(3000)
-				.ease("linear-in-out")
-				.attr("stroke-dashoffset", 0);
+			# totalLength = path.node().getTotalLength()
+			# path
+			# 	.attr("stroke-dasharray", totalLength+","+totalLength)
+			# 	.attr("stroke-dashoffset", totalLength)
+			# 	.transition()
+			# 	.duration(3000)
+			# 	.ease("linear-in-out")
+			# 	.attr("stroke-dashoffset", 0);
 
 			# Draw area
 			d3.select('g.thetimeline').append('path')
-				.datum data.person1.timelineMentions
+				.datum data
 				.attr 'class', 'area' + datasetnumber
 				.attr 'd', area
-				.transition()
-				.delay(3000)
+				# .transition()
+				# .delay(3000)
 				.style 'opacity', 1
 
 			# Draw dots
 			d3.select('g.thetimeline').selectAll 'circle' + datasetnumber
-				.data data.person1.timelineMentions
+				.data data
 				.enter()
 				.append 'circle'
 					.attr 'class', 'circle' + datasetnumber
@@ -268,14 +360,13 @@ define [
 					.attr 'class', 'y axis'
 					.call yAxis
 				.append 'text'        
-					.datum data.person1.timelineMentions
+					.datum data
 					.attr 'transform', 'rotate(-90)'
 					.attr 'y' , 6
 					.attr 'dy', '.71em'
 					.style 'text-anchor', 'end'
 
-		redraw: (data, year) ->
-			console.log year
+		getDataYear: (data,year,comparison) ->
 			newData = []
 			# Make a filtered copy of data
 			newData = JSON.parse(JSON.stringify(data))
@@ -287,8 +378,15 @@ define [
 				d.month = d.mentionRawDate.substring(5,7)
 				d.month = +d.month
 				d.mentionCount = +d.mentionCount
-
-			console.log newData
+			if comparison is true
+				for d,i in newData.person2.timelineMentions
+					d.mentionRawDate = d.mentionDate
+					d.mentionDate = parseDate d.mentionDate
+					d.year = d.mentionRawDate.substring(0,4)
+					d.year = +d.year
+					d.month = d.mentionRawDate.substring(5,7)
+					d.month = +d.month
+					d.mentionCount = +d.mentionCount
 
 			if year
 				# Filter the data
@@ -296,6 +394,11 @@ define [
 					if newData.person1.timelineMentions[i].year
 						if newData.person1.timelineMentions[i].year != year
 							delete newData.person1.timelineMentions[i]
+				if comparison is true
+					for d,i in newData.person2.timelineMentions
+						if newData.person2.timelineMentions[i].year
+							if newData.person2.timelineMentions[i].year != year
+								delete newData.person2.timelineMentions[i]
 
 				# Get rid of undefined keys
 				tmpArray = []
@@ -303,7 +406,25 @@ define [
 					if d
 							tmpArray.push(d)
 				newData.person1.timelineMentions = tmpArray
+				if comparison is true
+					tmpArray = []
+					for d in newData.person2.timelineMentions
+						if d
+								tmpArray.push(d)
+					newData.person2.timelineMentions = tmpArray
+			return newData
 
+		getMaxYValuesYear: (data,comparison) ->
+			maxYValuesYear = 0 # reset
+			maxYValuesYear = []
+			maxYValuesYear.push d3.max data.person1.timelineMentions, (d) -> return d.mentionCount
+			if comparison is true
+				maxYValuesYear.push d3.max data.person2.timelineMentions, (d) -> return d.mentionCount
+
+			return maxYValuesYear
+
+		loadRedraw: (data,year,personNumber,maxYValueYear) ->
+			if year
 				newXaxis =
 					d3.svg.axis()
 						.scale xScale
@@ -317,9 +438,18 @@ define [
 					.orient 'bottom'
 					.ticks d3.time.year, 2 # manual, should be auto
 
+			console.log maxYValueYear
+
 			# Scale with new data
-			xScale.domain(d3.extent(newData.person1.timelineMentions, (d) -> return d.mentionDate))
-			yScale.domain([0, d3.max(newData.person1.timelineMentions, (d) -> return d.mentionCount)])
+			xScale.domain(d3.extent(data['person' + personNumber].timelineMentions, (d) -> return d.mentionDate))
+			yScale.domain([0, maxYValueYear])
+
+			# Update horizontal grid
+			d3.select('g.grid')
+				.transition().duration(1500).ease('sin-in-out')
+				.call(yGrid()
+					.tickSize(-width, 0, 0)
+					.tickFormat '')
 
 			# Update axes
 			d3.select('g.thetimeline').select('g.x')
@@ -330,34 +460,51 @@ define [
 				.call yAxis
 
 			# Update line
-			d3.select('g.thetimeline').select('path.line1')
-				.datum newData.person1.timelineMentions
-				.transition().duration(1500)
+			d3.select('g.thetimeline').select('path.line' + personNumber).remove()
+			d3.select('g.thetimeline')
+				.append 'path'
+				.attr 'class', 'line' + personNumber
+				.datum data['person' + personNumber].timelineMentions
+				.transition().duration(1500).ease('sin-in-out')
 				.attr 'd', valueline
 
 			# Update area
-			d3.select('g.thetimeline').select('path.area1')
-				.datum newData.person1.timelineMentions
-				.transition().duration(1500)
+			d3.select('g.thetimeline').select('path.area' + personNumber).remove()
+			d3.select('g.thetimeline')
+				.append 'path'
+				.attr 'class', 'area' + personNumber
+				.datum data['person' + personNumber].timelineMentions
+				.transition().duration(1500).ease('sin-in-out')
 				.attr 'd', area
-				.transition()
-				.delay(1500)
+				# .transition()
+				# .delay(1500)
 				.style 'opacity', 1
-				
-			# Redraw dots
-			d3.selectAll 'circle'
-				.remove()
-			d3.select('g.thetimeline').selectAll('circle1')
-				.data newData.person1.timelineMentions
-				.enter()
-				.append 'circle'
-					.attr 'class', 'circle1'
-					.attr 'r', 3.5
-					.attr 'cx', (d) -> return xScale d.mentionDate
-					.attr 'cy', (d) -> return yScale d.mentionCount
-					.transition()
-					.delay(1300)
-					.style 'opacity', 1
+
+			if year
+				# Redraw dots
+				if data['person2']
+					d3.selectAll 'circle:not(.stay)'
+						.remove()
+				else
+					d3.selectAll 'circle'
+						.remove()
+				d3.selectAll 'circle.stay'
+					.classed 'stay', false
+				d3.select('g.thetimeline').selectAll('circle' + personNumber)
+					.data data['person' + personNumber].timelineMentions
+					.enter()
+					.append 'circle'
+						.attr 'class', 'circle' + personNumber
+						.classed 'stay', true
+						.attr 'r', 3.5
+						.attr 'cx', (d) -> return xScale d.mentionDate
+						.attr 'cy', (d) -> return yScale d.mentionCount
+						.transition()
+						.delay(1300)
+						.style 'opacity', 1
+			else
+				d3.selectAll 'circle'
+					.remove()
 
 		svg: () ->
 			d3.selectAll(@$el)
@@ -385,5 +532,11 @@ define [
 			@$el.html(@template())
 			@getTotals originalData
 			@svg()
-			@drawChart data
-			@getYears originalData
+
+			if data.person2
+				@loadChart data,true
+				@getYears originalData,true
+
+			else
+				@loadChart data,false
+				@getYears originalData
