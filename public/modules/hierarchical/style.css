@@ -1,5 +1,14 @@
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700);
 
+svg{
+	border: 1px solid #000;
+}
+
+g{
+	stroke: red;
+  stroke-opacity: .4;
+}
+
 .node {
   font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
   fill: #bbb;

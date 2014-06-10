@@ -20,7 +20,7 @@
     return d.x / 180 * Math.PI;
   });
 
-  svg = d3.select('body').append('svg').attr('width', diameter).attr('height', diameter).append('g').attr('transform', 'translate(' + radius + ',' + radius + ')');
+  svg = d3.select('body').append('svg').attr('width', diameter).attr('height', diameter).append('g').attr('class', 'g-round').attr('transform', 'translate(' + radius + ',' + radius + ')');
 
   link = svg.append('g').selectAll('.link');
 
@@ -83,26 +83,26 @@
   packageHierarchy = function(classes) {
     var find, map;
     map = {};
-    find = function(name, data) {
+    find = function(groupe, data) {
       var i, nodes;
-      nodes = map[name];
+      nodes = map[groupe];
       if (!nodes) {
-        nodes = map[name] = data || {
-          name: name,
+        nodes = map[groupe] = data || {
+          groupe: groupe,
           children: []
         };
-        if (name.length) {
-          nodes.parent = find(name.substring(0, i = name.lastIndexOf('.')));
+        if (groupe.length) {
+          nodes.parent = find(groupe.substring(0, i = groupe.lastIndexOf('.')));
           console.log(nodes.parent);
           nodes.parent.children.push(nodes);
-          nodes.key = name.substring(i + 1);
+          nodes.key = groupe.substring(i + 1);
         }
       }
       return nodes;
     };
     classes.forEach(function(d) {
       console.log(d);
-      return find(d.name, d);
+      return find(d.groupe, d);
     });
     return map[''];
   };
@@ -112,13 +112,13 @@
     map = {};
     imports = [];
     nodes.forEach(function(d) {
-      map[d.name] = d;
+      map[d.groupe] = d;
     });
     nodes.forEach(function(d) {
       if (d.imports) {
         d.imports.forEach(function(i) {
           imports.push({
-            source: map[d.name],
+            source: map[d.groupe],
             target: map[i]
           });
         });
