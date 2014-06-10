@@ -4,5 +4,13 @@
 {"name":"anne-hidalgo.Anthony",		"imports":["anne-hidalgo.Remy", "anne-hidalgo.Lucas", "christiane-taubira.Laure"]},
 {"name":"anne-hidalgo.Yves",   		"imports":["anne-hidalgo.Remy"]},
 {"name":"christiane-taubira.Thomas","imports":["anne-hidalgo.Remy"]},
-{"name":"christiane-taubira.Laure", "imports":["anne-hidalgo.Remy"]}
+{"name":"christiane-taubira.Laure", "imports":["anne-hidalgo.Remy"]},
+
+{"name":"anne-hidalgo.christiane-taubira.Steve", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
+{"name":"anne-hidalgo.christiane-taubira.Max", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
+{"name":"anne-hidalgo.christiane-taubira.Andre", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
+{"name":"anne-hidalgo.christiane-taubira.Tom", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
+{"name":"anne-hidalgo.christiane-taubira.Lies", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
+{"name":"anne-hidalgo.christiane-taubira.Audrey", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]}
+
 ]

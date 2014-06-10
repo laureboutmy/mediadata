@@ -1,4 +1,4 @@
-diameter = 960
+diameter = 720
 radius = diameter / 2
 innerRadius = radius - 120
 

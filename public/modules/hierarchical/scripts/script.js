@@ -2,7 +2,7 @@
 (function() {
   var bundle, cluster, diameter, innerRadius, line, link, mouseouted, mouseovered, node, packageHierarchy, packageImports, radius, svg;
 
-  diameter = 960;
+  diameter = 720;
 
   radius = diameter / 2;
 
