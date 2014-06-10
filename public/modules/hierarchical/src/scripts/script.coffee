@@ -1,3 +1,6 @@
+person1 = 'anne-hidalgo'
+person2 = 'christiane-taubira'
+
 diameter = 720
 radius = diameter / 2
 innerRadius = radius - 120
@@ -20,11 +23,8 @@ svg = d3.select('body')
       .attr('width', diameter)
       .attr('height', diameter)
     .append('g')
-      # .attr("transform", "translate(" + radius + "," + radius + ")")
       .attr('class', 'g-round')
       .attr('transform', 'translate('+ radius + ',' + radius + ')')
-
-
 
 link = svg.append('g').selectAll('.link')
 node = svg.append('g').selectAll('.node')
@@ -41,19 +41,20 @@ d3.json 'readme_team.json', (error, classes) ->
         d.target=d[d.length-1]
         return
       )
-      .attr('class', 'link')
+      .attr('class', 'link ')
       .attr('d', line)
 
   node = node
       .data(nodes.filter((n) -> !n.children))
     .enter().append('text')
-      .attr('class', 'node')
+      .attr('class', (d) -> 'node ' + d.class)
       .attr('dy', '.31em')
       .attr("transform", (d) -> "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + ((if d.x < 180 then "" else "rotate(180)")))
       .style('text-anchor', (d) -> (if d.x < 180 then "start" else "end"))
       .text((d) -> d.key)
       .on('mouseover', mouseovered)
       .on('mouseout', mouseouted)
+
 
   return
 
@@ -101,14 +102,18 @@ packageHierarchy = (classes) ->
 
       if groupe.length
         nodes.parent = find(groupe.substring(0, i = groupe.lastIndexOf('.')))
-        console.log(nodes.parent)
         nodes.parent.children.push nodes
         nodes.key = groupe.substring(i + 1)
+        
+        # if (groupe) == person1
+        nodes.class = 'person1' if nodes.parent.groupe is person1
+        nodes.class = 'person2' if nodes.parent.groupe is person2
+        nodes.class = 'person1_person2' if nodes.parent.groupe is person1+'.'+person2
+          
 
     return nodes
 
   classes.forEach (d) ->
-    console.log(d)
     find d.groupe, d
 
 

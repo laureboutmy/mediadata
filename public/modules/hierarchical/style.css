@@ -4,14 +4,17 @@ svg{
 	border: 1px solid #000;
 }
 
-g{
-	stroke: red;
-  stroke-opacity: .4;
-}
-
 .node {
   font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
   fill: #bbb;
+}
+
+.node.person1 {
+  fill: blue;
+}
+
+.node.person2 {
+  fill: red;
 }
 
 .node:hover {
