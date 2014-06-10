@@ -119,10 +119,10 @@ packageHierarchy = (classes) ->
 
   map['']
 
-# Return a list of imports for the given array of nodes.
+# Return a list of linked for the given array of nodes.
 packageImports = (nodes) ->
   map = {}
-  imports = []
+  linked = []
   
   # Compute a map from groupe to node.
   nodes.forEach (d) ->
@@ -132,9 +132,9 @@ packageImports = (nodes) ->
   
   # For each import, construct a link from the source to target node.
   nodes.forEach (d) ->
-    if d.imports
-      d.imports.forEach (i) ->
-        imports.push
+    if d.linked
+      d.linked.forEach (i) ->
+        linked.push
           source: map[d.groupe]
           target: map[i]
 
@@ -142,7 +142,7 @@ packageImports = (nodes) ->
 
     return
 
-  imports
+  linked
 
 
 

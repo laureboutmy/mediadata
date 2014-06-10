@@ -121,23 +121,23 @@
   };
 
   packageImports = function(nodes) {
-    var imports, map;
+    var linked, map;
     map = {};
-    imports = [];
+    linked = [];
     nodes.forEach(function(d) {
       map[d.groupe] = d;
     });
     nodes.forEach(function(d) {
-      if (d.imports) {
-        d.imports.forEach(function(i) {
-          imports.push({
+      if (d.linked) {
+        d.linked.forEach(function(i) {
+          linked.push({
             source: map[d.groupe],
             target: map[i]
           });
         });
       }
     });
-    return imports;
+    return linked;
   };
 
 }).call(this);

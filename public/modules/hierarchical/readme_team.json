@@ -1,14 +1,14 @@
 [
-{"groupe":"anne-hidalgo.Remy",   		"imports":[]},
-{"groupe":"anne-hidalgo.Lucas",  		"imports":["anne-hidalgo.Remy"]},
-{"groupe":"anne-hidalgo.Anthony",		"imports":["anne-hidalgo.Remy", "anne-hidalgo.Lucas", "christiane-taubira.Laure"]},
-{"groupe":"anne-hidalgo.Yves",   		"imports":["anne-hidalgo.Remy"]},
-{"groupe":"christiane-taubira.Thomas", "imports":["anne-hidalgo.Remy"]},
-{"groupe":"christiane-taubira.Laure",  "imports":["anne-hidalgo.Remy"]},
-{"groupe":"anne-hidalgo.christiane-taubira.Steve", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
-{"groupe":"anne-hidalgo.christiane-taubira.Max", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
-{"groupe":"anne-hidalgo.christiane-taubira.Andre", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
-{"groupe":"anne-hidalgo.christiane-taubira.Tom", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
-{"groupe":"anne-hidalgo.christiane-taubira.Lies", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
-{"groupe":"anne-hidalgo.christiane-taubira.Audrey", "imports":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]}
+{"groupe":"anne-hidalgo.Remy",   		"linked":[]},
+{"groupe":"anne-hidalgo.Lucas",  		"linked":["anne-hidalgo.Remy"]},
+{"groupe":"anne-hidalgo.Anthony",		"linked":["anne-hidalgo.Remy", "anne-hidalgo.Lucas", "christiane-taubira.Laure"]},
+{"groupe":"anne-hidalgo.Yves",   		"linked":["anne-hidalgo.Remy"]},
+{"groupe":"christiane-taubira.Thomas", "linked":["anne-hidalgo.Remy"]},
+{"groupe":"christiane-taubira.Laure",  "linked":["anne-hidalgo.Remy"]},
+{"groupe":"anne-hidalgo.christiane-taubira.Steve", "linked":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
+{"groupe":"anne-hidalgo.christiane-taubira.Max", "linked":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
+{"groupe":"anne-hidalgo.christiane-taubira.Andre", "linked":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
+{"groupe":"anne-hidalgo.christiane-taubira.Tom", "linked":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
+{"groupe":"anne-hidalgo.christiane-taubira.Lies", "linked":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]},
+{"groupe":"anne-hidalgo.christiane-taubira.Audrey", "linked":["anne-hidalgo.Remy", "christiane-taubira.Thomas"]}
 ]
