@@ -19,18 +19,17 @@ define [
         .range([height, 0])
 
     svg: () ->
-      d3.select(@$el)
+      d3.selectAll(@$el)
         .append('svg')
           .attr('id', 'barchart')
           .attr('width', width)
           .attr('height', height+margin.top+margin.bottom)
 
-    yGrid = () ->
-      yAxis = d3.svg.axis()
-            .scale y
-            .orient 'left'
-            .ticks 4
-            .tickSize(-width, 0, 0)
+    yAxis = d3.svg.axis()
+          .scale y
+          .orient 'left'
+          .ticks 4
+          .tickSize(-width, 0, 0)
 
     getScale: (data) ->
       x.domain(data.channels.map((d) -> d.channelName))
@@ -41,12 +40,12 @@ define [
       for d,i in data.channels
         d.channelCount = +d.channelCount
 
-      bar_svg.append('g')
+      d3.select('#barchart').append('g')
             .attr('class', 'grid')
             .attr("transform", "translate(0,60)")
             .call(yAxis)
 
-      bar_svg.selectAll('g.bar-g')
+      d3.select('#barchart').selectAll('g.bar-g')
             .data(data.channels)
           .enter().append('g')
             .attr('class', 'bar-g')
@@ -58,7 +57,7 @@ define [
             .attr('y', (d) -> y(d.channelCount))
             .attr('height', (d,i) -> height-y(d.channelCount))
 
-      bar_svg.selectAll('g.bar-g')
+      d3.select('#barchart').selectAll('g.bar-g')
             .data(data.channels)
           .append('image')
             .attr('xlink:href', (d) -> d.channelLogo)
@@ -70,7 +69,7 @@ define [
     drawTooltip: (data) ->
       ## TOOLTIP ##
       # Filtre servant à faire l'ombre du tooltip
-      bar_svg.append('filter')
+      d3.select('#barchart').append('filter')
           .attr('id', 'f1')
           .attr('width', '150%')
           .attr('height', '150%')
@@ -80,13 +79,13 @@ define [
           .attr('dx', 0)
           .attr('dy', 3)
 
-      bar_svg.select('filter')
+      d3.select('#barchart').select('filter')
         .append( 'feGaussianBlur' )
           .attr( 'stdDeviation', 1 )
           .attr( 'result', 'blur' )
 
       # Rect avec le filtre "shadow" url(#f1)
-      bar_svg.selectAll('g.bar-g')
+      d3.select('#barchart').selectAll('g.bar-g')
           .append('rect')
           .data(data.channels)
             .attr( 'filter', 'url(#f1)' ) 
@@ -99,7 +98,7 @@ define [
             .attr('ry', 25)
 
       # Rect superieur avec un Background #fff
-      bar_svg.selectAll('g.bar-g')
+      d3.select('#barchart').selectAll('g.bar-g')
           .append('rect')
           .data(data.channels)
             .attr('class', 'tooltip')
@@ -111,7 +110,7 @@ define [
             .attr('ry', 25)
 
       # Nom de la chaine
-      bar_svg.selectAll('g.bar-g')
+      d3.select('#barchart').selectAll('g.bar-g')
           .append('text')
           .data(data.channels)
             .attr('text-anchor', 'middle')
@@ -121,7 +120,7 @@ define [
             .text((d) -> d.channelName)
 
       # Nombre de mentions par chaines
-      bar_svg.selectAll('g.bar-g')
+      d3.select('#barchart').selectAll('g.bar-g')
           .append('text')
           .data(data.channels)
             .attr('text-anchor', 'middle')
@@ -136,8 +135,7 @@ define [
       @$el.html(@template())
       @svg()
       @getScale(data)
-      @yGrid()
       @drawContent(data)
-      @drawTooltip()
+      @drawTooltip(data)
 
 

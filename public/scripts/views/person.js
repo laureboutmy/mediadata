@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', 'text!templates/person.html', '../views/modules/top-5', '../views/modules/timeline', '../views/modules/clock', '../views/modules/x-with-y'], function($, _, Backbone, md, PersonsCollection, PersonModel, tplPerson, Top5View, TimelineView, ClockView, XWithYView) {
+  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', 'text!templates/person.html', '../views/modules/top-5', '../views/modules/timeline', '../views/modules/clock', '../views/modules/bar', '../views/modules/x-with-y'], function($, _, Backbone, md, PersonsCollection, PersonModel, tplPerson, Top5View, TimelineView, ClockView, BarView, XWithYView) {
     'use strict';
     var PersonView;
     return PersonView = (function(_super) {
@@ -32,6 +32,7 @@
         this.top5 = new Top5View();
         this.timeline = new TimelineView();
         this.clock = new ClockView();
+        this.bar = new BarView();
         this.xWithY = new XWithYView();
         return this.renderModules(data);
       };
@@ -93,6 +94,9 @@
         });
         this.clock.render({
           broadcastHoursByDay: data.broadcastHoursByDay
+        });
+        this.bar.render({
+          channels: data.channels
         });
         return this.xWithY.render({
           persons: data.seenWith
