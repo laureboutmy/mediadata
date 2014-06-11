@@ -9,9 +9,19 @@
       initialize: function() {
         return this.render();
       },
+      bind: function() {
+        return $('a.discover').on('click', function(e) {
+          e.preventDefault();
+          console.log($('.tutorial').offset());
+          return $('html, body').animate({
+            scrollTop: $('.tutorial').offset().top + 'px'
+          });
+        });
+      },
       render: function() {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
         this.$el.html(this.template());
+        this.bind();
         md.Router.hideLoader();
         return this;
       }

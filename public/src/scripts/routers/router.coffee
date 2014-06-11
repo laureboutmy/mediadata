@@ -64,7 +64,7 @@ define [
 
 			md.Status['currentView'] = 'search'
 
-			if !md.Views['search-bar'] then @getSearchbar(name)
+			if !md.Views['search-bar'] then @getSearchbar()
 			md.Views['search'] = new SearchView()
 
 		getIndex: () ->

@@ -5,7 +5,7 @@
       <h1>
         <% if(topic1) { %>
           <div class="img"><img src="<%= topic1.picture %>" /></div> <span class="name"><%= topic1.name %></span>
-        <% } else { print('Vous devez choisir un sujet') } %>
+        <% } else { print('Cliquez pour rechercher') } %>
         <% if(topic1) { %> <span class="role">- <%= topic1.role %></span> <% } %></h1>
       <button class="delete"><i class="icon-cross_mark"></i></button>
       <button class="edit"><i class="icon-magnifying"></i>Modifier votre recherche</button>
@@ -21,7 +21,7 @@
       <h1>
         <% if(topic2) { %>
           <div class="img"><img src="<%= topic2.picture %>" /></div> <span class="name"><%= topic2.name %></span>
-        <% } else { print('Vous devez choisir un sujet') } %>
+        <% } else { print('Cliquez pour rechercher') } %>
         <% if(topic2) { %> <span class="role">- <%= topic1.role %></span> <% } %></h1>
       <button class="delete"><i class="icon-cross_mark"></i></button>
       <button class="edit"><i class="icon-magnifying"></i>Modifier votre recherche</button>

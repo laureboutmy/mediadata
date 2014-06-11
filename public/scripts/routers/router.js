@@ -89,7 +89,7 @@
       Router.prototype.getSearch = function() {
         md.Status['currentView'] = 'search';
         if (!md.Views['search-bar']) {
-          this.getSearchbar(name);
+          this.getSearchbar();
         }
         return md.Views['search'] = new SearchView();
       };

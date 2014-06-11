@@ -497,6 +497,19 @@ button { outline: none; cursor: pointer; border: 0; background: transparent; }
 
 button, input, textarea, select { font: 100% "Source Sans Pro", sans-serif; outline: none; }
 
+.all-caps { color: #96b7d9; text-transform: uppercase; font-size: 0.9375em; line-height: 2.66667em; font-weight: 600; letter-spacing: 0.2em; }
+
+.default-icon { margin-top: 50px; color: #1c1f21; font-size: 1.5625em; line-height: 0.625em; font-weight: 700; margin-bottom: 10px; }
+.default-icon i { color: #39b188; font-size: 0.68em; line-height: 0.425em; margin-right: 5px; position: relative; top: -1px; }
+
+p.standard { font-size: 1.1875em; font-family: "chaparral-pro", serif; line-height: 1.57895em; }
+
+.button { display: inline-block; font-size: 0.9375em; line-height: 3.33333em; text-transform: uppercase; padding: 0 40px; color: #fff; text-decoration: none; font-weight: 600; letter-spacing: 0.2em; border-radius: 25px; transition: background 0.3s ease-out; }
+.button.green { border: 1px solid #39b188; background: #39b188; }
+.button.green:hover { border: 1px solid #38a080; background: #38a080; }
+.button.white { border: 1px solid #fff; margin-right: 15px; background: rgba(139, 170, 202, 0); }
+.button.white:hover { background: rgba(139, 170, 202, 0.35); }
+
 /* @end of General*/
 /* @group of Grid */
 .clear { clear: both; }
@@ -624,12 +637,6 @@ section#main article.person section h2, section#main article.comparison section 
 section#main article.person section h2 + p, section#main article.comparison section h2 + p { width: 420px; margin: 0 30px 40px 30px; font-family: "chaparral-pro", serif; color: #6a7d90; font-size: 1.1875em; line-height: 1.57895em; }
 section#main article.home { padding: 0; /* header.introduction */ /* section.tutorial */ }
 section#main article.home h1 { color: #fff; font-size: 4.375em; font-weight: 700; margin-bottom: 10px; }
-section#main article.home h2 { color: #96b7d9; text-transform: uppercase; font-size: 0.9375em; line-height: 2.66667em; font-weight: 600; letter-spacing: 0.2em; }
-section#main article.home a.discover, section#main article.home a.launch { display: inline-block; font-size: 0.9375em; line-height: 3.33333em; text-transform: uppercase; padding: 0 40px; color: #fff; text-decoration: none; font-weight: 600; letter-spacing: 0.2em; border-radius: 25px; transition: background 0.3s ease-out; }
-section#main article.home a.discover { border: 1px solid #fff; margin-right: 15px; background: rgba(139, 170, 202, 0); }
-section#main article.home a.discover:hover { background: rgba(139, 170, 202, 0.35); }
-section#main article.home a.launch { border: 1px solid #39b188; background: #39b188; }
-section#main article.home a.launch:hover { border: 1px solid #38a080; background: #38a080; }
 section#main article.home header.introduction { height: 100vh; background: #33485d; }
 section#main article.home header.introduction div.grid { position: relative; top: 50%; padding: 0 30px; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%); }
 section#main article.home header.introduction p { width: 540px; font-size: 1.1875em; line-height: 1.57895em; font-family: "chaparral-pro", serif; color: #fff; margin-bottom: 40px; }
@@ -637,8 +644,7 @@ section#main article.home header.introduction ul li { display: inline-block; }
 section#main article.home section.tutorial { padding: 130px 0; background: #fff; /* ul */ }
 section#main article.home section.tutorial div.explorer { margin-bottom: 130px; }
 section#main article.home section.tutorial div.library { text-align: right; }
-section#main article.home section.tutorial h3 { margin-top: 50px; color: #1c1f21; font-size: 1.5625em; line-height: 0.625em; font-weight: 700; margin-bottom: 10px; }
-section#main article.home section.tutorial h3 i { color: #39b188; font-size: 0.68em; line-height: 0.425em; margin-right: 5px; position: relative; top: -1px; }
+section#main article.home section.tutorial h3.default-icon { margin-top: 50px; margin-bottom: 10px; }
 section#main article.home section.tutorial p { font-size: 1.1875em; line-height: 1.57895em; color: #6a7d90; font-family: "chaparral-pro", serif; }
 section#main article.home section.tutorial ul { margin-top: 50px; }
 section#main article.home section.tutorial ul li { display: inline-block; width: 40px; height: 40px; border: 1px solid #d9d9d9; border-radius: 3px; margin-right: 10px; text-align: center; font-size: 1.25em; line-height: 2em; color: #cccccc; font-weight: 700; transition: color 0.3s ease-out; }
@@ -648,6 +654,29 @@ section#main article.home footer.start p { color: white; font-size: 1.1875em; li
 section#main article.home footer.start p.scroll { margin: 110px auto 35px; color: #96b7d9; font-style: italic; }
 
 /* section#main */
+article.search { padding-top: 54px; }
+article.search h1 { margin-top: 50px; color: #1c1f21; font-size: 1.5625em; line-height: 0.625em; font-weight: 700; margin-left: 30px; margin-bottom: 10px; }
+article.search h1 i { color: #39b188; font-size: 0.68em; line-height: 0.425em; margin-right: 5px; position: relative; top: -1px; }
+article.search h1 + p { font-size: 1.1875em; line-height: 1.57895em; color: #6a7d90; width: 450px; margin-left: 30px; font-family: "chaparral-pro", serif; }
+article.search ul { margin-top: 25px; overflow: hidden; }
+article.search ul li { border-radius: 4px; overflow: hidden; width: 180px; float: left; margin-right: 30px; margin-bottom: 30px; }
+article.search ul li.no-margin { margin-right: 0; }
+article.search ul li a { display: block; width: 180px; overflow: hidden; text-decoration: none; opacity: 1; transition: opacity 0.3s ease-out; }
+article.search ul li a:hover { opacity: 0.7; }
+article.search ul li img { border-top-left-radius: 4px; border-top-right-radius: 4px; }
+article.search ul li div { text-align: center; border-radius: 4px; border-top-left-radius: 0; border-top-right-radius: 0; border: 1px solid #d9d9d9; padding: 15px 0; border-top: 0; position: relative; top: -4px; }
+article.search ul li div h4 { color: #1c1f21; font-weight: bold; font-size: 0.9375em; margin-bottom: 5px; }
+article.search ul li div p { color: #acb8c0; font-size: 0.9375em; }
+
+article.about div.grid { width: 720px; }
+article.about header { margin-top: 150px; margin-bottom: 130px; }
+article.about h1 { font-weight: 700; color: #1c1f21; font-size: 4.375em; line-height: 0.57143em; text-align: center; margin-bottom: 25px; }
+article.about h2 { text-align: center; color: #96b7d9; text-transform: uppercase; font-size: 0.9375em; line-height: 2.66667em; font-weight: 600; letter-spacing: 0.2em; }
+article.about h2 + p { color: #6a7d90; font-family: "chaparral-pro", serif; font-size: 1.1875em; line-height: 1.57895em; width: 455px; text-align: center; margin: 0 auto; }
+article.about section h3 { color: #1c1f21; font-weight: 700; font-size: 1.5625em; line-height: 1.6em; }
+article.about section p { font-family: "chaparral-pro", serif; font-size: 1.1875em; line-height: 1.57895em; color: #6a7d90; margin-bottom: 30px; }
+article.about section p a { color: #96b7d9; text-decoration: underline; }
+
 article.index header.introduction { background: #33485d; }
 article.index header.introduction div.grid { padding: 60px 30px; }
 article.index header.introduction h1 { color: #fff; font-size: 1.5625em; font-weight: bold; }
@@ -669,7 +698,8 @@ article.index section ul li { border-radius: 4px; overflow: hidden; width: 180px
 article.index section ul li.no-margin { margin-right: 0; }
 article.index section ul li a { display: block; width: 180px; overflow: hidden; text-decoration: none; opacity: 1; transition: opacity 0.3s ease-out; }
 article.index section ul li a:hover { opacity: 0.7; }
-article.index section ul li div { text-align: center; border-radius: 4px; border-top-left-radius: 0; border-top-right-radius: 0; border: 1px solid #d9d9d9; padding: 15px 0; border-top: 0; }
+article.index section ul li img { border-top-left-radius: 4px; border-top-right-radius: 4px; }
+article.index section ul li div { text-align: center; border-radius: 4px; border-top-left-radius: 0; border-top-right-radius: 0; border: 1px solid #d9d9d9; padding: 15px 0; border-top: 0; position: relative; top: -4px; }
 article.index section ul li div h4 { color: #1c1f21; font-weight: bold; font-size: 0.9375em; margin-bottom: 5px; }
 article.index section ul li div p { color: #acb8c0; font-size: 0.9375em; }
 
@@ -721,7 +751,8 @@ section.module.x-with-y ul li { border-radius: 4px; overflow: hidden; width: 180
 section.module.x-with-y ul li.no-margin { margin-right: 0; }
 section.module.x-with-y ul li a { border-radius: 4px; display: block; width: 180px; overflow: hidden; text-decoration: none; opacity: 1; transition: opacity 0.3s ease-out; }
 section.module.x-with-y ul li a:hover { opacity: 0.7; }
-section.module.x-with-y ul li div { position: relative; border-radius: 4px; border-top-left-radius: 0; border-top-right-radius: 0; border: 1px solid #d9d9d9; padding: 15px 0 15px 55px; border-top: 0; }
+section.module.x-with-y ul li img { border-top-left-radius: 4px; border-top-right-radius: 4px; }
+section.module.x-with-y ul li div { position: relative; border-radius: 4px; border-top-left-radius: 0; border-top-right-radius: 0; border: 1px solid #d9d9d9; padding: 15px 0 15px 55px; border-top: 0; position: relative; top: -4px; }
 section.module.x-with-y ul li div span.number { display: block; text-align: center; width: 55px; position: absolute; left: 0; font-family: "chaparral-pro", serif; font-size: 1.5em; color: #1c1f21; line-height: 1.66667em; font-weight: bold; }
 section.module.x-with-y ul li div h4 { color: #1c1f21; font-weight: bold; font-size: 0.9375em; margin-bottom: 5px; }
 section.module.x-with-y ul li div p { color: #acb8c0; font-size: 0.9375em; }
