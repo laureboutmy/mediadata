@@ -1014,10 +1014,10 @@ section.module {
 			font-size: em(15px);
 			font-weight: 700;
 			&:first-of-type {
-				color: #2781bb;
+				color: #29b988;
 			}
 			&:last-of-type {
-				color: #29b988;
+				color: #2781bb;
 			}
 			span {
 				display: block;
@@ -1045,10 +1045,10 @@ section.module {
 				height: 12px;
 			}
 			&:first-of-type:before {
-				background-color: #2781bb;
+				background-color: #29b988;
 			}
 			&:last-of-type:before {
-				background-color: #29b988;
+				background-color: #2781bb;
 			}
 		}
 
@@ -1074,11 +1074,11 @@ section.module {
 			& > ul {
 				color: #6a7d90;
 				height: 37px;
-				overflow-y: hidden;
+				overflow: hidden;
 				font-size: em(14px);
 
 				&.active {
-					overflow-y: visible;
+					overflow: visible;
 				}
 
 				ul {
@@ -1166,6 +1166,7 @@ section.module {
 		}
 
 		hr {
+			display: inline-block;
 			border: 0;
 			width: 100%;
 			height: 1px;

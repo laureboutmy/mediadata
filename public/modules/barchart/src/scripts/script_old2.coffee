@@ -9,27 +9,8 @@ x = d3.scale.ordinal()
 y = d3.scale.linear()
     .range([height, 0])
 
-
-d3.json 'person-' + person + '.json', (error, data) ->
-  if error then return console.warn(error)
-
-  #parseInt JSON data
-  for d,i in data.channels
-    d.channelCount = +d.channelCount
-
-
-  x.domain(data.channels.map((d) -> d.channelName))
-  y.domain([0, d3.max(data.channels, (d) -> d.channelCount)])
-
-  yAxis = undefined
-
-  bar_svg = d3.select('body')
-          .append('svg')
-            .attr('id', 'barchart')
-            .attr('width', width)
-            .attr('height', height+margin.top+margin.bottom)
-
-  ## TOOLTIP ##
+drawTooltip = (data) ->
+## TOOLTIP ##
   # Filtre servant à faire l'ombre du tooltip
   bar_svg.append('filter')
       .attr('id', 'f1')
@@ -91,11 +72,30 @@ d3.json 'person-' + person + '.json', (error, data) ->
         .attr('y', (d) -> y(d.channelCount)-20)
         .html((d) -> d.channelCount)
 
+
+d3.json 'person-' + person + '.json', (error, data) ->
+  if error then return console.warn(error)
+
+  #parseInt JSON data
+  for d,i in data.channels
+    d.channelCount = +d.channelCount
+
+
+  x.domain(data.channels.map((d) -> d.channelName))
+  y.domain([0, d3.max(data.channels, (d) -> d.channelCount)])
+
   yAxis = d3.svg.axis()
         .scale y
         .orient 'left'
         .ticks 4
         .tickSize(-width, 0, 0)
+
+
+  bar_svg = d3.select('body')
+        .append('svg')
+          .attr('id', 'barchart')
+          .attr('width', width)
+          .attr('height', height+margin.top+margin.bottom)
 
   bar_svg.append('g')
         .attr('class', 'grid')
@@ -122,6 +122,7 @@ d3.json 'person-' + person + '.json', (error, data) ->
         .attr('width', 70)
         .attr('x', (d,i) -> x(d.channelName)+10)
         .attr('y', height)
+
 
 
 ## FIN - TOOLTIP ##

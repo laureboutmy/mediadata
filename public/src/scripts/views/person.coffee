@@ -9,8 +9,9 @@ define [
 	'../views/modules/top-5'
 	'../views/modules/timeline'
 	'../views/modules/clock'
+	'../views/modules/bar'
 	'../views/modules/x-with-y'
-], ($, _, Backbone, md, PersonsCollection, PersonModel, tplPerson, Top5View, TimelineView, ClockView, XWithYView) ->
+], ($, _, Backbone, md, PersonsCollection, PersonModel, tplPerson, Top5View, TimelineView, ClockView, BarView, XWithYView) ->
 	'use strict'
 	class PersonView extends Backbone.View
 		el: '#main'
@@ -30,6 +31,7 @@ define [
 			@top5 = new Top5View()
 			@timeline = new TimelineView()
 			@clock = new ClockView()
+			@bar = new BarView()
 			@xWithY = new XWithYView()
 			
 			@renderModules(data)
@@ -72,6 +74,7 @@ define [
 			@top5.render({ popularChannels: data.popularChannels, popularShows: data.popularShows })
 			@timeline.render({ person1: { name: data.person.name, timelineMentions: data.timelineMentions }})
 			@clock.render({ broadcastHoursByDay: data.broadcastHoursByDay })
+			@bar.render({ channels: data.channels })
 			@xWithY.render({ persons: data.seenWith })
 		
 		onResize: () ->
