@@ -8,37 +8,62 @@
         {
             "channelName": "TF1",
             "anne-hidalgo": 200,
-            "christiane-taubira": 600
+            "christiane-taubira": 600,
+            "channelLogo": "http://upload.wikimedia.org/wikipedia/de/5/55/TF1-Logo.svg"
         },
         {
             "channelName": "France 2",
             "anne-hidalgo": 300,
-            "christiane-taubira": 179
+            "christiane-taubira": 179,
+            "channelLogo": "http://upload.wikimedia.org/wikipedia/de/5/55/TF1-Logo.svg"
         },
         {
             "channelName": "France 3",
             "anne-hidalgo": 23,
-            "christiane-taubira": 144
+            "christiane-taubira": 144,
+            "channelLogo": "http://upload.wikimedia.org/wikipedia/de/5/55/TF1-Logo.svg"
         },
         {
             "channelName": "M6",
             "anne-hidalgo": 500,
-            "christiane-taubira": 670
+            "christiane-taubira": 670,
+            "channelLogo": "http://upload.wikimedia.org/wikipedia/de/5/55/TF1-Logo.svg"
         },
         {
             "channelName": "Canal Plus",
             "anne-hidalgo": 300,
-            "christiane-taubira": 179
+            "christiane-taubira": 179,
+            "channelLogo": "http://upload.wikimedia.org/wikipedia/de/5/55/TF1-Logo.svg"
         },
         {
             "channelName": "Eurosport",
             "anne-hidalgo": 0,
-            "christiane-taubira": 0
+            "christiane-taubira": 0,
+            "channelLogo": "http://upload.wikimedia.org/wikipedia/de/5/55/TF1-Logo.svg"
         },
         {
             "channelName": "BFM",
-            "anne-hidalgo": 0,
-            "christiane-taubira": 0
+            "anne-hidalgo": 10,
+            "christiane-taubira": 100,
+            "channelLogo": "http://upload.wikimedia.org/wikipedia/de/5/55/TF1-Logo.svg"
+        },
+        {
+            "channelName": "LCI",
+            "anne-hidalgo": 40,
+            "christiane-taubira": 22,
+            "channelLogo": "http://upload.wikimedia.org/wikipedia/de/5/55/TF1-Logo.svg"
+        },
+        {
+            "channelName": "ARTE",
+            "anne-hidalgo": 55,
+            "christiane-taubira": 4,
+            "channelLogo": "http://upload.wikimedia.org/wikipedia/de/5/55/TF1-Logo.svg"
+        },
+        {
+            "channelName": "France O",
+            "anne-hidalgo": 89,
+            "christiane-taubira": 36,
+            "channelLogo": "http://upload.wikimedia.org/wikipedia/de/5/55/TF1-Logo.svg"
         }
 
     ]

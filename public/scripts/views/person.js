@@ -96,7 +96,8 @@
           broadcastHoursByDay: data.broadcastHoursByDay
         });
         this.bar.render({
-          channels: data.channels
+          channels: data.channels,
+          name: data.person.name
         });
         return this.xWithY.render({
           persons: data.seenWith
