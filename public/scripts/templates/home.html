@@ -1,13 +1,17 @@
 <article class="home">
 	<header class="introduction">
+		<video autoplay="autoplay" loop muted>
+			<source src="videos/background.mp4" type="video/mp4" />
+			<source src="videos/background.mp4" type="video/ogg" />
+		</video>
 		<div class="grid">
 			<h1>MediaData</h1>
-			<h2>explorateur et comparateur d’exposition médiatique</h2>
+			<h2 class="all-caps">explorateur et comparateur d’exposition médiatique</h2>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. Enim ad minim veniam, quis nostrud exercitation.</p>
 			<nav>
 				<ul>
-					<li><a href="" class="discover">Découvrir</a></li>
-					<li><a href="" data-link="<%= person.slug %>" class="launch">Lancer Mediadata</a></li>
+					<li><a href="#" class="button white discover">Découvrir</a></li>
+					<li><a href="rechercher" data-link="rechercher" class="button green">Lancer Mediadata</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -16,7 +20,7 @@
 		<div class="grid">
 			<div class="unit left explorer"><img src="http://placekitten.com/g/480/290" alt="" /></div>
 			<div class="unit right">
-				<h3><i class="icon-chart"></i>Explorer</h3>
+				<h3 class="default-icon"><i class="icon-chart"></i>Explorer</h3>
 				<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 				<ul>
 					<li>1</li>
@@ -26,7 +30,7 @@
 			</div>
 			<div class="clear"></div>
 			<div class="unit left library">
-				<h3><i class="icon-reorder_square"></i>Bibliothèque de fiches</h3>
+				<h3 class="default-icon"><i class="icon-reorder_square"></i>Bibliothèque de fiches</h3>
 				<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
 			</div>
 			
@@ -34,9 +38,9 @@
 		</div>
 	</section>
 	<footer class="start">
-		<h2>commencez à rechercher une fiche</h2>
+		<h2 class="all-caps">commencez à rechercher une fiche</h2>
 		<p>Commencez à rechercher une fiche ou continuez à descendre pour lancer une comparaison.</p>
-		<a href="" class="launch">Lancer Mediadata</a>
+		<a href="rechercher" data-link="rechercher" class="button green">Lancer Mediadata</a>
 		<p class="scroll">Pour lancer une comparaison d’exemple, continuez à descendre.</p>
 	</footer>
 </article>
