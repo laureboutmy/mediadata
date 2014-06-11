@@ -35,19 +35,29 @@ define [
 			$(window).on('resize', @onResize)
 
 		home: () ->
-			md.Router.showLoader()
+			@showLoader()
+			@hideSearchbar()
 			md.Views['home'] = new HomeView()
 			md.Views['home'].render()
 
-		getSearchbar: (name1 = null, name2 = null) ->
+		getSearchbar: (name1 = null, name2 = null, isSearch = null) ->
 			if !md.Views['search-bar'] 
 				require ['views/search-bar'], (SearchbarView) =>
-					md.Views['search-bar'] = new SearchbarView({name1: name1, name2: name2})
+					if isSearch 
+						md.Views['search-bar'] = new SearchbarView({isSearch: isSearch})
+					else 
+						md.Views['search-bar'] = new SearchbarView({name1: name1, name2: name2})
+
 					$(md.Views['search-bar'].el).addClass('visible')
 			else
-				md.Views['search-bar'].render({name1: name1, name2: name2})
+				if isSearch
+					md.Views['search-bar'].render({isSearch: isSearch})
+				else 
+					md.Views['search-bar'].render({name1: name1, name2: name2})
+				
 				$(md.Views['search-bar'].el).addClass('visible')
-
+		hideSearchbar: () ->
+			if md.Views['search-bar'] then $(md.Views['search-bar'].el).removeClass('visible')
 		getFilters: () ->
 			if !md.Views['filters'] 
 				require ['views/filters'], (FiltersView) =>
@@ -64,7 +74,7 @@ define [
 
 			md.Status['currentView'] = 'search'
 
-			if !md.Views['search-bar'] then @getSearchbar()
+			@getSearchbar(null, null, true)
 			md.Views['search'] = new SearchView()
 
 		getIndex: () ->

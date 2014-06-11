@@ -36,11 +36,13 @@
       };
 
       IndexView.prototype.bind = function() {
-        return $(window).on('scroll', this.stickNavigation).on('resize', this.onResize);
+        $(window).on('scroll', this.stickNavigation).on('resize', this.onResize);
+        return $('nav.alphabet li').on('click', this.scrollToLetter);
       };
 
       IndexView.prototype.unbind = function() {
-        return $(window).off('scroll', this.stickNavigation).off('resize', this.onResize);
+        $(window).off('scroll', this.stickNavigation).off('resize', this.onResize);
+        return $('nav.alphabet li').off('click', this.scrollToLetter);
       };
 
       IndexView.prototype.render = function() {
@@ -54,11 +56,32 @@
         return this.unbind();
       };
 
+      IndexView.prototype.scrollToLetter = function(e) {
+        e.preventDefault();
+        console.log($(this).data('letter'));
+        $('nav.alphabet li.active').removeClass('active');
+        $(this).addClass('active');
+        return $('html, body').animate({
+          scrollTop: $('h3[data-letter=' + $(this).data('letter') + ']').offset().top - 70 + 'px'
+        });
+      };
+
       IndexView.prototype.stickNavigation = function() {
+        var letter;
         if ($(window).scrollTop() > $('header.introduction').outerHeight()) {
-          return $('nav.alphabet').addClass('fixed');
+          $('nav.alphabet').addClass('fixed');
         } else {
-          return $('nav.alphabet').removeClass('fixed');
+          $('nav.alphabet').removeClass('fixed');
+        }
+        letter = null;
+        _.each($('h3[data-letter]'), function(el) {
+          if ($(el).offset().top - 200 < $(window).scrollTop()) {
+            return letter = $(el).data('letter');
+          }
+        });
+        if (letter) {
+          $('nav.alphabet li.active').removeClass('active');
+          return $('li[data-letter=' + letter + ']').addClass('active');
         }
       };
 

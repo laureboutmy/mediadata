@@ -7,16 +7,20 @@
       el: '#main',
       template: _.template(tplHome),
       initialize: function() {
+        md.Status['currentView'] = 'home';
         return this.render();
       },
       bind: function() {
-        return $('a.discover').on('click', function(e) {
-          e.preventDefault();
-          console.log($('.tutorial').offset());
-          return $('html, body').animate({
-            scrollTop: $('.tutorial').offset().top + 'px'
-          });
+        return $('a.discover').on('click', this.scrollToTutorial);
+      },
+      scrollToTutorial: function(e) {
+        e.preventDefault();
+        return $('html, body').animate({
+          scrollTop: $('.tutorial').offset().top + 'px'
         });
+      },
+      destroy: function() {
+        return $('a.discover').off('click', this.scrollToTutorial);
       },
       render: function() {
         document.body.scrollTop = document.documentElement.scrollTop = 0;

@@ -8,7 +8,7 @@
         <% } else { print('Cliquez pour rechercher') } %>
         <% if(topic1) { %> <span class="role">- <%= topic1.role %></span> <% } %></h1>
       <button class="delete"><i class="icon-cross_mark"></i></button>
-      <button class="edit"><i class="icon-magnifying"></i>Modifier votre recherche</button>
+      <button class="edit"><i class="icon-magnifying"></i><% if(isSearch){ print('Rechercher une fiche personnalité') } else { print('Modifier votre recherche') } %></button>
       <form class="search">
         <label for="name-1"><i class="icon-magnifying_plus"></i>Rechercher :</label>
         <input id="name-1" type="text" autocomplete="off" placeholder="Entrez un nom" />

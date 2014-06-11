@@ -29,6 +29,7 @@
       SearchbarView.prototype.currentText = null;
 
       SearchbarView.prototype.initialize = function(options) {
+        console.log(options);
         this.collection = new TopicsCollection();
         return this.collection.fetch({
           success: (function(_this) {
@@ -61,6 +62,12 @@
           this.topics.topic1 = null;
           this.topics.topic2 = null;
         }
+        if (options.isSearch) {
+          this.topics['isSearch'] = true;
+        } else {
+          this.topics['isSearch'] = false;
+        }
+        console.log(this.topics);
         this.$el.html(this.template(this.topics));
         if (this.topics.topic1 && this.topics.topic2) {
           this.$el.addClass('comparison').find('section.person').addClass('visible');

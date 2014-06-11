@@ -19,6 +19,7 @@ define [
 		currentText: null
 
 		initialize: (options) ->
+			console.log(options)
 			@collection = new TopicsCollection()
 			@collection.fetch 
 				success: () =>
@@ -36,8 +37,11 @@ define [
 			if !options.name2 && !options.name1 
 				@topics.topic1 = null
 				@topics.topic2 = null
-
+			if options.isSearch then @topics['isSearch'] = true
+			else @topics['isSearch'] = false
+			console.log(@topics)
 			@$el.html(@template(@topics))
+
 			# render Sidebar if comparison or search
 			if @topics.topic1 && @topics.topic2 then @$el.addClass('comparison').find('section.person').addClass('visible')
 			else if !@topics.topic1 && !@topics.topic2 then @$el.addClass('search')

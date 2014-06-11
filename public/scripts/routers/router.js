@@ -35,34 +35,56 @@
       };
 
       Router.prototype.home = function() {
-        md.Router.showLoader();
+        this.showLoader();
+        this.hideSearchbar();
         md.Views['home'] = new HomeView();
         return md.Views['home'].render();
       };
 
-      Router.prototype.getSearchbar = function(name1, name2) {
+      Router.prototype.getSearchbar = function(name1, name2, isSearch) {
         if (name1 == null) {
           name1 = null;
         }
         if (name2 == null) {
           name2 = null;
         }
+        if (isSearch == null) {
+          isSearch = null;
+        }
         if (!md.Views['search-bar']) {
           return require(['views/search-bar'], (function(_this) {
             return function(SearchbarView) {
-              md.Views['search-bar'] = new SearchbarView({
-                name1: name1,
-                name2: name2
-              });
+              if (isSearch) {
+                md.Views['search-bar'] = new SearchbarView({
+                  isSearch: isSearch
+                });
+              } else {
+                md.Views['search-bar'] = new SearchbarView({
+                  name1: name1,
+                  name2: name2
+                });
+              }
               return $(md.Views['search-bar'].el).addClass('visible');
             };
           })(this));
         } else {
-          md.Views['search-bar'].render({
-            name1: name1,
-            name2: name2
-          });
+          if (isSearch) {
+            md.Views['search-bar'].render({
+              isSearch: isSearch
+            });
+          } else {
+            md.Views['search-bar'].render({
+              name1: name1,
+              name2: name2
+            });
+          }
           return $(md.Views['search-bar'].el).addClass('visible');
+        }
+      };
+
+      Router.prototype.hideSearchbar = function() {
+        if (md.Views['search-bar']) {
+          return $(md.Views['search-bar'].el).removeClass('visible');
         }
       };
 
@@ -88,9 +110,7 @@
 
       Router.prototype.getSearch = function() {
         md.Status['currentView'] = 'search';
-        if (!md.Views['search-bar']) {
-          this.getSearchbar();
-        }
+        this.getSearchbar(null, null, true);
         return md.Views['search'] = new SearchView();
       };
 
