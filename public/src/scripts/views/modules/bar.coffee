@@ -11,7 +11,7 @@ define [
     template: _.template(tplBar)
 
     margin = {top: 60, right: 20, bottom: 60, left: 40}
-    width = 1020
+    width = 1018
     height = 355
     x = d3.scale.ordinal()
         .rangeRoundBands([0, width], .1)
@@ -23,7 +23,8 @@ define [
         .append('svg')
           .attr('id', 'barchart')
           .attr('width', width)
-          .attr('height', height+margin.top+margin.bottom)
+          # .attr('height', height+margin.top+margin.bottom)
+          .attr('height', height)
 
     yAxis = d3.svg.axis()
           .scale y
@@ -34,6 +35,10 @@ define [
     getScale: (data) ->
       x.domain(data.channels.map((d) -> d.channelName))
       y.domain([0, d3.max(data.channels, (d) -> d.channelCount)])
+
+    getTotals: (data) ->
+      $('.module.bar h4').html(data.name)
+
 
     drawContent: (data) ->
       #parseInt JSON data
@@ -49,13 +54,14 @@ define [
             .data(data.channels)
           .enter().append('g')
             .attr('class', 'bar-g')
-            .attr('transform', 'translate(0,'+margin.top+')')
+            # .attr('transform', 'translate(0,'+margin.top+')')
           .append('rect')
             .attr('class', 'bar')
             .attr('x', (d,i) -> x(d.channelName)+27)
             .attr('width', 35)
             .attr('y', (d) -> y(d.channelCount))
             .attr('height', (d,i) -> height-y(d.channelCount))
+            .attr('transform', 'translate(0,'+margin.top+')')
 
       d3.select('#barchart').selectAll('g.bar-g')
             .data(data.channels)
@@ -70,7 +76,7 @@ define [
       ## TOOLTIP ##
       # Filtre servant à faire l'ombre du tooltip
       d3.select('#barchart').append('filter')
-          .attr('id', 'f1')
+          .attr('id', 'f')
           .attr('width', '150%')
           .attr('height', '150%')
         .append('feOffset')
@@ -93,7 +99,7 @@ define [
             .attr('height', 45)
             .attr('width', 76)
             .attr('x', (d,i) -> x(d.channelName)+5)
-            .attr('y', (d) -> y(d.channelCount)-55)
+            .attr('y', (d) -> y(d.channelCount)+7)
             .attr('rx', 20)
             .attr('ry', 25)
 
@@ -105,7 +111,7 @@ define [
             .attr('height', 45)
             .attr('width', 76)
             .attr('x', (d,i) -> x(d.channelName)+5)
-            .attr('y', (d) -> y(d.channelCount)-55)
+            .attr('y', (d) -> y(d.channelCount)+5)
             .attr('rx', 20)
             .attr('ry', 25)
 
@@ -115,8 +121,8 @@ define [
           .data(data.channels)
             .attr('text-anchor', 'middle')
             .attr('class', 'tooltip name')
-            .attr('x', (d,i) -> x(d.channelName)+(x.rangeBand()/2)-3)
-            .attr('y', (d) -> y(d.channelCount)-35)
+            .attr('x', (d,i) -> x(d.channelName)+42)
+            .attr('y', (d) -> y(d.channelCount)+25)
             .text((d) -> d.channelName)
 
       # Nombre de mentions par chaines
@@ -125,17 +131,19 @@ define [
           .data(data.channels)
             .attr('text-anchor', 'middle')
             .attr('class', 'tooltip count')
-            .attr('x', (d,i) -> x(d.channelName)+(x.rangeBand()/2)-3)
-            .attr('y', (d) -> y(d.channelCount)-20)
+            .attr('x', (d,i) -> x(d.channelName)+42)
+            .attr('y', (d) -> y(d.channelCount)+40)
             .html((d) -> d.channelCount)
 
     render: (data) -> 
-      console.log(data)
+      console.log 'remy Data ->', data
 
       @$el.html(@template())
       @svg()
       @getScale(data)
       @drawContent(data)
       @drawTooltip(data)
+      @getTotals(data)
+      # @filter()
 
 

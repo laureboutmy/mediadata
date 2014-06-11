@@ -6,13 +6,13 @@
 
   person2 = 'christiane-taubira';
 
-  diameter = 720;
+  diameter = 1000;
 
   radius = diameter / 2;
 
   innerRadius = radius - 120;
 
-  cluster = d3.layout.cluster().size([360, innerRadius]).sort(null).value(function(d) {
+  cluster = d3.layout.cluster().size([180, innerRadius]).sort(null).value(function(d) {
     return d.size;
   });
 
@@ -24,7 +24,7 @@
     return d.x / 180 * Math.PI;
   });
 
-  svg = d3.select('body').append('svg').attr('width', diameter).attr('height', diameter).append('g').attr('class', 'g-round').attr('transform', 'translate(' + radius + ',' + radius + ')');
+  svg = d3.select('body').append('svg').attr('width', diameter).attr('height', diameter / 2).append('g').attr('class', 'g-round').attr('transform', 'translate(' + radius + ',' + radius + ')rotate(' + -90 + ')');
 
   link = svg.append('g').selectAll('.link');
 
@@ -43,12 +43,12 @@
     })).enter().append('text').attr('class', function(d) {
       return 'node ' + d["class"];
     }).attr('dy', '.31em').attr("transform", function(d) {
-      return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)");
+      return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 70 ? "rotate(180)" : "");
     }).style('text-anchor', function(d) {
-      if (d.x < 180) {
-        return "start";
-      } else {
+      if (d.x < 70) {
         return "end";
+      } else {
+        return "start";
       }
     }).text(function(d) {
       return d.key;
@@ -59,13 +59,20 @@
     node.each(function(n) {
       return n.target = n.source = false;
     });
-    link.classed("link--target", function(l) {
+    link.classed("link-good", function(l) {
       if (l.target === d) {
         return l.source.source = true;
-      }
-    }).classed("link--source", function(l) {
-      if (l.source === d) {
+      } else if (l.source === d) {
         return l.target.target = true;
+      }
+    }).classed("link-bad", function(l) {
+      if (l.target === d) {
+        return l.source.source = false;
+      } else if (l.source === d) {
+        return l.target.target = false;
+      } else {
+        l.target.bad = true;
+        return l.source.bad = true;
       }
     }).filter(function(l) {
       return l.target === d || l.source === d;
@@ -80,7 +87,7 @@
   };
 
   mouseouted = function(d) {
-    link.classed("link--target", false).classed("link--source", false);
+    link.classed("link-good", false).classed("link-bad", false);
     node.classed("node--target", false).classed("node--source", false);
   };
 

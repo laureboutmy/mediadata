@@ -1,12 +1,12 @@
 person1 = 'anne-hidalgo'
 person2 = 'christiane-taubira'
 
-diameter = 720
+diameter = 1000
 radius = diameter / 2
 innerRadius = radius - 120
 
 cluster = d3.layout.cluster()
-    .size([360, innerRadius])
+    .size([180, innerRadius])
     .sort(null)
     .value((d) -> d.size)
 
@@ -21,10 +21,10 @@ line = d3.svg.line.radial()
 svg = d3.select('body')
     .append('svg')
       .attr('width', diameter)
-      .attr('height', diameter)
+      .attr('height', diameter/2)
     .append('g')
       .attr('class', 'g-round')
-      .attr('transform', 'translate('+ radius + ',' + radius + ')')
+      .attr('transform', 'translate('+ radius + ',' + radius + ')rotate('+ -90 + ')')
 
 link = svg.append('g').selectAll('.link')
 node = svg.append('g').selectAll('.node')
@@ -49,8 +49,8 @@ d3.json 'readme_team.json', (error, classes) ->
     .enter().append('text')
       .attr('class', (d) -> 'node ' + d.class)
       .attr('dy', '.31em')
-      .attr("transform", (d) -> "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + ((if d.x < 180 then "" else "rotate(180)")))
-      .style('text-anchor', (d) -> (if d.x < 180 then "start" else "end"))
+      .attr("transform", (d) -> "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + ((if d.x < 70 then "rotate(180)" else "")))
+      .style('text-anchor', (d) -> (if d.x < 70 then "end" else "start"))
       .text((d) -> d.key)
       .on('mouseover', mouseovered)
       .on('mouseout', mouseouted)
@@ -63,8 +63,24 @@ mouseovered = (d) ->
       .each((n) -> n.target = n.source = false)
 
   link
-      .classed("link--target", (l) -> l.source.source = true  if l.target is d)
-      .classed("link--source", (l) -> l.target.target = true  if l.source is d)
+      .classed("link-good", (l) -> 
+        if l.target is d
+          l.source.source = true
+        else if l.source is d 
+          l.target.target = true
+
+      )
+      .classed("link-bad", (l) -> 
+        if l.target is d
+          l.source.source = false
+        else if l.source is d 
+          l.target.target = false
+        else 
+          l.target.bad = true
+          l.source.bad = true
+
+      )
+      # .classed("link--target", (l) -> l.target.target = true  if l.source is d)
       .filter((l) -> l.target is d or l.source is d)
       .each -> @parentNode.appendChild this
 
@@ -77,8 +93,8 @@ mouseovered = (d) ->
 
 mouseouted = (d) ->
   link
-      .classed("link--target", false)
-      .classed("link--source", false)
+      .classed("link-good", false)
+      .classed("link-bad", false)
   node
       .classed("node--target", false)
       .classed("node--source", false)

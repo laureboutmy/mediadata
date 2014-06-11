@@ -5,6 +5,13 @@ text { font-family: 'Source Sans Pro', sans-serif; font-size: 15px;
 
 svg { border: 1px solid rgba(217,217,217,1); border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;  }
 
-/*rect { fill: rgba(41,185,136,.6); transition: all .4s; }*/
+.tick { stroke: #d9d9d9; }
 
-rect:hover { fill: rgba(41,185,136,1); }
+/*rect { fill: rgba(41,185,136,.6); transition: all .4s; }*/
+rect{ transition: all .6s; }
+
+g.person1 rect { fill: rgba(41,185,136,.5); }
+g.person2 rect { fill: rgba(39,129,187,.5); }
+
+g.person1 rect:hover { fill: rgba(41,185,136,1); }
+g.person2 rect:hover { fill: rgba(39,129,187,1); }
