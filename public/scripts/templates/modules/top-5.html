@@ -13,7 +13,7 @@
   <ol>
     <% _.each(popularShows, function(show){ %>
     <li>
-      <img src="images/show--grand-journal.jpg" />
+      <img src="<%= show.showPicture %>" />
       <!-- <span class="total"></span> -->
       <h3><% if(show.showName.length > 35) { print(show.showName.slice(0, 38) + '...') } else print(show.showName) %></h3>
       <span class="value"><%= show.showCount %></span>
@@ -34,7 +34,7 @@
   <ol>
     <% _.each(popularChannels, function(channel){ %>
     <li>
-      <img src="images/show--grand-journal.jpg" />
+      <img src="<%= channel.channelPicture %>" />
       <!-- <span class="total"></span> -->
       <h3><% if(channel.channelName.length > 35) { print(channel.channelName.slice(0, 38) + '...') } else print(channel.channelName) %></h3>
       <span class="value"><%= channel.channelCount %></span>

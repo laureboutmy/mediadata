@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', '../views/home', '../views/person', '../views/comparison', '../views/search', '../views/index', '../views/about', '../views/suggestions'], function($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView, SearchView, IndexView, AboutView, SuggestionsView) {
+  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', '../views/home', '../views/person', '../views/comparison', '../views/search', '../views/index', '../views/about', '../views/contact'], function($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView, SearchView, IndexView, AboutView, ContactView) {
     'use strict';
     var Router;
     return Router = (function(_super) {
@@ -17,7 +17,7 @@
         '': 'home',
         'rechercher': 'getSearch',
         'a-propos': 'getAbout',
-        'suggestions': 'getSuggestions',
+        'contact': 'getContact',
         'index': 'getIndex',
         ':person': 'getPerson',
         ':person/:otherPerson': 'getComparison'
@@ -130,6 +130,15 @@
           $(md.Views['search-bar'].el).removeClass('visible');
         }
         return md.Views['about'] = new AboutView();
+      };
+
+      Router.prototype.getContact = function() {
+        md.Router.showLoader();
+        md.Status['currentView'] = 'contact';
+        if (md.Views['search-bar']) {
+          $(md.Views['search-bar'].el).removeClass('visible');
+        }
+        return md.Views['contact'] = new ContactView();
       };
 
       Router.prototype.getComparison = function(name1, name2) {

@@ -39,12 +39,12 @@ define [
 				@topics.topic2 = null
 			if options.isSearch then @topics['isSearch'] = true
 			else @topics['isSearch'] = false
-			console.log(@topics)
+
 			@$el.html(@template(@topics))
 
 			# render Sidebar if comparison or search
 			if @topics.topic1 && @topics.topic2 then @$el.addClass('comparison').find('section.person').addClass('visible')
-			else if !@topics.topic1 && !@topics.topic2 then @$el.addClass('search')
+			else if @topics['isSearch'] then @$el.removeClass('comparison').addClass('search')
 			else 
 				@$el.removeClass('search')
 				@$el.removeClass('comparison')

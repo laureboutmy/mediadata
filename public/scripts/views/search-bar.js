@@ -67,12 +67,11 @@
         } else {
           this.topics['isSearch'] = false;
         }
-        console.log(this.topics);
         this.$el.html(this.template(this.topics));
         if (this.topics.topic1 && this.topics.topic2) {
           this.$el.addClass('comparison').find('section.person').addClass('visible');
-        } else if (!this.topics.topic1 && !this.topics.topic2) {
-          this.$el.addClass('search');
+        } else if (this.topics['isSearch']) {
+          this.$el.removeClass('comparison').addClass('search');
         } else {
           this.$el.removeClass('search');
           this.$el.removeClass('comparison');
