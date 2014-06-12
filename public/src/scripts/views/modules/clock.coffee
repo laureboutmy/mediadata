@@ -14,8 +14,8 @@ define [
 		days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 		daysFR = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche']
 		# Filter dimensions
-		fw = 125
-		fh = 40
+		fw = 105
+		fh = 28
 		# Width of the whole visualization; used for centering
 		visWidth = 180
 		visHeight = 350
@@ -32,16 +32,40 @@ define [
 				.outerRadius (d) -> if d.mentions > 0 then o.to d else 0
 
 		# Do mouseout in a func to get current maxHourValue
-		mouseOut: (maxHourValue) ->
+		mouseOut: (currentDay, data) ->
+			mentionsByDayValue = @getMentionsByDay(data,true,currentDay)
 			d3.selectAll @$el
 				.selectAll 'path'
 				.on 'mouseout', (d) ->
 					d3.select @.parentNode.parentNode 
 						.select '.center .time'
-						.text maxHourValue[1] + ' heures'
+						.text 'Total :'
 					d3.select @.parentNode.parentNode 
 						.select '.center .value'
-						.text maxHourValue[0]
+						.text mentionsByDayValue
+
+		mouseOver: (currentDay, data) ->
+			console.log 'hoi:', data
+			mentionsByDayValue = @getMentionsByDay(data,true,currentDay)
+			d3.selectAll @$el
+				.selectAll 'path'
+				.on 'mouseover', (d) ->
+					d3.select @.parentNode.parentNode
+						.select '.center .time'
+						.text d.hour + ' heures'
+					d3.select @.parentNode.parentNode 
+						.select '.center .value'
+						.text Math.round((d.mentions / mentionsByDayValue * 100) * 100) / 100 + ' %'
+
+		getTotal: (data) ->
+			total = 0
+			for d,i in data.broadcastHoursByDay
+					total += d.broadcastCount
+			return total
+
+		getPercent: (value,data) ->
+			total = @getTotal(data)
+			return Math.round(((value / total) * 100) * 100) / 100
 
 		# Append SVG containers
 		svg: () ->
@@ -60,6 +84,12 @@ define [
 				.attr('width', fw)
 				.attr('height', fh)
 
+			# Append SVG container for filter letters
+			d3.selectAll(@$el).append('svg')
+				.attr('id', 'letters')
+				.attr('width', fw)
+				.attr('height', fh)
+
 			# Append SVG container for clock
 			d3.selectAll(@$el).append('svg')
 				.attr('id', 'clockchart')
@@ -72,12 +102,13 @@ define [
 				d.broadcastHour = +d.broadcastHour
 				d.broadcastCount = +d.broadcastCount
 
-		# Append main label text
-		appendMainLabel: (data) ->
+		getMentionsByDay: (data,mouseover,currentDay) ->
+			console.log data
 			mentionsByDay = []
 			for i in [1 .. 7]
 				mentionsByDay.push {mentions: 0}
 
+			console.log mentionsByDay
 			# Fill-in mentionsByDay
 			for d,i in data.broadcastHoursByDay
 				for d2,i2 in days
@@ -85,15 +116,24 @@ define [
 						mentionsByDay[i2].mentions += d.broadcastCount
 						mentionsByDay[i2].day = d2
 
+			if mouseover is true
+				return mentionsByDay[currentDay].mentions
+			else
+				return mentionsByDay
+
+		# Append main label text
+		appendMainLabel: (data) ->
+			mentionsByDay = @getMentionsByDay data
+
 			d3.selectAll(@$el).select('#mainlabel').append('svg:text')
 				.attr('class', 'value')
 				.attr('x', '0').attr('y', '16')
-				.text(mentionsByDay[0].mentions)
+				.text Math.round(((mentionsByDay[0].mentions / @getTotal data) * 100) * 100) / 100 + ' %'
 
 			d3.selectAll(@$el).select('#mainlabel').append('svg:text')
 				.attr('class', 'time')
 				.attr('x', '0').attr('y', '40')
-				.text('Mentions horaires le ' + daysFR[0])
+				.text('des mentions totales le ' + daysFR[0])
 
 		# Append filter chart
 		drawFilter: (data) ->
@@ -130,7 +170,7 @@ define [
 						.attr 'width', xScale.rangeBand()
 						.attr 'height', (d) -> return yScale d.mentions
 						.attr 'class', 'bar'
-						.attr 'name', (d) -> d.day
+						# .attr 'id', (d) -> d.day
 					.on 'click', (d) -> 
 						_this.redrawContent d.day,data,mentionsByDay
 						d3.select @.parentNode
@@ -139,7 +179,19 @@ define [
 						d3.select @
 							.classed 'selected', true
 
-			d3.selectAll(@$el).select('[name=Monday]').classed('selected', true)
+			d3.selectAll @$el
+				.selectAll '#letters'
+					.selectAll 'text'
+					.data (['L', 'M', 'M', 'J', 'V', 'S', 'D'])
+					.enter()
+					.append 'text'
+						.attr 'x', (d,i) -> xScale i
+						.attr 'y', '10'
+						.text (d) -> return d
+
+
+
+			d3.selectAll(@$el).select('#filter').select('.bar').classed('selected', true)
 
 		#  Update chart
 		redrawContent: (day,data,mentionsByDay) ->
@@ -150,6 +202,7 @@ define [
 			maxHourValue = [0,]
 			overallMaxHourValue = [0,]
 			currentDay = days.indexOf day
+			mentionsByDayValue = @getMentionsByDay(data,true,currentDay)
 
 			# Get max value for current day
 			for d,i in data.broadcastHoursByDay
@@ -158,7 +211,8 @@ define [
 						maxHourValue[0] = d.broadcastCount
 						maxHourValue[1] = d.broadcastHour
 
-			@mouseOut(maxHourValue)
+			@mouseOut(currentDay, data)
+			@mouseOver(currentDay, data)
 
 			# Get overall max value
 			for d,i in data.broadcastHoursByDay
@@ -183,8 +237,8 @@ define [
 					mentionsByHour[d.broadcastHour].outerRadius = pathScale mentionsByHour[d.broadcastHour].mentions
 			
 			# Update main text
-			d3.selectAll(@$el).select('#mainlabel .value').text(mentionsByDay[currentDay].mentions)
-			d3.selectAll(@$el).select('#mainlabel .person').text('Mentions horaires le ' + daysFR[currentDay])
+			d3.selectAll(@$el).select('#mainlabel .value').text(Math.round((mentionsByDay[currentDay].mentions / @getTotal data) * 100) + ' %')
+			d3.selectAll(@$el).select('#mainlabel .time').text('des mentions le ' + daysFR[currentDay])
 
 			# Update paths
 			d3.selectAll @$el
@@ -197,13 +251,13 @@ define [
 			d3.selectAll @$el
 				.select 'g.center text.time'
 				.data mentionsByHour
-				.text maxHourValue[1] + ' heures'
+				.text 'Total :'
 
 			# Update max value label (value)
 			d3.selectAll @$el
 				.select 'g.center text.value'
 				.data mentionsByHour
-				.text maxHourValue[0]
+				.text mentionsByDay[currentDay].mentions
 
 		# Draw the clock element
 		drawClock: (d,data) ->
@@ -269,6 +323,8 @@ define [
 						maxHourValue[1] = d.broadcastHour
 
 			_this = @
+			currentDay = 0
+			mentionsByDayValue = @getMentionsByDay(data,true,currentDay)
 			# Append paths / Show labels paths mouseover
 			d3.selectAll @$el
 				.select 'g'
@@ -279,23 +335,18 @@ define [
 				.enter().append 'svg:path'
 					.attr 'd', arc mentionsByHour,arcOptions
 					.attr 'transform', 'translate(' + visWidth + ',' + visWidth + ')'
-					.on 'mouseover', (d) ->
-						d3.select @.parentNode.parentNode 
-							.select '.center .time'
-							.text d.hour + ' heures'
-						d3.select @.parentNode.parentNode 
-							.select '.center .value'
-							.text d.mentions
-					.on 'mouseout', (d) -> _this.mouseOut(maxHourValue)
+					.on 'mouseover', (d) -> _this.mouseOver(currentDay, data)
+					.on 'mouseout', (d) -> _this.mouseOut(currentDay, data)
 
 			# Append center labels
 			d3.selectAll(@$el).select('g').append('svg:g').attr('class', 'center')
 			d3.selectAll(@$el).select('g.center').append('svg:text').attr('transform', 'translate(' + visWidth + ',' + visWidth + ')')
 				.attr('class', 'time')
-				.text(maxHourValue[1] + ' heures')
+				.text('Total :')
+
 			d3.selectAll(@$el).select('g.center').append('svg:text').attr('transform', 'translate(' + visWidth + ',' + (visWidth+20) + ')')
 				.attr('class', 'value')
-				.text(maxHourValue[0])
+				.text(mentionsByDayValue)
 
 		clear: () ->
 			@$el.children().remove()
