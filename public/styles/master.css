@@ -763,7 +763,7 @@ section.module.timeline #filter .arrow.prev span { float: left; width: 8px; heig
 section.module.timeline #filter .arrow.next { position: absolute; top: 0; left: 189px; }
 section.module.timeline #filter .arrow.next span { float: left; width: 8px; height: 8px; border-style: solid; border-width: 2px 2px 0 0; -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); transform: rotate(45deg); margin: 14px 0 0 10px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 section.module.timeline hr { display: inline-block; border: 0; width: 100%; height: 1px; background: #d9d9d9; }
-section.module.timeline g:hover circle { opacity: 1; }
+section.module.timeline g:hover circle.dot { opacity: 1; }
 section.module.timeline .axis path, section.module.timeline .axis line { fill: none; stroke: #d9d9d9; stroke-width: 1; shape-rendering: crispEdges; }
 section.module.timeline .axis text { fill: #d9d9d9; font-family: 'Chaparral Pro'; font-size: 15px; font-weight: 600; -webkit-font-smoothing: antialiased; }
 section.module.timeline path { fill: none; stroke-width: 2; }
@@ -772,8 +772,8 @@ section.module.timeline path.line2 { stroke: #2980B9; }
 section.module.timeline path.area1 { fill: rgba(46, 181, 135, 0.5); stroke-width: 0; opacity: 0; }
 section.module.timeline path.area2 { fill: rgba(48, 147, 203, 0.5); stroke-width: 0; opacity: 0; }
 section.module.timeline circle { cursor: pointer; opacity: 0; fill: #fff; stroke-width: 2; transition: opacity .25s ease-in-out; -moz-transition: opacity .25s ease-in-out; -webkit-transition: opacity .25s ease-in-out; }
-section.module.timeline circle.circle1 { stroke: #2EB587; }
-section.module.timeline circle.circle2 { stroke: #3192CA; }
+section.module.timeline circle.dot1 { stroke: #2EB587; }
+section.module.timeline circle.dot2 { stroke: #3192CA; }
 section.module.timeline .grid path { stroke-width: 0; }
 section.module.timeline .grid .tick { stroke: #d9d9d9; }
 section.module.x-with-y ul li { border-radius: 4px; overflow: hidden; width: 180px; float: left; margin-right: 30px; margin-bottom: 30px; }
