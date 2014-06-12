@@ -34,7 +34,7 @@
 
       yScale = d3.scale.linear().range([height, 0]);
 
-      xAxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(12);
+      xAxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(8);
 
       yAxis = d3.svg.axis().scale(yScale).orient('left').ticks(5);
 

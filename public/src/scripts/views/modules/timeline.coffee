@@ -25,7 +25,7 @@ define [
 		xAxis =	d3.svg.axis()
 			.scale xScale
 			.orient 'bottom'
-			.ticks 12
+			.ticks 8
 
 		yAxis = d3.svg.axis()
 			.scale yScale
