@@ -29,7 +29,7 @@ svg = d3.select('body')
 link = svg.append('g').selectAll('.link')
 node = svg.append('g').selectAll('.node')
 
-d3.json 'readme_team.json', (error, classes) -> 
+d3.json 'readme_team.json', (error, classes) ->
   nodes = cluster.nodes(packageHierarchy(classes))
   links = packageImports(nodes)
 
@@ -51,7 +51,7 @@ d3.json 'readme_team.json', (error, classes) ->
       .attr('dy', '.31em')
       .attr("transform", (d) -> "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + ((if d.x < 70 then "rotate(180)" else "")))
       .style('text-anchor', (d) -> (if d.x < 70 then "end" else "start"))
-      .text((d) -> d.key)
+      .text((d) -> d.name)
       .on('mouseover', mouseovered)
       .on('mouseout', mouseouted)
 
