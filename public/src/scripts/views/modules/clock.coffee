@@ -45,6 +45,9 @@ define [
 
 		# Append SVG containers
 		svg: () ->
+			# Set main SVG padding
+			d3.selectAll(@$el)
+				.style 'padding', '29px 0 20px 59px'
 			# Append SVG container for main label
 			d3.selectAll(@$el).append('svg')
 				.attr('id', 'mainlabel')
@@ -298,12 +301,16 @@ define [
 			@$el.children().remove()
 
 		render: (data) ->
-			if (@$el.children().length > 0)
-				@clear()
+			if (data.broadcastHoursByDay.length is 0)
+				$('.module.clock').empty().css('padding': '0', 'height': '461px').append('<div class="no-data"></div>')
+				$('.module.clock .no-data').append('<p><i class="icon-heart_broken"></i>Aucune donnée disponible</p>')
+			else
+				if (@$el.children().length > 0)
+					@clear()
 
-			@parse data
-			@svg()
-			@drawFilter data
-			@drawClock data
-			@drawContent data
-			@appendMainLabel data
+				@parse data
+				@svg()
+				@drawFilter data
+				@drawClock data
+				@drawContent data
+				@appendMainLabel data

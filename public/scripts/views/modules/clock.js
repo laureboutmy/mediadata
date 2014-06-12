@@ -74,6 +74,7 @@
       };
 
       ClockView.prototype.svg = function() {
+        d3.selectAll(this.$el).style('padding', '29px 0 20px 59px');
         d3.selectAll(this.$el).append('svg').attr('id', 'mainlabel').attr('width', this.defaults.mlw).attr('height', this.defaults.mlh);
         d3.selectAll(this.$el).append('svg').attr('id', 'filter').attr('width', fw).attr('height', fh);
         return d3.selectAll(this.$el).append('svg').attr('id', 'clockchart').attr('height', visHeight).append('g');
@@ -304,15 +305,23 @@
       };
 
       ClockView.prototype.render = function(data) {
-        if (this.$el.children().length > 0) {
-          this.clear();
+        if (data.broadcastHoursByDay.length === 0) {
+          $('.module.clock').empty().css({
+            'padding': '0',
+            'height': '461px'
+          }).append('<div class="no-data"></div>');
+          return $('.module.clock .no-data').append('<p><i class="icon-heart_broken"></i>Aucune donnée disponible</p>');
+        } else {
+          if (this.$el.children().length > 0) {
+            this.clear();
+          }
+          this.parse(data);
+          this.svg();
+          this.drawFilter(data);
+          this.drawClock(data);
+          this.drawContent(data);
+          return this.appendMainLabel(data);
         }
-        this.parse(data);
-        this.svg();
-        this.drawFilter(data);
-        this.drawClock(data);
-        this.drawContent(data);
-        return this.appendMainLabel(data);
       };
 
       return ClockView;

@@ -1316,7 +1316,7 @@ section.module {
 		}
 
 		g {
-			&:hover circle { opacity: 1; }
+			&:hover circle.dot { opacity: 1; }
 		}
 
 		.axis {
@@ -1350,8 +1350,8 @@ section.module {
 		  transition: opacity .25s ease-in-out;
 		  -moz-transition: opacity .25s ease-in-out;
 		  -webkit-transition: opacity .25s ease-in-out;
-			&.circle1 { stroke: #2EB587; }
-			&.circle2 { stroke: #3192CA; }
+			&.dot1 { stroke: #2EB587; }
+			&.dot2 { stroke: #3192CA; }
 		}
 
 		.grid {
