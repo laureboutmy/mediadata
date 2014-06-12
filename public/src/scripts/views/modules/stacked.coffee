@@ -35,10 +35,6 @@ define [
           .tickSize(-width, 0, 0)
 
     getScale: (data) ->
-      #parseInt JSON data
-      for d,i in data.channelDatas
-        d.person1 = +d.person1
-        d.person2 = +d.person2
       
       stacked_data = d3.layout.stack()(data.channelMap.map( (data_nd) ->
 
@@ -50,13 +46,11 @@ define [
 
 
     getTotals: (data) ->
-      # total = 0
-      # for d,i in data.channels
-      #   d.mentionCount = +d.mentionCount
-      #   total += d.mentionCount
+      $('.module.stacked h4:first-of-type').html(data.names[0])
+      $('.module.stacked h3:first-of-type span').html(data.totalCount[0].toLocaleString())
 
-      # $('.module.bar h4').html(data.name)
-      # $('.module.timeline h3 span').html(total.toLocaleString())
+      $('.module.stacked h4:last-of-type').html(data.names[1])
+      $('.module.stacked h3:last-of-type span').html(data.totalCount[1].toLocaleString())
 
 
     drawContent: (data) ->
@@ -95,7 +89,6 @@ define [
 
     drawTooltip: (data) ->
       ## TOOLTIP ##
-      # console.log(stacked_data)
       total_height = []
       i = 0
       while i < stacked_data[0].length
@@ -146,7 +139,7 @@ define [
         .append('text')
         .attr('text-anchor', 'middle')
         .attr('class', 'tooltip name')
-        .attr('x', (d) -> x(d.x)+47)
+        .attr('x', (d) -> x(d.x)+50)
         .attr('y', (d,i) -> -y(d.y0) - (if typeof total_height[i] == 'undefined' then  y(d.y) else total_height[i])-33 )
         .text((d)->d.x)
 
@@ -155,7 +148,7 @@ define [
         .append('text')
         .attr('text-anchor', 'middle')
         .attr('class', 'tooltip count')
-        .attr('x', (d) -> x(d.x)+47)
+        .attr('x', (d) -> x(d.x)+50)
         .attr('y', (d,i) -> -y(d.y0) - (if typeof total_height[i] == 'undefined' then  y(d.y) else total_height[i])-18 )
         .text((d)->d.y)
 

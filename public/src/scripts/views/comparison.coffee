@@ -106,7 +106,17 @@ define [
 			$('#filters').width($(window).width() - 80)
 
 		getStackedData: (data) ->
-			channels = 
+			
+			totalCount1 = 0
+			for d,i in data.person1.channels
+				totalCount1 += +data.person1.channels[i].channelCount
+			totalCount2 = 0
+			for d,i in data.person2.channels
+				totalCount2 += +data.person2.channels[i].channelCount
+
+			channels =
+				names: [data.person1.person.name, data.person2.person.name]
+				totalCount: [totalCount1, totalCount2]
 				channelMap: [data.person1.person.slug, data.person2.person.slug]
 				channelDatas: []
 			i = 0

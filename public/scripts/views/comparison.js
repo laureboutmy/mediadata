@@ -157,8 +157,22 @@
       };
 
       ComparisonView.prototype.getStackedData = function(data) {
-        var channels, i;
+        var channels, d, i, totalCount1, totalCount2, _i, _j, _len, _len1, _ref, _ref1;
+        totalCount1 = 0;
+        _ref = data.person1.channels;
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          d = _ref[i];
+          totalCount1 += +data.person1.channels[i].channelCount;
+        }
+        totalCount2 = 0;
+        _ref1 = data.person2.channels;
+        for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
+          d = _ref1[i];
+          totalCount2 += +data.person2.channels[i].channelCount;
+        }
         channels = {
+          names: [data.person1.person.name, data.person2.person.name],
+          totalCount: [totalCount1, totalCount2],
           channelMap: [data.person1.person.slug, data.person2.person.slug],
           channelDatas: []
         };

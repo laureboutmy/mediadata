@@ -45,13 +45,6 @@
       yAxis = d3.svg.axis().scale(y).orient('left').ticks(4).tickSize(-width, 0, 0);
 
       StackedView.prototype.getScale = function(data) {
-        var d, i, _i, _len, _ref;
-        _ref = data.channelDatas;
-        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
-          d = _ref[i];
-          d.person1 = +d.person1;
-          d.person2 = +d.person2;
-        }
         stacked_data = d3.layout.stack()(data.channelMap.map(function(data_nd) {
           return data.channelDatas.map(function(d) {
             return {
@@ -70,7 +63,12 @@
         ]);
       };
 
-      StackedView.prototype.getTotals = function(data) {};
+      StackedView.prototype.getTotals = function(data) {
+        $('.module.stacked h4:first-of-type').html(data.names[0]);
+        $('.module.stacked h3:first-of-type span').html(data.totalCount[0].toLocaleString());
+        $('.module.stacked h4:last-of-type').html(data.names[1]);
+        return $('.module.stacked h3:last-of-type span').html(data.totalCount[1].toLocaleString());
+      };
 
       StackedView.prototype.drawContent = function(data) {
         d3.select('#stackedchart').append('g').attr('class', 'grid').attr("transform", "translate(0,99)").call(yAxis);
@@ -112,14 +110,14 @@
           return -y(d.y0) - (typeof total_height[i] === 'undefined' ? y(d.y) : total_height[i]) - 55;
         }).attr('rx', 20).attr('ry', 25);
         d3.select('#stacked').selectAll('g.stacked-g g').append('text').attr('text-anchor', 'middle').attr('class', 'tooltip name').attr('x', function(d) {
-          return x(d.x) + 47;
+          return x(d.x) + 50;
         }).attr('y', function(d, i) {
           return -y(d.y0) - (typeof total_height[i] === 'undefined' ? y(d.y) : total_height[i]) - 33;
         }).text(function(d) {
           return d.x;
         });
         return d3.select('#stacked').selectAll('g.stacked-g g').append('text').attr('text-anchor', 'middle').attr('class', 'tooltip count').attr('x', function(d) {
-          return x(d.x) + 47;
+          return x(d.x) + 50;
         }).attr('y', function(d, i) {
           return -y(d.y0) - (typeof total_height[i] === 'undefined' ? y(d.y) : total_height[i]) - 18;
         }).text(function(d) {
