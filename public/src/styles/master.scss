@@ -142,6 +142,9 @@ section#sidebar {
 		}
 		i {
 			font-size: em(28px);
+			&.icon-mail {
+				font-size: em(22px);
+			}
 		}
 		a { 
 			color: #454a4d; text-decoration: none; 
@@ -656,20 +659,26 @@ section#main {
 				color: #cccccc;
 				background: transparent;
 				transition: all 0.3s ease-out;
-				&.tw:hover {
-					background: #5ea9dd;
-					border-color: #5ea9dd;
-					color: #fff;
-					i { color: #fff; }
-				}
-				&.fb:hover {
-					border-color: #3b579d;
-					background: #3b579d;
-					color: #fff;
-					i { color: #fff; }
-
-				}
+				
 				i { font-size: em(20px); margin-right: 15px; }
+			}
+			&:hover {
+				.button {
+					&.tw {
+						background: #5ea9dd;
+						border-color: #5ea9dd;
+						color: #fff;
+						i { color: #fff; }
+					}
+					&.fb {
+						border-color: #3b579d;
+						background: #3b579d;
+						color: #fff;
+						i { color: #fff; }
+
+					}
+				}
+				
 			}
 		}
 	} /* article */
@@ -733,6 +742,16 @@ section#main {
 			padding: 130px 0;
 			background: #fff;
 			div.explorer { margin-bottom: 130px; }
+			div.img { 
+				width: 480px; height: 290px; overflow: hidden; position: relative;
+				img {
+					position: absolute;
+					top: 0; left: 0;
+					opacity: 0;
+					transition: opacity 0.3s ease-out;
+					&.visible { opacity: 1; }
+				}
+			}
 			div.library { text-align: right; }
 			h3.default-icon {
 				margin-top: 50px;
@@ -760,6 +779,9 @@ section#main {
 					transition: color 0.3s ease-out;
 					&:hover {
 						cursor: pointer;
+						color: $black;
+					}
+					&.visible {
 						color: #2781bb;
 					}
 				}
@@ -855,7 +877,7 @@ article.about, article.contact {
 	div.grid {
 		width: 720px;
 	}
-	header { margin-top: 150px; margin-bottom: 130px; }
+	header { margin-top: 150px; margin-bottom: 110px; }
 	h1 {
 		font-weight: 700;
 		color: $black;
@@ -983,7 +1005,8 @@ article.about, article.contact {
 				height: 25px;
 				font-size: em(15px);
 				color: $black;
-				font-weight: 700; }
+				font-weight: 700;
+				background: transparent; }
 			textarea { height: 160px; }
 			.button { margin: 10px 0; }
 

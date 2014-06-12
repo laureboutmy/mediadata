@@ -25,13 +25,49 @@
         return this.render();
       };
 
-      ContactView.prototype.destroy = function() {};
+      ContactView.prototype.destroy = function() {
+        return this.unbind();
+      };
+
+      ContactView.prototype.bind = function() {
+        return $('#submit').on('click', this.send);
+      };
+
+      ContactView.prototype.unbind = function() {
+        return $('#submit').off('click', this.send);
+      };
+
+      ContactView.prototype.send = function(e) {
+        var error, form, mail, message, subject;
+        e.preventDefault();
+        form = $(this).parent();
+        mail = form.find('#mail').val();
+        subject = form.find('#subject').val();
+        message = form.find('#message').val();
+        console.log(mail, subject, message);
+        if (mail === '' || subject === '' || message === '' || !/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(mail)) {
+          error = true;
+        }
+        return $.ajax({
+          type: 'POST',
+          url: 'http://laureboutmy.com/mediadata/public/form.php',
+          data: {
+            mail: mail,
+            subject: subject,
+            message: message
+          },
+          success: function(data) {
+            return console.log(data, 'send');
+          }
+        });
+      };
 
       ContactView.prototype.render = function() {
         md.Status['currentView'] = 'contact';
         ga('send', 'pageview', '/contact');
         document.body.scrollTop = document.documentElement.scrollTop = 0;
         this.$el.html(this.template());
+        this.bind();
         md.Router.hideLoader();
         return this;
       };

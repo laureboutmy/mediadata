@@ -11,7 +11,8 @@
         return this.render();
       },
       bind: function() {
-        return $('a.discover').on('click', this.scrollToTutorial);
+        $('a.discover').on('click', this.scrollToTutorial);
+        return $('ul.slider li').on('click', this.updateSlider);
       },
       scrollToTutorial: function(e) {
         e.preventDefault();
@@ -20,7 +21,11 @@
         });
       },
       destroy: function() {
-        return $('a.discover').off('click', this.scrollToTutorial);
+        return this.unbind();
+      },
+      unbind: function() {
+        $('a.discover').off('click', this.scrollToTutorial);
+        return $('ul.slider li').off('click', this.updateSlider);
       },
       render: function() {
         ga('send', 'pageview', '/');
@@ -30,6 +35,14 @@
         this.bind();
         md.Router.hideLoader();
         return this;
+      },
+      updateSlider: function() {
+        var index;
+        index = $(this).index();
+        $('div.slider').find('.visible').removeClass('visible');
+        $('ul.slider').find('.visible').removeClass('visible');
+        $(this).addClass('visible');
+        return $('div.slider').find('img').eq(index).addClass('visible');
       }
     });
   });
