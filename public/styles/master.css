@@ -1,7 +1,8 @@
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic);
+@charset "UTF-8";
 /* @group Master */
 /* @group Imports */
 /* http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 License: none (public domain) */
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic);
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
 
 /* HTML5 display-role reset for older browsers */
@@ -20,7 +21,6 @@ table { border-collapse: collapse; border-spacing: 0; }
 /*  MFG Labs iconset 1.0  -------------------------------------------------------  License ------------------------------------------------------- • The MFG Labs iconset font is licensed under the SIL Open Font License - http://scripts.sil.org/OFL • MFG Labs inconset CSS files are licensed under the MIT License - http://opensource.org/licenses/mit-license.html • The MFG Labs iconset pictograms are licensed under the CC BY 3.0 License - http://creativecommons.org/licenses/by/3.0/ • Attribution is no longer required in Font Awesome 3.0, but much appreciated: MFG Labs inconset by MFG Labs
  Contact ------------------------------------------------------- Email: martin.charpentier@mfglabs.com Twitter: http://twitter.com/mfg_labs  */
 @font-face { font-family: 'mfglabs-iconset'; src: url("../fonts/mfglabs-iconset.eot"); src: url("../fonts/mfglabs-iconset.eot?#iefix") format("embedded-opentype"), url("../fonts/mfglabs-iconset.woff") format("woff"), url("../fonts/mfglabs-iconset.ttf") format("truetype"), url("../fonts/mfglabs-iconset.svg#mfglabs-iconset") format("svg"); font-weight: normal; font-style: normal; }
-
 i, .icon { font-family: 'mfglabs-iconset'; font-style: normal; speak: none; font-weight: normal; font-size: 1em; -webkit-font-smoothing: antialiased; }
 
 .icon2x { font-size: 2em; }
@@ -393,6 +393,12 @@ i, .icon { font-family: 'mfglabs-iconset'; font-style: normal; speak: none; font
 
 .icon-node_link_shape:before { content: "\E00F"; }
 
+/* Ion.RangeSlider
+// css version 1.8.5
+// by Denis Ineshin | ionden.com
+// ===================================================================================================================*/
+/* =====================================================================================================================
+// RangeSlider */
 .irs { position: relative; display: block; }
 
 .irs-line { position: relative; display: block; overflow: hidden; }
@@ -411,15 +417,15 @@ i, .icon { font-family: 'mfglabs-iconset'; font-style: normal; speak: none; font
 
 .irs-slider.single { left: 10px; }
 
-.irs-slider.single:before { position: absolute; display: block; content: ""; top: -30%; left: -30%; width: 160%; height: 160%; background: rgba(0, 0, 0, 0); }
+.irs-slider.single:before { position: absolute; display: block; content: ""; top: -30%; left: -30%; width: 160%; height: 160%; background: transparent; }
 
 .irs-slider.from { left: 100px; }
 
-.irs-slider.from:before { position: absolute; display: block; content: ""; top: -30%; left: -30%; width: 130%; height: 160%; background: rgba(0, 0, 0, 0); }
+.irs-slider.from:before { position: absolute; display: block; content: ""; top: -30%; left: -30%; width: 130%; height: 160%; background: transparent; }
 
 .irs-slider.to { left: 300px; }
 
-.irs-slider.to:before { position: absolute; display: block; content: ""; top: -30%; left: 0; width: 130%; height: 160%; background: rgba(0, 0, 0, 0); }
+.irs-slider.to:before { position: absolute; display: block; content: ""; top: -30%; left: 0; width: 130%; height: 160%; background: transparent; }
 
 .irs-slider.last { z-index: 2; }
 
@@ -443,10 +449,16 @@ i, .icon { font-family: 'mfglabs-iconset'; font-style: normal; speak: none; font
 
 .irs-grid-text { position: absolute; bottom: 0; left: 0; width: 100px; white-space: nowrap; text-align: center; font-size: 9px; line-height: 9px; color: #000; }
 
-.irs-disable-mask { position: absolute; display: block; top: 0; left: 0; width: 100%; height: 100%; cursor: default; background: rgba(0, 0, 0, 0); z-index: 2; }
+.irs-disable-mask { position: absolute; display: block; top: 0; left: 0; width: 100%; height: 100%; cursor: default; background: transparent; z-index: 2; }
 
 .irs-disabled { opacity: 0.4; }
 
+/* Ion.RangeSlider, Nice Skin
+// css version 1.8.5
+// by Denis Ineshin | ionden.com
+// ===================================================================================================================*/
+/* =====================================================================================================================
+// Skin details */
 .irs-line-mid, .irs-line-left, .irs-line-right, .irs-diapason, .irs-slider { background: url(../images/sprite--slider.png) repeat-x; }
 
 .irs { height: 28px; }
@@ -537,11 +549,9 @@ section#main-loader div span.circle.blue { background: #29b988; opacity: 0.8; -w
 @-webkit-keyframes spin1 { 0% { left: 0; }
   50% { left: 100%; }
   100% { left: 0; } }
-
 @-webkit-keyframes spin2 { 0% { left: 100%; }
   50% { left: 0; }
   100% { left: 100%; } }
-
 /* @group Search-bar */
 header#search-bar { position: fixed; left: 80px; min-width: 1020px; border: 1px solid transparent; border-bottom: 1px solid #d4d4d4; background: #fff; width: 100%; height: 54px; z-index: 200; display: none; top: -54px; transition: top 0.3s ease-out; /* @group  Loader */ /* @end of Loader */ /* h1.person */ }
 header#search-bar.visible { display: block; top: 0; }
@@ -593,7 +603,7 @@ header#search-bar div.name form.search input:-ms-input-placeholder { color: #acb
 header#search-bar div.name form.search input:-moz-placeholder { color: #acb8c0; font-weight: normal; }
 header#search-bar div.name form.search label { padding: 0 0.5em 0 1.5em; font-weight: 400; color: #1b1f22; float: left; }
 header#search-bar div.name form.search label i { margin-right: 10px; font-size: 1em; color: #3498db; }
-header#search-bar div.name form.search ul.topics { display: none; top: 54px; position: absolute; background: #fff; width: 100%; box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2); }
+header#search-bar div.name form.search ul.topics { display: none; top: 55px; position: absolute; background: #fff; width: 100%; box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2); }
 header#search-bar div.name form.search ul.topics li { padding: 0.5em 1.7em; height: 62px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; line-height: 2em; background: transparent; transition: background ease-out 0.3s; }
 header#search-bar div.name form.search ul.topics li:hover, header#search-bar div.name form.search ul.topics li.active { background: #f5f5f5; cursor: pointer; }
 header#search-bar div.name form.search ul.topics li span { font-weight: normal; color: #acb8c0; }
@@ -630,6 +640,14 @@ section#main article.person section#filters .irs-from, section#main article.pers
 section#main article.person section#filters.fixed + div.grid, section#main article.comparison section#filters.fixed + div.grid { padding-top: 80px; }
 section#main article.person section h2, section#main article.comparison section h2 { width: 420px; margin: 58px 30px 0 30px; font-weight: 700; color: #1b1f22; line-height: 1.6em; font-size: 1.5625em; }
 section#main article.person section h2 + p, section#main article.comparison section h2 + p { width: 420px; margin: 0 30px 40px 30px; font-family: "chaparral-pro", serif; color: #6a7d90; font-size: 1.1875em; line-height: 1.57895em; }
+section#main article.person footer.social, section#main article.comparison footer.social { text-align: center; margin: 80px 0 0; padding: 80px 0; border-top: 1px solid #d4d4d4; }
+section#main article.person footer.social h3 + p, section#main article.comparison footer.social h3 + p { font-family: "chaparral-pro", serif; font-size: 1.1875em; line-height: 1.57895em; color: #6a7d90; width: 450px; margin: 0 auto 40px; }
+section#main article.person footer.social .button, section#main article.comparison footer.social .button { margin: 0 10px; border: 1px solid #ccc; color: #cccccc; background: transparent; transition: all 0.3s ease-out; }
+section#main article.person footer.social .button.tw:hover, section#main article.comparison footer.social .button.tw:hover { background: #5ea9dd; border-color: #5ea9dd; color: #fff; }
+section#main article.person footer.social .button.tw:hover i, section#main article.comparison footer.social .button.tw:hover i { color: #fff; }
+section#main article.person footer.social .button.fb:hover, section#main article.comparison footer.social .button.fb:hover { border-color: #3b579d; background: #3b579d; color: #fff; }
+section#main article.person footer.social .button.fb:hover i, section#main article.comparison footer.social .button.fb:hover i { color: #fff; }
+section#main article.person footer.social .button i, section#main article.comparison footer.social .button i { font-size: 1.25em; margin-right: 15px; }
 section#main article.home { padding: 0; /* header.introduction */ /* section.tutorial */ }
 section#main article.home h1 { color: #fff; font-size: 4.375em; font-weight: 700; margin-bottom: 10px; }
 section#main article.home header.introduction { height: 100vh; background: #34495e; /* Old browsers */ background: -moz-linear-gradient(top, #34495e 0%, #2c3e50 100%); /* FF3.6+ */ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #34495e), color-stop(100%, #2c3e50)); /* Chrome,Safari4+ */ background: -webkit-linear-gradient(top, #34495e 0%, #2c3e50 100%); /* Chrome10+,Safari5.1+ */ background: -o-linear-gradient(top, #34495e 0%, #2c3e50 100%); /* Opera 11.10+ */ background: -ms-linear-gradient(top, #34495e 0%, #2c3e50 100%); /* IE10+ */ background: linear-gradient(to bottom, #34495e 0%, #2c3e50 100%); /* W3C */ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#34495e', endColorstr='#2c3e50',GradientType=0 ); /* IE6-9 */ overflow: hidden; position: relative; }
