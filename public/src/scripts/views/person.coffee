@@ -74,7 +74,7 @@ define [
 			@top5.render({ popularChannels: data.popularChannels, popularShows: data.popularShows })
 			@timeline.render({ person1: { name: data.person.name, timelineMentions: data.timelineMentions }})
 			@clock.render({ broadcastHoursByDay: data.broadcastHoursByDay })
-			@bar.render({ channels: data.channels, name: data.person.name })
+			@bar.render({ channels: data.channels, name: data.person.name, data: data })
 			@xWithY.render({ persons: data.seenWith })
 		
 		onResize: () ->

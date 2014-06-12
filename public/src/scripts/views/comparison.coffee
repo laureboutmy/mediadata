@@ -9,7 +9,8 @@ define [
 	'../views/modules/top-5'
 	'../views/modules/timeline'
 	'../views/modules/clock'
-], ($, _, Backbone, md, PersonsCollection, PersonModel, tplComparison, Top5View, TimelineView, ClockView) ->
+	'../views/modules/stacked'
+], ($, _, Backbone, md, PersonsCollection, PersonModel, tplComparison, Top5View, TimelineView, ClockView, StackedView) ->
 	'use strict'
 	class ComparisonView extends Backbone.View
 		el: '#main'
@@ -33,6 +34,7 @@ define [
 			@timeline = new TimelineView()
 			@clock1 = new ClockView({el: '.module.clock.person1'})
 			@clock2 = new ClockView({el: '.module.clock.person2'})
+			@stacked = new StackedView()
 			@renderModules(data)
 
 		bind: () ->
@@ -70,7 +72,7 @@ define [
 				person1: { name: data.person1.person.name, timelineMentions: data.person1.timelineMentions }
 				person2: { name: data.person2.person.name, timelineMentions: data.person2.timelineMentions }
 
-			@getStackedData(data)
+			@stacked.render(@getStackedData(data))
 			# tu devrais pouvoir faire un @stackedChart.render(@getStackData(data))
 			@clock1.render({ broadcastHoursByDay: data.person1.broadcastHoursByDay })
 			@clock2.render({ broadcastHoursByDay: data.person2.broadcastHoursByDay })
@@ -98,7 +100,7 @@ define [
 
 		getStackedData: (data) ->
 			channels = 
-				channelMap: [data.person1.person.name, data.person2.person.name]
+				channelMap: [data.person1.person.slug, data.person2.person.slug]
 				channelDatas: []
 			i = 0
 			while i < data.person1.channels.length
@@ -106,9 +108,10 @@ define [
 			  i++
 			_.each data.person1.channels, (channel, i) ->
 				channels.channelDatas[i]['channelName'] = channel.channelName
-				channels.channelDatas[i]['person1'] = channel.channelCount
+				channels.channelDatas[i]['channelPicture'] = channel.channelPicture
+				channels.channelDatas[i][data.person1.person.slug] = channel.channelCount
 			_.each data.person2.channels, (channel, i) ->
-				channels.channelDatas[i]['person2'] = channel.channelCount
+				channels.channelDatas[i][data.person2.person.slug] = channel.channelCount
 
 			return channels
 				
