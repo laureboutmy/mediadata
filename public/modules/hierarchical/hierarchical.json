@@ -1,14 +1,12 @@
 [
-{"groupe":"anne-hidalgo.Remy-Dragyn", "linked":["christiane-taubira.Laure", "christiane-taubira.Thomas"]},
-{"groupe":"anne-hidalgo.Lucas-Guarneri", "linked":["anne-hidalgo.Remy-Dragyn"]},
-{"groupe":"anne-hidalgo.Anthony", "linked":["anne-hidalgo.Remy-Dragyn", "anne-hidalgo.Lucas-Guarneri", "christiane-taubira.Laure"]},
-{"groupe":"anne-hidalgo.Yves", "linked":["anne-hidalgo.Remy-Dragyn"]},
-{"groupe":"christiane-taubira.Thomas", "linked":["anne-hidalgo.Remy-Dragyn"]},
-{"groupe":"christiane-taubira.Laure", "linked":["anne-hidalgo.Remy-Dragyn"]},
-{"groupe":"anne-hidalgo.christiane-taubira.Steve", "linked":["anne-hidalgo.Remy-Dragyn", "christiane-taubira.Thomas"]},
-{"groupe":"anne-hidalgo.christiane-taubira.Max", "linked":["anne-hidalgo.Remy-Dragyn", "christiane-taubira.Thomas"]},
-{"groupe":"anne-hidalgo.christiane-taubira.Andre", "linked":["anne-hidalgo.Remy-Dragyn", "christiane-taubira.Thomas"]},
-{"groupe":"anne-hidalgo.christiane-taubira.Tom", "linked":["anne-hidalgo.Remy-Dragyn", "christiane-taubira.Thomas"]},
-{"groupe":"anne-hidalgo.christiane-taubira.Lies", "linked":["anne-hidalgo.Remy-Dragyn", "christiane-taubira.Thomas"]},
-{"groupe":"anne-hidalgo.christiane-taubira.Audrey", "linked":["anne-hidalgo.Remy-Dragyn", "christiane-taubira.Thomas"]}
+{"name":"rémy dragyn", "groupe":"anne-hidalgo.Remy-Dragyn", "linked":["christiane-taubira.Laure", "christiane-taubira.Thomas"]},
+{"name":"Lucas Guarneri", "groupe":"anne-hidalgo.Lucas-Guarneri", "linked":["anne-hidalgo.Yves", "anne-hidalgo.christiane-taubira.Tom"]},
+{"name":"Yves dragyn", "groupe":"anne-hidalgo.Yves", "linked":["anne-hidalgo.Lucas-Guarneri", "christiane-taubira.Laure"]},
+
+{"name":"Thomas dragyn", "groupe":"christiane-taubira.Thomas", "linked":["anne-hidalgo.Remy-Dragyn", "anne-hidalgo.christiane-taubira.Tom"]},
+{"name":"Laure dragyn", "groupe":"christiane-taubira.Laure", "linked":["anne-hidalgo.Remy-Dragyn", "anne-hidalgo.Yves", "anne-hidalgo.christiane-taubira.Lies"]},
+{"name":"Anthony dragyn", "groupe":"christiane-taubira.Anthony", "linked":["anne-hidalgo.Remy-Dragyn"]},
+
+{"name":"Tom dragyn", "groupe":"anne-hidalgo.christiane-taubira.Tom", "linked":["anne-hidalgo.Lucas-Guarneri", "christiane-taubira.Thomas"]},
+{"name":"Lies dragyn", "groupe":"anne-hidalgo.christiane-taubira.Lies", "linked":["christiane-taubira.Laure", "christiane-taubira.Thomas"]}
 ]
