@@ -42,7 +42,7 @@
         return d3.selectAll(this.$el).append('svg').attr('id', 'stackedchart').attr('width', width).attr('height', height + margin.top + margin.bottom);
       };
 
-      yAxis = d3.svg.axis().scale(y).orient('left').ticks(4).tickSize(-width, 0, 0);
+      yAxis = d3.svg.axis().scale(y).orient('left').ticks(6).tickSize(-width, 0, 0);
 
       StackedView.prototype.getScale = function(data) {
         stacked_data = d3.layout.stack()(data.channelMap.map(function(data_nd) {
@@ -71,7 +71,7 @@
       };
 
       StackedView.prototype.drawContent = function(data) {
-        d3.select('#stackedchart').append('g').attr('class', 'grid').attr("transform", "translate(0,99)").call(yAxis);
+        d3.select('#stackedchart').append('g').attr('class', 'grid').attr('height', height).attr("transform", "translate(0,99)").call(yAxis);
         d3.select('#stackedchart').selectAll('g.stacked-g').data(stacked_data).enter().append('g').attr('class', function(d, i) {
           return 'stacked-g person' + (i + 1) + " " + data.channelMap[i];
         }).attr('transform', 'translate(0,' + (height + margin.bottom) + ')');

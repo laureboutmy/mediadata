@@ -31,7 +31,7 @@ define [
     yAxis = d3.svg.axis()
           .scale y
           .orient 'left'
-          .ticks 4
+          .ticks 6
           .tickSize(-width, 0, 0)
 
     getScale: (data) ->
@@ -56,6 +56,7 @@ define [
     drawContent: (data) ->
       d3.select('#stackedchart').append('g')
         .attr('class', 'grid')
+        .attr('height', height)
         .attr("transform", "translate(0,99)")
         .call(yAxis)
 
