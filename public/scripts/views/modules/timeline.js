@@ -518,16 +518,21 @@
 
       TimelineView.prototype.render = function(data) {
         var originalData;
-        originalData = JSON.parse(JSON.stringify(data));
-        this.$el.html(this.template());
-        this.svg();
-        this.getTotals(originalData);
-        if (data.person2) {
-          this.getMinMax(data, true);
-          return this.getYears(originalData, true);
+        if ((data.person2 && data.person1.timelineMentions.length === 0 && data.person1.timelineMentions.length === 0) || (!data.person2 && data.person1.timelineMentions.length === 0)) {
+          $('.module.timeline').empty().append('<div class="no-data"></div>');
+          return $('.module.timeline .no-data').append('<p><i class="icon-heart_broken"></i>Aucune donnée disponible</p>');
         } else {
-          this.getMinMax(data, false);
-          return this.getYears(originalData);
+          originalData = JSON.parse(JSON.stringify(data));
+          this.$el.html(this.template());
+          this.svg();
+          this.getTotals(originalData);
+          if (data.person2) {
+            this.getMinMax(data, true);
+            return this.getYears(originalData, true);
+          } else {
+            this.getMinMax(data, false);
+            return this.getYears(originalData);
+          }
         }
       };
 
