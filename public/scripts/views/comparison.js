@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', 'text!templates/comparison.html', '../views/modules/top-5', '../views/modules/timeline', '../views/modules/clock'], function($, _, Backbone, md, PersonsCollection, PersonModel, tplComparison, Top5View, TimelineView, ClockView) {
+  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', 'text!templates/comparison.html', '../views/modules/top-5', '../views/modules/timeline', '../views/modules/clock', '../views/modules/stacked'], function($, _, Backbone, md, PersonsCollection, PersonModel, tplComparison, Top5View, TimelineView, ClockView, StackedView) {
     'use strict';
     var ComparisonView;
     return ComparisonView = (function(_super) {
@@ -44,6 +44,7 @@
         this.clock2 = new ClockView({
           el: '.module.clock.person2'
         });
+        this.stacked = new StackedView();
         return this.renderModules(data);
       };
 
@@ -114,7 +115,7 @@
             timelineMentions: data.person2.timelineMentions
           }
         });
-        this.getStackedData(data);
+        this.stacked.render(this.getStackedData(data));
         this.clock1.render({
           broadcastHoursByDay: data.person1.broadcastHoursByDay
         });
@@ -156,9 +157,23 @@
       };
 
       ComparisonView.prototype.getStackedData = function(data) {
-        var channels, i;
+        var channels, d, i, totalCount1, totalCount2, _i, _j, _len, _len1, _ref, _ref1;
+        totalCount1 = 0;
+        _ref = data.person1.channels;
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          d = _ref[i];
+          totalCount1 += +data.person1.channels[i].channelCount;
+        }
+        totalCount2 = 0;
+        _ref1 = data.person2.channels;
+        for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
+          d = _ref1[i];
+          totalCount2 += +data.person2.channels[i].channelCount;
+        }
         channels = {
-          channelMap: [data.person1.person.name, data.person2.person.name],
+          names: [data.person1.person.name, data.person2.person.name],
+          totalCount: [totalCount1, totalCount2],
+          channelMap: [data.person1.person.slug, data.person2.person.slug],
           channelDatas: []
         };
         i = 0;
@@ -168,10 +183,11 @@
         }
         _.each(data.person1.channels, function(channel, i) {
           channels.channelDatas[i]['channelName'] = channel.channelName;
-          return channels.channelDatas[i]['person1'] = channel.channelCount;
+          channels.channelDatas[i]['channelPicture'] = channel.channelPicture;
+          return channels.channelDatas[i][data.person1.person.slug] = channel.channelCount;
         });
         _.each(data.person2.channels, function(channel, i) {
-          return channels.channelDatas[i]['person2'] = channel.channelCount;
+          return channels.channelDatas[i][data.person2.person.slug] = channel.channelCount;
         });
         return channels;
       };
