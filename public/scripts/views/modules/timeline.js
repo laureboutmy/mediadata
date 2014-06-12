@@ -118,9 +118,8 @@
 
       /* FILTER */
 
-      TimelineView.prototype.getYears = function(data, comparison, minmax) {
+      TimelineView.prototype.getYears = function(data, comparison) {
         var d, getYears, i, j, years, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m, _ref, _ref1, _ref2, _ref3, _this;
-        console.log(data);
         _this = this;
         years = [];
         getYears = [];
@@ -158,20 +157,16 @@
           }
         }
         years.sort();
-        if (minmax !== true) {
-          for (i = _m = 0, _len4 = years.length; _m < _len4; i = ++_m) {
-            d = years[i];
-            if (this.getCount(getYears, years[i], comparison === true ? true : false) < 3) {
-              j = years.indexOf(years[i]);
-              if (j > -1) {
-                years.splice(j, 1);
-              }
+        for (i = _m = 0, _len4 = years.length; _m < _len4; i = ++_m) {
+          d = years[i];
+          if (this.getCount(getYears, years[i], comparison === true ? true : false) < 3) {
+            j = years.indexOf(years[i]);
+            if (j > -1) {
+              years.splice(j, 1);
             }
           }
-          return this.drawFilter(years, data, comparison === true ? true : false);
-        } else {
-          return years;
         }
+        return this.drawFilter(years, data, comparison === true ? true : false);
       };
 
       TimelineView.prototype.getDataYear = function(data, year, comparison) {
@@ -336,7 +331,6 @@
           if ($(this).hasClass('enabled')) {
             if ($(this).hasClass('next')) {
               iArrow++;
-              console.log('present data:', data);
               if (comparison === true) {
                 dataYear = [];
                 maxYValuesYear = [];
@@ -356,7 +350,6 @@
                 maxYValuesYear = _this.getMaxYValuesYear(dataYear, false);
                 _this.redraw(dataYear, years[iArrow], 1, d3.max(maxYValuesYear));
               }
-              console.log(iArrow);
               if (years[iArrow]) {
                 $('#filter > ul > li').html('Année ' + years[iArrow]);
                 $('.arrow:first-child').removeClass('disabled').addClass('enabled');
@@ -366,7 +359,6 @@
               }
             } else if ($(this).hasClass('prev')) {
               iArrow--;
-              console.log('present data:', data);
               if (comparison === true) {
                 dataYear = [];
                 maxYValuesYear = [];
@@ -386,7 +378,6 @@
                 maxYValuesYear = _this.getMaxYValuesYear(dataYear, false);
                 _this.redraw(dataYear, years[iArrow], 1, d3.max(maxYValuesYear));
               }
-              console.log(iArrow);
               if (years[iArrow]) {
                 $('#filter > ul > li').html('Année ' + years[iArrow]);
                 $('.arrow:last-child').removeClass('disabled').addClass('enabled');
@@ -403,7 +394,7 @@
       /* CHART (draw/redraw) */
 
       TimelineView.prototype.getMinMax = function(data, comparison) {
-        var d, i, maxXValue, maxXValues, maxYValue, maxYValues, minMaxX, minMaxY, minXValue, minXValues, minYValue, minYValues, scaling, xAxisInterval, xAxisTime, years, _i, _j, _len, _len1, _ref, _ref1;
+        var d, i, maxXValue, maxXValues, maxYValue, maxYValues, minMaxX, minMaxY, minXValue, minXValues, minYValue, minYValues, _i, _j, _len, _len1, _ref, _ref1;
         _ref = data.person1.timelineMentions;
         for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
           d = _ref[i];
@@ -460,33 +451,20 @@
         minMaxY.push(minYValue, maxYValue);
         xScale.domain(minMaxX);
         yScale.domain(minMaxY);
-        if (comparison === true) {
-          years = this.getYears(data, true, true);
-        } else {
-          years = this.getYears(data, false, true);
-        }
-        console.log(years);
-        xAxisInterval = 0;
-        xAxisTime = 0;
-        if (years.length <= 2) {
-          scaling = 'month';
-        } else {
-          scaling = 'year';
-        }
         if (comparison) {
           if (maxYValues[0] < maxYValues[1]) {
-            this.draw(scaling, data.person2.timelineMentions, 2, true);
-            return this.draw(scaling, data.person1.timelineMentions, 1);
+            this.draw(data.person2.timelineMentions, 2, true);
+            return this.draw(data.person1.timelineMentions, 1);
           } else {
-            this.draw(scaling, data.person1.timelineMentions, 1, true);
-            return this.draw(scaling, data.person2.timelineMentions, 2);
+            this.draw(data.person1.timelineMentions, 1, true);
+            return this.draw(data.person2.timelineMentions, 2);
           }
         } else {
-          return this.draw(xAxisTime, xAxisInterval, data.person1.timelineMentions, 1, true);
+          return this.draw(data.person1.timelineMentions, 1, true);
         }
       };
 
-      TimelineView.prototype.draw = function(scaling, data, datasetnumber, drawGrid) {
+      TimelineView.prototype.draw = function(data, datasetnumber, drawGrid) {
         var path;
         if (drawGrid === true) {
           d3.select('g.thetimeline').append('g').attr('class', 'grid').call(yGrid().tickSize(-width, 0, 0).tickFormat(''));

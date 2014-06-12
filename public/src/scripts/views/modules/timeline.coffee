@@ -72,6 +72,7 @@ define [
 			for i in [0 .. 12]
 				$('g.tick text:contains(' + monthsEN[i] + ')').html(monthsFR[i])
 				# shortmonths doesn't work, d3.locale is the solution
+
 		### HEADER INFOS ###
 
 		# Append total values / names in timeline's header
@@ -101,8 +102,7 @@ define [
 		### FILTER ###
 		
 		# Make the list of years the timeline's filter will use/redraw
-		getYears: (data,comparison,minmax) ->
-			console.log data
+		getYears: (data,comparison) ->
 			_this = @
 			years = []
 
@@ -129,17 +129,14 @@ define [
 						years.push d.year
 			years.sort()
 
-			if minmax != true
-				# If less than 3 values in year, remove it from the years list.
-				for d,i in years
-					if @getCount(getYears, years[i], if comparison is true then true else false) < 3
-						j = years.indexOf(years[i])
-						if (j > -1)
-							years.splice(j, 1)
+			# If less than 3 values in year, remove it from the years list.
+			for d,i in years
+				if @getCount(getYears, years[i], if comparison is true then true else false) < 3
+					j = years.indexOf(years[i])
+					if (j > -1)
+						years.splice(j, 1)
 
-				@drawFilter years, data, if comparison is true then true else false
-
-			else return years
+			@drawFilter years, data, if comparison is true then true else false
 
 		# Filter data by year
 		getDataYear: (data,year,comparison) ->
@@ -262,7 +259,6 @@ define [
 				if $(@).hasClass('enabled')
 					if $(@).hasClass('next')
 						iArrow++
-						console.log 'present data:', data
 						if comparison is true
 							dataYear = []
 							maxYValuesYear = []
@@ -280,7 +276,6 @@ define [
 							dataYear = _this.getDataYear(data,years[iArrow],false)
 							maxYValuesYear = _this.getMaxYValuesYear(dataYear, false)
 							_this.redraw(dataYear,years[iArrow], 1, d3.max maxYValuesYear)
-						console.log iArrow
 						if years[iArrow]
 							$('#filter > ul > li').html('Année ' + years[iArrow])
 							$('.arrow:first-child').removeClass('disabled').addClass('enabled')
@@ -288,7 +283,6 @@ define [
 							$('.arrow:last-child').toggleClass('enabled disabled')
 					else if $(@).hasClass('prev')
 						iArrow--
-						console.log 'present data:', data
 						if comparison is true
 							dataYear = []
 							maxYValuesYear = []
@@ -306,7 +300,6 @@ define [
 							dataYear = _this.getDataYear(data,years[iArrow],false)
 							maxYValuesYear = _this.getMaxYValuesYear(dataYear, false)
 							_this.redraw(dataYear,years[iArrow], 1, d3.max maxYValuesYear)
-						console.log iArrow
 						if years[iArrow]
 							$('#filter > ul > li').html('Année ' + years[iArrow])
 							$('.arrow:last-child').removeClass('disabled').addClass('enabled')
@@ -360,33 +353,19 @@ define [
 			xScale.domain minMaxX
 			yScale.domain minMaxY
 
-			if comparison is true
-				years = @getYears data,true,true
-			else
-				years = @getYears data,false,true
-			console.log years
-
-			xAxisInterval = 0
-			xAxisTime	= 0
-
-			if years.length <= 2
-				scaling = 'month'
-			else
-				scaling = 'year'
-
 			# Append everything
 			if comparison
 				if maxYValues[0] < maxYValues[1]
-					@draw scaling, data.person2.timelineMentions, 2, true
-					@draw scaling, data.person1.timelineMentions, 1
+					@draw data.person2.timelineMentions, 2, true
+					@draw data.person1.timelineMentions, 1
 				else
-					@draw scaling, data.person1.timelineMentions, 1, true
-					@draw scaling, data.person2.timelineMentions, 2
+					@draw data.person1.timelineMentions, 1, true
+					@draw data.person2.timelineMentions, 2
 			else
-				@draw xAxisTime, xAxisInterval, data.person1.timelineMentions, 1, true
+				@draw data.person1.timelineMentions, 1, true
 
 		# Append chart elements
-		draw: (scaling, data, datasetnumber, drawGrid) ->
+		draw: (data, datasetnumber, drawGrid) ->
 			if drawGrid is true # (don't draw two grids)
 				# Draw horizontal grid
 				d3.select('g.thetimeline').append 'g'
@@ -429,26 +408,11 @@ define [
 					.attr 'cy', (d) -> return yScale d.mentionCount
 
 			if datasetnumber is 1 # (don't draw two X/Y axes)
-				# if scaling is 'month'
-				# 	xAxis =	
-				# 		d3.svg.axis()
-				# 			.scale xScale
-				# 			.orient 'bottom'
-				# 			.ticks d3.time.month, 1
-				# else if scaling is 'year'
-				# 	xAxis =	
-				# 			d3.svg.axis()
-				# 				.scale xScale
-				# 				.orient 'bottom'
-				# 				.ticks d3.time.year, 2
-
 				# Draw X/Y axes
 				d3.select('g.thetimeline').append 'g'
 					.attr 'class', 'x axis'
 					.attr 'transform', 'translate(0,' + height + ')'
-					# .call xAxis
 					.call xAxis
-
 				d3.select('g.thetimeline').append 'g'
 					.attr 'class', 'y axis'
 					.call yAxis
