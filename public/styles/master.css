@@ -838,9 +838,9 @@ section.module.clock #mainlabel { position: relative; left: -25px; }
 section.module.clock #mainlabel text { text-anchor: left; }
 section.module.clock #mainlabel text.value { color: #1b1f22; font-size: 1.5625em; }
 section.module.clock #filter { position: relative; left: 69px; top: -23px; }
-section.module.clock #letters { position: relative; left: 285px; top: -23px; fill: #d9d9d9; }
-section.module.clock #letters text { font-size: 0.8125em; font-weight: 400; }
-section.module.clock #clockchart { margin-top: 15px; }
+section.module.clock #letters { position: relative; left: 285px; top: -29px; fill: #d9d9d9; }
+section.module.clock #letters text { font-size: 0.8125em; font-weight: 400; cursor: pointer; }
+section.module.clock #clockchart { margin-top: -20px; }
 section.module.clock .center text, section.module.clock .labels text { text-anchor: middle; }
 section.module.clock .center .value { color: #1b1f22; font-size: 1.25em; }
 section.module.clock .labels text { fill: #ccc; font-weight: 700; }
@@ -848,6 +848,12 @@ section.module.clock .circle { fill: none; stroke: #cccccc; stroke-width: 1px; }
 section.module.clock .bar { transition: all 0.3s ease-out; cursor: pointer; fill: #d9d9d9; }
 section.module.clock .bar.selected { fill: #29b988; }
 section.module.clock .bar:hover { fill: #29b988; }
+section.module.clock .dayletter.selected { fill: #29b988; }
+section.module.clock .dayletter:hover { fill: #29b988; }
+section.module.clock.person1 .dayletter.selected { fill: #29b988; }
+section.module.clock.person1 .dayletter:hover { fill: #29b988; }
+section.module.clock.person2 .dayletter.selected { fill: #2781bb; }
+section.module.clock.person2 .dayletter:hover { fill: #2781bb; }
 section.module.clock.person1 .bar { fill: #d9d9d9; }
 section.module.clock.person1 .bar.selected { fill: #29b988; }
 section.module.clock.person1 .bar:hover { fill: #29b988; }

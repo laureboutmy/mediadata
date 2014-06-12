@@ -16,6 +16,7 @@ define [
 		# Filter dimensions
 		fw = 105
 		fh = 28
+		lh = 11
 		# Width of the whole visualization; used for centering
 		visWidth = 180
 		visHeight = 350
@@ -31,7 +32,7 @@ define [
 				.innerRadius o.from
 				.outerRadius (d) -> if d.mentions > 0 then o.to d else 0
 
-		# Do mouseout in a func to get current maxHourValue
+		# Do mouseout and mouseover in a func to get current mentionsByDay
 		mouseOut: (currentDay, data) ->
 			mentionsByDayValue = @getMentionsByDay(data,true,currentDay)
 			d3.selectAll @$el
@@ -45,7 +46,6 @@ define [
 						.text mentionsByDayValue
 
 		mouseOver: (currentDay, data) ->
-			console.log 'hoi:', data
 			mentionsByDayValue = @getMentionsByDay(data,true,currentDay)
 			d3.selectAll @$el
 				.selectAll 'path'
@@ -88,7 +88,7 @@ define [
 			d3.selectAll(@$el).append('svg')
 				.attr('id', 'letters')
 				.attr('width', fw)
-				.attr('height', fh)
+				.attr('height', lh)
 
 			# Append SVG container for clock
 			d3.selectAll(@$el).append('svg')
@@ -103,12 +103,10 @@ define [
 				d.broadcastCount = +d.broadcastCount
 
 		getMentionsByDay: (data,mouseover,currentDay) ->
-			console.log data
 			mentionsByDay = []
 			for i in [1 .. 7]
 				mentionsByDay.push {mentions: 0}
 
-			console.log mentionsByDay
 			# Fill-in mentionsByDay
 			for d,i in data.broadcastHoursByDay
 				for d2,i2 in days
@@ -169,15 +167,19 @@ define [
 						.attr 'y', (d) -> return fh - yScale d.mentions
 						.attr 'width', xScale.rangeBand()
 						.attr 'height', (d) -> return yScale d.mentions
-						.attr 'class', 'bar'
-						# .attr 'id', (d) -> d.day
+						.attr 'class', (d) -> d.day
+						.classed 'bar', true
 					.on 'click', (d) -> 
 						_this.redrawContent d.day,data,mentionsByDay
 						d3.select @.parentNode
 							.selectAll '.bar'
 							.classed 'selected', false
+						d3.select @.parentNode.parentNode
+							.selectAll '.dayletter'
+							.classed 'selected', false
 						d3.select @
 							.classed 'selected', true
+						_this.barClick(d.day)
 
 			d3.selectAll @$el
 				.selectAll '#letters'
@@ -185,13 +187,39 @@ define [
 					.data (['L', 'M', 'M', 'J', 'V', 'S', 'D'])
 					.enter()
 					.append 'text'
+						.attr 'class', 'dayletter'
 						.attr 'x', (d,i) -> xScale i
 						.attr 'y', '10'
 						.text (d) -> return d
 
+			d3.selectAll @$el
+				.selectAll '.dayletter'
+				.data mentionsByDay
+				.on 'click', (d) ->
+					_this.redrawContent d.day,data,mentionsByDay
+					d3.select @.parentNode
+						.selectAll '.dayletter'
+						.classed 'selected', false
+					d3.select @.parentNode.parentNode
+						.selectAll '.bar'
+						.classed 'selected', false
+					d3.select @
+						.classed 'selected', true
+					_this.letterClick(d.day)
 
+			d3.selectAll(@$el).select('.bar').classed('selected', true)
+			d3.selectAll(@$el).select('.dayletter:nth-of-type(1)').classed('selected', true)
 
-			d3.selectAll(@$el).select('#filter').select('.bar').classed('selected', true)
+			for i in [1 .. 7]
+				d3.selectAll(@$el).select('.dayletter:nth-of-type(' + i + ')')
+					.classed days[i - 1], true
+
+		barClick: (day) ->
+			d3.selectAll(@$el).select('text.dayletter.' + day).classed('selected', true)
+
+		letterClick: (day) ->
+			console.log 'hoi'
+			d3.selectAll(@$el).select('.bar.' + day).classed('selected', true)
 
 		#  Update chart
 		redrawContent: (day,data,mentionsByDay) ->
