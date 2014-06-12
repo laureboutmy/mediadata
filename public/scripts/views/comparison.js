@@ -88,11 +88,15 @@
       ComparisonView.prototype.renderModules = function(data) {
         this.top51.render({
           popularChannels: data.person1.popularChannels,
-          popularShows: data.person1.popularShows
+          popularShows: data.person1.popularShows,
+          totalMentions: data.person1.timelineMentions,
+          person: 'person1'
         });
         this.top52.render({
           popularChannels: data.person2.popularChannels,
-          popularShows: data.person2.popularShows
+          popularShows: data.person2.popularShows,
+          totalMentions: data.person2.timelineMentions,
+          person: 'person2'
         });
         this.timeline.render({
           person1: {

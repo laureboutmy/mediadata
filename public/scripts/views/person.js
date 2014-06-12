@@ -84,7 +84,8 @@
       PersonView.prototype.renderModules = function(data) {
         this.top5.render({
           popularChannels: data.popularChannels,
-          popularShows: data.popularShows
+          popularShows: data.popularShows,
+          totalMentions: data.timelineMentions
         });
         this.timeline.render({
           person1: {

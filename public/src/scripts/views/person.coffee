@@ -71,7 +71,7 @@ define [
 					return @
 
 		renderModules: (data) ->
-			@top5.render({ popularChannels: data.popularChannels, popularShows: data.popularShows })
+			@top5.render({ popularChannels: data.popularChannels, popularShows: data.popularShows, totalMentions: data.timelineMentions })
 			@timeline.render({ person1: { name: data.person.name, timelineMentions: data.timelineMentions }})
 			@clock.render({ broadcastHoursByDay: data.broadcastHoursByDay })
 			@bar.render({ channels: data.channels, name: data.person.name })
