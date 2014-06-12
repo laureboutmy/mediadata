@@ -28,6 +28,7 @@
       AboutView.prototype.destroy = function() {};
 
       AboutView.prototype.render = function() {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
         ga('send', 'pageview', '/a-propos');
         this.$el.html(this.template());
         md.Router.hideLoader();
