@@ -23,6 +23,7 @@ define [
 			$('a.discover').off 'click', @scrollToTutorial
 
 		render: () ->
+			ga('send', 'pageview', '/')
 			document.body.scrollTop = document.documentElement.scrollTop = 0
 			@$el.html(@template())
 			@bind()

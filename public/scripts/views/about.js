@@ -28,6 +28,7 @@
       AboutView.prototype.destroy = function() {};
 
       AboutView.prototype.render = function() {
+        ga('send', 'pageview', '/a-propos');
         this.$el.html(this.template());
         md.Router.hideLoader();
         return this;

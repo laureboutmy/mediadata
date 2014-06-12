@@ -47,6 +47,7 @@
 
       IndexView.prototype.render = function() {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
+        ga('send', 'pageview', '/index');
         this.$el.html(this.template(this.collection));
         md.Router.hideLoader();
         return this;

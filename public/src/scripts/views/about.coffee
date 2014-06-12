@@ -15,7 +15,7 @@ define [
 			@render()
 		destroy: () ->
 		render: () ->
-			
+			ga('send', 'pageview', '/a-propos')
 			@$el.html(@template())
 			md.Router.hideLoader()
 			return @
