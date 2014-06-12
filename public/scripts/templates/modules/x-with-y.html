@@ -6,7 +6,7 @@
       <div>
       	<span class="number"><%= person.seenCount %></span>
         <h4><% if(person.personName.length > 13) { print(person.personName.slice(0, 13) + '...') } else { print(person.personName) } %></h4>
-       	<p>chose</p>
+       	<p><%= person.personRole %></p>
       </div>
      </a>
   </li>

@@ -1,47 +1,47 @@
 <article class="index">
   <header class="introduction">
     <div class="grid">
-      <h1><i class="icon-reorder_square"></i>Index des fiches</h1>
-      <h2>recherchez une fiche alphabétiquement</h2>
+      <h1 class="default-icon white"><i class="icon-reorder_square"></i>Index des fiches</h1>
+      <h2 class="all-caps">recherchez une fiche alphabétiquement</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
     </div>
   </header>
   <nav class="alphabet">
     <div class="grid">
       <ul>
-        <li>A</li>
-        <li>B</li>
-        <li>C</li>
-        <li>D</li>
-        <li>E</li>
-        <li>F</li>
-        <li>G</li>
-        <li>H</li>
-        <li>I</li>
-        <li>J</li>
-        <li>K</li>
-        <li>L</li>
-        <li>M</li>
-        <li>N</li>
-        <li>O</li>
-        <li>P</li>
-        <li>Q</li>
-        <li>R</li>
-        <li>S</li>
-        <li>T</li>
-        <li>U</li>
-        <li>V</li>
-        <li>W</li>
-        <li>X</li>
-        <li>Y</li>
-        <li>Z</li>
+        <li data-letter="A">A</li>
+        <li data-letter="B">B</li>
+        <li data-letter="C">C</li>
+        <li data-letter="D">D</li>
+        <li data-letter="E">E</li>
+        <li data-letter="F">F</li>
+        <li data-letter="G">G</li>
+        <li data-letter="H">H</li>
+        <li data-letter="I">I</li>
+        <li data-letter="J">J</li>
+        <li data-letter="K">K</li>
+        <li data-letter="L">L</li>
+        <li data-letter="M">M</li>
+        <li data-letter="N">N</li>
+        <li data-letter="O">O</li>
+        <li data-letter="P">P</li>
+        <li data-letter="Q">Q</li>
+        <li data-letter="R">R</li>
+        <li data-letter="S">S</li>
+        <li data-letter="T">T</li>
+        <li data-letter="U">U</li>
+        <li data-letter="V">V</li>
+        <li data-letter="W">W</li>
+        <li data-letter="X">X</li>
+        <li data-letter="Y">Y</li>
+        <li data-letter="Z">Z</li>
       </ul>
     </div>
   </nav>
   <section>
     <div class="grid">
       <% _.each(index, function(letter){ %>
-      <h3 class="letter" data-letter="a"><%= letter[0].alpha %></h3>
+      <h3 class="letter" data-letter="<%= letter[0].alpha %>"><%= letter[0].alpha %></h3>
       <ul>
         <% _.each(letter, function(person, i){ %>
         <li <% if ((i+1)%5 == 0 && i != 0) { %> class="no-margin" <% } %>>

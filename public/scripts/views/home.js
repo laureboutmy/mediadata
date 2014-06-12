@@ -7,11 +7,25 @@
       el: '#main',
       template: _.template(tplHome),
       initialize: function() {
+        md.Status['currentView'] = 'home';
         return this.render();
+      },
+      bind: function() {
+        return $('a.discover').on('click', this.scrollToTutorial);
+      },
+      scrollToTutorial: function(e) {
+        e.preventDefault();
+        return $('html, body').animate({
+          scrollTop: $('.tutorial').offset().top + 'px'
+        });
+      },
+      destroy: function() {
+        return $('a.discover').off('click', this.scrollToTutorial);
       },
       render: function() {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
         this.$el.html(this.template());
+        this.bind();
         md.Router.hideLoader();
         return this;
       }

@@ -3,13 +3,13 @@ define [
 	'underscore'
 	'backbone'
 	'mediadata'
-	'text!templates/suggestions.html'
-], ($, _, Backbone, md, tplSuggestions) ->
+	'text!templates/contact.html'
+], ($, _, Backbone, md, tplContact) ->
 	'use strict'
-	class SuggestionsView extends Backbone.View
+	class ContactView extends Backbone.View
 		el: '#main'
 		collection: null
-		template: _.template(tplSuggestions)
+		template: _.template(tplContact)
 		name: null
 		initialize: () -> 
 			@render()

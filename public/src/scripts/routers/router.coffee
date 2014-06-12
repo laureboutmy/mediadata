@@ -12,15 +12,15 @@ define [
 	'../views/search'
 	'../views/index'
 	'../views/about'
-	'../views/suggestions'
-], ($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView, SearchView, IndexView, AboutView, SuggestionsView) ->
+	'../views/contact'
+], ($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView, SearchView, IndexView, AboutView, ContactView) ->
 	'use strict'
 	class Router extends Backbone.Router
 		routes:
 			'': 'home'
 			'rechercher': 'getSearch'
 			'a-propos': 'getAbout'
-			'suggestions': 'getSuggestions'
+			'contact': 'getContact'
 			'index': 'getIndex'
 			':person': 'getPerson'
 			':person/:otherPerson': 'getComparison'
@@ -35,19 +35,25 @@ define [
 			$(window).on('resize', @onResize)
 
 		home: () ->
-			md.Router.showLoader()
+			@showLoader()
+			@hideSearchbar()
 			md.Views['home'] = new HomeView()
 			md.Views['home'].render()
 
-		getSearchbar: (name1 = null, name2 = null) ->
+		getSearchbar: (name1 = null, name2 = null, isSearch = null) ->
 			if !md.Views['search-bar'] 
 				require ['views/search-bar'], (SearchbarView) =>
-					md.Views['search-bar'] = new SearchbarView({name1: name1, name2: name2})
+					if isSearch then md.Views['search-bar'] = new SearchbarView({isSearch: isSearch})
+					else md.Views['search-bar'] = new SearchbarView({name1: name1, name2: name2})
+
 					$(md.Views['search-bar'].el).addClass('visible')
 			else
-				md.Views['search-bar'].render({name1: name1, name2: name2})
-				$(md.Views['search-bar'].el).addClass('visible')
+				if isSearch then md.Views['search-bar'].render({isSearch: isSearch})
+				else md.Views['search-bar'].render({name1: name1, name2: name2})
 
+				$(md.Views['search-bar'].el).addClass('visible')
+		hideSearchbar: () ->
+			if md.Views['search-bar'] then $(md.Views['search-bar'].el).removeClass('visible')
 		getFilters: () ->
 			if !md.Views['filters'] 
 				require ['views/filters'], (FiltersView) =>
@@ -64,7 +70,7 @@ define [
 
 			md.Status['currentView'] = 'search'
 
-			if !md.Views['search-bar'] then @getSearchbar(name)
+			@getSearchbar(null, null, true)
 			md.Views['search'] = new SearchView()
 
 		getIndex: () ->
@@ -77,6 +83,11 @@ define [
 			md.Status['currentView'] = 'about'
 			if md.Views['search-bar'] then $(md.Views['search-bar'].el).removeClass('visible')
 			md.Views['about'] = new AboutView()
+		getContact: () ->
+			md.Router.showLoader()
+			md.Status['currentView'] = 'contact'
+			if md.Views['search-bar'] then $(md.Views['search-bar'].el).removeClass('visible')
+			md.Views['contact'] = new ContactView()
 
 		getComparison: (name1, name2) ->
 			md.Router.showLoader()

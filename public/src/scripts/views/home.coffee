@@ -10,10 +10,21 @@ define [
 		el: '#main'
 		template: _.template(tplHome)
 		initialize: () ->
-			
+			md.Status['currentView'] = 'home'
 			@render()
+
+		bind: () ->
+			$('a.discover').on 'click', @scrollToTutorial
+
+		scrollToTutorial: (e) ->
+			e.preventDefault()
+			$('html, body').animate({ scrollTop: $('.tutorial').offset().top + 'px' })
+		destroy: () ->
+			$('a.discover').off 'click', @scrollToTutorial
+
 		render: () ->
 			document.body.scrollTop = document.documentElement.scrollTop = 0
 			@$el.html(@template())
+			@bind()
 			md.Router.hideLoader()
 			return @
