@@ -473,9 +473,9 @@ define [
 					d3.selectAll 'circle.dot:not(.stay)'
 						.remove()
 				else
-					d3.selectAll 'circle.dot'
+					d3.selectAll 'circle.dot' + personNumber
 						.remove()
-				d3.selectAll 'circle.dot.stay'
+				d3.selectAll 'circle.stay'
 					.classed 'stay', false
 				d3.select('g.thetimeline').selectAll('circle' + personNumber)
 					.data data['person' + personNumber].timelineMentions

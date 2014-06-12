@@ -499,9 +499,9 @@
           if (data['person2']) {
             d3.selectAll('circle.dot:not(.stay)').remove();
           } else {
-            d3.selectAll('circle.dot').remove();
+            d3.selectAll('circle.dot' + personNumber).remove();
           }
-          d3.selectAll('circle.dot.stay').classed('stay', false);
+          d3.selectAll('circle.stay').classed('stay', false);
           d3.select('g.thetimeline').selectAll('circle' + personNumber).data(data['person' + personNumber].timelineMentions).enter().append('circle').attr('class', 'dot' + personNumber).classed('stay', true).attr('r', 3.5).attr('cx', function(d) {
             return xScale(d.mentionDate);
           }).attr('cy', function(d) {

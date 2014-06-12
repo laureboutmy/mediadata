@@ -100,7 +100,8 @@
         });
         this.bar.render({
           channels: data.channels,
-          name: data.person.name
+          name: data.person.name,
+          data: data
         });
         return this.xWithY.render({
           persons: data.seenWith

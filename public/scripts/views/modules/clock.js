@@ -7,7 +7,7 @@
     'use strict';
     var ClockView;
     return ClockView = (function(_super) {
-      var arc, arcOptions, days, daysFR, fh, fw, radiusScale, visHeight, visWidth;
+      var arc, arcOptions, days, daysFR, fh, fw, lh, radiusScale, visHeight, visWidth;
 
       __extends(ClockView, _super);
 
@@ -29,6 +29,8 @@
       fw = 105;
 
       fh = 28;
+
+      lh = 11;
 
       visWidth = 180;
 
@@ -77,7 +79,6 @@
 
       ClockView.prototype.mouseOver = function(currentDay, data) {
         var mentionsByDayValue;
-        console.log('hoi:', data);
         mentionsByDayValue = this.getMentionsByDay(data, true, currentDay);
         return d3.selectAll(this.$el).selectAll('path').on('mouseover', function(d) {
           d3.select(this.parentNode.parentNode).select('.center .time').text(d.hour + ' heures');
@@ -106,7 +107,7 @@
         d3.selectAll(this.$el).style('padding', '29px 0 20px 59px');
         d3.selectAll(this.$el).append('svg').attr('id', 'mainlabel').attr('width', this.defaults.mlw).attr('height', this.defaults.mlh);
         d3.selectAll(this.$el).append('svg').attr('id', 'filter').attr('width', fw).attr('height', fh);
-        d3.selectAll(this.$el).append('svg').attr('id', 'letters').attr('width', fw).attr('height', fh);
+        d3.selectAll(this.$el).append('svg').attr('id', 'letters').attr('width', fw).attr('height', lh);
         return d3.selectAll(this.$el).append('svg').attr('id', 'clockchart').attr('height', visHeight).append('g');
       };
 
@@ -124,14 +125,12 @@
 
       ClockView.prototype.getMentionsByDay = function(data, mouseover, currentDay) {
         var d, d2, i, i2, mentionsByDay, _i, _j, _k, _len, _len1, _ref;
-        console.log(data);
         mentionsByDay = [];
         for (i = _i = 1; _i <= 7; i = ++_i) {
           mentionsByDay.push({
             mentions: 0
           });
         }
-        console.log(mentionsByDay);
         _ref = data.broadcastHoursByDay;
         for (i = _j = 0, _len = _ref.length; _j < _len; i = ++_j) {
           d = _ref[i];
@@ -158,7 +157,7 @@
       };
 
       ClockView.prototype.drawFilter = function(data) {
-        var d, d2, i, i2, maxDayValue, mentionsByDay, xScale, yScale, _i, _j, _k, _l, _len, _len1, _len2, _ref, _this;
+        var d, d2, i, i2, maxDayValue, mentionsByDay, xScale, yScale, _i, _j, _k, _l, _len, _len1, _len2, _m, _ref, _results, _this;
         mentionsByDay = [];
         for (i = _i = 1; _i <= 7; i = ++_i) {
           mentionsByDay.push({
@@ -196,17 +195,43 @@
           return fh - yScale(d.mentions);
         }).attr('width', xScale.rangeBand()).attr('height', function(d) {
           return yScale(d.mentions);
-        }).attr('class', 'bar').on('click', function(d) {
+        }).attr('class', function(d) {
+          return d.day;
+        }).classed('bar', true).on('click', function(d) {
           _this.redrawContent(d.day, data, mentionsByDay);
           d3.select(this.parentNode).selectAll('.bar').classed('selected', false);
-          return d3.select(this).classed('selected', true);
+          d3.select(this.parentNode.parentNode).selectAll('.dayletter').classed('selected', false);
+          d3.select(this).classed('selected', true);
+          return _this.barClick(d.day);
         });
-        d3.selectAll(this.$el).selectAll('#letters').selectAll('text').data(['L', 'M', 'M', 'J', 'V', 'S', 'D']).enter().append('text').attr('x', function(d, i) {
+        d3.selectAll(this.$el).selectAll('#letters').selectAll('text').data(['L', 'M', 'M', 'J', 'V', 'S', 'D']).enter().append('text').attr('class', 'dayletter').attr('x', function(d, i) {
           return xScale(i);
         }).attr('y', '10').text(function(d) {
           return d;
         });
-        return d3.selectAll(this.$el).select('#filter').select('.bar').classed('selected', true);
+        d3.selectAll(this.$el).selectAll('.dayletter').data(mentionsByDay).on('click', function(d) {
+          _this.redrawContent(d.day, data, mentionsByDay);
+          d3.select(this.parentNode).selectAll('.dayletter').classed('selected', false);
+          d3.select(this.parentNode.parentNode).selectAll('.bar').classed('selected', false);
+          d3.select(this).classed('selected', true);
+          return _this.letterClick(d.day);
+        });
+        d3.selectAll(this.$el).select('.bar').classed('selected', true);
+        d3.selectAll(this.$el).select('.dayletter:nth-of-type(1)').classed('selected', true);
+        _results = [];
+        for (i = _m = 1; _m <= 7; i = ++_m) {
+          _results.push(d3.selectAll(this.$el).select('.dayletter:nth-of-type(' + i + ')').classed(days[i - 1], true));
+        }
+        return _results;
+      };
+
+      ClockView.prototype.barClick = function(day) {
+        return d3.selectAll(this.$el).select('text.dayletter.' + day).classed('selected', true);
+      };
+
+      ClockView.prototype.letterClick = function(day) {
+        console.log('hoi');
+        return d3.selectAll(this.$el).select('.bar.' + day).classed('selected', true);
       };
 
       ClockView.prototype.redrawContent = function(day, data, mentionsByDay) {

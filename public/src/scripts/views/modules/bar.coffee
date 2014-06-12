@@ -42,7 +42,13 @@ define [
 
 
     getTotals: (data) ->
+      total = 0
+      for d,i in data.channels
+        d.channelCount = +d.channelCount
+        total += d.channelCount
+
       $('.module.bar h4').html(data.name)
+      $('.module.bar h3:first-of-type span').html(total.toLocaleString())
 
 
     drawContent: (data) ->
@@ -97,8 +103,8 @@ define [
             .attr( 'filter', 'url(#f1)' ) 
             .attr('class', 'tooltip shadow')
             .attr('height', 45)
-            .attr('width', 76)
-            .attr('x', (d,i) -> x(d.channelName)+5)
+            .attr('width', 100)
+            .attr('x', (d,i) -> x(d.channelName)-8)
             .attr('y', (d) -> y(d.channelCount)-53)
             .attr('rx', 20)
             .attr('ry', 25)
@@ -109,8 +115,8 @@ define [
           .data(data.channels)
             .attr('class', 'tooltip')
             .attr('height', 45)
-            .attr('width', 76)
-            .attr('x', (d,i) -> x(d.channelName)+5)
+            .attr('width', 100)
+            .attr('x', (d,i) -> x(d.channelName)-8)
             .attr('y', (d) -> y(d.channelCount)-55)
             .attr('rx', 20)
             .attr('ry', 25)
@@ -122,7 +128,7 @@ define [
             .attr('text-anchor', 'middle')
             .attr('class', 'tooltip name')
             .attr('x', (d,i) -> x(d.channelName)+42)
-            .attr('y', (d) -> y(d.channelCount)-35)
+            .attr('y', (d) -> y(d.channelCount)-33)
             .text((d) -> d.channelName)
 
       # Nombre de mentions par chaines
@@ -132,10 +138,11 @@ define [
             .attr('text-anchor', 'middle')
             .attr('class', 'tooltip count')
             .attr('x', (d,i) -> x(d.channelName)+42)
-            .attr('y', (d) -> y(d.channelCount)-20)
+            .attr('y', (d) -> y(d.channelCount)-18)
             .html((d) -> d.channelCount)
 
     render: (data) -> 
+      # console.log 'Remy -->', data
 
       @$el.html(@template())
       @svg()
@@ -143,6 +150,5 @@ define [
       @drawContent(data)
       @drawTooltip(data)
       @getTotals(data)
-      # @filter()
 
 

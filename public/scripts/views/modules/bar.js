@@ -58,7 +58,16 @@
       };
 
       BarView.prototype.getTotals = function(data) {
-        return $('.module.bar h4').html(data.name);
+        var d, i, total, _i, _len, _ref;
+        total = 0;
+        _ref = data.channels;
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          d = _ref[i];
+          d.channelCount = +d.channelCount;
+          total += d.channelCount;
+        }
+        $('.module.bar h4').html(data.name);
+        return $('.module.bar h3:first-of-type span').html(total.toLocaleString());
       };
 
       BarView.prototype.drawContent = function(data) {
@@ -80,27 +89,27 @@
       BarView.prototype.drawTooltip = function(data) {
         d3.select('#barchart').append('filter').attr('id', 'f').attr('width', '150%').attr('height', '150%').append('feOffset').attr('result', 'offOut').attr('in', 'SourceAlpha').attr('dx', 0).attr('dy', 3);
         d3.select('#barchart').select('filter').append('feGaussianBlur').attr('stdDeviation', 1).attr('result', 'blur');
-        d3.select('#barchart').selectAll('g.bar-g').append('rect').data(data.channels).attr('filter', 'url(#f1)').attr('class', 'tooltip shadow').attr('height', 45).attr('width', 76).attr('x', function(d, i) {
-          return x(d.channelName) + 5;
+        d3.select('#barchart').selectAll('g.bar-g').append('rect').data(data.channels).attr('filter', 'url(#f1)').attr('class', 'tooltip shadow').attr('height', 45).attr('width', 100).attr('x', function(d, i) {
+          return x(d.channelName) - 8;
         }).attr('y', function(d) {
           return y(d.channelCount) - 53;
         }).attr('rx', 20).attr('ry', 25);
-        d3.select('#barchart').selectAll('g.bar-g').append('rect').data(data.channels).attr('class', 'tooltip').attr('height', 45).attr('width', 76).attr('x', function(d, i) {
-          return x(d.channelName) + 5;
+        d3.select('#barchart').selectAll('g.bar-g').append('rect').data(data.channels).attr('class', 'tooltip').attr('height', 45).attr('width', 100).attr('x', function(d, i) {
+          return x(d.channelName) - 8;
         }).attr('y', function(d) {
           return y(d.channelCount) - 55;
         }).attr('rx', 20).attr('ry', 25);
         d3.select('#barchart').selectAll('g.bar-g').append('text').data(data.channels).attr('text-anchor', 'middle').attr('class', 'tooltip name').attr('x', function(d, i) {
           return x(d.channelName) + 42;
         }).attr('y', function(d) {
-          return y(d.channelCount) - 35;
+          return y(d.channelCount) - 33;
         }).text(function(d) {
           return d.channelName;
         });
         return d3.select('#barchart').selectAll('g.bar-g').append('text').data(data.channels).attr('text-anchor', 'middle').attr('class', 'tooltip count').attr('x', function(d, i) {
           return x(d.channelName) + 42;
         }).attr('y', function(d) {
-          return y(d.channelCount) - 20;
+          return y(d.channelCount) - 18;
         }).html(function(d) {
           return d.channelCount;
         });
