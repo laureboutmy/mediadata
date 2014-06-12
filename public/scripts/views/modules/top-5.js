@@ -18,41 +18,29 @@
       Top5View.prototype.template = _.template(tplTop5);
 
       Top5View.prototype.render = function(data) {
+        var d, i, _i, _len, _ref;
+        console.log(data);
+        this.total = 0;
+        _ref = data.totalMentions;
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          d = _ref[i];
+          d.mentionCount = +d.mentionCount;
+          this.total += d.mentionCount;
+        }
         this.$el.html(this.template(data));
-        this.bind();
-        this.fillGauges('shows');
-        return this;
+        this.setTotal(data);
+        return this.fillGauges('shows');
       };
 
-      Top5View.prototype.totalAppearances = 0;
+      Top5View.prototype.total = 0;
 
       Top5View.prototype.fillPercent = 0;
-
-      Top5View.prototype.events = {
-        'click .tabs li': 'onClick'
-      };
-
-      Top5View.prototype.onClick = function(evt) {
-        var currentTab;
-        if (!$(evt.currentTarget).hasClass('active')) {
-          this.$el.find('li.active').removeClass('active');
-          $(evt.currentTarget).addClass('active');
-          currentTab = $(evt.currentTarget).data('tab');
-          this.$el.find('section').removeClass('visible');
-          this.$el.find('section#' + currentTab).addClass('visible');
-          return this.fillGauges(currentTab);
-        }
-      };
 
       Top5View.prototype.getFillPercent = function(bar, type) {
         var _this;
         _this = this;
-        this.totalAppearances = 0;
         this.fillPercent = 0;
-        $('#' + type + ' .gauge span').each(function() {
-          return _this.totalAppearances += parseInt($(this).data('appearances'));
-        });
-        return this.fillPercent = bar.data('appearances') * 100 / this.totalAppearances;
+        return this.fillPercent = bar.data('appearances') * 100 / this.total;
       };
 
       Top5View.prototype.fillGauges = function(type) {
@@ -60,10 +48,21 @@
         _this = this;
         return $('#' + type + ' .gauge span').each(function() {
           _this.getFillPercent($(this), type);
-          $('#' + type + ' span.total').html('/' + _this.totalAppearances);
           $(this).addClass('width').width(0);
           return $(this).removeClass('width').width(_this.fillPercent + '%');
         });
+      };
+
+      Top5View.prototype.setTotal = function(data) {
+        var _this;
+        _this = this;
+        if (!data.person) {
+          return $('.header-wrap span.value').html(_this.total);
+        } else if (data.person === 'person2') {
+          return $('section .top-5.person2 .header-wrap span.value').html(_this.total);
+        } else {
+          return $('section .top-5.person1 .header-wrap span.value').html(_this.total);
+        }
       };
 
       return Top5View;

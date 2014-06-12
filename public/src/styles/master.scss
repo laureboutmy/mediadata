@@ -1124,6 +1124,32 @@ section.module {
 		border: 1px solid #d9d9d9;
 		border-radius: 5px;
 		overflow: hidden;
+		div.no-data {
+			background: #f5f5f5;
+			height: 350px;
+			display: block;
+			position: relative;
+			width: 100%;
+			p {
+				position: relative;
+				top: 50%;
+				margin: 0 auto;
+				text-align: center;
+				overflow: hidden;
+				-webkit-transform: translateY(-50%);
+						-ms-transform: translateY(-50%);
+								transform: translateY(-50%); 
+				color: #cccccc;
+				font-size: em(15px);
+				font-weight: 700;
+				i {
+					font-size: em(30px, 15px);
+					position: relative;
+					top: 5px;
+					left: -3px;
+				}
+			}
+		}
 		h3 {
 			float: left;
 			margin: 30px 0 30px 30px;
@@ -1409,32 +1435,35 @@ section.module {
 				}
 			}
 		}
-		nav.tabs {
-			overflow: hidden;
-			ul li {
-				cursor: pointer;
-				float: left;
-				width: 50%;
-				@include box-sizing(border-box);
-				padding: em(20px, 17px);
-				font-size: em(17px);
-				font-weight: 700;
-				text-transform: uppercase;
-				background-color: #f5f5f5; color: #ccc;
-				text-align: center;
-				border-bottom: 1px solid #d9d9d9;
-				&.active { background-color: #fff; color: $black; }
-				&:nth-child(2) { border-left: 1px solid #d9d9d9; }
-			}
+		// nav.tabs {
+		// 	overflow: hidden;
+		// 	ul li {
+		// 		cursor: pointer;
+		// 		float: left;
+		// 		width: 50%;
+		// 		@include box-sizing(border-box);
+		// 		padding: em(20px, 17px);
+		// 		font-size: em(17px);
+		// 		font-weight: 700;
+		// 		text-transform: uppercase;
+		// 		background-color: #f5f5f5; color: #ccc;
+		// 		text-align: center;
+		// 		border-bottom: 1px solid #d9d9d9;
+		// 		&.active { background-color: #fff; color: $black; }
+		// 		&:nth-child(2) { border-left: 1px solid #d9d9d9; }
+		// 	}
+		// }
+
+		span.value {
+			font: em(25px) $font-stack-serif;
+			font-weight: 700;
 		}
 
 		section {
 			display: none;
 			min-height: 395px;
 			position: relative;
-			&.visible {
-				display: block;
-			}
+			display: block;
 			div.no-data {
 				background: #f5f5f5;
 				height: 100%;
@@ -1459,12 +1488,30 @@ section.module {
 					}
 				}
 			}
+			div.header {
+				display: block;
+				height: 93px;
+				border-bottom: 1px solid #d9d9d9;
+				padding-left: 29px;
+				.header-wrap {
+					padding-top: em(21px)
+				}
+				span {
+					display: block;
+					&.value {
+						color: $black;
+					}
+					&.name {
+						font: em(15px) $font-stack; -webkit-font-smoothing: antialiased; color: #6a7d90; font-weight: 600;
+					}
+				}
+			}
 			ol {
 				counter-reset: li-counter;
 				li {
 					display: block; 
 					position: relative;
-					padding: em(12px) em(30px);
+					padding: em(9px) em(30px);
 					overflow: hidden;
 					border-bottom: 1px solid #d9d9d9;
 					&:last-child { border-bottom: 0; }
@@ -1485,15 +1532,10 @@ section.module {
 
 					img { float: left; margin-right: em(12px); }
 					h3 {
-						margin-top: em(6px, 15px);
+						margin-top: em(5px, 15px);
 						font-size: em(15px);
 						width: 80%;
 						color: #6a7d90;
-						font-weight: 700; }
-					span.value {
-						font-family: $font-stack-serif;
-						color: #111;
-						font-size: em(25px);
 						font-weight: 700; }
 					span.total {
 						margin-top: em(6px, 15px);
@@ -1528,9 +1570,34 @@ section.module {
 	&.clock {
 		border: 1px solid #d9d9d9;
 		border-radius: 5px;
-		min-height: 458px;
+		height: 475px;
 		overflow: hidden;
-		padding: 29px 0 20px 59px;
+		div.no-data {
+			background: #f5f5f5;
+			height: 100%;
+			display: block;
+			position: relative;
+			width: 100%;
+			p {
+				position: relative;
+				top: 50%;
+				margin: 0 auto;
+				text-align: center;
+				overflow: hidden;
+				-webkit-transform: translateY(-50%);
+						-ms-transform: translateY(-50%);
+								transform: translateY(-50%); 
+				color: #cccccc;
+				font-size: em(15px);
+				font-weight: 700;
+				i {
+					font-size: em(30px, 15px);
+					position: relative;
+					top: 5px;
+					left: -3px;
+				}
+			}
+		}
 		text { 
 			font: em(15px) $font-stack; -webkit-font-smoothing: antialiased;
 			&.time {

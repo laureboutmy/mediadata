@@ -497,20 +497,25 @@ define [
 
 		### EXEC ###
 		render: (data) ->
-			# Save a copy of original dataset
-			originalData = JSON.parse(JSON.stringify(data))
+			if (data.person2 and data.person1.timelineMentions.length is 0 and data.person1.timelineMentions.length is 0) or (!data.person2 and data.person1.timelineMentions.length is 0)
+				$('.module.timeline').empty().append('<div class="no-data"></div>')
+				$('.module.timeline .no-data').append('<p><i class="icon-heart_broken"></i>Aucune donnée disponible</p>')
 
-			# Append HTML template + SVG container
-			@$el.html(@template())
-			@svg()
-
-			# Append persons' infos in timeline's header
-			@getTotals originalData
-
-			# Draw the chart
-			if data.person2
-				@getMinMax data,true
-				@getYears originalData,true
 			else
-				@getMinMax data,false
-				@getYears originalData
+				# Save a copy of original dataset
+				originalData = JSON.parse(JSON.stringify(data))
+
+				# Append HTML template + SVG container
+				@$el.html(@template())
+				@svg()
+
+				# Append persons' infos in timeline's header
+				@getTotals originalData
+
+				# Draw the chart
+				if data.person2
+					@getMinMax data,true
+					@getYears originalData,true
+				else
+					@getMinMax data,false
+					@getYears originalData
