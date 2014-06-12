@@ -603,7 +603,7 @@ header#search-bar div.name form.search input:-ms-input-placeholder { color: #acb
 header#search-bar div.name form.search input:-moz-placeholder { color: #acb8c0; font-weight: normal; }
 header#search-bar div.name form.search label { padding: 0 0.5em 0 1.5em; font-weight: 400; color: #1b1f22; float: left; }
 header#search-bar div.name form.search label i { margin-right: 10px; font-size: 1em; color: #3498db; }
-header#search-bar div.name form.search ul.topics { display: none; top: 55px; position: absolute; background: #fff; width: 100%; box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2); }
+header#search-bar div.name form.search ul.topics { display: none; top: 54px; position: absolute; background: #fff; width: 100%; box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2); }
 header#search-bar div.name form.search ul.topics li { padding: 0.5em 1.7em; height: 62px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; line-height: 2em; background: transparent; transition: background ease-out 0.3s; }
 header#search-bar div.name form.search ul.topics li:hover, header#search-bar div.name form.search ul.topics li.active { background: #f5f5f5; cursor: pointer; }
 header#search-bar div.name form.search ul.topics li span { font-weight: normal; color: #acb8c0; }
