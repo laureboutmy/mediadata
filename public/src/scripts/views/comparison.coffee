@@ -48,6 +48,8 @@ define [
 
 		render: (options) ->
 			md.Status['currentView'] = 'comparison'
+			ga('send', 'pageview', '/'+ @name.person1.slug + '/' + @name.person2.slug)
+
 			document.body.scrollTop = document.documentElement.scrollTop = 0
 			@collections.person1.fetch
 				success: () =>
@@ -55,9 +57,10 @@ define [
 					@collections.person2.fetch
 						success: () =>
 							@collections.person2 = @collections.person2.models[0].attributes
-							md.Router.getFilters()
 							@$el.html(@template(@collections))
 							@initializeModules(@collections)
+							md.Router.getFilters()
+
 							@bind()
 							@onResize()
 							md.Router.hideLoader()

@@ -53,6 +53,7 @@ define [
 			else $('#filters').removeClass('fixed');
 
 		render: (options) ->
+			ga('send', 'pageview', '/'+ @name)
 			md.Status['currentView'] = 'person'
 			$('div.loader').addClass('loading')
 			document.body.scrollTop = document.documentElement.scrollTop = 0

@@ -63,6 +63,7 @@
 
       ComparisonView.prototype.render = function(options) {
         md.Status['currentView'] = 'comparison';
+        ga('send', 'pageview', '/' + this.name.person1.slug + '/' + this.name.person2.slug);
         document.body.scrollTop = document.documentElement.scrollTop = 0;
         return this.collections.person1.fetch({
           success: (function(_this) {
@@ -71,9 +72,9 @@
               _this.collections.person2.fetch({
                 success: function() {
                   _this.collections.person2 = _this.collections.person2.models[0].attributes;
-                  md.Router.getFilters();
                   _this.$el.html(_this.template(_this.collections));
                   _this.initializeModules(_this.collections);
+                  md.Router.getFilters();
                   _this.bind();
                   _this.onResize();
                   return md.Router.hideLoader();

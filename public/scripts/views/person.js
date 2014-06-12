@@ -60,6 +60,7 @@
       };
 
       PersonView.prototype.render = function(options) {
+        ga('send', 'pageview', '/' + this.name);
         md.Status['currentView'] = 'person';
         $('div.loader').addClass('loading');
         document.body.scrollTop = document.documentElement.scrollTop = 0;
