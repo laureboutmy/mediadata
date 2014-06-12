@@ -23,6 +23,8 @@
         return $('a.discover').off('click', this.scrollToTutorial);
       },
       render: function() {
+        ga('send', 'pageview', '/');
+        md.Status['currentView'] = 'home';
         document.body.scrollTop = document.documentElement.scrollTop = 0;
         this.$el.html(this.template());
         this.bind();

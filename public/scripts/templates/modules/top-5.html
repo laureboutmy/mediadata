@@ -1,15 +1,21 @@
-<nav class="tabs">
+<!-- <nav class="tabs">
   <ul>
     <li data-tab="channels">Chaines</li>
     <li class="active" data-tab="shows">Emissions</li>
   </ul>
-</nav>
+</nav> -->
 <section id="shows" class="visible">
   <% if(popularShows.length == 0) { %>
     <div class="no-data">
       <p><i class="icon-heart_broken"></i> Aucune donnée disponible</p>
     </div>
   <% } else { %>
+  <div class="header">
+    <div class="header-wrap">
+      <span class="value">300</span>
+      <span class="name">apparitions dans des émissions</span>
+    </div>
+  </div>
   <ol>
     <% _.each(popularShows, function(show){ %>
     <li>
@@ -19,27 +25,6 @@
       <span class="value"><%= show.showCount %></span>
       <div class="gauge">
         <span data-appearances="<%= show.showCount %>"></span>
-      </div>
-    </li>
-    <% }) %>
-  </ol>
-  <% } %>
-</section>
-<section id="channels">
-  <% if(popularChannels.length == 0) { %>
-    <div class="no-data">
-      <p><i class="icon-heart_broken"></i> Aucune donnée disponible</p>
-    </div>
-  <% } else { %>
-  <ol>
-    <% _.each(popularChannels, function(channel){ %>
-    <li>
-      <img src="<%= channel.channelPicture %>" />
-      <!-- <span class="total"></span> -->
-      <h3><% if(channel.channelName.length > 35) { print(channel.channelName.slice(0, 38) + '...') } else print(channel.channelName) %></h3>
-      <span class="value"><%= channel.channelCount %></span>
-      <div class="gauge">
-        <span data-appearances="<%= channel.channelCount %>"></span>
       </div>
     </li>
     <% }) %>

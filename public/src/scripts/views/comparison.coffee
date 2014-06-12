@@ -50,24 +50,31 @@ define [
 
 		render: (options) ->
 			md.Status['currentView'] = 'comparison'
+			ga('send', 'pageview', '/'+ @name.person1.slug + '/' + @name.person2.slug)
+			$('div.loader').removeClass('loading', 'complete')
+			$('div.loader.topic1').addClass('loading')
 			document.body.scrollTop = document.documentElement.scrollTop = 0
 			@collections.person1.fetch
 				success: () =>
+					$('div.loader.topic1').addClass('complete')
+					$('div.loader.topic2').addClass('loading')
 					@collections.person1 = @collections.person1.models[0].attributes
 					@collections.person2.fetch
 						success: () =>
+							$('div.loader.topic2').addClass('complete')
 							@collections.person2 = @collections.person2.models[0].attributes
-							md.Router.getFilters()
 							@$el.html(@template(@collections))
 							@initializeModules(@collections)
+							md.Router.getFilters()
+
 							@bind()
 							@onResize()
 							md.Router.hideLoader()
 					return @
 			
 		renderModules: (data) ->
-			@top51.render({ popularChannels: data.person1.popularChannels, popularShows: data.person1.popularShows })
-			@top52.render({ popularChannels: data.person2.popularChannels, popularShows: data.person2.popularShows })
+			@top51.render({ popularChannels: data.person1.popularChannels, popularShows: data.person1.popularShows, totalMentions: data.person1.timelineMentions, person: 'person1' })
+			@top52.render({ popularChannels: data.person2.popularChannels, popularShows: data.person2.popularShows, totalMentions: data.person2.timelineMentions, person: 'person2' })
 			@timeline.render
 				person1: { name: data.person1.person.name, timelineMentions: data.person1.timelineMentions }
 				person2: { name: data.person2.person.name, timelineMentions: data.person2.timelineMentions }

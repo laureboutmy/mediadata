@@ -10,52 +10,41 @@ define [
 		template: _.template(tplTop5)
 
 		render: (data) ->
-			# if data.popularShows.length == 0 
-				# @$el.html(@template())
+			@total = 0
+			for d,i in data.totalMentions
+				d.mentionCount = +d.mentionCount
+				@total += d.mentionCount
 			@$el.html(@template(data))
-			@bind()
+			@setTotal(data)
 			@fillGauges('shows')
-			return @
 
 		# Init gauges var
-		totalAppearances: 0
+		total: 0
 		fillPercent: 0
-		
-		events: 
-			'click .tabs li': 'onClick'
-
-		# On tab click, change content and refill gauges
-		onClick: (evt) ->
-			if not $(evt.currentTarget).hasClass('active')
-				@$el.find('li.active').removeClass('active')
-				$(evt.currentTarget).addClass('active')
-				currentTab = $(evt.currentTarget).data('tab')
-				@$el.find('section').removeClass('visible')
-				@$el.find('section#' + currentTab).addClass('visible')
-				# Refill gauges
-				@fillGauges(currentTab)
-		
 			
 		# Get fill % of gauge
 		getFillPercent: (bar, type) ->
 			_this = @
-			@totalAppearances = 0
 			@fillPercent = 0
-			$('#' + type + ' .gauge span').each -> 
-				_this.totalAppearances += parseInt($(@).data('appearances'))
-			@fillPercent = bar.data('appearances') * 100 / @totalAppearances
+			@fillPercent = bar.data('appearances') * 100 / @total
 		
 		# Fill gauge and append total
 		fillGauges: (type) ->
 			_this = @
 			$('#' + type + ' .gauge span').each ->
 				_this.getFillPercent($(@), type)
-				$('#' + type + ' span.total').html '/' + _this.totalAppearances
+				# $('#' + type + ' span.total').html '/' + _this.total
 				$(@).addClass('width').width(0)
 				$(@).removeClass('width').width(_this.fillPercent + '%')
-
 		
-
+		setTotal: (data) ->
+			_this = @
+			if !data.person
+				$('.header-wrap span.value').html(_this.total)
+			else if data.person is 'person2'
+				$('section .top-5.person2 .header-wrap span.value').html(_this.total)
+			else
+				$('section .top-5.person1 .header-wrap span.value').html(_this.total)
 		
 			
 			

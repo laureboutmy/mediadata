@@ -34,7 +34,7 @@
 
       yScale = d3.scale.linear().range([height, 0]);
 
-      xAxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(12);
+      xAxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(8);
 
       yAxis = d3.svg.axis().scale(yScale).orient('left').ticks(5);
 
@@ -471,7 +471,7 @@
         }
         path = d3.select('g.thetimeline').append('path').datum(data).attr('class', 'line' + datasetnumber).attr('d', valueline);
         d3.select('g.thetimeline').append('path').datum(data).attr('class', 'area' + datasetnumber).transition().duration(1500).ease('sin-in-out').style('opacity', 1).attr('d', area);
-        d3.select('g.thetimeline').selectAll('circle' + datasetnumber).data(data).enter().append('circle').attr('class', 'circle' + datasetnumber).attr('r', 3.5).attr('cx', function(d) {
+        d3.select('g.thetimeline').selectAll('circle' + datasetnumber).data(data).enter().append('circle').attr('class', 'dot' + datasetnumber).attr('r', 3.5).attr('cx', function(d) {
           return xScale(d.mentionDate);
         }).attr('cy', function(d) {
           return yScale(d.mentionCount);
@@ -497,18 +497,18 @@
         d3.select('g.thetimeline').append('path').attr('class', 'area' + personNumber).datum(data['person' + personNumber].timelineMentions).transition().duration(1500).ease('sin-in-out').attr('d', area).style('opacity', 1);
         if (year) {
           if (data['person2']) {
-            d3.selectAll('circle:not(.stay)').remove();
+            d3.selectAll('circle.dot:not(.stay)').remove();
           } else {
-            d3.selectAll('circle').remove();
+            d3.selectAll('circle.dot').remove();
           }
-          d3.selectAll('circle.stay').classed('stay', false);
-          d3.select('g.thetimeline').selectAll('circle' + personNumber).data(data['person' + personNumber].timelineMentions).enter().append('circle').attr('class', 'circle' + personNumber).classed('stay', true).attr('r', 3.5).attr('cx', function(d) {
+          d3.selectAll('circle.dot.stay').classed('stay', false);
+          d3.select('g.thetimeline').selectAll('circle' + personNumber).data(data['person' + personNumber].timelineMentions).enter().append('circle').attr('class', 'dot' + personNumber).classed('stay', true).attr('r', 3.5).attr('cx', function(d) {
             return xScale(d.mentionDate);
           }).attr('cy', function(d) {
             return yScale(d.mentionCount);
           }).transition().delay(1300).style('opacity', 1);
         } else {
-          d3.selectAll('circle').remove();
+          d3.selectAll('circle.dot').remove();
         }
         return this.translate();
       };
@@ -518,16 +518,21 @@
 
       TimelineView.prototype.render = function(data) {
         var originalData;
-        originalData = JSON.parse(JSON.stringify(data));
-        this.$el.html(this.template());
-        this.svg();
-        this.getTotals(originalData);
-        if (data.person2) {
-          this.getMinMax(data, true);
-          return this.getYears(originalData, true);
+        if ((data.person2 && data.person1.timelineMentions.length === 0 && data.person1.timelineMentions.length === 0) || (!data.person2 && data.person1.timelineMentions.length === 0)) {
+          $('.module.timeline').empty().append('<div class="no-data"></div>');
+          return $('.module.timeline .no-data').append('<p><i class="icon-heart_broken"></i>Aucune donnée disponible</p>');
         } else {
-          this.getMinMax(data, false);
-          return this.getYears(originalData);
+          originalData = JSON.parse(JSON.stringify(data));
+          this.$el.html(this.template());
+          this.svg();
+          this.getTotals(originalData);
+          if (data.person2) {
+            this.getMinMax(data, true);
+            return this.getYears(originalData, true);
+          } else {
+            this.getMinMax(data, false);
+            return this.getYears(originalData);
+          }
         }
       };
 

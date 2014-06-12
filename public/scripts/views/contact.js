@@ -28,6 +28,8 @@
       ContactView.prototype.destroy = function() {};
 
       ContactView.prototype.render = function() {
+        md.Status['currentView'] = 'contact';
+        ga('send', 'pageview', '/contact');
         document.body.scrollTop = document.documentElement.scrollTop = 0;
         this.$el.html(this.template());
         md.Router.hideLoader();

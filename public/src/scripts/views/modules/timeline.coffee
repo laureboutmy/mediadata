@@ -25,7 +25,7 @@ define [
 		xAxis =	d3.svg.axis()
 			.scale xScale
 			.orient 'bottom'
-			.ticks 12
+			.ticks 8
 
 		yAxis = d3.svg.axis()
 			.scale yScale
@@ -402,7 +402,7 @@ define [
 				.data data
 				.enter()
 				.append 'circle'
-					.attr 'class', 'circle' + datasetnumber
+					.attr 'class', 'dot' + datasetnumber
 					.attr 'r', 3.5
 					.attr 'cx', (d) -> return xScale d.mentionDate
 					.attr 'cy', (d) -> return yScale d.mentionCount
@@ -470,18 +470,18 @@ define [
 			if year
 				# Redraw dots
 				if data['person2']
-					d3.selectAll 'circle:not(.stay)'
+					d3.selectAll 'circle.dot:not(.stay)'
 						.remove()
 				else
-					d3.selectAll 'circle'
+					d3.selectAll 'circle.dot'
 						.remove()
-				d3.selectAll 'circle.stay'
+				d3.selectAll 'circle.dot.stay'
 					.classed 'stay', false
 				d3.select('g.thetimeline').selectAll('circle' + personNumber)
 					.data data['person' + personNumber].timelineMentions
 					.enter()
 					.append 'circle'
-						.attr 'class', 'circle' + personNumber
+						.attr 'class', 'dot' + personNumber
 						.classed 'stay', true
 						.attr 'r', 3.5
 						.attr 'cx', (d) -> return xScale d.mentionDate
@@ -490,27 +490,32 @@ define [
 						.delay(1300)
 						.style 'opacity', 1
 			else
-				d3.selectAll 'circle'
+				d3.selectAll 'circle.dot'
 					.remove()
 
 			@translate()
 
 		### EXEC ###
 		render: (data) ->
-			# Save a copy of original dataset
-			originalData = JSON.parse(JSON.stringify(data))
+			if (data.person2 and data.person1.timelineMentions.length is 0 and data.person1.timelineMentions.length is 0) or (!data.person2 and data.person1.timelineMentions.length is 0)
+				$('.module.timeline').empty().append('<div class="no-data"></div>')
+				$('.module.timeline .no-data').append('<p><i class="icon-heart_broken"></i>Aucune donnée disponible</p>')
 
-			# Append HTML template + SVG container
-			@$el.html(@template())
-			@svg()
-
-			# Append persons' infos in timeline's header
-			@getTotals originalData
-
-			# Draw the chart
-			if data.person2
-				@getMinMax data,true
-				@getYears originalData,true
 			else
-				@getMinMax data,false
-				@getYears originalData
+				# Save a copy of original dataset
+				originalData = JSON.parse(JSON.stringify(data))
+
+				# Append HTML template + SVG container
+				@$el.html(@template())
+				@svg()
+
+				# Append persons' infos in timeline's header
+				@getTotals originalData
+
+				# Draw the chart
+				if data.person2
+					@getMinMax data,true
+					@getYears originalData,true
+				else
+					@getMinMax data,false
+					@getYears originalData

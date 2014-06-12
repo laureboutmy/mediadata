@@ -53,25 +53,27 @@ define [
 			else $('#filters').removeClass('fixed');
 
 		render: (options) ->
+			ga('send', 'pageview', '/'+ @name)
 			md.Status['currentView'] = 'person'
-			$('div.loader').addClass('loading')
+			$('div.loader').removeClass('loading').removeClass('complete')
+			$('div.loader.topic1').addClass('loading')
 			document.body.scrollTop = document.documentElement.scrollTop = 0
 
 			@collection.fetch
 				success: (data) =>
-					$('div.loader').addClass('complete');
+					$('div.loader.topic1').addClass('complete');
 					@collection = @collection.models[0].attributes
 					@$el.html(@template(@collection))
 					md.Router.getFilters()
 					@initializeModules(@collection)
 					@bind()
 					@onResize()
-					$('div.loader').addClass('complete')
+					$('div.loader.topic1').addClass('complete')
 					md.Router.hideLoader()
 					return @
 
 		renderModules: (data) ->
-			@top5.render({ popularChannels: data.popularChannels, popularShows: data.popularShows })
+			@top5.render({ popularChannels: data.popularChannels, popularShows: data.popularShows, totalMentions: data.timelineMentions })
 			@timeline.render({ person1: { name: data.person.name, timelineMentions: data.timelineMentions }})
 			@clock.render({ broadcastHoursByDay: data.broadcastHoursByDay })
 			@bar.render({ channels: data.channels, name: data.person.name, data: data })
@@ -89,4 +91,14 @@ define [
 					@renderModules(@collection)
 					md.Router.hideLoader()
 
-		
+		# tweet: () ->
+		# 	not (d, s, id) ->
+		# 	  js = undefined
+		# 	  fjs = d.getElementsByTagName(s)[0]
+		# 	  unless d.getElementById(id)
+		# 	    js = d.createElement(s)
+		# 	    js.id = id
+		# 	    js.src = "https://platform.twitter.com/widgets.js"
+		# 	    fjs.parentNode.insertBefore js, fjs
+		# 	  return
+		# 	(document, "script", "twitter-wjs")

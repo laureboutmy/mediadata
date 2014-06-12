@@ -15,7 +15,7 @@ define [
 			if md.Filters.dateMax then @url = @url + '&datemax=' + md.Filters.dateMax
 			if md.Filters.canal then @url = @url + '&canal=' + md.Filters.canal
 			if md.Filters.par then @url = @url + '&par=' + md.Filters.par
-			console.log(@url)
+			# console.log(@url)
 
 			# http://api.mediadata.fr/person.php?slug=anne-hidalgo&datemin=2000-09&datemax=2010-10&canal=TVH&chaine=France%202&par=1
 

@@ -65,29 +65,35 @@ define [
 			md.Router.showLoader()
 			@getSearchbar(name)
 			md.Views['person'] = new PersonView({name1: name})
+			@updateSidebar()
 
 		getSearch: () ->
 
-			md.Status['currentView'] = 'search'
+			md.Status['currentView'] = 'rechercher'
 
 			@getSearchbar(null, null, true)
-			md.Views['search'] = new SearchView()
+			md.Views['rechercher'] = new SearchView()
+			@updateSidebar()
 
 		getIndex: () ->
 			md.Router.showLoader()
 			md.Status['currentView'] = 'index'
 			if md.Views['search-bar'] then $(md.Views['search-bar'].el).removeClass('visible')
 			md.Views['index'] = new IndexView()
+			@updateSidebar()
 		getAbout: () ->
 			md.Router.showLoader()
-			md.Status['currentView'] = 'about'
+			md.Status['currentView'] = 'a-propos'
 			if md.Views['search-bar'] then $(md.Views['search-bar'].el).removeClass('visible')
-			md.Views['about'] = new AboutView()
+			md.Views['a-propos'] = new AboutView()
+			@updateSidebar()
+
 		getContact: () ->
 			md.Router.showLoader()
 			md.Status['currentView'] = 'contact'
 			if md.Views['search-bar'] then $(md.Views['search-bar'].el).removeClass('visible')
 			md.Views['contact'] = new ContactView()
+			@updateSidebar()
 
 		getComparison: (name1, name2) ->
 			md.Router.showLoader()
@@ -119,3 +125,11 @@ define [
 			url = $(this).data('link')
 			md.Router.navigate(url, {trigger: true})
 			# if url != 'rechercher' && url != 'index' && url != 'a-propos' && url != 'home'  then md.Router.getPerson(url)
+		
+		updateSidebar: () ->
+			$('#sidebar').find('.active').removeClass('active')
+			if md.Status['currentView'] == 'person' or md.Status['currentView'] == 'comparison'
+				$('#sidebar').find('[data-link=rechercher]').addClass('active')
+			else 
+				
+				$('#sidebar').find('[data-link=' + md.Status['currentView'] + ']').addClass('active')
