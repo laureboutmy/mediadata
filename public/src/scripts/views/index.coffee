@@ -33,7 +33,6 @@ define [
 		render: () ->
 			document.body.scrollTop = document.documentElement.scrollTop = 0
 			ga('send', 'pageview', '/index')
-
 			@$el.html(@template(@collection))
 			md.Router.hideLoader()		
 			return @

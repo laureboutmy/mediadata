@@ -10,7 +10,6 @@ define [
 		template: _.template(tplTop5)
 
 		render: (data) ->
-			console.log data
 			@total = 0
 			for d,i in data.totalMentions
 				d.mentionCount = +d.mentionCount

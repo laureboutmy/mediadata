@@ -62,19 +62,20 @@
       PersonView.prototype.render = function(options) {
         ga('send', 'pageview', '/' + this.name);
         md.Status['currentView'] = 'person';
-        $('div.loader').addClass('loading');
+        $('div.loader').removeClass('loading').removeClass('complete');
+        $('div.loader.topic1').addClass('loading');
         document.body.scrollTop = document.documentElement.scrollTop = 0;
         return this.collection.fetch({
           success: (function(_this) {
             return function(data) {
-              $('div.loader').addClass('complete');
+              $('div.loader.topic1').addClass('complete');
               _this.collection = _this.collection.models[0].attributes;
               _this.$el.html(_this.template(_this.collection));
               md.Router.getFilters();
               _this.initializeModules(_this.collection);
               _this.bind();
               _this.onResize();
-              $('div.loader').addClass('complete');
+              $('div.loader.topic1').addClass('complete');
               md.Router.hideLoader();
               return _this;
             };

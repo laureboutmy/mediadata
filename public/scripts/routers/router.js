@@ -103,15 +103,17 @@
       Router.prototype.getPerson = function(name) {
         md.Router.showLoader();
         this.getSearchbar(name);
-        return md.Views['person'] = new PersonView({
+        md.Views['person'] = new PersonView({
           name1: name
         });
+        return this.updateSidebar();
       };
 
       Router.prototype.getSearch = function() {
-        md.Status['currentView'] = 'search';
+        md.Status['currentView'] = 'rechercher';
         this.getSearchbar(null, null, true);
-        return md.Views['search'] = new SearchView();
+        md.Views['rechercher'] = new SearchView();
+        return this.updateSidebar();
       };
 
       Router.prototype.getIndex = function() {
@@ -120,16 +122,18 @@
         if (md.Views['search-bar']) {
           $(md.Views['search-bar'].el).removeClass('visible');
         }
-        return md.Views['index'] = new IndexView();
+        md.Views['index'] = new IndexView();
+        return this.updateSidebar();
       };
 
       Router.prototype.getAbout = function() {
         md.Router.showLoader();
-        md.Status['currentView'] = 'about';
+        md.Status['currentView'] = 'a-propos';
         if (md.Views['search-bar']) {
           $(md.Views['search-bar'].el).removeClass('visible');
         }
-        return md.Views['about'] = new AboutView();
+        md.Views['a-propos'] = new AboutView();
+        return this.updateSidebar();
       };
 
       Router.prototype.getContact = function() {
@@ -138,7 +142,8 @@
         if (md.Views['search-bar']) {
           $(md.Views['search-bar'].el).removeClass('visible');
         }
-        return md.Views['contact'] = new ContactView();
+        md.Views['contact'] = new ContactView();
+        return this.updateSidebar();
       };
 
       Router.prototype.getComparison = function(name1, name2) {
@@ -186,6 +191,15 @@
         return md.Router.navigate(url, {
           trigger: true
         });
+      };
+
+      Router.prototype.updateSidebar = function() {
+        $('#sidebar').find('.active').removeClass('active');
+        if (md.Status['currentView'] === 'person' || md.Status['currentView'] === 'comparison') {
+          return $('#sidebar').find('[data-link=rechercher]').addClass('active');
+        } else {
+          return $('#sidebar').find('[data-link=' + md.Status['currentView'] + ']').addClass('active');
+        }
       };
 
       return Router;

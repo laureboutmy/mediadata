@@ -19,7 +19,6 @@
 
       Top5View.prototype.render = function(data) {
         var d, i, _i, _len, _ref;
-        console.log(data);
         this.total = 0;
         _ref = data.totalMentions;
         for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {

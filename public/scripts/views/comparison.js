@@ -64,13 +64,18 @@
       ComparisonView.prototype.render = function(options) {
         md.Status['currentView'] = 'comparison';
         ga('send', 'pageview', '/' + this.name.person1.slug + '/' + this.name.person2.slug);
+        $('div.loader').removeClass('loading', 'complete');
+        $('div.loader.topic1').addClass('loading');
         document.body.scrollTop = document.documentElement.scrollTop = 0;
         return this.collections.person1.fetch({
           success: (function(_this) {
             return function() {
+              $('div.loader.topic1').addClass('complete');
+              $('div.loader.topic2').addClass('loading');
               _this.collections.person1 = _this.collections.person1.models[0].attributes;
               _this.collections.person2.fetch({
                 success: function() {
+                  $('div.loader.topic2').addClass('complete');
                   _this.collections.person2 = _this.collections.person2.models[0].attributes;
                   _this.$el.html(_this.template(_this.collections));
                   _this.initializeModules(_this.collections);

@@ -27,9 +27,8 @@
           this.url = this.url + '&canal=' + md.Filters.canal;
         }
         if (md.Filters.par) {
-          this.url = this.url + '&par=' + md.Filters.par;
+          return this.url = this.url + '&par=' + md.Filters.par;
         }
-        return console.log(this.url);
       };
 
       return PersonsCollection;

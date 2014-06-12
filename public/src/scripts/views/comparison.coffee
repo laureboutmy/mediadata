@@ -49,13 +49,17 @@ define [
 		render: (options) ->
 			md.Status['currentView'] = 'comparison'
 			ga('send', 'pageview', '/'+ @name.person1.slug + '/' + @name.person2.slug)
-
+			$('div.loader').removeClass('loading', 'complete')
+			$('div.loader.topic1').addClass('loading')
 			document.body.scrollTop = document.documentElement.scrollTop = 0
 			@collections.person1.fetch
 				success: () =>
+					$('div.loader.topic1').addClass('complete')
+					$('div.loader.topic2').addClass('loading')
 					@collections.person1 = @collections.person1.models[0].attributes
 					@collections.person2.fetch
 						success: () =>
+							$('div.loader.topic2').addClass('complete')
 							@collections.person2 = @collections.person2.models[0].attributes
 							@$el.html(@template(@collections))
 							@initializeModules(@collections)

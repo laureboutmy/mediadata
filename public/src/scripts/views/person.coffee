@@ -55,19 +55,20 @@ define [
 		render: (options) ->
 			ga('send', 'pageview', '/'+ @name)
 			md.Status['currentView'] = 'person'
-			$('div.loader').addClass('loading')
+			$('div.loader').removeClass('loading').removeClass('complete')
+			$('div.loader.topic1').addClass('loading')
 			document.body.scrollTop = document.documentElement.scrollTop = 0
 
 			@collection.fetch
 				success: (data) =>
-					$('div.loader').addClass('complete');
+					$('div.loader.topic1').addClass('complete');
 					@collection = @collection.models[0].attributes
 					@$el.html(@template(@collection))
 					md.Router.getFilters()
 					@initializeModules(@collection)
 					@bind()
 					@onResize()
-					$('div.loader').addClass('complete')
+					$('div.loader.topic1').addClass('complete')
 					md.Router.hideLoader()
 					return @
 

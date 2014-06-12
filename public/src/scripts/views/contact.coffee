@@ -14,7 +14,9 @@ define [
 		initialize: () -> 
 			@render()
 		destroy: () ->
+			
 		render: () ->
+			md.Status['currentView'] = 'contact'
 			ga('send', 'pageview', '/contact')
 			document.body.scrollTop = document.documentElement.scrollTop = 0
 			@$el.html(@template())
