@@ -821,7 +821,9 @@ section.module.clock.person2 path { fill: #2781bb; }
 section.module.clock #mainlabel { position: relative; left: -25px; }
 section.module.clock #mainlabel text { text-anchor: left; }
 section.module.clock #mainlabel text.value { color: #1b1f22; font-size: 1.5625em; }
-section.module.clock #filter { position: relative; left: 50px; top: -10px; }
+section.module.clock #filter { position: relative; left: 69px; top: -23px; }
+section.module.clock #letters { position: relative; left: 285px; top: -23px; fill: #d9d9d9; }
+section.module.clock #letters text { font-size: 0.8125em; font-weight: 400; }
 section.module.clock #clockchart { margin-top: 15px; }
 section.module.clock .center text, section.module.clock .labels text { text-anchor: middle; }
 section.module.clock .center .value { color: #1b1f22; font-size: 1.25em; }
