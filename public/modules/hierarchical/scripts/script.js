@@ -51,7 +51,7 @@
         return "start";
       }
     }).text(function(d) {
-      return d.key;
+      return d.name;
     }).on('mouseover', mouseovered).on('mouseout', mouseouted);
   });
 

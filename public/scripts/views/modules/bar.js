@@ -35,12 +35,18 @@
       y = d3.scale.linear().range([height, 0]);
 
       BarView.prototype.svg = function() {
-        return d3.selectAll(this.$el).append('svg').attr('id', 'barchart').attr('width', width).attr('height', height);
+        return d3.selectAll(this.$el).append('svg').attr('id', 'barchart').attr('width', width).attr('height', height + margin.top + margin.bottom);
       };
 
       yAxis = d3.svg.axis().scale(y).orient('left').ticks(4).tickSize(-width, 0, 0);
 
       BarView.prototype.getScale = function(data) {
+        var d, i, _i, _len, _ref;
+        _ref = data.channels;
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          d = _ref[i];
+          d.channelCount = +d.channelCount;
+        }
         x.domain(data.channels.map(function(d) {
           return d.channelName;
         }));
@@ -56,25 +62,19 @@
       };
 
       BarView.prototype.drawContent = function(data) {
-        var d, i, _i, _len, _ref;
-        _ref = data.channels;
-        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
-          d = _ref[i];
-          d.channelCount = +d.channelCount;
-        }
         d3.select('#barchart').append('g').attr('class', 'grid').attr("transform", "translate(0,60)").call(yAxis);
-        d3.select('#barchart').selectAll('g.bar-g').data(data.channels).enter().append('g').attr('class', 'bar-g').append('rect').attr('class', 'bar').attr('x', function(d, i) {
+        d3.select('#barchart').selectAll('g.bar-g').data(data.channels).enter().append('g').attr('class', 'bar-g').attr('transform', 'translate(0,' + margin.bottom + ')').append('rect').attr('class', 'bar').attr('x', function(d, i) {
           return x(d.channelName) + 27;
         }).attr('width', 35).attr('y', function(d) {
           return y(d.channelCount);
         }).attr('height', function(d, i) {
           return height - y(d.channelCount);
-        }).attr('transform', 'translate(0,' + margin.top + ')');
+        });
         return d3.select('#barchart').selectAll('g.bar-g').data(data.channels).append('image').attr('xlink:href', function(d) {
-          return d.channelLogo;
-        }).attr('height', 80).attr('width', 70).attr('x', function(d, i) {
+          return d.channelPicture;
+        }).attr('height', 34).attr('width', 62).attr('x', function(d, i) {
           return x(d.channelName) + 10;
-        }).attr('y', height);
+        }).attr('y', height + 15);
       };
 
       BarView.prototype.drawTooltip = function(data) {
@@ -83,31 +83,30 @@
         d3.select('#barchart').selectAll('g.bar-g').append('rect').data(data.channels).attr('filter', 'url(#f1)').attr('class', 'tooltip shadow').attr('height', 45).attr('width', 76).attr('x', function(d, i) {
           return x(d.channelName) + 5;
         }).attr('y', function(d) {
-          return y(d.channelCount) + 7;
+          return y(d.channelCount) - 53;
         }).attr('rx', 20).attr('ry', 25);
         d3.select('#barchart').selectAll('g.bar-g').append('rect').data(data.channels).attr('class', 'tooltip').attr('height', 45).attr('width', 76).attr('x', function(d, i) {
           return x(d.channelName) + 5;
         }).attr('y', function(d) {
-          return y(d.channelCount) + 5;
+          return y(d.channelCount) - 55;
         }).attr('rx', 20).attr('ry', 25);
         d3.select('#barchart').selectAll('g.bar-g').append('text').data(data.channels).attr('text-anchor', 'middle').attr('class', 'tooltip name').attr('x', function(d, i) {
           return x(d.channelName) + 42;
         }).attr('y', function(d) {
-          return y(d.channelCount) + 25;
+          return y(d.channelCount) - 35;
         }).text(function(d) {
           return d.channelName;
         });
         return d3.select('#barchart').selectAll('g.bar-g').append('text').data(data.channels).attr('text-anchor', 'middle').attr('class', 'tooltip count').attr('x', function(d, i) {
           return x(d.channelName) + 42;
         }).attr('y', function(d) {
-          return y(d.channelCount) + 40;
+          return y(d.channelCount) - 20;
         }).html(function(d) {
           return d.channelCount;
         });
       };
 
       BarView.prototype.render = function(data) {
-        console.log('remy Data ->', data);
         this.$el.html(this.template());
         this.svg();
         this.getScale(data);
