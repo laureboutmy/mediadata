@@ -203,6 +203,10 @@
           d3.select(this.parentNode.parentNode).selectAll('.dayletter').classed('selected', false);
           d3.select(this).classed('selected', true);
           return _this.barClick(d.day);
+        }).on('mouseover', function(d) {
+          return d3.select(this.parentNode.parentNode).select('.dayletter.' + d.day).classed('hovered', true);
+        }).on('mouseleave', function(d) {
+          return d3.select(this.parentNode.parentNode).select('.dayletter.' + d.day).classed('hovered', false);
         });
         d3.selectAll(this.$el).selectAll('#letters').selectAll('text').data(['L', 'M', 'M', 'J', 'V', 'S', 'D']).enter().append('text').attr('class', 'dayletter').attr('x', function(d, i) {
           return xScale(i);
@@ -215,6 +219,10 @@
           d3.select(this.parentNode.parentNode).selectAll('.bar').classed('selected', false);
           d3.select(this).classed('selected', true);
           return _this.letterClick(d.day);
+        }).on('mouseover', function(d) {
+          return d3.select(this.parentNode.parentNode).select('.bar.' + d.day).classed('hovered', true);
+        }).on('mouseleave', function(d) {
+          return d3.select(this.parentNode.parentNode).select('.bar.' + d.day).classed('hovered', false);
         });
         d3.selectAll(this.$el).select('.bar').classed('selected', true);
         d3.selectAll(this.$el).select('.dayletter:nth-of-type(1)').classed('selected', true);
@@ -230,7 +238,6 @@
       };
 
       ClockView.prototype.letterClick = function(day) {
-        console.log('hoi');
         return d3.selectAll(this.$el).select('.bar.' + day).classed('selected', true);
       };
 
