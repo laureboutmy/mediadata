@@ -68,6 +68,14 @@
         });
       };
 
+      ClockView.prototype.svg = function() {
+        d3.selectAll(this.$el).style('padding', '29px 0 20px 59px');
+        d3.selectAll(this.$el).append('svg').attr('id', 'mainlabel').attr('width', this.defaults.mlw).attr('height', this.defaults.mlh);
+        d3.selectAll(this.$el).append('svg').attr('id', 'filter').attr('width', fw).attr('height', fh);
+        d3.selectAll(this.$el).append('svg').attr('id', 'letters').attr('width', fw).attr('height', lh);
+        return d3.selectAll(this.$el).append('svg').attr('id', 'clockchart').attr('height', visHeight).append('g');
+      };
+
       ClockView.prototype.mouseOut = function(currentDay, data) {
         var mentionsByDayValue;
         mentionsByDayValue = this.getMentionsByDay(data, true, currentDay);
@@ -86,6 +94,10 @@
         });
       };
 
+      ClockView.prototype.clear = function() {
+        return this.$el.children().remove();
+      };
+
       ClockView.prototype.getTotal = function(data) {
         var d, i, total, _i, _len, _ref;
         total = 0;
@@ -95,20 +107,6 @@
           total += d.broadcastCount;
         }
         return total;
-      };
-
-      ClockView.prototype.getPercent = function(value, data) {
-        var total;
-        total = this.getTotal(data);
-        return Math.round(((value / total) * 100) * 100) / 100;
-      };
-
-      ClockView.prototype.svg = function() {
-        d3.selectAll(this.$el).style('padding', '29px 0 20px 59px');
-        d3.selectAll(this.$el).append('svg').attr('id', 'mainlabel').attr('width', this.defaults.mlw).attr('height', this.defaults.mlh);
-        d3.selectAll(this.$el).append('svg').attr('id', 'filter').attr('width', fw).attr('height', fh);
-        d3.selectAll(this.$el).append('svg').attr('id', 'letters').attr('width', fw).attr('height', lh);
-        return d3.selectAll(this.$el).append('svg').attr('id', 'clockchart').attr('height', visHeight).append('g');
       };
 
       ClockView.prototype.parse = function(data) {
@@ -158,6 +156,7 @@
 
       ClockView.prototype.drawFilter = function(data) {
         var d, d2, i, i2, maxDayValue, mentionsByDay, xScale, yScale, _i, _j, _k, _l, _len, _len1, _len2, _m, _ref, _results, _this;
+        _this = this;
         mentionsByDay = [];
         for (i = _i = 1; _i <= 7; i = ++_i) {
           mentionsByDay.push({
@@ -188,7 +187,6 @@
             return d;
           }
         ]).range([0, fh]);
-        _this = this;
         d3.selectAll(this.$el).selectAll('#filter').selectAll('rect').data(mentionsByDay).enter().append('rect').attr('x', function(d, i) {
           return xScale(i);
         }).attr('y', function(d) {
@@ -240,6 +238,9 @@
       ClockView.prototype.letterClick = function(day) {
         return d3.selectAll(this.$el).select('.bar.' + day).classed('selected', true);
       };
+
+
+      /* REDRAW */
 
       ClockView.prototype.redrawContent = function(day, data, mentionsByDay) {
         var currentDay, d, i, maxHourValue, mentionsByDayValue, mentionsByHour, overallMaxHourValue, pathScale, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m, _n, _ref, _ref1, _ref2, _ref3;
@@ -301,6 +302,9 @@
         return d3.selectAll(this.$el).select('g.center text.value').data(mentionsByHour).text(mentionsByDay[currentDay].mentions);
       };
 
+
+      /* FIRST DRAW */
+
       ClockView.prototype.drawClock = function(d, data) {
         var h, labels, p, r, radiusFunction, ticks, w;
         w = 360;
@@ -320,6 +324,7 @@
 
       ClockView.prototype.drawContent = function(data) {
         var currentDay, d, i, maxHourValue, mentionsByDayValue, mentionsByHour, overallMaxHourValue, pathScale, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m, _n, _ref, _ref1, _ref2, _ref3, _this;
+        _this = this;
         maxHourValue = [0];
         overallMaxHourValue = [0];
         mentionsByHour = [];
@@ -367,7 +372,6 @@
             }
           }
         }
-        _this = this;
         currentDay = 0;
         mentionsByDayValue = this.getMentionsByDay(data, true, currentDay);
         d3.selectAll(this.$el).select('g').append('svg:g').attr('class', 'arcs').selectAll('path').data(mentionsByHour).enter().append('svg:path').attr('d', arc(mentionsByHour, arcOptions)).attr('transform', 'translate(' + visWidth + ',' + visWidth + ')').on('mouseover', function(d) {
@@ -380,9 +384,8 @@
         return d3.selectAll(this.$el).select('g.center').append('svg:text').attr('transform', 'translate(' + visWidth + ',' + (visWidth + 20) + ')').attr('class', 'value').text(mentionsByDayValue);
       };
 
-      ClockView.prototype.clear = function() {
-        return this.$el.children().remove();
-      };
+
+      /* EXEC */
 
       ClockView.prototype.render = function(data) {
         if (data.broadcastHoursByDay.length === 0) {
