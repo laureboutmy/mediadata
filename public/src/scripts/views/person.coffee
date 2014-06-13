@@ -96,20 +96,16 @@ define [
 			console.log(md.Filters)
 			if md.Filters['par']
 				if md.Filters['par'] is '1'
-					$('h2.evolution').text('Evolution des participations')
-					$('p.top-emissions').text("Découvrez les 5 émissions auxquelles " + @collection.person.name + " a le plus participé. Rediffusions comptabilisées. En cas d'émissions diffusées sur plusieurs chaînes, le logo de la chaîne d'origine s'affiche.")
+					$('h2.evolution').text('Chronologie des participations')
 					$('h2.horaires').text("Participations horaires et journalières")
-					$('p.horaires').text("Quand sont diffusées les émissions auxquelles participe " + @collection.person.name + " ? Utilisez les barres circulaires pour découvrir la répartition horaire et les barres verticales pour explorer la répartition journalière. ")
 					if @collection.person.gender is 'f'
 						$('h2.avec').text("Elle participe aux mêmes émissions que...")
 					else if @collection.person.gender is 'm'
 						$('h2.avec').text("Il participe aux mêmes émissions que...")
 
 				else if md.Filters['par'] is '0'
-					$('h2.evolution').text('Evolution des mentions')
-					$('p.top-emissions').text("Découvrez les 5 émissions qui ont le plus parlé de " + @collection.person.name + ". Rediffusions comptabilisées. En cas d'émissions diffusées sur plusieurs chaînes, le logo de la chaîne d'origine s'affiche.")
+					$('h2.evolution').text('Chronologie des mentions')
 					$('h2.horaires').text("Mentions horaires et journalières")
-					$('p.horaires').text("Quand parle-t-on le plus ou le moins de " + @collection.person.name + " ? Survolez les barres circulaires pour découvrir la répartition horaire. Utilisez les barres verticales pour explorer la répartition journalière. ")
 					if @collection.person.gender is 'f'
 						$('h2.avec').text("On parle souvent d'elle avec...")
 					else if @collection.person.gender is 'm'

@@ -56,13 +56,13 @@
 	<section id="filters"></section>
 	<div class="grid">
 		<section id="timeline">
-			<h2>Chronologie des mentions</h2>
+			<h2 class="evolution">Chronologie des mentions</h2>
 			<p>Gardez en tête que si les notices de la TV hertzienne et des radios publiques sont collectées depuis 1995, celles des radios privées ne le sont que depuis 2002. Quant à la TNT, arrivée en 2005, elle est aussi susceptible de créer une évolution artificielle. </p>
 			<section class="module timeline"></section>
 		</section>
 		<section id="programs">
 			<h2>Top émissions</h2>
-			<p>Découvrez les 5 émissions qui ont le plus parlé de <%= person1.person.name %> et <%= person2.person.name %>. Rediffusions comptabilisées. En cas d'émissions diffusées sur plusieurs chaînes, le logo de la chaîne d'origine s'affiche.</p>
+			<p class="top-emissions">Découvrez les 5 émissions qui ont le plus parlé de <%= person1.person.name %> et <%= person2.person.name %>. Rediffusions comptabilisées. En cas d'émissions diffusées sur plusieurs chaînes, le logo de la chaîne d'origine s'affiche.</p>
 			<div class="unit left">
 				<section class="module top-5 person1"></section><!-- section.module.top-5 -->
 			</div>
@@ -71,7 +71,7 @@
 			</div>
 
 			<h2 class="horaires">Mentions horaires et journalières</h2>
-			<p class="horaires">A quelle heure parle-t-on le plus ou le moins de <%= person1.person.name %> et <%= person2.person.name %> ? Survolez les barres circulaires pour découvrir la répartition horaire. Utilisez les barres verticales pour explorer la répartition journalière.</p>
+			<p class="horaires">Quand parle-t-on le plus ou le moins de <%= person1.person.name %> et <%= person2.person.name %> ? Survolez les barres circulaires pour découvrir la répartition horaire. Utilisez les barres verticales pour explorer la répartition journalière.</p>
 
 			<div class="unit left">
 				<section class="module clock person1"></section><!-- section.module.clock -->
@@ -90,7 +90,7 @@
 	</div>
 	<footer class="social">
 		<h3 class="all-caps">partagez cette comparaison</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
+	 	<p>Partagez la visualisation de l'exposition médiatique de <% person1.person.name %> et <% person2.person.name %> dans votre réseau</p>
 		<a href="https://twitter.com/share?text=coucou&url=http://www.mediadata.fr/<%= person1.person.slug %>/<%= person2.person.slug %>&via=mediadatafr" target="_blank" class="button tw twitter-share-button"><i class="icon-twitter"></i>Twitter</a>
 		<a target="_blank" href="https://www.facebook.com/dialog/share?app_id=783666605001268&display=popup&href=http://www.mediadata.fr/<%= person1.person.slug %>/<%= person2.person.slug %>&redirect_uri=http://www.mediadata.fr/<%= person1.person.slug %>/<%= person2.person.slug %>" class="button fb"><i class="icon-facebook"></i>Facebook</a>
 	</footer>

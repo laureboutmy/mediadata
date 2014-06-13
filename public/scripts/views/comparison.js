@@ -93,6 +93,7 @@
       };
 
       ComparisonView.prototype.renderModules = function(data) {
+        this.updateTexts(data);
         this.top51.render({
           popularChannels: data.person1.popularChannels,
           popularShows: data.person1.popularShows,
@@ -142,6 +143,19 @@
             };
           })(this)
         });
+      };
+
+      ComparisonView.prototype.updateTexts = function(data) {
+        console.log(md.Filters);
+        if (md.Filters['par']) {
+          if (md.Filters['par'] === '1') {
+            $('h2.evolution').text('Chronologie des participations');
+            return $('h2.horaires').text("Participations horaires et journalières");
+          } else if (md.Filters['par'] === '0') {
+            $('h2.evolution').text('Chronologie des mentions');
+            return $('h2.horaires').text("Mentions horaires et journalières");
+          }
+        }
       };
 
       ComparisonView.prototype.stickFilters = function() {

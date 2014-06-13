@@ -73,6 +73,7 @@ define [
 					return @
 			
 		renderModules: (data) ->
+			@updateTexts(data)
 			@top51.render({ popularChannels: data.person1.popularChannels, popularShows: data.person1.popularShows, totalMentions: data.person1.timelineMentions, person: 'person1' })
 			@top52.render({ popularChannels: data.person2.popularChannels, popularShows: data.person2.popularShows, totalMentions: data.person2.timelineMentions, person: 'person2' })
 			@timeline.render
@@ -97,6 +98,17 @@ define [
 							@collections.person2 = @collections.person2.models[0].attributes
 							@renderModules(@collections)
 							md.Router.hideLoader()
+
+		updateTexts: (data) ->
+			console.log(md.Filters)
+			if md.Filters['par']
+				if md.Filters['par'] is '1'
+					$('h2.evolution').text('Chronologie des participations')
+					$('h2.horaires').text("Participations horaires et journalières")
+
+				else if md.Filters['par'] is '0'
+					$('h2.evolution').text('Chronologie des mentions')
+					$('h2.horaires').text("Mentions horaires et journalières")
 
 		stickFilters: () ->
 			if $(window).scrollTop() > $('header.header').outerHeight()  then $('#filters').addClass('fixed')
