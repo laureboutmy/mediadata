@@ -44,20 +44,19 @@
         mail = form.find('#mail').val();
         subject = form.find('#subject').val();
         message = form.find('#message').val();
-        console.log(mail, subject, message);
         if (mail === '' || subject === '' || message === '' || !/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(mail)) {
           error = true;
         }
         return $.ajax({
           type: 'POST',
-          url: 'http://laureboutmy.com/mediadata/public/form.php',
+          url: 'http://mediadata.fr/form.php',
           data: {
             mail: mail,
             subject: subject,
             message: message
           },
           success: function(data) {
-            return console.log(data, 'send');
+            return $('.button').addClass('merci').text('Merci !');
           }
         });
       };

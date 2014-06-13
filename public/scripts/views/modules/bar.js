@@ -121,7 +121,11 @@
         this.getScale(data);
         this.drawContent(data);
         this.drawTooltip(data);
-        return this.getTotals(data);
+        this.getTotals(data);
+        if (data.channels.length <= 0) {
+          $('.module.bar').empty().append('<div class="no-data"></div>');
+          return $('.module.bar .no-data').append('<p><i class="icon-heart_broken"></i>Aucune donnée disponible</p>');
+        }
       };
 
       return BarView;
