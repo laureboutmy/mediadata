@@ -126,7 +126,6 @@
       };
 
       StackedView.prototype.render = function(data) {
-        console.log(data);
         this.$el.html(this.template());
         this.svg();
         this.getScale(data);
