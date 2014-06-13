@@ -810,7 +810,7 @@ section.module.x-with-y ul li div p { color: #acb8c0; font-size: 0.9375em; }
 section.module.top-5 { border: 1px solid #d9d9d9; border-radius: 5px; overflow: hidden; min-height: 458px; }
 section.module.top-5.person2 section ol li div.gauge span { background-color: #2781bb; }
 section.module.top-5 span.value { font: 1.5625em "chaparral-pro", serif; font-weight: 700; }
-section.module.top-5 section { display: none; min-height: 395px; position: relative; display: block; }
+section.module.top-5 section { display: none; min-height: 458px; position: relative; display: block; }
 section.module.top-5 section div.no-data { background: #f5f5f5; height: 100%; position: absolute; width: 100%; }
 section.module.top-5 section div.no-data p { position: relative; top: 50%; margin: 0 auto; text-align: center; overflow: hidden; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%); color: #cccccc; font-size: 0.9375em; font-weight: 700; }
 section.module.top-5 section div.no-data p i { font-size: 2em; position: relative; top: 5px; }
