@@ -21,7 +21,6 @@ define [
 
 		destroy: () ->
 		render: () ->
-			console.log(@collection)
 			document.body.scrollTop = document.documentElement.scrollTop = 0
 			@$el.html(@template(@collection))
 			md.Router.hideLoader()	

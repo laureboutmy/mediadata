@@ -155,7 +155,6 @@ define [
 
 
     render: (data) -> 
-      console.log data
 
       @$el.html(@template())
       @svg()

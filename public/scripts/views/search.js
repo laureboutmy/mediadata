@@ -36,7 +36,6 @@
       SearchView.prototype.destroy = function() {};
 
       SearchView.prototype.render = function() {
-        console.log(this.collection);
         document.body.scrollTop = document.documentElement.scrollTop = 0;
         this.$el.html(this.template(this.collection));
         md.Router.hideLoader();
