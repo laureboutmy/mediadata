@@ -182,16 +182,32 @@ define [
 			return dataYear
 
 		# Return number of values in year to check if this year is useless
-		getCount: (getYears, year, comparison) ->
-			count = 0
-			for d,i in getYears.person1.timelineMentions
-				if +d.year == year
-					count++
-			if comparison is true
-				for d,i in getYears.person2.timelineMentions
+		getCount: (data, year, comparison, total) ->
+			if total
+				count = 0
+				for d,i in data.person1.timelineMentions
+					if +d.mentionCount
+						count++
+				if comparison is true
+					count2 = 0
+					for d,i in data.person2.timelineMentions
+						if +d.mentionCount
+							count2++
+					return [count, count2]
+				else
+					return count
+
+			else
+				count = 0
+				for d,i in data.person1.timelineMentions
 					if +d.year == year
 						count++
-			return count
+				if comparison is true
+					for d,i in data.person2.timelineMentions
+						if +d.year == year
+							count++
+				return count
+
 
 		# Find max Y value for a year to draw Y axis
 		getMaxYValuesYear: (data,comparison) ->
@@ -353,19 +369,30 @@ define [
 			xScale.domain minMaxX
 			yScale.domain minMaxY
 
+			# Count values in data to know if dots can be visible
+			showDots = false
+			count = @getCount(data, null, comparison, true)
+
+			if comparison
+				if count[0] <= 35 and count[1] <= 35
+					showDots = true
+			else
+				if count <= 35
+					showDots = true
+
 			# Append everything
 			if comparison
 				if maxYValues[0] < maxYValues[1]
-					@draw data.person2.timelineMentions, 2, true
-					@draw data.person1.timelineMentions, 1
+					@draw data.person2.timelineMentions, 2, true, showDots
+					@draw data.person1.timelineMentions, 1, false, showDots
 				else
-					@draw data.person1.timelineMentions, 1, true
-					@draw data.person2.timelineMentions, 2
+					@draw data.person1.timelineMentions, 1, true, showDots
+					@draw data.person2.timelineMentions, 2, false, showDots
 			else
-				@draw data.person1.timelineMentions, 1, true
+				@draw data.person1.timelineMentions, 1, true, showDots
 
 		# Append chart elements
-		draw: (data, datasetnumber, drawGrid) ->
+		draw: (data, datasetnumber, drawGrid, showDots) ->
 			if drawGrid is true # (don't draw two grids)
 				# Draw horizontal grid
 				d3.select('g.thetimeline').append 'g'
@@ -406,6 +433,10 @@ define [
 					.attr 'r', 3.5
 					.attr 'cx', (d) -> return xScale d.mentionDate
 					.attr 'cy', (d) -> return yScale d.mentionCount
+
+			if showDots is true
+				d3.select('g.thetimeline').selectAll '.dot' + datasetnumber
+					.style 'opacity', '1'
 
 			if datasetnumber is 1 # (don't draw two X/Y axes)
 				# Draw X/Y axes
@@ -470,7 +501,7 @@ define [
 			if year
 				# Redraw dots
 				if data['person2']
-					d3.selectAll 'circle.dot:not(.stay)'
+					d3.selectAll 'circle:not(.stay)'
 						.remove()
 				else
 					d3.selectAll 'circle.dot' + personNumber
@@ -490,14 +521,20 @@ define [
 						.delay(1300)
 						.style 'opacity', 1
 			else
-				d3.selectAll 'circle.dot'
+				if data['person2']
+					d3.selectAll 'circle.dot1'
 					.remove()
+					d3.selectAll 'circle.dot2'
+					.remove()
+				else
+					d3.selectAll 'circle.dot1'
+						.remove()
 
 			@translate()
 
 		### EXEC ###
 		render: (data) ->
-			if (data.person2 and data.person1.timelineMentions.length is 0 and data.person1.timelineMentions.length is 0) or (!data.person2 and data.person1.timelineMentions.length is 0)
+			if (!data.person2 and data.person1.timelineMentions.length <= 2) or (data.person2 and (data.person1.timelineMentions.length + data.person2.timelineMentions.length) <= 2)
 				$('.module.timeline').empty().append('<div class="no-data"></div>')
 				$('.module.timeline .no-data').append('<p><i class="icon-heart_broken"></i>Aucune donnée disponible</p>')
 

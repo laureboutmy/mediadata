@@ -1744,39 +1744,39 @@ section.module {
 			fill: none; stroke: #cccccc; stroke-width: 1px; }
 		.bar { 
 			transition: all 0.3s ease-out; cursor: pointer; fill: #d9d9d9;
-			&.selected { 
+			&.selected, &.hovered { 
 				fill: #29b988; }
 			&:hover { 
 				fill: #29b988; }
 		}
 		.dayletter {
-			&.selected { 
+			&.selected, &.hovered { 
 				fill: #29b988; }
 			&:hover { 
 				fill: #29b988; }
 		}
 		&.person1 .dayletter {
-			&.selected { 
+			&.selected, &.hovered { 
 				fill: #29b988; }
 			&:hover { 
 				fill: #29b988; }
 		}
 		&.person2 .dayletter {
-			&.selected { 
+			&.selected, &.hovered { 
 				fill: #2781bb; }
 			&:hover { 
 				fill: #2781bb; }
 		}
 		&.person1 .bar {
 			fill: #d9d9d9;
-			&.selected { 
+			&.selected, &.hovered { 
 				fill: #29b988; }
 			&:hover { 
 				fill: #29b988; }
 		}
 		&.person2 .bar {
 			fill: #d9d9d9;
-			&.selected { 
+			&.selected, &.hovered { 
 				fill: #2781bb; }
 			&:hover { 
 				fill: #2781bb; }

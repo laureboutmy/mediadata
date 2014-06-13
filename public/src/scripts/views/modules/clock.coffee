@@ -180,6 +180,14 @@ define [
 						d3.select @
 							.classed 'selected', true
 						_this.barClick(d.day)
+					.on 'mouseover', (d) ->
+						d3.select @.parentNode.parentNode
+							.select '.dayletter.' + d.day
+							.classed 'hovered', true
+					.on 'mouseleave', (d) ->
+						d3.select @.parentNode.parentNode
+							.select '.dayletter.' + d.day
+							.classed 'hovered', false
 
 			d3.selectAll @$el
 				.selectAll '#letters'
@@ -206,6 +214,14 @@ define [
 					d3.select @
 						.classed 'selected', true
 					_this.letterClick(d.day)
+				.on 'mouseover', (d) ->
+					d3.select @.parentNode.parentNode
+						.select '.bar.' + d.day
+						.classed 'hovered', true
+				.on 'mouseleave', (d) ->
+					d3.select @.parentNode.parentNode
+						.select '.bar.' + d.day
+						.classed 'hovered', false
 
 			d3.selectAll(@$el).select('.bar').classed('selected', true)
 			d3.selectAll(@$el).select('.dayletter:nth-of-type(1)').classed('selected', true)
@@ -218,7 +234,6 @@ define [
 			d3.selectAll(@$el).select('text.dayletter.' + day).classed('selected', true)
 
 		letterClick: (day) ->
-			console.log 'hoi'
 			d3.selectAll(@$el).select('.bar.' + day).classed('selected', true)
 
 		#  Update chart

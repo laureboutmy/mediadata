@@ -236,26 +236,50 @@
         return dataYear;
       };
 
-      TimelineView.prototype.getCount = function(getYears, year, comparison) {
-        var count, d, i, _i, _j, _len, _len1, _ref, _ref1;
-        count = 0;
-        _ref = getYears.person1.timelineMentions;
-        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
-          d = _ref[i];
-          if (+d.year === year) {
-            count++;
+      TimelineView.prototype.getCount = function(data, year, comparison, total) {
+        var count, count2, d, i, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1, _ref2, _ref3;
+        if (total) {
+          count = 0;
+          _ref = data.person1.timelineMentions;
+          for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+            d = _ref[i];
+            if (+d.mentionCount) {
+              count++;
+            }
           }
-        }
-        if (comparison === true) {
-          _ref1 = getYears.person2.timelineMentions;
-          for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
-            d = _ref1[i];
+          if (comparison === true) {
+            count2 = 0;
+            _ref1 = data.person2.timelineMentions;
+            for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
+              d = _ref1[i];
+              if (+d.mentionCount) {
+                count2++;
+              }
+            }
+            return [count, count2];
+          } else {
+            return count;
+          }
+        } else {
+          count = 0;
+          _ref2 = data.person1.timelineMentions;
+          for (i = _k = 0, _len2 = _ref2.length; _k < _len2; i = ++_k) {
+            d = _ref2[i];
             if (+d.year === year) {
               count++;
             }
           }
+          if (comparison === true) {
+            _ref3 = data.person2.timelineMentions;
+            for (i = _l = 0, _len3 = _ref3.length; _l < _len3; i = ++_l) {
+              d = _ref3[i];
+              if (+d.year === year) {
+                count++;
+              }
+            }
+          }
+          return count;
         }
-        return count;
       };
 
       TimelineView.prototype.getMaxYValuesYear = function(data, comparison) {
@@ -394,7 +418,7 @@
       /* CHART (draw/redraw) */
 
       TimelineView.prototype.getMinMax = function(data, comparison) {
-        var d, i, maxXValue, maxXValues, maxYValue, maxYValues, minMaxX, minMaxY, minXValue, minXValues, minYValue, minYValues, _i, _j, _len, _len1, _ref, _ref1;
+        var count, d, i, maxXValue, maxXValues, maxYValue, maxYValues, minMaxX, minMaxY, minXValue, minXValues, minYValue, minYValues, showDots, _i, _j, _len, _len1, _ref, _ref1;
         _ref = data.person1.timelineMentions;
         for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
           d = _ref[i];
@@ -451,20 +475,31 @@
         minMaxY.push(minYValue, maxYValue);
         xScale.domain(minMaxX);
         yScale.domain(minMaxY);
+        showDots = false;
+        count = this.getCount(data, null, comparison, true);
         if (comparison) {
-          if (maxYValues[0] < maxYValues[1]) {
-            this.draw(data.person2.timelineMentions, 2, true);
-            return this.draw(data.person1.timelineMentions, 1);
-          } else {
-            this.draw(data.person1.timelineMentions, 1, true);
-            return this.draw(data.person2.timelineMentions, 2);
+          if (count[0] <= 35 && count[1] <= 35) {
+            showDots = true;
           }
         } else {
-          return this.draw(data.person1.timelineMentions, 1, true);
+          if (count <= 35) {
+            showDots = true;
+          }
+        }
+        if (comparison) {
+          if (maxYValues[0] < maxYValues[1]) {
+            this.draw(data.person2.timelineMentions, 2, true, showDots);
+            return this.draw(data.person1.timelineMentions, 1, false, showDots);
+          } else {
+            this.draw(data.person1.timelineMentions, 1, true, showDots);
+            return this.draw(data.person2.timelineMentions, 2, false, showDots);
+          }
+        } else {
+          return this.draw(data.person1.timelineMentions, 1, true, showDots);
         }
       };
 
-      TimelineView.prototype.draw = function(data, datasetnumber, drawGrid) {
+      TimelineView.prototype.draw = function(data, datasetnumber, drawGrid, showDots) {
         var path;
         if (drawGrid === true) {
           d3.select('g.thetimeline').append('g').attr('class', 'grid').call(yGrid().tickSize(-width, 0, 0).tickFormat(''));
@@ -476,6 +511,9 @@
         }).attr('cy', function(d) {
           return yScale(d.mentionCount);
         });
+        if (showDots === true) {
+          d3.select('g.thetimeline').selectAll('.dot' + datasetnumber).style('opacity', '1');
+        }
         if (datasetnumber === 1) {
           d3.select('g.thetimeline').append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call(xAxis);
           d3.select('g.thetimeline').append('g').attr('class', 'y axis').call(yAxis).append('text').datum(data).attr('transform', 'rotate(-90)').attr('y', 6).attr('dy', '.71em').style('text-anchor', 'end');
@@ -497,7 +535,7 @@
         d3.select('g.thetimeline').append('path').attr('class', 'area' + personNumber).datum(data['person' + personNumber].timelineMentions).transition().duration(1500).ease('sin-in-out').attr('d', area).style('opacity', 1);
         if (year) {
           if (data['person2']) {
-            d3.selectAll('circle.dot:not(.stay)').remove();
+            d3.selectAll('circle:not(.stay)').remove();
           } else {
             d3.selectAll('circle.dot' + personNumber).remove();
           }
@@ -508,7 +546,12 @@
             return yScale(d.mentionCount);
           }).transition().delay(1300).style('opacity', 1);
         } else {
-          d3.selectAll('circle.dot').remove();
+          if (data['person2']) {
+            d3.selectAll('circle.dot1').remove();
+            d3.selectAll('circle.dot2').remove();
+          } else {
+            d3.selectAll('circle.dot1').remove();
+          }
         }
         return this.translate();
       };
@@ -518,7 +561,7 @@
 
       TimelineView.prototype.render = function(data) {
         var originalData;
-        if ((data.person2 && data.person1.timelineMentions.length === 0 && data.person1.timelineMentions.length === 0) || (!data.person2 && data.person1.timelineMentions.length === 0)) {
+        if ((!data.person2 && data.person1.timelineMentions.length <= 2) || (data.person2 && (data.person1.timelineMentions.length + data.person2.timelineMentions.length) <= 2)) {
           $('.module.timeline').empty().append('<div class="no-data"></div>');
           return $('.module.timeline .no-data').append('<p><i class="icon-heart_broken"></i>Aucune donnée disponible</p>');
         } else {
