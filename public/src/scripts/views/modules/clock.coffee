@@ -32,41 +32,6 @@ define [
 				.innerRadius o.from
 				.outerRadius (d) -> if d.mentions > 0 then o.to d else 0
 
-		# Do mouseout and mouseover in a func to get current mentionsByDay
-		mouseOut: (currentDay, data) ->
-			mentionsByDayValue = @getMentionsByDay(data,true,currentDay)
-			d3.selectAll @$el
-				.selectAll 'path'
-				.on 'mouseout', (d) ->
-					d3.select @.parentNode.parentNode 
-						.select '.center .time'
-						.text 'Total :'
-					d3.select @.parentNode.parentNode 
-						.select '.center .value'
-						.text mentionsByDayValue
-
-		mouseOver: (currentDay, data) ->
-			mentionsByDayValue = @getMentionsByDay(data,true,currentDay)
-			d3.selectAll @$el
-				.selectAll 'path'
-				.on 'mouseover', (d) ->
-					d3.select @.parentNode.parentNode
-						.select '.center .time'
-						.text d.hour + ' heures'
-					d3.select @.parentNode.parentNode 
-						.select '.center .value'
-						.text Math.round((d.mentions / mentionsByDayValue * 100) * 100) / 100 + ' %'
-
-		getTotal: (data) ->
-			total = 0
-			for d,i in data.broadcastHoursByDay
-					total += d.broadcastCount
-			return total
-
-		getPercent: (value,data) ->
-			total = @getTotal(data)
-			return Math.round(((value / total) * 100) * 100) / 100
-
 		# Append SVG containers
 		svg: () ->
 			# Set main SVG padding
@@ -95,6 +60,41 @@ define [
 				.attr('id', 'clockchart')
 				.attr('height', visHeight)
 				.append('g')
+
+		# Bind mouseout and mouseover to current data
+		mouseOut: (currentDay, data) ->
+			mentionsByDayValue = @getMentionsByDay(data,true,currentDay)
+			d3.selectAll @$el
+				.selectAll 'path'
+				.on 'mouseout', (d) ->
+					d3.select @.parentNode.parentNode 
+						.select '.center .time'
+						.text 'Total :'
+					d3.select @.parentNode.parentNode 
+						.select '.center .value'
+						.text mentionsByDayValue
+
+		mouseOver: (currentDay, data) ->
+			mentionsByDayValue = @getMentionsByDay(data,true,currentDay)
+			d3.selectAll @$el
+				.selectAll 'path'
+				.on 'mouseover', (d) ->
+					d3.select @.parentNode.parentNode
+						.select '.center .time'
+						.text d.hour + ' heures'
+					d3.select @.parentNode.parentNode 
+						.select '.center .value'
+						.text Math.round((d.mentions / mentionsByDayValue * 100) * 100) / 100 + ' %'
+
+		clear: () ->
+			@$el.children().remove()
+
+		# Add all values in data to get total
+		getTotal: (data) ->
+			total = 0
+			for d,i in data.broadcastHoursByDay
+					total += d.broadcastCount
+			return total
 
 		# parseInt JSON data
 		parse: (data) ->
@@ -133,8 +133,10 @@ define [
 				.attr('x', '0').attr('y', '40')
 				.text('des mentions totales le ' + daysFR[0])
 
-		# Append filter chart
+		# Append filter (mini bar chart)
 		drawFilter: (data) ->
+			_this = @
+
 			mentionsByDay = []
 			for i in [1 .. 7]
 				mentionsByDay.push {mentions: 0}
@@ -154,8 +156,6 @@ define [
 			# Draw the filter
 			xScale = d3.scale.ordinal().domain(d3.range(7)).rangeRoundBands([0, fw], 0.3)
 			yScale = d3.scale.linear().domain([0, maxDayValue, (d) -> return d]).range([0, fh])
-
-			_this = @
 
 			d3.selectAll @$el
 				.selectAll '#filter'
@@ -236,7 +236,7 @@ define [
 		letterClick: (day) ->
 			d3.selectAll(@$el).select('.bar.' + day).classed('selected', true)
 
-		#  Update chart
+		### REDRAW ###
 		redrawContent: (day,data,mentionsByDay) ->
 			# Init new data arrays/vars
 			mentionsByHour = []
@@ -302,14 +302,16 @@ define [
 				.data mentionsByHour
 				.text mentionsByDay[currentDay].mentions
 
+		### FIRST DRAW ###
+
 		# Draw the clock element
 		drawClock: (d,data) ->
 			# Clock's parameters
 			w = 360
 			h = 360
 			r = Math.min(w, h) / 2                       		# center
-			p = 24                                       				# labels padding
-			labels = ['00:00','06:00','12:00','18:00']   	# labels names
+			p = 24                                       		# labels padding
+			labels = ['00:00','06:00','12:00','18:00']   		# labels names
 
 			# Circle settings
 			ticks = d3.range 20, 20.1
@@ -328,6 +330,7 @@ define [
 
 		# Push data into the clock element and draw paths
 		drawContent: (data) ->
+			_this = @
 			# Init new data arrays
 			maxHourValue = [0,]
 			overallMaxHourValue = [0,]
@@ -365,9 +368,9 @@ define [
 						maxHourValue[0] = d.broadcastCount
 						maxHourValue[1] = d.broadcastHour
 
-			_this = @
 			currentDay = 0
 			mentionsByDayValue = @getMentionsByDay(data,true,currentDay)
+
 			# Append paths / Show labels paths mouseover
 			d3.selectAll @$el
 				.select 'g'
@@ -391,9 +394,7 @@ define [
 				.attr('class', 'value')
 				.text(mentionsByDayValue)
 
-		clear: () ->
-			@$el.children().remove()
-
+		### EXEC ###
 		render: (data) ->
 			if (data.broadcastHoursByDay.length is 0)
 				$('.module.clock').empty().css('padding': '0', 'height': '461px').append('<div class="no-data"></div>')

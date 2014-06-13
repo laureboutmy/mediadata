@@ -325,8 +325,8 @@ define [
 
 		### CHART (draw/redraw) ###
 
-		# Find min/max values in dataset and append the chart
-		getMinMax: (data, comparison) ->
+		# Scan data and append the chart
+		scanData: (data, comparison) ->
 			# Parse dates
 			for d,i in data.person1.timelineMentions
 				d.mentionRawDate = d.mentionDate
@@ -406,15 +406,6 @@ define [
 				.datum data
 				.attr 'class', 'line' + datasetnumber
 				.attr 'd', valueline
-
-			# totalLength = path.node().getTotalLength()
-			# path
-			# 	.attr("stroke-dasharray", totalLength+","+totalLength)
-			# 	.attr("stroke-dashoffset", totalLength)
-			# 	.transition()
-			# 	.duration(3000)
-			# 	.ease("linear-in-out")
-			# 	.attr("stroke-dashoffset", 0);
 
 			# Draw area
 			d3.select('g.thetimeline').append('path')
@@ -501,7 +492,8 @@ define [
 			if year
 				# Redraw dots
 				if data['person2']
-					d3.selectAll 'circle:not(.stay)'
+					d3.selectAll(@$el)
+						.selectAll 'circle:not(.stay)'
 						.remove()
 				else
 					d3.selectAll 'circle.dot' + personNumber
@@ -551,8 +543,8 @@ define [
 
 				# Draw the chart
 				if data.person2
-					@getMinMax data,true
+					@scanData data,true
 					@getYears originalData,true
 				else
-					@getMinMax data,false
+					@scanData data,false
 					@getYears originalData
