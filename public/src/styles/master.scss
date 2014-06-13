@@ -1545,24 +1545,6 @@ section.module {
 				}
 			}
 		}
-		// nav.tabs {
-		// 	overflow: hidden;
-		// 	ul li {
-		// 		cursor: pointer;
-		// 		float: left;
-		// 		width: 50%;
-		// 		@include box-sizing(border-box);
-		// 		padding: em(20px, 17px);
-		// 		font-size: em(17px);
-		// 		font-weight: 700;
-		// 		text-transform: uppercase;
-		// 		background-color: #f5f5f5; color: #ccc;
-		// 		text-align: center;
-		// 		border-bottom: 1px solid #d9d9d9;
-		// 		&.active { background-color: #fff; color: $black; }
-		// 		&:nth-child(2) { border-left: 1px solid #d9d9d9; }
-		// 	}
-		// }
 
 		span.value {
 			font: em(25px) $font-stack-serif;
@@ -1571,7 +1553,7 @@ section.module {
 
 		section {
 			display: none;
-			min-height: 395px;
+			min-height: 458px;
 			position: relative;
 			display: block;
 			div.no-data {
@@ -1656,7 +1638,7 @@ section.module {
 						float: right; }
 					div.gauge {
 						position: absolute;
-						right: em(30px); top: em(38px);
+						right: em(15px); top: em(38px);
 						margin: 10px 0;
 						width: 300px; height: 9px;
 						border-radius: 20px;

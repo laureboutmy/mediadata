@@ -417,7 +417,7 @@
 
       /* CHART (draw/redraw) */
 
-      TimelineView.prototype.getMinMax = function(data, comparison) {
+      TimelineView.prototype.scanData = function(data, comparison) {
         var count, d, i, maxXValue, maxXValues, maxYValue, maxYValues, minMaxX, minMaxY, minXValue, minXValues, minYValue, minYValues, showDots, _i, _j, _len, _len1, _ref, _ref1;
         _ref = data.person1.timelineMentions;
         for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
@@ -535,7 +535,7 @@
         d3.select('g.thetimeline').append('path').attr('class', 'area' + personNumber).datum(data['person' + personNumber].timelineMentions).transition().duration(1500).ease('sin-in-out').attr('d', area).style('opacity', 1);
         if (year) {
           if (data['person2']) {
-            d3.selectAll('circle:not(.stay)').remove();
+            d3.selectAll(this.$el).selectAll('circle:not(.stay)').remove();
           } else {
             d3.selectAll('circle.dot' + personNumber).remove();
           }
@@ -570,10 +570,10 @@
           this.svg();
           this.getTotals(originalData);
           if (data.person2) {
-            this.getMinMax(data, true);
+            this.scanData(data, true);
             return this.getYears(originalData, true);
           } else {
-            this.getMinMax(data, false);
+            this.scanData(data, false);
             return this.getYears(originalData);
           }
         }
