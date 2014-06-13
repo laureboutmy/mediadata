@@ -788,24 +788,40 @@ section#main {
 			} /* ul */
 		} /* section.tutorial */
 		footer.start {
-			text-align: center;
-			background: #304356;
-			padding-top: 80px;
-			overflow: hidden;
-			p {
-				color: white;
-				font-size: em(19px);
-				line-height: em(30px, 19px);
-				font-family: $font-stack-serif;
-				width: 465px;
-				margin: 0 auto 35px;
+			// text-align: center;
+			// background: #304356;
+			// padding-top: 80px;
+			// overflow: hidden;
+			// p {
+			// 	color: white;
+			// 	font-size: em(19px);
+			// 	line-height: em(30px, 19px);
+			// 	font-family: $font-stack-serif;
+			// 	width: 465px;
+			// 	margin: 0 auto 35px;
 
-				&.scroll {
-					margin: 110px auto 35px;
-					color: #96b7d9;
-					font-style: italic;
-				}
-			}
+			// 	&.scroll {
+			// 		margin: 110px auto 35px;
+			// 		color: #96b7d9;
+			// 		font-style: italic;
+			// 	}
+			// }
+
+			padding: 100px 0;
+			margin: 100px 0 0;
+			text-align: center;
+			background: #34495e; /* Old browsers */
+
+			background: url(../images/bg--footer-img.png) no-repeat right bottom, -moz-linear-gradient(top, #34495e 0%, #2c3e50 100%); /* FF3.6+ */
+			background: url(../images/bg--footer-img.png) no-repeat right bottom, -webkit-gradient(linear, left top, left bottom, color-stop(0%,#34495e), color-stop(100%,#2c3e50)); /* Chrome,Safari4+ */
+			background: url(../images/bg--footer-img.png) no-repeat right bottom, -webkit-linear-gradient(top, #34495e 0%,#2c3e50 100%); /* Chrome10+,Safari5.1+ */
+			background: url(../images/bg--footer-img.png) no-repeat right bottom, -o-linear-gradient(top, #34495e 0%,#2c3e50 100%); /* Opera 11.10+ */
+			background: url(../images/bg--footer-img.png) no-repeat right bottom, -ms-linear-gradient(top, #34495e 0%,#2c3e50 100%); /* IE10+ */
+			background: url(../images/bg--footer-img.png) no-repeat right bottom, linear-gradient(to bottom, #34495e 0%,#2c3e50 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#34495e', endColorstr='#2c3e50',GradientType=0 ); /* IE6-9 */
+			background-size: 70%, 100%;
+			.button { margin: 30px 0 0; }
+			p { color: #fff; }
 
 		}
 	} /* article.home */
