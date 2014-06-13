@@ -546,7 +546,12 @@
             return yScale(d.mentionCount);
           }).transition().delay(1300).style('opacity', 1);
         } else {
-          d3.selectAll('circle.dot').remove();
+          if (data['person2']) {
+            d3.selectAll('circle.dot1').remove();
+            d3.selectAll('circle.dot2').remove();
+          } else {
+            d3.selectAll('circle.dot1').remove();
+          }
         }
         return this.translate();
       };
