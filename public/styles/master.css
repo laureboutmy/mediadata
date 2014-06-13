@@ -508,6 +508,8 @@ p.standard { font-size: 1.1875em; font-family: "chaparral-pro", serif; line-heig
 .button { display: inline-block; font-size: 0.9375em; line-height: 3.33333em; text-transform: uppercase; padding: 0 40px; color: #fff; text-decoration: none; font-weight: 600; letter-spacing: 0.2em; border-radius: 25px; transition: background 0.3s ease-out; }
 .button.green { border: 1px solid #39b188; background: #39b188; }
 .button.green:hover { border: 1px solid #38a080; background: #38a080; }
+.button.green.merci { border: 1px solid #39b188; background: transparent; color: #39b188; }
+.button.green.merci:hover { border: 1px solid #39b188; background: transparent; }
 .button.white { border: 1px solid #fff; margin-right: 15px; background: rgba(139, 170, 202, 0); }
 .button.white:hover { background: rgba(139, 170, 202, 0.35); }
 
@@ -708,12 +710,16 @@ article.about section div.example a, article.contact section div.example a { fon
 article.about section div.example a span, article.contact section div.example a span { color: #acb8c0; font-weight: 500; }
 article.about section div.example a div.img, article.contact section div.example a div.img { width: 40px; height: 40px; border-radius: 100%; overflow: hidden; position: relative; display: inline-block; margin: 0 0.625em -0.625em 0; }
 article.about section div.example a div.img img, article.contact section div.example a div.img img { width: 100%; height: auto; position: absolute; margin: auto; left: 0; right: 0; top: 0; bottom: 0; }
-article.about form, article.contact form { overflow: hidden; text-align: center; margin-bottom: 120px; }
+article.about form, article.contact form { overflow: hidden; margin-bottom: 120px; text-align: right; }
 article.about form div.unit, article.contact form div.unit { border: 1px solid #d4d4d4; padding: 25px 15px 15px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; position: relative; overflow: hidden; width: 100%; margin: 10px 0; height: 200px; text-align: left; }
 article.about form div.unit.half, article.contact form div.unit.half { height: 60px; padding: 25px 15px 0; width: 350px; float: left; }
 article.about form div.unit.half:first-of-type, article.contact form div.unit.half:first-of-type { margin-right: 20px; }
 article.about form div.unit label, article.contact form div.unit label { font-weight: 600; font-size: 0.75em; line-height: 1.66667em; text-transform: uppercase; letter-spacing: 0.2em; color: #acb8c0; position: absolute; top: 10px; left: 15px; }
 article.about form div.unit input, article.about form div.unit textarea, article.contact form div.unit input, article.contact form div.unit textarea { resize: none; width: 100%; border: 0; display: block; height: 25px; font-size: 0.9375em; color: #1b1f22; font-weight: 700; background: transparent; }
+article.about form div.unit ::-webkit-input-placeholder, article.contact form div.unit ::-webkit-input-placeholder { font-style: italic; font-weight: 500; }
+article.about form div.unit :-moz-placeholder, article.contact form div.unit :-moz-placeholder { font-style: italic; font-weight: 500; }
+article.about form div.unit ::-moz-placeholder, article.contact form div.unit ::-moz-placeholder { font-style: italic; font-weight: 500; }
+article.about form div.unit :-ms-input-placeholder, article.contact form div.unit :-ms-input-placeholder { font-style: italic; font-weight: 500; }
 article.about form div.unit textarea, article.contact form div.unit textarea { height: 160px; }
 article.about form div.unit .button, article.contact form div.unit .button { margin: 10px 0; }
 article.about section.team h2, article.contact section.team h2 { font-size: 2.5em; line-height: 1em; color: #1b1f22; text-align: center; font-weight: 700; margin-bottom: 50px; }
