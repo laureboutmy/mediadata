@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', 'mediadata', 'text!templates/search.html'], function($, _, Backbone, md, tplSearch) {
+  define(['jquery', 'underscore', 'backbone', 'mediadata', 'text!templates/search.html', '../collections/topics'], function($, _, Backbone, md, tplSearch, TopicsCollection) {
     'use strict';
     var SearchView;
     return SearchView = (function(_super) {
@@ -22,14 +22,23 @@
       SearchView.prototype.name = null;
 
       SearchView.prototype.initialize = function() {
-        return this.render();
+        this.collection = new TopicsCollection();
+        return this.collection.fetch({
+          success: (function(_this) {
+            return function() {
+              _this.collection = _this.collection.models[0].attributes;
+              return _this.render();
+            };
+          })(this)
+        });
       };
 
       SearchView.prototype.destroy = function() {};
 
       SearchView.prototype.render = function() {
+        console.log(this.collection);
         document.body.scrollTop = document.documentElement.scrollTop = 0;
-        this.$el.html(this.template());
+        this.$el.html(this.template(this.collection));
         md.Router.hideLoader();
         return this;
       };

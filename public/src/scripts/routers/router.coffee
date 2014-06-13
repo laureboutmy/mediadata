@@ -39,7 +39,8 @@ define [
 			@hideSearchbar()
 			md.Views['home'] = new HomeView()
 			md.Views['home'].render()
-
+			md.Status['currentView'] = 'home'
+			@updateSidebar()
 		getSearchbar: (name1 = null, name2 = null, isSearch = null) ->
 			if !md.Views['search-bar'] 
 				require ['views/search-bar'], (SearchbarView) =>
@@ -128,8 +129,9 @@ define [
 		
 		updateSidebar: () ->
 			$('#sidebar').find('.active').removeClass('active')
-			if md.Status['currentView'] == 'person' or md.Status['currentView'] == 'comparison'
+			if md.Status['currentView'] is 'person' or md.Status['currentView'] is 'comparison'
 				$('#sidebar').find('[data-link=rechercher]').addClass('active')
-			else 
-				
+			else if md.Status['currentView'] is 'home'
+				$('#sidebar').find('.mediadata').addClass('active')
+			else
 				$('#sidebar').find('[data-link=' + md.Status['currentView'] + ']').addClass('active')

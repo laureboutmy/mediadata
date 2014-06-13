@@ -27,7 +27,7 @@
   <section id="filters"></section>
   <div class="grid">
     <section id="timeline">
-      <h2>Évolution des mentions</h2>
+      <h2 class="evolution">Évolution des mentions</h2>
       <p>Gardez en tête que si les notices de la TV hertzienne et des radios publiques sont collectées depuis 1995, celles des radios privées ne le sont que depuis 2002. Quant à la TNT, arrivée en 2005, elle est aussi susceptible de créer une évolution artificielle. </p>
       <section class="module timeline"></section>
     </section>
@@ -35,12 +35,12 @@
       
       <div class="unit left">
         <h2>Top émissions</h2>
-       <p>Découvrez les 5 émissions qui ont le plus parlé de <%= person.name %>. Rediffusions comptabilisées. En cas d'émissions diffusées sur plusieurs chaînes, le logo de la chaîne d'origine s'affiche.</p>
+        <p class="top-emissions">Découvrez les 5 émissions qui ont le plus parlé de <%= person.name %>. Rediffusions comptabilisées. En cas d'émissions diffusées sur plusieurs chaînes, le logo de la chaîne d'origine s'affiche.</p>
         <section class="module top-5"></section><!-- section.module.top-5 -->
       </div><!-- div.unit -->
       <div class="unit right">
-        <h2>Mentions horaires et journalières</h2>
-        <p>Quand parle-t-on le plus ou le moins de <%= person.name %> ? Survolez les barres circulaires pour découvrir la répartition horaire. Utilisez les barres verticales pour explorer la répartition journalière. </p>
+        <h2 class="horaires">Mentions horaires et journalières</h2>
+        <p class="horaires">Quand parle-t-on le plus ou le moins de <%= person.name %> ? Survolez les barres circulaires pour découvrir la répartition horaire. Utilisez les barres verticales pour explorer la répartition journalière. </p>
         <section class="module clock"></section><!-- section.module.clock --> 
       </div><!-- div.unit -->
     </section>
@@ -50,10 +50,9 @@
       <p>Quelles chaînes parlent le plus de <%= person.name %> ? Survolez chaque barre pour afficher le nombre de mentions par chaîne ou station. </p>
       <section class="module bar"></section>
     </section>
-    <section id="broadcast">Broadcast</section>
     <section id="x-with-y">
-      <h2>On parle souvent <% if(person.gender=='f') { %> d'elle <% } else if (person.gender=='m') { %> de lui <% } %> avec...</h2>
-      <p>Découvrez les cinq personnes les plus souvent mentionnées dans les mêmes programmes que <%= person.firstName + ' ' + person.lastName %>.</p>
+      <h2 class="avec">On parle souvent <% if(person.gender=='f') { %> d'elle <% } else if (person.gender=='m') { %> de lui <% } %> avec...</h2>
+      <p class="avec">Découvrez les cinq personnes les plus souvent mentionnées dans les mêmes programmes que <%= person.firstName + ' ' + person.lastName %>.</p>
       <section class="module x-with-y"></section>
     </section>
   </div>
