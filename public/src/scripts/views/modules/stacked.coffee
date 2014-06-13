@@ -29,10 +29,10 @@ define [
           .attr('height', height+margin.top+margin.bottom)
 
     yAxis = d3.svg.axis()
-          .scale y
           .orient 'left'
-          .ticks 6
+          .ticks 5
           .tickSize(-width, 0, 0)
+          .tickValues [83, 83*2, 83*3, 83*4, 83*5]
 
     getScale: (data) ->
       
@@ -55,9 +55,8 @@ define [
 
     drawContent: (data) ->
       d3.select('#stackedchart').append('g')
-        .attr('class', 'grid')
         .attr('height', height)
-        .attr("transform", "translate(0,99)")
+        .attr('class', 'grid')
         .call(yAxis)
 
       d3.select('#stackedchart').selectAll('g.stacked-g')
@@ -71,6 +70,7 @@ define [
          .data(Object)
        .enter().append('g')
         .append('rect')
+          .attr('class', 'stacked-rect')
           .attr('x', (d) -> x(d.x)+33)
           .attr('y', (d) -> -y(d.y0) - y(d.y) )
           .attr('height', (d) -> y(d.y))
@@ -116,7 +116,7 @@ define [
 
       d3.select('#stacked').selectAll('g.stacked-g g')
         .append('rect')
-          .attr( 'filter', 'url(#f1)' ) 
+          .attr( 'filter', 'url("#f1")' ) 
           .attr('class', 'tooltip shadow')
           .attr('height', 45)
           .attr('width', 100)
@@ -155,6 +155,7 @@ define [
 
 
     render: (data) -> 
+      console.log 'remy -->',data
 
       @$el.html(@template())
       @svg()

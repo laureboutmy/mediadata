@@ -106,6 +106,7 @@ define [
 			$('#filters').width($(window).width() - 80)
 
 		getStackedData: (data) ->
+			console.log data.person1.channels, data.person2.channels
 			
 			totalCount1 = 0
 			for d,i in data.person1.channels

@@ -42,7 +42,7 @@
         return d3.selectAll(this.$el).append('svg').attr('id', 'stackedchart').attr('width', width).attr('height', height + margin.top + margin.bottom);
       };
 
-      yAxis = d3.svg.axis().scale(y).orient('left').ticks(6).tickSize(-width, 0, 0);
+      yAxis = d3.svg.axis().orient('left').ticks(5).tickSize(-width, 0, 0).tickValues([83, 83 * 2, 83 * 3, 83 * 4, 83 * 5]);
 
       StackedView.prototype.getScale = function(data) {
         stacked_data = d3.layout.stack()(data.channelMap.map(function(data_nd) {
@@ -71,11 +71,11 @@
       };
 
       StackedView.prototype.drawContent = function(data) {
-        d3.select('#stackedchart').append('g').attr('class', 'grid').attr('height', height).attr("transform", "translate(0,99)").call(yAxis);
+        d3.select('#stackedchart').append('g').attr('height', height).attr('class', 'grid').call(yAxis);
         d3.select('#stackedchart').selectAll('g.stacked-g').data(stacked_data).enter().append('g').attr('class', function(d, i) {
           return 'stacked-g person' + (i + 1) + " " + data.channelMap[i];
         }).attr('transform', 'translate(0,' + (height + margin.bottom) + ')');
-        d3.select('#stacked').selectAll('g.stacked-g').selectAll('g').data(Object).enter().append('g').append('rect').attr('x', function(d) {
+        d3.select('#stacked').selectAll('g.stacked-g').selectAll('g').data(Object).enter().append('g').append('rect').attr('class', 'stacked-rect').attr('x', function(d) {
           return x(d.x) + 33;
         }).attr('y', function(d) {
           return -y(d.y0) - y(d.y);
@@ -99,7 +99,7 @@
         }
         d3.select('#stacked').append('filter').attr('id', 'f1').attr('width', '150%').attr('height', '150%').append('feOffset').attr('result', 'offOut').attr('in', 'SourceAlpha').attr('dx', 0).attr('dy', 3);
         d3.select('#stacked').select('filter').append('feGaussianBlur').attr('stdDeviation', 1).attr('result', 'blur');
-        d3.select('#stacked').selectAll('g.stacked-g g').append('rect').attr('filter', 'url(#f1)').attr('class', 'tooltip shadow').attr('height', 45).attr('width', 100).attr('x', function(d) {
+        d3.select('#stacked').selectAll('g.stacked-g g').append('rect').attr('filter', 'url("#f1")').attr('class', 'tooltip shadow').attr('height', 45).attr('width', 100).attr('x', function(d) {
           return x(d.x);
         }).attr('y', function(d, i) {
           return -y(d.y0) - (typeof total_height[i] === 'undefined' ? y(d.y) : total_height[i]) - 53;
@@ -126,6 +126,7 @@
       };
 
       StackedView.prototype.render = function(data) {
+        console.log('remy -->', data);
         this.$el.html(this.template());
         this.svg();
         this.getScale(data);

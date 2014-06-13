@@ -1933,10 +1933,11 @@ section.module {
 		line { stroke-width: 1; }
 		rect.shadow {
 					fill: rgba(0,0,0,.15);
+					filter: url('#f1');
 				}
 		g{
 			&.person1 {
-					rect {
+					rect.stacked-rect {
 						fill: rgba(41,185,136,.5);
 						&:hover{
 							fill: rgba(41,185,136,1);
@@ -1957,7 +1958,7 @@ section.module {
 				}
 			}
 			&.person2 {
-					rect {
+					rect.stacked-rect {
 						fill: rgba(39,129,187,.5);
 						&:hover{
 							fill: rgba(39,129,187,1);
