@@ -58,7 +58,7 @@
   </div>
   <footer class="social">
     <h3 class="all-caps">partagez cette fiche</h3>
-    <p>Partagez la visualisation de l'exposition médiatique de <% person.name %> dans votre réseau</p>
+    <p>Partagez la visualisation de l'exposition médiatique de <%= person.name %> dans votre réseau</p>
     <% if(person.twitter) { %>
     <a href="https://twitter.com/share?text=J'ai analysé l'exposition médiatique de @<%= person.twitter %> sur&url=http://mediadata.fr/<%= person.slug %>&via=MediaDatafr" target="_blank" class="button tw">
     <% } else { %>

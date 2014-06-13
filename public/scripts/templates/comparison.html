@@ -90,7 +90,7 @@
 	</div>
 	<footer class="social">
 		<h3 class="all-caps">partagez cette comparaison</h3>
-	 	<p>Partagez la visualisation de l'exposition médiatique de <% person1.person.name %> et <% person2.person.name %> dans votre réseau</p>
+	 	<p>Partagez la visualisation de l'exposition médiatique de <%= person1.person.name %> et <%= person2.person.name %> dans votre réseau</p>
 		<a href="https://twitter.com/share?text=coucou&url=http://www.mediadata.fr/<%= person1.person.slug %>/<%= person2.person.slug %>&via=mediadatafr" target="_blank" class="button tw twitter-share-button"><i class="icon-twitter"></i>Twitter</a>
 		<a target="_blank" href="https://www.facebook.com/dialog/share?app_id=783666605001268&display=popup&href=http://www.mediadata.fr/<%= person1.person.slug %>/<%= person2.person.slug %>&redirect_uri=http://www.mediadata.fr/<%= person1.person.slug %>/<%= person2.person.slug %>" class="button fb"><i class="icon-facebook"></i>Facebook</a>
 	</footer>
