@@ -117,6 +117,7 @@ define [
 
 			channels =
 				names: [data.person1.person.name, data.person2.person.name]
+				slugs: [data.person1.person.slug, data.person2.person.slug]
 				totalCount: [totalCount1, totalCount2]
 				channelMap: [data.person1.person.slug, data.person2.person.slug]
 				channelDatas: []
