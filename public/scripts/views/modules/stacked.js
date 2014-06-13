@@ -126,13 +126,17 @@
       };
 
       StackedView.prototype.render = function(data) {
-        console.log('remy -->', data);
+        console.log(data);
         this.$el.html(this.template());
         this.svg();
         this.getScale(data);
         this.drawContent(data);
         this.drawTooltip(data);
-        return this.getTotals(data);
+        this.getTotals(data);
+        if (data.channelDatas.length <= 0) {
+          $('.module.stacked').empty().append('<div class="no-data"></div>');
+          return $('.module.stacked .no-data').append('<p><i class="icon-heart_broken"></i>Aucune donnée disponible</p>');
+        }
       };
 
       return StackedView;

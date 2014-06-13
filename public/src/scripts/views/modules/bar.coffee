@@ -142,7 +142,7 @@ define [
             .html((d) -> d.channelCount)
 
     render: (data) -> 
-      # console.log 'Remy -->', data
+      
 
       @$el.html(@template())
       @svg()
@@ -150,5 +150,9 @@ define [
       @drawContent(data)
       @drawTooltip(data)
       @getTotals(data)
+
+      if (data.channels.length <= 0 )
+        $('.module.bar').empty().append('<div class="no-data"></div>')
+        $('.module.bar .no-data').append('<p><i class="icon-heart_broken"></i>Aucune donnée disponible</p>')
 
 

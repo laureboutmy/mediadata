@@ -101,8 +101,7 @@
         });
         this.bar.render({
           channels: data.channels,
-          name: data.person.name,
-          data: data
+          name: data.person.name
         });
         return this.xWithY.render({
           persons: data.seenWith
@@ -128,7 +127,6 @@
       };
 
       PersonView.prototype.updateTexts = function() {
-        console.log(md.Filters);
         if (md.Filters['par']) {
           if (md.Filters['par'] === '1') {
             $('h2.evolution').text('Evolution des participations');

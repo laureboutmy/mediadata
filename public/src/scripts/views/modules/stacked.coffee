@@ -155,7 +155,7 @@ define [
 
 
     render: (data) -> 
-      console.log 'remy -->',data
+      console.log data
 
       @$el.html(@template())
       @svg()
@@ -163,6 +163,9 @@ define [
       @drawContent(data)
       @drawTooltip(data)
       @getTotals(data)
-      # @filter()
+      
+      if (data.channelDatas.length <= 0 )
+        $('.module.stacked').empty().append('<div class="no-data"></div>')
+        $('.module.stacked .no-data').append('<p><i class="icon-heart_broken"></i>Aucune donnée disponible</p>')
 
 

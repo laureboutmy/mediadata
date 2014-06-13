@@ -158,7 +158,6 @@
 
       ComparisonView.prototype.getStackedData = function(data) {
         var channels, d, i, totalCount1, totalCount2, _i, _j, _len, _len1, _ref, _ref1;
-        console.log(data.person1.channels, data.person2.channels);
         totalCount1 = 0;
         _ref = data.person1.channels;
         for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
