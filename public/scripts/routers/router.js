@@ -38,7 +38,9 @@
         this.showLoader();
         this.hideSearchbar();
         md.Views['home'] = new HomeView();
-        return md.Views['home'].render();
+        md.Views['home'].render();
+        md.Status['currentView'] = 'home';
+        return this.updateSidebar();
       };
 
       Router.prototype.getSearchbar = function(name1, name2, isSearch) {
@@ -197,6 +199,8 @@
         $('#sidebar').find('.active').removeClass('active');
         if (md.Status['currentView'] === 'person' || md.Status['currentView'] === 'comparison') {
           return $('#sidebar').find('[data-link=rechercher]').addClass('active');
+        } else if (md.Status['currentView'] === 'home') {
+          return $('#sidebar').find('.mediadata').addClass('active');
         } else {
           return $('#sidebar').find('[data-link=' + md.Status['currentView'] + ']').addClass('active');
         }

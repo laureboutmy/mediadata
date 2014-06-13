@@ -526,9 +526,10 @@ p.standard { font-size: 1.1875em; font-family: "chaparral-pro", serif; line-heig
 /* @end of Grid */
 /* @group Sidebar */
 section#sidebar { position: fixed; width: 80px; height: 100%; z-index: 200; background: #1b1f22; text-align: center; }
-section#sidebar nav#nav { margin: 70px auto; }
+section#sidebar nav#nav { margin: 30px auto; }
 section#sidebar nav#nav ul li { margin: 30px auto; }
 section#sidebar nav#nav i { font-size: 1.3125em; }
+section#sidebar nav#nav .mediadata { font-size: 1.875em; font-weight: 700; }
 section#sidebar nav#nav a { color: #454a4d; text-decoration: none; transition: color 0.3s ease-out; }
 section#sidebar nav#nav a.active { color: #fff; }
 section#sidebar nav#nav a:hover { color: #fff; }

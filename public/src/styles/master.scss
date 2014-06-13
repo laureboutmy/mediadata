@@ -117,13 +117,14 @@ section#sidebar {
 
 
 	nav#nav {
-		margin: 70px auto; 
+		margin: 30px auto; 
 		ul li {
 			margin: 30px auto; 
 		}
 		i {
 			font-size: em(21px);
 		}
+		.mediadata { font-size: em(30px); font-weight: 700; }
 		a { 
 			color: #454a4d; text-decoration: none; 
 			transition: color 0.3s ease-out;
