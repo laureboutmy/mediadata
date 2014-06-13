@@ -535,7 +535,7 @@
         d3.select('g.thetimeline').append('path').attr('class', 'area' + personNumber).datum(data['person' + personNumber].timelineMentions).transition().duration(1500).ease('sin-in-out').attr('d', area).style('opacity', 1);
         if (year) {
           if (data['person2']) {
-            d3.selectAll('circle.dot:not(.stay)').remove();
+            d3.selectAll('circle:not(.stay)').remove();
           } else {
             d3.selectAll('circle.dot' + personNumber).remove();
           }

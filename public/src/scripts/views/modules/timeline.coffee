@@ -501,7 +501,7 @@ define [
 			if year
 				# Redraw dots
 				if data['person2']
-					d3.selectAll 'circle.dot:not(.stay)'
+					d3.selectAll 'circle:not(.stay)'
 						.remove()
 				else
 					d3.selectAll 'circle.dot' + personNumber
