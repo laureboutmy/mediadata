@@ -77,7 +77,7 @@ define [
 			@top5.render({ popularChannels: data.popularChannels, popularShows: data.popularShows, totalMentions: data.timelineMentions })
 			@timeline.render({ person1: { name: data.person.name, timelineMentions: data.timelineMentions }})
 			@clock.render({ broadcastHoursByDay: data.broadcastHoursByDay })
-			@bar.render({ channels: data.channels, name: data.person.name, data: data })
+			@bar.render({ channels: data.channels, name: data.person.name })
 			@xWithY.render({ persons: data.seenWith })
 		
 		onResize: () ->
@@ -93,7 +93,7 @@ define [
 					md.Router.hideLoader()
 
 		updateTexts: () ->
-			console.log(md.Filters)
+			# console.log(md.Filters)
 			if md.Filters['par']
 				if md.Filters['par'] is '1'
 					$('h2.evolution').text('Evolution des participations')

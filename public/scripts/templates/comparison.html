@@ -1,90 +1,97 @@
 <article class="comparison">
-  <header class="header">
-    <div class="grid">
-      <div class="unit">
-        <div class="sm-unit">
-      	  <h1 class="name"><%= person1.person.firstName + ' ' + person1.person.lastName %></h1>
-      		<p class="desc"><%= person1.person.description %></p>
+	<header class="header">
+		<div class="grid">
+			<div class="unit">
+				<div class="sm-unit">
+					<h1 class="name"><%= person1.person.firstName + ' ' + person1.person.lastName %></h1>
+					<p class="desc"><%= person1.person.description %></p>
 
-      		<% if(person1.person.tag1) { %>
-          <ul class="tags">
-            <li><i class="icon-label"></i></li>
-            <li><%= person1.person.tag1 %>, </li>
-            <% if(person1.person.tag2){ %>
-            <li><%= person1.person.tag2 %>, </li>
-            <% } %>
-            <% if(person1.person.tag3){ %>
-            <li><%= person1.person.tag3 %>, </li>
-            <% } %>
-            <% if(person1.person.tag4){ %>
-            <li><%= person1.person.tag4 %>, </li>
-            <% } %>
-            <% if(person1.person.tag5){ %>
-            <li><%= person1.person.tag5 %></li>
-            <% } %>
-          </ul>
-          <% } %>
-        </div>
-      </div><!-- div.unit -->
-      <div class="unit">
-        <div class="sm-unit">
-          <h1 class="name"><%= person2.person.firstName + ' ' + person2.person.lastName %></h1>
-          <p class="desc"><%= person2.person.description %></p>
+					<% if(person1.person.tag1) { %>
+					<ul class="tags">
+						<li><i class="icon-label"></i></li>
+						<li><%= person1.person.tag1 %>, </li>
+						<% if(person1.person.tag2){ %>
+						<li><%= person1.person.tag2 %>, </li>
+						<% } %>
+						<% if(person1.person.tag3){ %>
+						<li><%= person1.person.tag3 %>, </li>
+						<% } %>
+						<% if(person1.person.tag4){ %>
+						<li><%= person1.person.tag4 %>, </li>
+						<% } %>
+						<% if(person1.person.tag5){ %>
+						<li><%= person1.person.tag5 %></li>
+						<% } %>
+					</ul>
+					<% } %>
+				</div>
+			</div><!-- div.unit -->
+			<div class="unit">
+				<div class="sm-unit">
+					<h1 class="name"><%= person2.person.firstName + ' ' + person2.person.lastName %></h1>
+					<p class="desc"><%= person2.person.description %></p>
 
-          <% if(person2.person.tag1) { %>
-          <ul class="tags">
-            <li><i class="icon-label"></i></li>
-            <li><%= person2.person.tag1 %>, </li>
-            <% if(person2.person.tag2){ %>
-            <li><%= person2.person.tag2 %>, </li>
-            <% } %>
-            <% if(person2.person.tag3){ %>
-            <li><%= person2.person.tag3 %>, </li>
-            <% } %>
-            <% if(person2.person.tag4){ %>
-            <li><%= person2.person.tag4 %>, </li>
-            <% } %>
-            <% if(person2.person.tag5){ %>
-            <li><%= person2.person.tag5 %></li>
-            <% } %>
-          </ul>
-          <% } %>
-        </div>
-      </div><!-- div.unit -->
-    </div><!-- div.wrapper -->
-  </header><!-- header.header -->
-  <section id="filters"></section>
-  <div class="grid">
-    <section id="timeline">
-      <h2>Timeline</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-      <section class="module timeline"></section>
-    </section>
-    <section id="programs">
-      <h2>Apparences</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-      <div class="unit left">
-        <section class="module top-5 person1"></section><!-- section.module.top-5 -->
-        <section class="module clock person1"></section><!-- section.module.clock -->
-      </div><!-- div.unit -->
-      <div class="unit right">
-        <section class="module top-5 person2"></section><!-- section.module.top-5 -->
-        <section class="module clock person2"></section><!-- section.module.clock -->
-      </div><!-- div.unit -->
-    </section>
-    <section id="stacked">
-      <h2>Stacked</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-      <section class="module stacked"></section>
-    </section>
-    <div class="clear"></div>
-    <section id="broadcast">Broadcast</section>
-    
-  </div>
-  <footer class="social">
-    <h3 class="all-caps">partagez cette comparaison</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
-    <a href="https://twitter.com/share?text=coucou&url=http://www.mediadata.fr/<%= person1.person.slug %>/<%= person2.person.slug %>&via=mediadatafr" target="_blank" class="button tw twitter-share-button"><i class="icon-twitter"></i>Twitter</a>
-    <a target="_blank" href="https://www.facebook.com/dialog/share?app_id=783666605001268&display=popup&href=http://www.mediadata.fr/<%= person1.person.slug %>/<%= person2.person.slug %>&redirect_uri=http://www.mediadata.fr/<%= person1.person.slug %>/<%= person2.person.slug %>" class="button fb"><i class="icon-facebook"></i>Facebook</a>
-  </footer>
+					<% if(person2.person.tag1) { %>
+					<ul class="tags">
+						<li><i class="icon-label"></i></li>
+						<li><%= person2.person.tag1 %>, </li>
+						<% if(person2.person.tag2){ %>
+						<li><%= person2.person.tag2 %>, </li>
+						<% } %>
+						<% if(person2.person.tag3){ %>
+						<li><%= person2.person.tag3 %>, </li>
+						<% } %>
+						<% if(person2.person.tag4){ %>
+						<li><%= person2.person.tag4 %>, </li>
+						<% } %>
+						<% if(person2.person.tag5){ %>
+						<li><%= person2.person.tag5 %></li>
+						<% } %>
+					</ul>
+					<% } %>
+				</div>
+			</div><!-- div.unit -->
+		</div><!-- div.wrapper -->
+	</header><!-- header.header -->
+	<section id="filters"></section>
+	<div class="grid">
+		<section id="timeline">
+			<h2>Chronologie des mentions</h2>
+			<p>Gardez en tête que si les notices de la TV hertzienne et des radios publiques sont collectées depuis 1995, celles des radios privées ne le sont que depuis 2002. Quant à la TNT, arrivée en 2005, elle est aussi susceptible de créer une évolution artificielle. </p>
+			<section class="module timeline"></section>
+		</section>
+		<section id="programs">
+			<h2>Top émissions</h2>
+			<p>Découvrez les 5 émissions qui ont le plus parlé de <%= person1.person.name %> et <%= person2.person.name %>. Rediffusions comptabilisées. En cas d'émissions diffusées sur plusieurs chaînes, le logo de la chaîne d'origine s'affiche.</p>
+			<div class="unit left">
+				<section class="module top-5 person1"></section><!-- section.module.top-5 -->
+			</div>
+			<div class="unit right">
+				<section class="module top-5 person2"></section><!-- section.module.top-5 -->
+			</div>
+
+			<h2 class="horaires">Mentions horaires et journalières</h2>
+			<p class="horaires">A quelle heure parle-t-on le plus ou le moins de <%= person1.person.name %> et <%= person2.person.name %> ? Survolez les barres circulaires pour découvrir la répartition horaire. Utilisez les barres verticales pour explorer la répartition journalière.</p>
+
+			<div class="unit left">
+				<section class="module clock person1"></section><!-- section.module.clock -->
+			</div><!-- div.unit -->
+			<div class="unit right">
+				<section class="module clock person2"></section><!-- section.module.clock -->
+			</div><!-- div.unit -->
+		</section>
+		<section id="stacked">
+			<h2>Top chaînes</h2>
+			<p>Qui de <%= person1.person.name %> ou de <%= person2.person.name %> est la personnalité la plus mentionnée sur chaque chaîne ? Survolez chaque barre pour afficher le nombre de mention par chaîne ou station.</p>
+			<section class="module stacked"></section>
+		</section>
+		<div class="clear"></div>
+		
+	</div>
+	<footer class="social">
+		<h3 class="all-caps">partagez cette comparaison</h3>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
+		<a href="https://twitter.com/share?text=coucou&url=http://www.mediadata.fr/<%= person1.person.slug %>/<%= person2.person.slug %>&via=mediadatafr" target="_blank" class="button tw twitter-share-button"><i class="icon-twitter"></i>Twitter</a>
+		<a target="_blank" href="https://www.facebook.com/dialog/share?app_id=783666605001268&display=popup&href=http://www.mediadata.fr/<%= person1.person.slug %>/<%= person2.person.slug %>&redirect_uri=http://www.mediadata.fr/<%= person1.person.slug %>/<%= person2.person.slug %>" class="button fb"><i class="icon-facebook"></i>Facebook</a>
+	</footer>
 </article>

@@ -105,8 +105,7 @@ define [
 		onResize: () ->
 			$('#filters').width($(window).width() - 80)
 
-		getStackedData: (data) ->
-			
+		getStackedData: (data) ->			
 			totalCount1 = 0
 			for d,i in data.person1.channels
 				totalCount1 += +data.person1.channels[i].channelCount
