@@ -9,14 +9,13 @@ define [
 		el: '.module.clock'
 		defaults:
 			# Main label dimensions
-			mlw: 215
+			mlw: 218
 			mlh: 50
 		days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 		daysFR = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche']
 		# Filter dimensions
 		fw = 105
 		fh = 28
-		lh = 11
 		# Width of the whole visualization; used for centering
 		visWidth = 180
 		visHeight = 350
@@ -34,32 +33,11 @@ define [
 
 		# Append SVG containers
 		svg: () ->
-			# Set main SVG padding
-			d3.selectAll(@$el)
-				.style 'padding', '29px 0 20px 59px'
-			# Append SVG container for main label
-			d3.selectAll(@$el).append('svg')
-				.attr('id', 'mainlabel')
-				.attr('width', @defaults.mlw)
-				.attr('height', @defaults.mlh)
-
-			# Append SVG container for filter
-			d3.selectAll(@$el).append('svg')
-				.attr('id', 'filter')
-				.attr('width', fw)
-				.attr('height', fh)
-
-			# Append SVG container for filter letters
-			d3.selectAll(@$el).append('svg')
-				.attr('id', 'letters')
-				.attr('width', fw)
-				.attr('height', lh)
-
-			# Append SVG container for clock
-			d3.selectAll(@$el).append('svg')
-				.attr('id', 'clockchart')
-				.attr('height', visHeight)
-				.append('g')
+			svg = d3.selectAll(@$el).append('svg')
+			svg.append('g').attr('id', 'mainlabel')
+			svg.append('g').attr('id', 'filter').attr('transform', 'translate(320,0)')
+			svg.append('g').attr('id', 'letters').attr('transform', 'translate(320,31)')
+			svg.append('g').attr('id', 'clockchart').attr('transform', 'translate(30,62)')
 
 		# Bind mouseout and mouseover to current data
 		mouseOut: (currentDay, data) ->
@@ -279,8 +257,8 @@ define [
 					mentionsByHour[d.broadcastHour].mentions += d.broadcastCount
 					mentionsByHour[d.broadcastHour].outerRadius = pathScale mentionsByHour[d.broadcastHour].mentions
 			
-			# Update main text
-			d3.selectAll(@$el).select('#mainlabel .value').text(Math.round((mentionsByDay[currentDay].mentions / @getTotal data) * 100) + ' %')
+			# Update main label text (((mentionsByDay[0].mentions / @getTotal data) * 100) * 100) / 100 + ' %'
+			d3.selectAll(@$el).select('#mainlabel .value').text(Math.round(((mentionsByDay[currentDay].mentions / @getTotal data) * 100) * 100) / 100 + ' %')
 			d3.selectAll(@$el).select('#mainlabel .time').text('des mentions le ' + daysFR[currentDay])
 
 			# Update paths
@@ -318,11 +296,11 @@ define [
 			radiusFunction = radiusScale
 
 			# Append circle
-			d3.selectAll(@$el).select('g').append('svg:g').attr('class', 'circle').selectAll('circle').data(ticks).enter().append('svg:circle')
+			d3.selectAll(@$el).select('g#clockchart').append('svg:g').attr('class', 'circle').selectAll('circle').data(ticks).enter().append('svg:circle')
 				.attr('cx', r ).attr('cy', r).attr('r', radiusScale)
 
 			# Append outside labels
-			d3.selectAll(@$el).select('g').append('svg:g')
+			d3.selectAll(@$el).select('g#clockchart').append('svg:g')
 				.attr('class', 'labels')
 				.selectAll('text').data(d3.range 0, 360, 90).enter().append('svg:text')
 				.attr('transform', (d) -> return 'translate(' + r + ',' + p + ') rotate(' + d + ',0,' + (r-p) + ')')
@@ -373,7 +351,7 @@ define [
 
 			# Append paths / Show labels paths mouseover
 			d3.selectAll @$el
-				.select 'g'
+				.select 'g#clockchart'
 					.append 'svg:g'
 					.attr 'class', 'arcs'
 					.selectAll 'path'
@@ -385,7 +363,7 @@ define [
 					.on 'mouseout', (d) -> _this.mouseOut(currentDay, data)
 
 			# Append center labels
-			d3.selectAll(@$el).select('g').append('svg:g').attr('class', 'center')
+			d3.selectAll(@$el).select('g#clockchart').append('svg:g').attr('class', 'center')
 			d3.selectAll(@$el).select('g.center').append('svg:text').attr('transform', 'translate(' + visWidth + ',' + visWidth + ')')
 				.attr('class', 'time')
 				.text('Total :')
@@ -397,7 +375,7 @@ define [
 		### EXEC ###
 		render: (data) ->
 			if (data.broadcastHoursByDay.length is 0)
-				$('.module.clock').empty().css('padding': '0', 'height': '461px').append('<div class="no-data"></div>')
+				$('.module.clock').empty().append('<div class="no-data"></div>')
 				$('.module.clock .no-data').append('<p><i class="icon-heart_broken"></i>Aucune donnée disponible</p>')
 			else
 				if (@$el.children().length > 0)

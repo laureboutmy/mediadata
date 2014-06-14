@@ -8,19 +8,18 @@ define [
 	class Top5View extends Backbone.View
 		el: '.module.top-5'
 		template: _.template(tplTop5)
+		total: 0
+		fillPercent: 0
 
 		render: (data) ->
 			@total = 0
+			@fillPercent = 0
 			for d,i in data.totalMentions
 				d.mentionCount = +d.mentionCount
 				@total += d.mentionCount
 			@$el.html(@template(data))
 			@setTotal(data)
 			@fillGauges('shows')
-
-		# Init gauges var
-		total: 0
-		fillPercent: 0
 			
 		# Get fill % of gauge
 		getFillPercent: (bar, type) ->
@@ -31,9 +30,8 @@ define [
 		# Fill gauge and append total
 		fillGauges: (type) ->
 			_this = @
-			$('#' + type + ' .gauge span').each ->
+			@$el.find('#' + type + ' .gauge span').each ->
 				_this.getFillPercent($(@), type)
-				# $('#' + type + ' span.total').html '/' + _this.total
 				$(@).addClass('width').width(0)
 				$(@).removeClass('width').width(_this.fillPercent + '%')
 		

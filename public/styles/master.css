@@ -1,7 +1,8 @@
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic);
+@charset "UTF-8";
 /* @group Master */
 /* @group Imports */
 /* http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 License: none (public domain) */
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic);
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
 
 /* HTML5 display-role reset for older browsers */
@@ -20,7 +21,6 @@ table { border-collapse: collapse; border-spacing: 0; }
 /*  MFG Labs iconset 1.0  -------------------------------------------------------  License ------------------------------------------------------- • The MFG Labs iconset font is licensed under the SIL Open Font License - http://scripts.sil.org/OFL • MFG Labs inconset CSS files are licensed under the MIT License - http://opensource.org/licenses/mit-license.html • The MFG Labs iconset pictograms are licensed under the CC BY 3.0 License - http://creativecommons.org/licenses/by/3.0/ • Attribution is no longer required in Font Awesome 3.0, but much appreciated: MFG Labs inconset by MFG Labs
  Contact ------------------------------------------------------- Email: martin.charpentier@mfglabs.com Twitter: http://twitter.com/mfg_labs  */
 @font-face { font-family: 'mfglabs-iconset'; src: url("../fonts/mfglabs-iconset.eot"); src: url("../fonts/mfglabs-iconset.eot?#iefix") format("embedded-opentype"), url("../fonts/mfglabs-iconset.woff") format("woff"), url("../fonts/mfglabs-iconset.ttf") format("truetype"), url("../fonts/mfglabs-iconset.svg#mfglabs-iconset") format("svg"); font-weight: normal; font-style: normal; }
-
 i, .icon { font-family: 'mfglabs-iconset'; font-style: normal; speak: none; font-weight: normal; font-size: 1em; -webkit-font-smoothing: antialiased; }
 
 .icon2x { font-size: 2em; }
@@ -393,6 +393,12 @@ i, .icon { font-family: 'mfglabs-iconset'; font-style: normal; speak: none; font
 
 .icon-node_link_shape:before { content: "\E00F"; }
 
+/* Ion.RangeSlider
+// css version 1.8.5
+// by Denis Ineshin | ionden.com
+// ===================================================================================================================*/
+/* =====================================================================================================================
+// RangeSlider */
 .irs { position: relative; display: block; }
 
 .irs-line { position: relative; display: block; overflow: hidden; }
@@ -411,15 +417,15 @@ i, .icon { font-family: 'mfglabs-iconset'; font-style: normal; speak: none; font
 
 .irs-slider.single { left: 10px; }
 
-.irs-slider.single:before { position: absolute; display: block; content: ""; top: -30%; left: -30%; width: 160%; height: 160%; background: rgba(0, 0, 0, 0); }
+.irs-slider.single:before { position: absolute; display: block; content: ""; top: -30%; left: -30%; width: 160%; height: 160%; background: transparent; }
 
 .irs-slider.from { left: 100px; }
 
-.irs-slider.from:before { position: absolute; display: block; content: ""; top: -30%; left: -30%; width: 130%; height: 160%; background: rgba(0, 0, 0, 0); }
+.irs-slider.from:before { position: absolute; display: block; content: ""; top: -30%; left: -30%; width: 130%; height: 160%; background: transparent; }
 
 .irs-slider.to { left: 300px; }
 
-.irs-slider.to:before { position: absolute; display: block; content: ""; top: -30%; left: 0; width: 130%; height: 160%; background: rgba(0, 0, 0, 0); }
+.irs-slider.to:before { position: absolute; display: block; content: ""; top: -30%; left: 0; width: 130%; height: 160%; background: transparent; }
 
 .irs-slider.last { z-index: 2; }
 
@@ -443,10 +449,16 @@ i, .icon { font-family: 'mfglabs-iconset'; font-style: normal; speak: none; font
 
 .irs-grid-text { position: absolute; bottom: 0; left: 0; width: 100px; white-space: nowrap; text-align: center; font-size: 9px; line-height: 9px; color: #000; }
 
-.irs-disable-mask { position: absolute; display: block; top: 0; left: 0; width: 100%; height: 100%; cursor: default; background: rgba(0, 0, 0, 0); z-index: 2; }
+.irs-disable-mask { position: absolute; display: block; top: 0; left: 0; width: 100%; height: 100%; cursor: default; background: transparent; z-index: 2; }
 
 .irs-disabled { opacity: 0.4; }
 
+/* Ion.RangeSlider, Nice Skin
+// css version 1.8.5
+// by Denis Ineshin | ionden.com
+// ===================================================================================================================*/
+/* =====================================================================================================================
+// Skin details */
 .irs-line-mid, .irs-line-left, .irs-line-right, .irs-diapason, .irs-slider { background: url(../images/sprite--slider.png) repeat-x; }
 
 .irs { height: 28px; }
@@ -484,6 +496,8 @@ body { font: 100% "Source Sans Pro", sans-serif; color: #333333; background: #ff
 button { outline: none; cursor: pointer; border: 0; background: transparent; }
 
 button, input, textarea, select { font: 100% "Source Sans Pro", sans-serif; outline: none; }
+
+svg { overflow: visible; }
 
 .all-caps { color: #96b7d9; text-transform: uppercase; font-size: 0.9375em; line-height: 2.66667em; font-weight: 600; letter-spacing: 0.2em; }
 
@@ -544,11 +558,9 @@ section#main-loader div span.circle.blue { background: #29b988; opacity: 0.8; -w
 @-webkit-keyframes spin1 { 0% { left: 0; }
   50% { left: 100%; }
   100% { left: 0; } }
-
 @-webkit-keyframes spin2 { 0% { left: 100%; }
   50% { left: 0; }
   100% { left: 100%; } }
-
 /* @group Search-bar */
 header#search-bar { position: fixed; left: 80px; min-width: 1020px; border: 1px solid transparent; border-bottom: 1px solid #d4d4d4; background: #fff; width: 100%; height: 54px; z-index: 200; display: none; top: -54px; transition: top 0.3s ease-out; /* @group  Loader */ /* @end of Loader */ /* h1.person */ }
 header#search-bar.visible { display: block; top: 0; }
@@ -803,10 +815,10 @@ section.module.x-with-y ul li div { position: relative; border-radius: 4px; bord
 section.module.x-with-y ul li div span.number { display: block; text-align: center; width: 55px; position: absolute; left: 0; font-family: "chaparral-pro", serif; font-size: 1.5em; color: #1b1f22; line-height: 1.66667em; font-weight: 700; }
 section.module.x-with-y ul li div h4 { color: #1b1f22; font-weight: 700; font-size: 0.9375em; margin-bottom: 5px; }
 section.module.x-with-y ul li div p { color: #acb8c0; font-size: 0.9375em; }
-section.module.top-5 { border: 1px solid #d9d9d9; border-radius: 5px; overflow: hidden; min-height: 458px; }
+section.module.top-5 { border: 1px solid #d9d9d9; border-radius: 5px; overflow: hidden; height: 475px; }
 section.module.top-5.person2 section ol li div.gauge span { background-color: #2781bb; }
 section.module.top-5 span.value { font: 1.5625em "chaparral-pro", serif; font-weight: 700; }
-section.module.top-5 section { display: none; min-height: 458px; position: relative; display: block; }
+section.module.top-5 section { display: none; height: 100%; position: relative; display: block; }
 section.module.top-5 section div.no-data { background: #f5f5f5; height: 100%; position: absolute; width: 100%; }
 section.module.top-5 section div.no-data p { position: relative; top: 50%; margin: 0 auto; text-align: center; overflow: hidden; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%); color: #cccccc; font-size: 0.9375em; font-weight: 700; }
 section.module.top-5 section div.no-data p i { font-size: 2em; position: relative; top: 5px; }
@@ -826,6 +838,7 @@ section.module.top-5 section ol li div.gauge { position: absolute; right: 0.9375
 section.module.top-5 section ol li div.gauge span { display: block; height: 100%; width: 0; position: relative; background-color: #29b988; border-radius: 20px; transition: width 0.3s ease-out; }
 section.module.top-5 section ol li div.gauge span.width { transition: none; }
 section.module.clock { border: 1px solid #d9d9d9; border-radius: 5px; height: 475px; overflow: hidden; }
+section.module.clock svg { padding: 29px; }
 section.module.clock div.no-data { background: #f5f5f5; height: 100%; display: block; position: relative; width: 100%; }
 section.module.clock div.no-data p { position: relative; top: 50%; margin: 0 auto; text-align: center; overflow: hidden; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%); color: #cccccc; font-size: 0.9375em; font-weight: 700; }
 section.module.clock div.no-data p i { font-size: 2em; position: relative; top: 5px; left: -3px; }
@@ -870,7 +883,7 @@ section.module.bar h3 { float: left; margin: 30px 0 30px 30px; font-size: 0.9375
 section.module.bar h3 span { display: block; color: #1c1f21; font-size: 1.33333em; font-family: "chaparral-pro", serif; }
 section.module.bar h4 { display: inline; margin-left: 30px; line-height: 36px; color: #1c1f21; font-size: 0.9375em; font-weight: 700; }
 section.module.bar h4:before { content: ''; display: inline-block; position: relative; top: 1px; margin-right: 10px; border-radius: 50%; width: 12px; height: 12px; background-color: #29b988; }
-section.module.bar hr { border: 0; width: 100%; height: 1px; background: #d9d9d9; }
+section.module.bar hr { display: inline-block; border: 0; width: 100%; height: 1px; background: #d9d9d9; }
 section.module.bar .tick { stroke: #d9d9d9; }
 section.module.bar line { stroke-width: 1; }
 section.module.bar rect.shadow { fill: rgba(0, 0, 0, 0.15); }
