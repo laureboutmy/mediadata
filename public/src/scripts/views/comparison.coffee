@@ -116,7 +116,7 @@ define [
 		onResize: () ->
 			$('#filters').width($(window).width() - 80)
 
-		getStackedData: (data) ->			
+		getStackedData: (data) ->		
 			totalCount1 = 0
 			for d,i in data.person1.channels
 				totalCount1 += +data.person1.channels[i].channelCount
@@ -129,19 +129,18 @@ define [
 				totalCount: [totalCount1, totalCount2]
 				channelMap: [data.person1.person.slug, data.person2.person.slug]
 				channelDatas: []
-			person2 = channels.slugs[1]
 			i = 0
 			while i < data.person1.channels.length
 			  channels.channelDatas.push({})
 			  i++
+
 			_.each data.person1.channels, (channel, i) ->
 				channels.channelDatas[i]['channelName'] = channel.channelName
 				channels.channelDatas[i]['channelPicture'] = channel.channelPicture
 				channels.channelDatas[i][data.person1.person.slug] = channel.channelCount
 			_.each data.person2.channels, (channel, i) ->
-				
-
-				channels.channelDatas[i][person2] = channel.channelCount
+	
+				channels.channelDatas[i][data.person2.person.slug] = channel.channelCount
 
 			return channels
 				

@@ -17,8 +17,9 @@ define [
 			topic2: null
 		inputs: 'form.search input'
 		currentText: null
-
+		bool: false
 		initialize: (options) ->
+			console.log('yohoho')
 			@collection = new TopicsCollection()
 			@collection.fetch 
 				success: () =>
@@ -47,57 +48,86 @@ define [
 			else 
 				@$el.removeClass('search')
 				@$el.removeClass('comparison')
+
+			# if !@bool 
 			@bind()
+				# @bool = !@bool
 			# @$el.addClass('visible')
 			return @
 
-		events: 
-			'click .compare': 'compare'
-			'click .delete': 'delete'
+		# events: 
+			# 'click .compare': 'compare'
+			# 'click .delete': 'delete'
 			'click ul.topics li': 'submit'
-			'click div.name button.edit': 'edit'
+			# 'click div.name button.edit': 'edit'
 
 		bind: () ->
 			_this = @
-			$(_this.inputs).on('keyup', {context: this}, _this.keyup)
-			$(_this.inputs).on('keydown', {context: this}, _this.keydown)
-			# $(_this.inputs).on('blur', {context: this}, _this.stop)
+			$('.compare').on('click', {context: @}, @compare)
+			$('.delete').on('click', {context: @}, @delete)
+			$(window).on('click', {context: this}, _this.stop)
+			$('div.name button.edit').on('click', @edit)
+			$(_this.inputs).on('keyup', {context: @}, @keyup)
+			$(_this.inputs).on('keydown', {context: @}, @keydown)
+			$('ul.topics').on('click', 'li', {context: @}, @submit)
+		
+
 
 		# update name, picture in search-bar
 		update: (name, nb) ->
 			@topics['topic' + nb] = _.where(@collection, { slug: name })[0]
 			el = $('#name' + nb).parent().parent().find('h1')
-
+			# console.log(@topics['topic' + nb])
 			el.find('span.name').html(@topics['topic' + nb].name);
 			el.find('span.role').html(@topics['topic' + nb].role);
 			el.find('.img img').attr('src', @topics['topic' + nb].picture);
 			
 
 		# on click on "compare"
-		compare: () ->
-			@$el.addClass('comparison').find('section.person:not(.visible)').addClass('visible').find('form.search').addClass('visible').find('input').focus()
+		compare: (evt) ->
+			evt.stopPropagation()
+			evt.data.context.$el.addClass('comparison').find('section.person:not(.visible)').addClass('visible').find('form.search').addClass('visible').find('input').focus()
 
 		# on click on "x"
 		delete: (evt) ->
-			if @$el.hasClass('comparison') 
-				@$el.removeClass('comparison')
-				$(evt.currentTarget).parent().parent().removeClass('visible')
-				slug = $(evt.currentTarget).parent().parent().data('slug')
+			evt.stopPropagation()
+			btn = $(this)
+			ctxt = evt.data.context
+			if ctxt.$el.hasClass('comparison')
+				ctxt.$el.removeClass('comparison')
+				btn.parent().parent().removeClass('visible')
+				slug = btn.parent().parent().data('slug')
 				slug = (Backbone.history.fragment).replace(slug, '').replace('/', '')
 				md.Router.getPerson(slug)
 				md.Router.navigate(slug)
 			else 
-				@$el.addClass('search')
+				ctxt.$el.addClass('search')
 				md.Router.getSearch()
 				md.Router.navigate('rechercher')
+			btn.parent().find('h1').html('Cliquez pour rechercher')
 
-			$(evt.currentTarget).parent().find('h1').html('Cliquez pour rechercher')
+			# if @$el.hasClass('comparison') 
+			# 	@$el.removeClass('comparison')
+			# 	$(evt.currentTarget).parent().parent().removeClass('visible')
+			# 	slug = $(evt.currentTarget).parent().parent().data('slug')
+			# 	slug = (Backbone.history.fragment).replace(slug, '').replace('/', '')
+			# 	md.Router.getPerson(slug)
+			# 	md.Router.navigate(slug)
+			# else 
+			# 	@$el.addClass('search')
+			# 	md.Router.getSearch()
+			# 	md.Router.navigate('rechercher')
+
+			# $(evt.currentTarget).parent().find('h1').html('Cliquez pour rechercher')
 
 		edit: (evt) ->
-			$(evt.currentTarget).parent().find('form.search').addClass('visible').find('input').focus()
+			evt.stopPropagation()
+			$(this).parent().find('form.search').addClass('visible').find('input').focus()
 
 		stop: (evt) ->
-			if evt then evt.data.context.$el.find('form.search.visible').removeClass('visible')
+			console.log(evt)
+			if evt 
+				evt.data.context.$el.find('form.search.visible').removeClass('visible')
 			else @$el.find('form.search.visible').removeClass('visible')
 
 		hasChanged: (keyword) ->
@@ -116,7 +146,7 @@ define [
 			if evt.keyCode is 40 then _this.move(+1, this)
 			if evt.keyCode is 13 
 				evt.preventDefault()
-				_this.submit(null, this)
+				_this.submit(null, this, _this)
 			if evt.keyCode is 27 then _this.hide()
 
 		move: (position, input) ->
@@ -128,35 +158,37 @@ define [
 				current.removeClass('active')
 				siblings.eq(index).addClass('active')
 
-		submit: (evt, input) ->
+		submit: (evt, input = null, ctxt = null) ->
 			if evt 
-				evt.stopPropagation()
-				selected = $(evt.currentTarget)
+				# evt.stopPropagation()
+				selected = $(this)
+				ctxt = evt.data.context
+
 				input = selected.parent().parent().find('input')
 			else
 				selected = $(input).parent().find('ul').children('.active')
 			
 			$(input).parent().parent().find('h1').html(selected.html())
-
-			if @$el.hasClass('comparison')
+			# console.log(selected, selected.data('slug'))
+			if ctxt.$el.hasClass('comparison')
 
 				if $(input).attr('id') is 'name-2'
-					@update(selected.data('slug'), 2)
-					md.Router.navigate(@topics.topic1.slug + '/' + selected.data('slug'))
-					md.Router.getComparison(@topics.topic1.slug, selected.data('slug'))
+					ctxt.update(selected.data('slug'), 2)
+					md.Router.navigate(ctxt.topics.topic1.slug + '/' + selected.data('slug'))
+					md.Router.getComparison(ctxt.topics.topic1.slug, selected.data('slug'))
 				else if $(input).attr('id') is 'name-1'
-					@update(selected.data('slug'), 1)
-					md.Router.navigate(selected.data('slug') + '/' + @topics.topic2.slug)
-					md.Router.getComparison(selected.data('slug'), @topics.topic2.slug)
+					ctxt.update(selected.data('slug'), 1)
+					md.Router.navigate(selected.data('slug') + '/' + ctxt.topics.topic2.slug)
+					md.Router.getComparison(selected.data('slug'), ctxt.topics.topic2.slug)
 			else 
-				if @$el.hasClass('search') then @$el.removeClass('search')
-				@update(selected.data('slug'), $(input).attr('id').substring(5,6))
+				if ctxt.$el.hasClass('search') then ctxt.$el.removeClass('search')
+				ctxt.update(selected.data('slug'), $(input).attr('id').substring(5,6))
 				md.Router.navigate(selected.data('slug'))
 				md.Router.getPerson(selected.data('slug'))
 
 			# $(input).blur()
-			@stop()
-			@bind()
+			ctxt.stop()
+			# ctxt.bind()
 
 		navigate: () ->
 
