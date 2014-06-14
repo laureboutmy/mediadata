@@ -10,10 +10,10 @@ define [
 	# '../views/search-bar'
 	'../views/comparison'
 	'../views/search'
-	'../views/index'
+	'../views/bibliotheque'
 	'../views/about'
 	'../views/contact'
-], ($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView, SearchView, IndexView, AboutView, ContactView) ->
+], ($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView, SearchView, BibliothequeView, AboutView, ContactView) ->
 	'use strict'
 	class Router extends Backbone.Router
 		routes:
@@ -21,7 +21,7 @@ define [
 			'rechercher': 'getSearch'
 			'a-propos': 'getAbout'
 			'contact': 'getContact'
-			'index': 'getIndex'
+			'bibliotheque': 'getBibliotheque'
 			':person': 'getPerson'
 			':person/:otherPerson': 'getComparison'
 
@@ -76,11 +76,11 @@ define [
 			md.Views['rechercher'] = new SearchView()
 			@updateSidebar()
 
-		getIndex: () ->
+		getBibliotheque: () ->
 			md.Router.showLoader()
-			md.Status['currentView'] = 'index'
+			md.Status['currentView'] = 'bibliotheque'
 			if md.Views['search-bar'] then $(md.Views['search-bar'].el).removeClass('visible')
-			md.Views['index'] = new IndexView()
+			md.Views['bibliotheque'] = new BibliothequeView()
 			@updateSidebar()
 		getAbout: () ->
 			md.Router.showLoader()

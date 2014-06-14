@@ -32,7 +32,7 @@ define [
 				url: 'http://mediadata.fr/form.php'
 				data: { mail: mail, subject: subject, message: message }
 				success: (data) ->
-					$('.button').addClass('merci').text('Merci !');
+					$('button[type=submit]').addClass('merci').text('Merci !');
 		render: () ->
 
 			md.Status['currentView'] = 'contact'

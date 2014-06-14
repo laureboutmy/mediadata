@@ -56,7 +56,7 @@
             message: message
           },
           success: function(data) {
-            return $('.button').addClass('merci').text('Merci !');
+            return $('button[type=submit]').addClass('merci').text('Merci !');
           }
         });
       };

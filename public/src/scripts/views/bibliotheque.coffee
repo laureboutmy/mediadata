@@ -4,13 +4,13 @@ define [
 	'backbone'
 	'mediadata'
 	'../collections/topics'
-	'text!templates/index.html'
-], ($, _, Backbone, md, TopicsCollection, tplIndex) ->
+	'text!templates/bibliotheque.html'
+], ($, _, Backbone, md, TopicsCollection, tplBibliotheque) ->
 	'use strict'
-	class IndexView extends Backbone.View
+	class BibliothequeView extends Backbone.View
 		el: '#main'
 		collection: null
-		template: _.template(tplIndex)
+		template: _.template(tplBibliotheque)
 		name: null
 		initialize: () ->
 			
@@ -32,7 +32,7 @@ define [
 
 		render: () ->
 			document.body.scrollTop = document.documentElement.scrollTop = 0
-			ga('send', 'pageview', '/index')
+			ga('send', 'pageview', '/bibliotheque')
 			@$el.html(@template(@collection))
 			md.Router.hideLoader()		
 			return @

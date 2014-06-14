@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', '../views/home', '../views/person', '../views/comparison', '../views/search', '../views/index', '../views/about', '../views/contact'], function($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView, SearchView, IndexView, AboutView, ContactView) {
+  define(['jquery', 'underscore', 'backbone', 'mediadata', '../collections/persons', '../models/person', '../views/home', '../views/person', '../views/comparison', '../views/search', '../views/bibliotheque', '../views/about', '../views/contact'], function($, _, Backbone, md, PersonsCollection, PersonModel, HomeView, PersonView, ComparisonView, SearchView, BibliothequeView, AboutView, ContactView) {
     'use strict';
     var Router;
     return Router = (function(_super) {
@@ -18,7 +18,7 @@
         'rechercher': 'getSearch',
         'a-propos': 'getAbout',
         'contact': 'getContact',
-        'index': 'getIndex',
+        'bibliotheque': 'getBibliotheque',
         ':person': 'getPerson',
         ':person/:otherPerson': 'getComparison'
       };
@@ -118,13 +118,13 @@
         return this.updateSidebar();
       };
 
-      Router.prototype.getIndex = function() {
+      Router.prototype.getBibliotheque = function() {
         md.Router.showLoader();
-        md.Status['currentView'] = 'index';
+        md.Status['currentView'] = 'bibliotheque';
         if (md.Views['search-bar']) {
           $(md.Views['search-bar'].el).removeClass('visible');
         }
-        md.Views['index'] = new IndexView();
+        md.Views['bibliotheque'] = new BibliothequeView();
         return this.updateSidebar();
       };
 
