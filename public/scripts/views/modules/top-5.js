@@ -17,9 +17,14 @@
 
       Top5View.prototype.template = _.template(tplTop5);
 
+      Top5View.prototype.total = 0;
+
+      Top5View.prototype.fillPercent = 0;
+
       Top5View.prototype.render = function(data) {
         var d, i, _i, _len, _ref;
         this.total = 0;
+        this.fillPercent = 0;
         _ref = data.totalMentions;
         for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
           d = _ref[i];
@@ -31,10 +36,6 @@
         return this.fillGauges('shows');
       };
 
-      Top5View.prototype.total = 0;
-
-      Top5View.prototype.fillPercent = 0;
-
       Top5View.prototype.getFillPercent = function(bar, type) {
         var _this;
         _this = this;
@@ -45,7 +46,7 @@
       Top5View.prototype.fillGauges = function(type) {
         var _this;
         _this = this;
-        return $('#' + type + ' .gauge span').each(function() {
+        return this.$el.find('#' + type + ' .gauge span').each(function() {
           _this.getFillPercent($(this), type);
           $(this).addClass('width').width(0);
           return $(this).removeClass('width').width(_this.fillPercent + '%');
