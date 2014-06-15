@@ -11,7 +11,7 @@ define [
     template: _.template(tplBar)
 
     margin = {top: 60, right: 20, bottom: 60, left: 40}
-    width = 1018
+    width = 1020
     height = 355
     x = d3.scale.ordinal()
         .rangeRoundBands([0, width], .1)
@@ -23,7 +23,6 @@ define [
         .append('svg')
           .attr('id', 'barchart')
           .attr('width', width)
-          # .attr('height', height+margin.top+margin.bottom)
           .attr('height', height+margin.top+margin.bottom)
 
     yAxis = d3.svg.axis()
@@ -82,7 +81,7 @@ define [
       ## TOOLTIP ##
       # Filtre servant à faire l'ombre du tooltip
       d3.select('#barchart').append('filter')
-          .attr('id', 'f')
+          .attr('id', 'f1')
           .attr('width', '150%')
           .attr('height', '150%')
         .append('feOffset')
@@ -99,13 +98,13 @@ define [
       # Rect avec le filtre "shadow" url(#f1)
       d3.select('#barchart').selectAll('g.bar-g')
           .append('rect')
-          .data(data.channels)
-            .attr( 'filter', 'url(#f1)' ) 
             .attr('class', 'tooltip shadow')
             .attr('height', 45)
             .attr('width', 100)
+            .attr( 'filter', 'url('+Backbone.history.fragment+'#f1)' ) 
+          .data(data.channels)
             .attr('x', (d,i) -> x(d.channelName)-8)
-            .attr('y', (d) -> y(d.channelCount)-53)
+            .attr('y', (d) -> y(d.channelCount)-55)
             .attr('rx', 20)
             .attr('ry', 25)
 

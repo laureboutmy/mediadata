@@ -26,7 +26,7 @@
         left: 40
       };
 
-      width = 1018;
+      width = 1020;
 
       height = 355;
 

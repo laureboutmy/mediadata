@@ -26,7 +26,7 @@
         left: 40
       };
 
-      width = 1018;
+      width = 1020;
 
       height = 355;
 
@@ -87,12 +87,12 @@
       };
 
       BarView.prototype.drawTooltip = function(data) {
-        d3.select('#barchart').append('filter').attr('id', 'f').attr('width', '150%').attr('height', '150%').append('feOffset').attr('result', 'offOut').attr('in', 'SourceAlpha').attr('dx', 0).attr('dy', 3);
+        d3.select('#barchart').append('filter').attr('id', 'f1').attr('width', '150%').attr('height', '150%').append('feOffset').attr('result', 'offOut').attr('in', 'SourceAlpha').attr('dx', 0).attr('dy', 3);
         d3.select('#barchart').select('filter').append('feGaussianBlur').attr('stdDeviation', 1).attr('result', 'blur');
-        d3.select('#barchart').selectAll('g.bar-g').append('rect').data(data.channels).attr('filter', 'url(#f1)').attr('class', 'tooltip shadow').attr('height', 45).attr('width', 100).attr('x', function(d, i) {
+        d3.select('#barchart').selectAll('g.bar-g').append('rect').attr('class', 'tooltip shadow').attr('height', 45).attr('width', 100).attr('filter', 'url(' + Backbone.history.fragment + '#f1)').data(data.channels).attr('x', function(d, i) {
           return x(d.channelName) - 8;
         }).attr('y', function(d) {
-          return y(d.channelCount) - 53;
+          return y(d.channelCount) - 55;
         }).attr('rx', 20).attr('ry', 25);
         d3.select('#barchart').selectAll('g.bar-g').append('rect').data(data.channels).attr('class', 'tooltip').attr('height', 45).attr('width', 100).attr('x', function(d, i) {
           return x(d.channelName) - 8;
