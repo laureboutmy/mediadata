@@ -74,6 +74,7 @@ define [
 
 		renderModules: (data) ->
 			@updateTexts()
+			@evenupTexts()
 			@top5.render({ popularChannels: data.popularChannels, popularShows: data.popularShows, totalMentions: data.timelineMentions })
 			@timeline.render({ person1: { name: data.person.name, timelineMentions: data.timelineMentions }})
 			@clock.render({ broadcastHoursByDay: data.broadcastHoursByDay })
@@ -118,6 +119,14 @@ define [
 						$('h2.avec').text("On parle souvent d'elle avec...")
 					else if @collection.person.gender is 'm'
 						$('h2.avec').text("On parle souvent de lui avec...")
+
+		evenupTexts: () ->
+			textLeft = $('p.top-emissions').height()
+			textRight = $('p.horaires').height()
+			if textLeft > textRight
+				$('p.horaires').height($('p.top-emissions').height())
+			else if textRight > textLeft
+				$('p.top-emissions').height($('p.horaires').height())
 
 		# tweet: () ->
 		# 	not (d, s, id) ->

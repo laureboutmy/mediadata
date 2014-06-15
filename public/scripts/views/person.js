@@ -85,6 +85,7 @@
 
       PersonView.prototype.renderModules = function(data) {
         this.updateTexts();
+        this.evenupTexts();
         this.top5.render({
           popularChannels: data.popularChannels,
           popularShows: data.popularShows,
@@ -153,6 +154,17 @@
               return $('h2.avec').text("On parle souvent de lui avec...");
             }
           }
+        }
+      };
+
+      PersonView.prototype.evenupTexts = function() {
+        var textLeft, textRight;
+        textLeft = $('p.top-emissions').height();
+        textRight = $('p.horaires').height();
+        if (textLeft > textRight) {
+          return $('p.horaires').height($('p.top-emissions').height());
+        } else if (textRight > textLeft) {
+          return $('p.top-emissions').height($('p.horaires').height());
         }
       };
 
