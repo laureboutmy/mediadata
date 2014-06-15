@@ -149,10 +149,10 @@
         if (md.Filters['par']) {
           if (md.Filters['par'] === '1') {
             $('h2.evolution').text('Chronologie des participations');
-            $('p.top-emissions').text("Découvrez les 5 émissions qui ont le plus invité " + data.person1.person.name + " et " + data.person2.person.name + ". Rediffusions comptabilisées. En cas d'émissions diffusées sur plusieurs chaînes, le logo de la chaîne d'origine s'affiche.");
+            $('p.top-emissions').text("Découvrez les 5 émissions auxquelles ont le plus participé " + data.person1.person.name + " et " + data.person2.person.name + ". Rediffusions comptabilisées. En cas d'émissions diffusées sur plusieurs chaînes, le logo de la chaîne d'origine s'affiche.");
             $('h2.horaires').text("Participations horaires et journalières");
-            $('p.top-chaines').text("Qui de " + data.person1.person.name + " ou de " + data.person2.person.name + " est la personnalité la plus invitée sur chaque chaîne ? Survolez chaque barre pour afficher le nombre de participations par chaîne ou station.");
-            return $('p.horaires').text("Quand invite-t-on le plus ou le moins de " + data.person1.person.name + " et " + data.person2.person.name + " ? Survolez les barres circulaires pour découvrir la répartition horaire. Utilisez les barres verticales pour explorer la répartition journalière.");
+            $('p.top-chaines').text("Qui de " + data.person1.person.name + " ou de " + data.person2.person.name + " participent le plus aux programmes de chaque chaîne ? Survolez chaque barre pour afficher le nombre de participations par chaîne ou station.");
+            return $('p.horaires').text("Quand sont diffusés les programmes auxquels " + data.person1.person.name + " et " + data.person2.person.name + " participent ? Survolez les barres circulaires pour découvrir la répartition horaire. Utilisez les barres verticales pour explorer la répartition journalière.");
           } else if (md.Filters['par'] === '0') {
             $('h2.evolution').text('Chronologie des mentions');
             $('p.top-emissions').text("Découvrez les 5 émissions qui ont le plus parlé de " + data.person1.person.name + " et " + data.person2.person.name + ". Rediffusions comptabilisées. En cas d'émissions diffusées sur plusieurs chaînes, le logo de la chaîne d'origine s'affiche.");
