@@ -28,7 +28,10 @@
 
       SearchbarView.prototype.currentText = null;
 
+      SearchbarView.prototype.bool = false;
+
       SearchbarView.prototype.initialize = function(options) {
+        console.log('yohoho');
         this.collection = new TopicsCollection();
         return this.collection.fetch({
           success: (function(_this) {
@@ -77,24 +80,33 @@
         }
         this.bind();
         return this;
-      };
-
-      SearchbarView.prototype.events = {
-        'click .compare': 'compare',
-        'click .delete': 'delete',
-        'click ul.topics li': 'submit',
-        'click div.name button.edit': 'edit'
+        return {
+          'click ul.topics li': 'submit'
+        };
       };
 
       SearchbarView.prototype.bind = function() {
         var _this;
         _this = this;
+        $('.compare').on('click', {
+          context: this
+        }, this.compare);
+        $('.delete').on('click', {
+          context: this
+        }, this["delete"]);
+        $(window).on('click', {
+          context: this
+        }, _this.stop);
+        $('div.name button.edit').on('click', this.edit);
         $(_this.inputs).on('keyup', {
           context: this
-        }, _this.keyup);
-        return $(_this.inputs).on('keydown', {
+        }, this.keyup);
+        $(_this.inputs).on('keydown', {
           context: this
-        }, _this.keydown);
+        }, this.keydown);
+        return $('ul.topics').on('click', 'li', {
+          context: this
+        }, this.submit);
       };
 
       SearchbarView.prototype.update = function(name, nb) {
@@ -108,32 +120,38 @@
         return el.find('.img img').attr('src', this.topics['topic' + nb].picture);
       };
 
-      SearchbarView.prototype.compare = function() {
-        return this.$el.addClass('comparison').find('section.person:not(.visible)').addClass('visible').find('form.search').addClass('visible').find('input').focus();
+      SearchbarView.prototype.compare = function(evt) {
+        evt.stopPropagation();
+        return evt.data.context.$el.addClass('comparison').find('section.person:not(.visible)').addClass('visible').find('form.search').addClass('visible').find('input').focus();
       };
 
       SearchbarView.prototype["delete"] = function(evt) {
-        var slug;
-        if (this.$el.hasClass('comparison')) {
-          this.$el.removeClass('comparison');
-          $(evt.currentTarget).parent().parent().removeClass('visible');
-          slug = $(evt.currentTarget).parent().parent().data('slug');
+        var btn, ctxt, slug;
+        evt.stopPropagation();
+        btn = $(this);
+        ctxt = evt.data.context;
+        if (ctxt.$el.hasClass('comparison')) {
+          ctxt.$el.removeClass('comparison');
+          btn.parent().parent().removeClass('visible');
+          slug = btn.parent().parent().data('slug');
           slug = Backbone.history.fragment.replace(slug, '').replace('/', '');
           md.Router.getPerson(slug);
           md.Router.navigate(slug);
         } else {
-          this.$el.addClass('search');
+          ctxt.$el.addClass('search');
           md.Router.getSearch();
           md.Router.navigate('rechercher');
         }
-        return $(evt.currentTarget).parent().find('h1').html('Cliquez pour rechercher');
+        return btn.parent().find('h1').html('Cliquez pour rechercher');
       };
 
       SearchbarView.prototype.edit = function(evt) {
-        return $(evt.currentTarget).parent().find('form.search').addClass('visible').find('input').focus();
+        evt.stopPropagation();
+        return $(this).parent().find('form.search').addClass('visible').find('input').focus();
       };
 
       SearchbarView.prototype.stop = function(evt) {
+        console.log(evt);
         if (evt) {
           return evt.data.context.$el.find('form.search.visible').removeClass('visible');
         } else {
@@ -166,7 +184,7 @@
         }
         if (evt.keyCode === 13) {
           evt.preventDefault();
-          _this.submit(null, this);
+          _this.submit(null, this, _this);
         }
         if (evt.keyCode === 27) {
           return _this.hide();
@@ -184,36 +202,41 @@
         }
       };
 
-      SearchbarView.prototype.submit = function(evt, input) {
+      SearchbarView.prototype.submit = function(evt, input, ctxt) {
         var selected;
+        if (input == null) {
+          input = null;
+        }
+        if (ctxt == null) {
+          ctxt = null;
+        }
         if (evt) {
-          evt.stopPropagation();
-          selected = $(evt.currentTarget);
+          selected = $(this);
+          ctxt = evt.data.context;
           input = selected.parent().parent().find('input');
         } else {
           selected = $(input).parent().find('ul').children('.active');
         }
         $(input).parent().parent().find('h1').html(selected.html());
-        if (this.$el.hasClass('comparison')) {
+        if (ctxt.$el.hasClass('comparison')) {
           if ($(input).attr('id') === 'name-2') {
-            this.update(selected.data('slug'), 2);
-            md.Router.navigate(this.topics.topic1.slug + '/' + selected.data('slug'));
-            md.Router.getComparison(this.topics.topic1.slug, selected.data('slug'));
+            ctxt.update(selected.data('slug'), 2);
+            md.Router.navigate(ctxt.topics.topic1.slug + '/' + selected.data('slug'));
+            md.Router.getComparison(ctxt.topics.topic1.slug, selected.data('slug'));
           } else if ($(input).attr('id') === 'name-1') {
-            this.update(selected.data('slug'), 1);
-            md.Router.navigate(selected.data('slug') + '/' + this.topics.topic2.slug);
-            md.Router.getComparison(selected.data('slug'), this.topics.topic2.slug);
+            ctxt.update(selected.data('slug'), 1);
+            md.Router.navigate(selected.data('slug') + '/' + ctxt.topics.topic2.slug);
+            md.Router.getComparison(selected.data('slug'), ctxt.topics.topic2.slug);
           }
         } else {
-          if (this.$el.hasClass('search')) {
-            this.$el.removeClass('search');
+          if (ctxt.$el.hasClass('search')) {
+            ctxt.$el.removeClass('search');
           }
-          this.update(selected.data('slug'), $(input).attr('id').substring(5, 6));
+          ctxt.update(selected.data('slug'), $(input).attr('id').substring(5, 6));
           md.Router.navigate(selected.data('slug'));
           md.Router.getPerson(selected.data('slug'));
         }
-        this.stop();
-        return this.bind();
+        return ctxt.stop();
       };
 
       SearchbarView.prototype.navigate = function() {};

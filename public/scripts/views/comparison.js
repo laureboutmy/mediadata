@@ -176,7 +176,7 @@
       };
 
       ComparisonView.prototype.getStackedData = function(data) {
-        var channels, d, i, person2, totalCount1, totalCount2, _i, _j, _len, _len1, _ref, _ref1;
+        var channels, d, i, totalCount1, totalCount2, _i, _j, _len, _len1, _ref, _ref1;
         totalCount1 = 0;
         _ref = data.person1.channels;
         for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
@@ -196,7 +196,6 @@
           channelMap: [data.person1.person.slug, data.person2.person.slug],
           channelDatas: []
         };
-        person2 = channels.slugs[1];
         i = 0;
         while (i < data.person1.channels.length) {
           channels.channelDatas.push({});
@@ -208,7 +207,7 @@
           return channels.channelDatas[i][data.person1.person.slug] = channel.channelCount;
         });
         _.each(data.person2.channels, function(channel, i) {
-          return channels.channelDatas[i][person2] = channel.channelCount;
+          return channels.channelDatas[i][data.person2.person.slug] = channel.channelCount;
         });
         return channels;
       };
