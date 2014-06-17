@@ -110,7 +110,7 @@
           return x(d.channelName) + 42;
         }).attr('y', function(d) {
           return y(d.channelCount) - 18;
-        }).html(function(d) {
+        }).text(function(d) {
           return d.channelCount;
         });
       };

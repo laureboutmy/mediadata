@@ -900,4 +900,11 @@ section.module.stacked g.person2 g:hover text.tooltip { opacity: 1; }
 section.module.stacked g.person2 g:hover rect.tooltip { opacity: 1; }
 
 /* @end of Modules */
+/* @Fallback Mobile */
+div#mobile { display: none; color: #34495e; }
+div#mobile h2 { font-weight: 700; color: #1b1f22; font-size: 4.375em; position: absolute; margin: auto; bottom: 0; left: 0; top: 0; right: 0; height: 90px; text-align: center; }
+
+@media screen and (max-width: 640px) { div#mobile { display: block; }
+  div.wrapper { display: none; } }
+/* @end Fallback */
 /* @end of Master */

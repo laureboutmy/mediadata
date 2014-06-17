@@ -1992,8 +1992,39 @@ section.module {
 	}
 }
 
-
 /* @end of Modules */
+
+
+
+
+/* @Fallback Mobile */
+div#mobile{
+	display: none;
+	color: #34495e;
+	h2{
+		font-weight: 700;
+		color: $black;
+		font-size: em(70px);
+		position: absolute;
+		margin: auto;
+		bottom: 0;
+		left: 0;
+		top: 0;
+		right: 0;
+		height: 90px;
+		text-align: center;
+	}
+}
+
+@media screen and (max-width: 640px) {
+	div#mobile{
+		display: block;
+	}
+	div.wrapper {
+		display: none;
+	}
+}
+/* @end Fallback */
 
 /* @end of Master */
 

@@ -99,7 +99,7 @@ define [
       # total_height = total_height.concat(total_height)
       # Filtre servant à faire l'ombre du tooltip
       d3.select('#stacked').append('filter')
-          .attr('id', 'f1')
+          .attr('id', 'f2')
           .attr('width', '150%')
           .attr('height', '150%')
         .append('feOffset')
@@ -113,10 +113,9 @@ define [
           .attr( 'stdDeviation', 1 )
           .attr( 'result', 'blur' )
 
-
+      # Rect avec le filtre "shadow" url(#f1)
       d3.select('#stacked').selectAll('g.stacked-g g')
         .append('rect')
-          .attr( 'filter', 'url("#f1")' ) 
           .attr('class', 'tooltip shadow')
           .attr('height', 45)
           .attr('width', 100)

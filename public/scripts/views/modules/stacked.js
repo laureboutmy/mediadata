@@ -97,9 +97,9 @@
           total_height[i] = y(stacked_data[0][i].y) + y(stacked_data[1][i].y);
           ++i;
         }
-        d3.select('#stacked').append('filter').attr('id', 'f1').attr('width', '150%').attr('height', '150%').append('feOffset').attr('result', 'offOut').attr('in', 'SourceAlpha').attr('dx', 0).attr('dy', 3);
+        d3.select('#stacked').append('filter').attr('id', 'f2').attr('width', '150%').attr('height', '150%').append('feOffset').attr('result', 'offOut').attr('in', 'SourceAlpha').attr('dx', 0).attr('dy', 3);
         d3.select('#stacked').select('filter').append('feGaussianBlur').attr('stdDeviation', 1).attr('result', 'blur');
-        d3.select('#stacked').selectAll('g.stacked-g g').append('rect').attr('filter', 'url("#f1")').attr('class', 'tooltip shadow').attr('height', 45).attr('width', 100).attr('x', function(d) {
+        d3.select('#stacked').selectAll('g.stacked-g g').append('rect').attr('class', 'tooltip shadow').attr('height', 45).attr('width', 100).attr('x', function(d) {
           return x(d.x);
         }).attr('y', function(d, i) {
           return -y(d.y0) - (typeof total_height[i] === 'undefined' ? y(d.y) : total_height[i]) - 53;

@@ -138,7 +138,7 @@ define [
             .attr('class', 'tooltip count')
             .attr('x', (d,i) -> x(d.channelName)+42)
             .attr('y', (d) -> y(d.channelCount)-18)
-            .html((d) -> d.channelCount)
+            .text((d) -> d.channelCount)
 
     render: (data) -> 
       
