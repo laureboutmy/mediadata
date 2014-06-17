@@ -85,6 +85,7 @@
 
       PersonView.prototype.renderModules = function(data) {
         this.updateTexts();
+        this.evenupTexts();
         this.top5.render({
           popularChannels: data.popularChannels,
           popularShows: data.popularShows,
@@ -130,11 +131,11 @@
         if (md.Filters['par']) {
           if (md.Filters['par'] === '1') {
             $('h2.evolution').text('Chronologie des participations');
-            $('p.top-emissions').text("Découvrez les 5 émissions qui ont le plus invité " + this.collection.person.name + ". Rediffusions comptabilisées. En cas d'émissions diffusées sur plusieurs chaînes, le logo de la chaîne d'origine s'affiche.");
+            $('p.top-emissions').text("Découvrez les 5 émissions auxquelles " + this.collection.person.name + " a le plus participé. Rediffusions comptabilisées. En cas d'émissions diffusées sur plusieurs chaînes, le logo de la chaîne d'origine s'affiche.");
             $('h2.horaires').text("Participations horaires et journalières");
-            $('p.top-chaines').text("Quelles chaînes invitent le plus " + this.collection.person.name + " ? Survolez chaque barre pour afficher le nombre de participations par chaîne ou station.");
-            $('p.horaires').text("Quand invite-t-on le plus ou le moins de " + this.collection.person.name + " ? Survolez les barres circulaires pour découvrir la répartition horaire. Utilisez les barres verticales pour explorer la répartition journalière.");
-            $('p.avec').text("Découvrez les cinq personnes les plus souvent invitées dans les mêmes programmes que " + this.collection.person.name + ".");
+            $('p.top-chaines').text("Quelles chaînes font le plus participer " + this.collection.person.name + " ? Survolez chaque barre pour afficher le nombre de participations par chaîne ou station.");
+            $('p.horaires').text("Quand sont diffusés les programmes auxquels " + this.collection.person.name + " participe ? Survolez les barres circulaires pour découvrir la répartition horaire et utilisez les barres verticales pour explorer la répartition journalière.");
+            $('p.avec').text("Découvrez les cinq personnes qui participent le plus souvent aux mêmes programmes que " + this.collection.person.name + ".");
             if (this.collection.person.gender === 'f') {
               return $('h2.avec').text("Elle participe aux mêmes émissions que...");
             } else if (this.collection.person.gender === 'm') {
@@ -153,6 +154,17 @@
               return $('h2.avec').text("On parle souvent de lui avec...");
             }
           }
+        }
+      };
+
+      PersonView.prototype.evenupTexts = function() {
+        var textLeft, textRight;
+        textLeft = $('p.top-emissions').height();
+        textRight = $('p.horaires').height();
+        if (textLeft > textRight) {
+          return $('p.horaires').height($('p.top-emissions').height());
+        } else if (textRight > textLeft) {
+          return $('p.top-emissions').height($('p.horaires').height());
         }
       };
 

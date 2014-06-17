@@ -11,7 +11,7 @@ define [
     template: _.template(tplStacked)
 
     margin = {top: 60, right: 20, bottom: 60, left: 40}
-    width = 1018
+    width = 1020
     height = 355
     marginRect = 25
     stacked_data = undefined
