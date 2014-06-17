@@ -244,7 +244,11 @@
       SearchbarView.prototype.filter = function(keyword) {
         keyword = keyword.toLowerCase();
         return _.filter(this.collection, function(topic) {
-          return topic.name.toLowerCase().substring(0, keyword.length) === keyword;
+          if (topic.lastName.toLowerCase().substring(0, keyword.length) === keyword) {
+            return true;
+          } else if (topic.firstName.toLowerCase().substring(0, keyword.length) === keyword) {
+            return true;
+          }
         });
       };
 

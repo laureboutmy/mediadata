@@ -196,7 +196,8 @@ define [
 		filter: (keyword) ->
 			keyword = keyword.toLowerCase()
 			_.filter @collection, (topic) ->
-				topic.name.toLowerCase().substring(0, keyword.length) == keyword
+				if topic.lastName.toLowerCase().substring(0, keyword.length) == keyword then return true
+				else if topic.firstName.toLowerCase().substring(0, keyword.length) == keyword then return true
 		
 		renderResults: (input, results) ->
 			ul = input.parent().find('ul').html('')
