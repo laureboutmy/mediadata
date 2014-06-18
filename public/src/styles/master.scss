@@ -1199,14 +1199,18 @@ article.index {
 				border-radius: 4px;
 				overflow: hidden;
 				width: 180px;
+				border: 1px solid #d9d9d9;
+				box-sizing: border-box;
+				height: 234px;
 				float: left;
 				margin-right: 30px;
 				margin-bottom: 30px;
+				position: relative;
 				&.no-margin {
 					margin-right: 0;
 				}
 				a { 
-					display: block; width: 180px; overflow: hidden; text-decoration: none; opacity: 1; transition: opacity 0.3s ease-out;
+					display: block; width: 180px; text-decoration: none; opacity: 1; transition: opacity 0.3s ease-out;
 					&:hover { opacity: 0.7; }
 				}
 				img {
@@ -1218,11 +1222,13 @@ article.index {
 					border-radius: 4px;
 					border-top-left-radius: 0;
 					border-top-right-radius: 0;
-					border: 1px solid #d9d9d9;
+					
 					padding: 15px 0;
 					border-top: 0;
-					position: relative;
-					top: -4px;
+					position: absolute;
+					bottom: 0px;
+					left: 0;
+					right: 0;
 					h4 {
 						color: $black;
 						font-weight: 700;
