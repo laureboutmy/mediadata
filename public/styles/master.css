@@ -743,7 +743,7 @@ article.index section h3.letter:after { display: block; content: ''; width: 965p
 article.index section ul { margin-top: 25px; overflow: hidden; }
 article.index section ul li { border-radius: 4px; overflow: hidden; width: 180px; border: 1px solid #d9d9d9; box-sizing: border-box; height: 234px; float: left; margin-right: 30px; margin-bottom: 30px; position: relative; }
 article.index section ul li.no-margin { margin-right: 0; }
-article.index section ul li a { display: block; width: 180px; text-decoration: none; opacity: 1; transition: opacity 0.3s ease-out; }
+article.index section ul li a { width: 180px; text-decoration: none; opacity: 1; transition: opacity 0.3s ease-out; }
 article.index section ul li a:hover { opacity: 0.7; }
 article.index section ul li img { border-top-left-radius: 4px; border-top-right-radius: 4px; }
 article.index section ul li div { text-align: center; border-radius: 4px; border-top-left-radius: 0; border-top-right-radius: 0; padding: 15px 0; border-top: 0; position: absolute; bottom: 0px; left: 0; right: 0; }
