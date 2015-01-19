@@ -869,7 +869,7 @@ article.search {
 				margin-right: 0;
 			}
 			a { 
-				display: block; width: 180px; overflow: hidden; text-decoration: none; opacity: 1; transition: opacity 0.3s ease-out;
+				width: 180px; overflow: hidden; text-decoration: none; opacity: 1; transition: opacity 0.3s ease-out;
 				&:hover { opacity: 0.7; }
 			}
 			img {
